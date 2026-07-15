@@ -10,9 +10,12 @@ from pathlib import Path
 from recoalign.analysis.results import collect_runs, render_markdown_table
 from recoalign.config import ConfigError, config_digest, load_config
 from recoalign.data.manifest import ManifestError, load_dataset_manifest, verify_dataset
+from recoalign.data.preparation import prepare_coco, prepare_flickr30k, prepare_sugarcrepe
+from recoalign.evaluation.baseline import evaluate_baseline, write_baseline_outputs
 from recoalign.experiments.records import (
     FINALIZABLE_STATUSES,
     create_run,
+    fail_run,
     finalize_run,
     promote_run,
 )
@@ -34,6 +37,43 @@ def build_parser() -> argparse.ArgumentParser:
     initialize.add_argument("--config", required=True)
     initialize.add_argument("--output-root")
     initialize.add_argument("--run-id")
+
+    baseline = subparsers.add_parser(
+        "run-baseline",
+        help="create, evaluate, and finalize one zero-shot baseline run",
+    )
+    baseline.add_argument("--config", required=True)
+    baseline.add_argument("--output-root")
+    baseline.add_argument("--run-id")
+    baseline.add_argument("--no-cache", action="store_true")
+
+    flickr = subparsers.add_parser(
+        "prepare-flickr30k", help="normalize the Karpathy Flickr30K split"
+    )
+    flickr.add_argument("--karpathy-json", required=True)
+    flickr.add_argument("--dataset-root", required=True)
+    flickr.add_argument("--manifest-output", required=True)
+    flickr.add_argument("--source", required=True)
+    flickr.add_argument("--license", required=True, dest="license_name")
+    flickr.add_argument("--hash-images", action="store_true")
+
+    coco = subparsers.add_parser("prepare-coco", help="normalize the MS COCO Karpathy split")
+    coco.add_argument("--karpathy-json", required=True)
+    coco.add_argument("--dataset-root", required=True)
+    coco.add_argument("--manifest-output", required=True)
+    coco.add_argument("--source", required=True)
+    coco.add_argument("--license", required=True, dest="license_name")
+    coco.add_argument("--hash-images", action="store_true")
+
+    sugar = subparsers.add_parser(
+        "prepare-sugarcrepe", help="normalize the seven official SugarCrepe categories"
+    )
+    sugar.add_argument("--official-data-dir", required=True)
+    sugar.add_argument("--dataset-root", required=True)
+    sugar.add_argument("--manifest-output", required=True)
+    sugar.add_argument("--source", required=True)
+    sugar.add_argument("--license", required=True, dest="license_name")
+    sugar.add_argument("--hash-images", action="store_true")
 
     finalize = subparsers.add_parser("finalize-run", help="finalize a non-reportable run")
     finalize.add_argument("run_dir")
@@ -85,6 +125,73 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(run_dir)
             return 0
 
+        if args.command == "run-baseline":
+            config = load_config(args.config)
+            run_dir = create_run(
+                config,
+                config_path=args.config,
+                output_root=args.output_root,
+                run_id=args.run_id,
+            )
+            try:
+                result = evaluate_baseline(config, use_cache=not args.no_cache)
+                write_baseline_outputs(
+                    run_dir,
+                    result,
+                    save_predictions=bool(config["evaluation"].get("save_predictions", True)),
+                )
+                finalize_run(
+                    run_dir,
+                    result.metrics,
+                    status="complete",
+                    notes="zero-shot baseline evaluation completed",
+                )
+                (Path(run_dir) / "metrics.pending.json").unlink(missing_ok=True)
+            except Exception as exc:
+                fail_run(run_dir, exc, notes="zero-shot baseline evaluation failed")
+                raise
+            print(run_dir)
+            return 0
+
+        if args.command == "prepare-flickr30k":
+            manifest = prepare_flickr30k(
+                args.karpathy_json,
+                args.dataset_root,
+                manifest_output=args.manifest_output,
+                source=args.source,
+                license_name=args.license_name,
+                hash_images=args.hash_images,
+            )
+            print(f"prepared Flickr30K: {manifest['splits']}")
+            print(args.manifest_output)
+            return 0
+
+        if args.command == "prepare-coco":
+            manifest = prepare_coco(
+                args.karpathy_json,
+                args.dataset_root,
+                manifest_output=args.manifest_output,
+                source=args.source,
+                license_name=args.license_name,
+                hash_images=args.hash_images,
+            )
+            print(f"prepared MS COCO: {manifest['splits']}")
+            print(args.manifest_output)
+            return 0
+
+        if args.command == "prepare-sugarcrepe":
+            manifest = prepare_sugarcrepe(
+                args.official_data_dir,
+                args.dataset_root,
+                manifest_output=args.manifest_output,
+                source=args.source,
+                license_name=args.license_name,
+                hash_images=args.hash_images,
+            )
+            print(f"prepared SugarCrepe: {manifest['splits']}")
+            print(args.manifest_output)
+            return 0
+
         if args.command == "finalize-run":
             with Path(args.metrics).open("r", encoding="utf-8") as handle:
                 metrics = json.load(handle)
@@ -124,6 +231,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         SchemaValidationError,
         FileNotFoundError,
         FileExistsError,
+        RuntimeError,
+        OSError,
         ValueError,
         json.JSONDecodeError,
     ) as exc:
