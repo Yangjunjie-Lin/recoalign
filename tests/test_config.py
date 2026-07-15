@@ -4,22 +4,21 @@ import pytest
 
 from recoalign.config import ConfigError, config_digest, validate_config
 
-BASE_CONFIG = {
-    "experiment": {"name": "baseline", "seed": 42, "output_dir": "outputs/baseline"},
-    "model": {"framework": "open_clip", "name": "ViT-B-32", "pretrained": "test"},
-    "data": {"dataset": "toy", "root": "data/toy", "split": "test"},
-    "evaluation": {"recall_at": [1, 5, 10]},
-    "training": {"enabled": False},
-}
+
+def test_config_digest_is_order_independent(research_config) -> None:
+    reordered = {key: research_config[key] for key in reversed(research_config)}
+    assert config_digest(research_config) == config_digest(reordered)
 
 
-def test_config_digest_is_order_independent() -> None:
-    reordered = {key: BASE_CONFIG[key] for key in reversed(BASE_CONFIG)}
-    assert config_digest(BASE_CONFIG) == config_digest(reordered)
+def test_missing_manifest_is_rejected(research_config) -> None:
+    config = deepcopy(research_config)
+    del config["data"]["manifest"]
+    with pytest.raises(ConfigError, match="data.manifest"):
+        validate_config(config)
 
 
-def test_missing_required_field_is_rejected() -> None:
-    config = deepcopy(BASE_CONFIG)
-    del config["data"]["split"]
-    with pytest.raises(ConfigError, match="data.split"):
+def test_duplicate_recall_cutoffs_are_rejected(research_config) -> None:
+    config = deepcopy(research_config)
+    config["evaluation"]["recall_at"] = [1, 1]
+    with pytest.raises(ConfigError, match="duplicates"):
         validate_config(config)

@@ -23,9 +23,32 @@ jobs:
           cache: pip
       - name: Install package and development tools
         run: pip install -e ".[dev]"
-      - name: Validate committed baseline configuration
-        run: python -m recoalign validate-config configs/baseline/openclip_vit_b32.yaml
+      - name: Validate committed configurations
+        run: |
+          python -m recoalign validate-config configs/baseline/openclip_vit_b32.yaml
+          python -m recoalign validate-config configs/ci/synthetic.yaml
       - name: Lint
         run: ruff check .
       - name: Test
         run: pytest
+      - name: Validate complete CLI lifecycle
+        shell: bash
+        run: |
+          set -euo pipefail
+          run_dir=$(python -m recoalign init-run \
+            --config configs/ci/synthetic.yaml \
+            --output-root "${RUNNER_TEMP}/recoalign-runs" \
+            --run-id ci-lifecycle)
+          printf '{"accuracy": 100.0}\n' > "${RUNNER_TEMP}/metrics.json"
+          python -m recoalign finalize-run "${run_dir}" \
+            --metrics "${RUNNER_TEMP}/metrics.json" \
+            --status complete
+          python -m recoalign promote-run "${run_dir}" \
+            --reviewed-by "GitHub Actions" \
+            --notes "CPU-only provenance lifecycle check"
+          python -m recoalign build-table \
+            --results-root "${RUNNER_TEMP}/recoalign-runs" \
+            --status reportable \
+            --metrics accuracy \
+            --output "${RUNNER_TEMP}/table.md"
+          grep -q '100.0000' "${RUNNER_TEMP}/table.md"

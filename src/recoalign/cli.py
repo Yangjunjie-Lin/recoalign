@@ -1,4 +1,4 @@
-"""Command-line interface for Phase-0 research infrastructure."""
+"""Command-line interface for reproducible research infrastructure."""
 
 from __future__ import annotations
 
@@ -9,9 +9,15 @@ from pathlib import Path
 
 from recoalign.analysis.results import collect_runs, render_markdown_table
 from recoalign.config import ConfigError, config_digest, load_config
-from recoalign.data.manifest import load_dataset_manifest, verify_dataset
-from recoalign.experiments.records import RUN_STATUSES, create_run, finalize_run
+from recoalign.data.manifest import ManifestError, load_dataset_manifest, verify_dataset
+from recoalign.experiments.records import (
+    FINALIZABLE_STATUSES,
+    create_run,
+    finalize_run,
+    promote_run,
+)
 from recoalign.reproducibility import atomic_write_json, collect_environment
+from recoalign.schema_validation import SchemaValidationError
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -29,17 +35,24 @@ def build_parser() -> argparse.ArgumentParser:
     initialize.add_argument("--output-root")
     initialize.add_argument("--run-id")
 
-    finalize = subparsers.add_parser("finalize-run", help="attach metrics and finalize a run")
+    finalize = subparsers.add_parser("finalize-run", help="finalize a non-reportable run")
     finalize.add_argument("run_dir")
     finalize.add_argument("--metrics", required=True)
-    finalize.add_argument("--status", choices=sorted(RUN_STATUSES), default="complete")
+    finalize.add_argument("--status", choices=sorted(FINALIZABLE_STATUSES), default="complete")
     finalize.add_argument("--notes")
+
+    promote = subparsers.add_parser(
+        "promote-run", help="promote one reviewed complete run to reportable"
+    )
+    promote.add_argument("run_dir")
+    promote.add_argument("--reviewed-by", required=True)
+    promote.add_argument("--notes")
 
     verify = subparsers.add_parser("verify-dataset", help="verify files declared by a manifest")
     verify.add_argument("--manifest", required=True)
     verify.add_argument("--root", required=True)
 
-    table = subparsers.add_parser("build-table", help="build a Markdown table from completed runs")
+    table = subparsers.add_parser("build-table", help="build a Markdown table from valid runs")
     table.add_argument("--results-root", default="results")
     table.add_argument("--metrics", nargs="+", required=True)
     table.add_argument("--status", nargs="+", default=["reportable"])
@@ -79,11 +92,19 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(Path(args.run_dir) / "run.json")
             return 0
 
+        if args.command == "promote-run":
+            promote_run(args.run_dir, reviewed_by=args.reviewed_by, notes=args.notes)
+            print(Path(args.run_dir) / "run.json")
+            return 0
+
         if args.command == "verify-dataset":
             manifest = load_dataset_manifest(args.manifest)
             failures = verify_dataset(args.root, manifest)
             if failures:
                 print("\n".join(failures))
+                return 1
+            if not manifest.get("files"):
+                print("manifest does not declare files")
                 return 1
             print("dataset verification passed")
             return 0
@@ -97,7 +118,15 @@ def main(argv: Sequence[str] | None = None) -> int:
             else:
                 print(rendered, end="")
             return 0
-    except (ConfigError, FileNotFoundError, FileExistsError, ValueError) as exc:
+    except (
+        ConfigError,
+        ManifestError,
+        SchemaValidationError,
+        FileNotFoundError,
+        FileExistsError,
+        ValueError,
+        json.JSONDecodeError,
+    ) as exc:
         print(f"error: {exc}")
         return 2
     return 2

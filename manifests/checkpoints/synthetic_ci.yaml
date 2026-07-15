@@ -1,0 +1,8 @@
+schema_version: 1
+framework: synthetic
+model: identity-encoder
+identifier: test-fixture
+source: repository-test-fixture
+license: Apache-2.0
+files: []
+notes: No external checkpoint is required by the CPU-only lifecycle test.

@@ -1,4 +1,4 @@
-"""Allow ``python -m recoalign`` to invoke the CLI."""
+"""Run the ReCoAlign CLI with ``python -m recoalign``."""
 
 from recoalign.cli import main
 

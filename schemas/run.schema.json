@@ -1,24 +1,91 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.org/recoalign/run.schema.json",
+  "$id": "https://raw.githubusercontent.com/Yangjunjie-Lin/recoalign/main/schemas/run.schema.json",
   "title": "ReCoAlign run record",
   "type": "object",
   "required": [
-    "schema_version", "run_id", "status", "started_at", "config_sha256",
-    "dataset", "model", "pretrained", "seed"
+    "schema_version",
+    "run_id",
+    "status",
+    "started_at",
+    "completed_at",
+    "config_path",
+    "config_sha256",
+    "git_commit",
+    "dataset",
+    "dataset_split",
+    "dataset_manifest_path",
+    "dataset_manifest_sha256",
+    "dataset_verification",
+    "model",
+    "pretrained",
+    "checkpoint_manifest_path",
+    "checkpoint_manifest_sha256",
+    "checkpoint_verification",
+    "seed",
+    "precision",
+    "metrics_file",
+    "notes",
+    "review"
   ],
   "properties": {
     "schema_version": {"const": 1},
     "run_id": {"type": "string", "minLength": 1},
     "status": {"enum": ["pilot", "partial", "failed", "complete", "reportable"]},
-    "started_at": {"type": "string"},
-    "completed_at": {"type": ["string", "null"]},
+    "started_at": {"type": "string", "format": "date-time"},
+    "completed_at": {"type": ["string", "null"], "format": "date-time"},
+    "config_path": {"type": ["string", "null"]},
     "config_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-    "dataset": {"type": "string"},
-    "model": {"type": "string"},
-    "pretrained": {"type": "string"},
+    "git_commit": {"type": ["string", "null"]},
+    "dataset": {"type": "string", "minLength": 1},
+    "dataset_split": {"type": "string", "minLength": 1},
+    "dataset_manifest_path": {"type": "string", "minLength": 1},
+    "dataset_manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "dataset_verification": {
+      "type": "object",
+      "required": ["status", "declared_files", "failures"],
+      "properties": {
+        "status": {"enum": ["passed", "failed", "not_run"]},
+        "declared_files": {"type": "integer", "minimum": 0},
+        "failures": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "model": {"type": "string", "minLength": 1},
+    "pretrained": {"type": "string", "minLength": 1},
+    "checkpoint": {"type": ["string", "null"]},
+    "checkpoint_manifest_path": {"type": "string", "minLength": 1},
+    "checkpoint_manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "checkpoint_verification": {
+      "type": "object",
+      "required": ["status", "declared_files", "failures"],
+      "properties": {
+        "status": {"enum": ["passed", "failed", "not_run"]},
+        "declared_files": {"type": "integer", "minimum": 0},
+        "failures": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
     "seed": {"type": "integer", "minimum": 0},
-    "metrics_file": {"type": ["string", "null"]}
+    "precision": {"type": ["string", "null"]},
+    "metrics_file": {"type": ["string", "null"]},
+    "notes": {"type": ["string", "null"]},
+    "review": {
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": ["reviewed_by", "reviewed_at", "decision", "notes"],
+          "properties": {
+            "reviewed_by": {"type": "string", "minLength": 1},
+            "reviewed_at": {"type": "string", "format": "date-time"},
+            "decision": {"const": "reportable"},
+            "notes": {"type": ["string", "null"]}
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }

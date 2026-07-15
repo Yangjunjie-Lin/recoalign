@@ -1,5 +1,5 @@
-"""Experiment lifecycle and provenance records."""
+"""Run lifecycle and provenance records."""
 
-from recoalign.experiments.records import create_run, finalize_run, load_run
+from recoalign.experiments.records import create_run, finalize_run, load_run, promote_run
 
-__all__ = ["create_run", "finalize_run", "load_run"]
+__all__ = ["create_run", "finalize_run", "load_run", "promote_run"]
