@@ -1,0 +1,21 @@
+schema_version: 1
+name: winoground
+version: official-400-v1
+source: replace-with-authorized-source
+license: verify-upstream-terms
+downloaded_at: null
+splits:
+  test: 400
+files: []
+processing:
+  format: recoalign-paired-matrix-jsonl-v1
+  source_annotation: source/winoground.jsonl
+  image_inventory: inventories/images.jsonl
+  inventory_splits: [test]
+  image_hashes: false
+  categories: {winoground: 400}
+  tags: {}
+  caption_token_multiset_match_rate: 100.0
+notes: >-
+  Template only. Export the official Hugging Face dataset to local image paths, run
+  `recoalign prepare-winoground`, and hash images before reportable evaluation.
