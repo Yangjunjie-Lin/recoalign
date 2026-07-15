@@ -24,9 +24,12 @@ jobs:
       - name: Install package and development tools
         run: pip install -e ".[dev]"
       - name: Validate committed configurations
+        shell: bash
         run: |
-          python -m recoalign validate-config configs/baseline/openclip_vit_b32.yaml
-          python -m recoalign validate-config configs/ci/synthetic.yaml
+          set -euo pipefail
+          for config in configs/baseline/*.yaml configs/ci/*.yaml; do
+            python -m recoalign validate-config "${config}"
+          done
       - name: Lint
         run: ruff check .
       - name: Test

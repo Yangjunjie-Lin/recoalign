@@ -1,0 +1,14 @@
+schema_version: 1
+name: sugarcrepe
+version: replace-with-prepared-version
+source: official RAIVNLab SugarCrepe release
+license: verify SugarCrepe and COCO terms locally
+downloaded_at: null
+splits:
+  test: null
+files: []
+processing:
+  format: recoalign-pairwise-jsonl-v1
+  image_inventory: inventories/images.jsonl
+  image_hashes: true
+notes: Template only. Generate the real manifest with recoalign prepare-sugarcrepe.

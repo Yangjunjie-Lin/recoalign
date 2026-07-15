@@ -1,0 +1,17 @@
+schema_version: 1
+name: mscoco
+version: replace-with-prepared-version
+source: replace-with-authorized-source
+license: verify-before-use
+downloaded_at: null
+splits:
+  train: null
+  validation: null
+  test: 5000
+files: []
+processing:
+  format: recoalign-retrieval-jsonl-v1
+  image_inventory: inventories/images.jsonl
+  inventory_splits: [test]
+  image_hashes: true
+notes: Template only. Generate the real manifest with recoalign prepare-coco.

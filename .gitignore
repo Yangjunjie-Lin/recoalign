@@ -26,10 +26,14 @@ Thumbs.db
 .env.*
 !.env.example
 
-# Datasets, model weights, and experiment artifacts
+# Datasets, model weights, caches, and experiment artifacts
 data/raw/
 data/processed/
 data/cache/
+data/flickr30k/
+data/mscoco/
+data/sugarcrepe/
+artifacts/
 checkpoints/
 outputs/
 wandb/

@@ -1,0 +1,10 @@
+schema_version: 1
+framework: open_clip
+model: ViT-B-32
+identifier: openai
+source: OpenCLIP pretrained model registry
+license: Verify upstream OpenAI CLIP code, model, and training-data terms before redistribution.
+files: []
+notes: >-
+  The checkpoint is resolved by OpenCLIP at runtime. Preserve the exact package version and runtime
+  identifier in every run; add a local file SHA-256 if a fixed cached artifact is promoted.
