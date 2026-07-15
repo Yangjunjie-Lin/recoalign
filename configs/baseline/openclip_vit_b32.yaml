@@ -1,12 +1,16 @@
+schema_version: 1
+
 experiment:
-  name: openclip_vit_b32_baseline
+  name: openclip_vit_b32_flickr30k_zero_shot
   seed: 42
-  output_dir: outputs/openclip_vit_b32_baseline
+  output_dir: outputs/openclip_vit_b32_flickr30k_zero_shot
+  tags: [baseline, zero-shot, local-6gb]
 
 model:
   framework: open_clip
   name: ViT-B-32
   pretrained: laion2b_s34b_b79k
+  checkpoint: null
   image_size: 224
   precision: amp
   freeze_vision_encoder: true
@@ -14,6 +18,7 @@ model:
 
 data:
   dataset: flickr30k
+  manifest: manifests/datasets/flickr30k.example.yaml
   root: data/raw/flickr30k
   annotation_file: data/processed/flickr30k/test.json
   split: test
@@ -24,6 +29,7 @@ evaluation:
   text_batch_size: 64
   recall_at: [1, 5, 10]
   normalize_embeddings: true
+  save_predictions: false
 
 training:
   enabled: false

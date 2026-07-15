@@ -1,0 +1,18 @@
+schema_version: 1
+name: flickr30k
+version: replace-with-dataset-version
+source: replace-with-authorized-source
+license: verify-before-use
+downloaded_at: null
+splits:
+  train: null
+  validation: null
+  test: null
+files: []
+processing:
+  script: null
+  arguments: {}
+  git_commit: null
+notes: >-
+  This is a template only. Record the actual source, split definition, sample counts,
+  hashes, and license conditions before reporting any experiment.
