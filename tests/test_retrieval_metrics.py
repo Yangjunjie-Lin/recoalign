@@ -8,7 +8,7 @@ def test_recall_at_k_with_multiple_positives() -> None:
     similarity = np.array(
         [
             [0.9, 0.8, 0.1],
-            [0.8, 0.9, 0.7],
+            [0.9, 0.7, 0.8],
         ]
     )
     positives = np.array(
