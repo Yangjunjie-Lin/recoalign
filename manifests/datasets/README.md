@@ -1,8 +1,8 @@
 # Dataset manifests
 
-Create one versioned manifest for every dataset snapshot used in an experiment. A reportable
-manifest records the authorized source, license/access conditions, exact split counts,
-processing command, repository commit, and hashes for locally generated annotations.
+Every dataset snapshot used by an experiment must have a committed YAML manifest that satisfies
+`schemas/dataset_manifest.schema.json`.
 
-Do not replace uncertainty with guessed metadata. The example Flickr30K manifest intentionally
-contains placeholders until the dataset is obtained and verified.
+A reportable manifest must declare the exact files required for the evaluated split, including size
+and SHA-256 where practical. Template manifests with an empty `files` list may be used for planning
+but cannot pass reportability gates.

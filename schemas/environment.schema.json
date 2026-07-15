@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Yangjunjie-Lin/recoalign/main/schemas/environment.schema.json",
+  "title": "ReCoAlign environment record",
+  "type": "object",
+  "required": [
+    "schema_version", "captured_at", "python", "executable", "platform", "machine",
+    "git", "conda_environment", "conda_prefix", "packages", "pip_freeze",
+    "pip_freeze_sha256", "accelerator"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "captured_at": {"type": "string", "format": "date-time"},
+    "python": {"type": "string"},
+    "executable": {"type": "string"},
+    "platform": {"type": "string"},
+    "machine": {"type": "string"},
+    "git": {
+      "type": "object",
+      "required": ["commit", "branch", "dirty", "untracked_count", "diff_sha256"],
+      "properties": {
+        "commit": {"type": ["string", "null"]},
+        "branch": {"type": ["string", "null"]},
+        "dirty": {"type": ["boolean", "null"]},
+        "untracked_count": {"type": "integer", "minimum": 0},
+        "diff_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"}
+      },
+      "additionalProperties": false
+    },
+    "conda_environment": {"type": ["string", "null"]},
+    "conda_prefix": {"type": ["string", "null"]},
+    "packages": {"type": "object"},
+    "pip_freeze": {"type": "array", "items": {"type": "string"}},
+    "pip_freeze_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "accelerator": {
+      "type": "object",
+      "required": ["cuda_available", "torch_cuda_version", "cudnn_version", "nvidia_driver_version", "devices"],
+      "properties": {
+        "cuda_available": {"type": "boolean"},
+        "torch_cuda_version": {"type": ["string", "null"]},
+        "cudnn_version": {"type": ["integer", "null"]},
+        "nvidia_driver_version": {"type": ["string", "null"]},
+        "devices": {"type": "array"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

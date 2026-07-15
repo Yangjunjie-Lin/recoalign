@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Yangjunjie-Lin/recoalign/main/schemas/metrics.schema.json",
+  "title": "ReCoAlign metrics",
+  "type": "object",
+  "minProperties": 1,
+  "propertyNames": {"type": "string", "minLength": 1},
+  "additionalProperties": {"type": "number"}
+}

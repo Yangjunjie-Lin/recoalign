@@ -1,5 +1,7 @@
 # Checkpoint manifests
 
-Every pretrained or trained checkpoint used for a reportable result should have a YAML manifest
-recording its model architecture, source, upstream identifier, local SHA-256, training run ID,
-and applicable license. Large weight files remain outside Git.
+Every pretrained identifier or local checkpoint used by an experiment must have a committed YAML
+manifest satisfying `schemas/checkpoint_manifest.schema.json`.
+
+Remote registry identifiers may have no local files. Fixed local checkpoints should record file
+paths, byte sizes, SHA-256 hashes, source, and applicable license terms.

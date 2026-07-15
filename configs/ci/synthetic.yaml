@@ -1,0 +1,23 @@
+experiment:
+  name: synthetic_ci
+  seed: 7
+  output_dir: outputs/synthetic_ci
+
+model:
+  framework: synthetic
+  name: identity-encoder
+  pretrained: test-fixture
+  manifest: manifests/checkpoints/synthetic_ci.yaml
+  precision: fp32
+
+data:
+  dataset: synthetic-ci
+  root: tests/fixtures/dataset
+  manifest: manifests/datasets/synthetic_ci.yaml
+  split: test
+
+evaluation:
+  recall_at: [1]
+
+training:
+  enabled: false

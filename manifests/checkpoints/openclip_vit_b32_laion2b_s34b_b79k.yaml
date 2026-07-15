@@ -1,0 +1,10 @@
+schema_version: 1
+framework: open_clip
+model: ViT-B-32
+identifier: laion2b_s34b_b79k
+source: OpenCLIP pretrained model registry
+license: Verify upstream code, model, and training-data terms before redistribution.
+files: []
+notes: >-
+  The checkpoint is resolved by OpenCLIP at runtime. Record a local cache path and SHA-256 in a
+  run-specific manifest when a fixed local artifact is used for reportable experiments.

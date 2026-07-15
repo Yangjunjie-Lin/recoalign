@@ -1,0 +1,13 @@
+schema_version: 1
+name: synthetic-ci
+version: v1
+source: repository-test-fixture
+license: Apache-2.0
+splits:
+  test: 1
+files:
+  - path: sample.txt
+    bytes: 13
+    sha256: 2b79b241af4eaf6d4573da110a46ecd88e80eb6cb5aab759e1fa79d6b762a8a5
+processing: null
+notes: CPU-only fixture used to validate the experiment lifecycle in CI.
