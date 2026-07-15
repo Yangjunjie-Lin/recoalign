@@ -1,4 +1,4 @@
-"""Create, finalize, and promote self-contained experiment records."""
+"""Create, finalize, fail, and promote self-contained experiment records."""
 
 from __future__ import annotations
 
@@ -119,6 +119,26 @@ def finalize_run(
     return record
 
 
+def fail_run(
+    run_dir: str | Path,
+    error: BaseException | str,
+    *,
+    notes: str | None = None,
+) -> dict[str, Any]:
+    """Retain a failed run without inventing numeric metrics."""
+    directory = Path(run_dir)
+    record = load_run(directory)
+    error_text = str(error).strip() or type(error).__name__
+    record["status"] = "failed"
+    record["completed_at"] = utc_now()
+    record["metrics_file"] = None
+    record["notes"] = f"{notes + ': ' if notes else ''}{error_text}"
+    record["review"] = None
+    validate_payload("run", record)
+    atomic_write_json(directory / "run.json", record)
+    return record
+
+
 def promote_run(
     run_dir: str | Path,
     *,
@@ -146,17 +166,28 @@ def promote_run(
     if git["dirty"] is not False:
         raise ValueError("dirty or unknown Git state cannot be promoted to reportable")
 
-    dataset_verification = record["dataset_verification"]
-    if (
-        dataset_verification["status"] != "passed"
-        or dataset_verification["declared_files"] <= 0
-    ):
+    config = _load_yaml(directory / "config.resolved.yaml")
+    project_root = repository_root()
+    dataset_manifest = load_dataset_manifest(directory / "manifests" / "dataset.yaml")
+    dataset_root = _resolve_path(config["data"]["root"], project_root)
+    dataset_verification = _verification_record(dataset_root, dataset_manifest)
+    if dataset_verification["status"] != "passed" or dataset_verification["declared_files"] <= 0:
         raise ValueError("dataset files must be declared and verified before promotion")
+    processing = dataset_manifest.get("processing") or {}
+    if processing.get("image_inventory") and processing.get("image_hashes") is not True:
+        raise ValueError(
+            "reportable image benchmarks require a SHA-256 image inventory; "
+            "rerun dataset preparation with --hash-images"
+        )
 
-    checkpoint_verification = record["checkpoint_verification"]
+    checkpoint_manifest = load_checkpoint_manifest(directory / "manifests" / "checkpoint.yaml")
+    checkpoint_root = _resolve_path(config["model"].get("checkpoint_root", "."), project_root)
+    checkpoint_verification = _verification_record(checkpoint_root, checkpoint_manifest)
     if checkpoint_verification["status"] == "failed":
         raise ValueError("checkpoint manifest file verification failed")
 
+    record["dataset_verification"] = dataset_verification
+    record["checkpoint_verification"] = checkpoint_verification
     record["status"] = "reportable"
     record["review"] = {
         "reviewed_by": reviewer,
@@ -217,6 +248,17 @@ def _load_json(path: Path, schema_name: str) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise ValueError(f"{schema_name} record must be a JSON object")
     validate_payload(schema_name, payload)
+    return payload
+
+
+def _load_yaml(path: Path) -> dict[str, Any]:
+    if not path.is_file():
+        raise FileNotFoundError(f"record not found: {path}")
+    with path.open("r", encoding="utf-8") as handle:
+        payload = yaml.safe_load(handle)
+    if not isinstance(payload, dict):
+        raise ValueError(f"YAML record must be an object: {path}")
+    validate_config(payload)
     return payload
 
 
