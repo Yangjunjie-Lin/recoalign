@@ -1,0 +1,34 @@
+experiment:
+  name: openclip_vit_b32_baseline
+  seed: 42
+  output_dir: outputs/openclip_vit_b32_baseline
+
+model:
+  framework: open_clip
+  name: ViT-B-32
+  pretrained: laion2b_s34b_b79k
+  image_size: 224
+  precision: amp
+  freeze_vision_encoder: true
+  freeze_text_encoder: true
+
+data:
+  dataset: flickr30k
+  root: data/raw/flickr30k
+  annotation_file: data/processed/flickr30k/test.json
+  split: test
+  num_workers: 2
+
+evaluation:
+  image_batch_size: 32
+  text_batch_size: 64
+  recall_at: [1, 5, 10]
+  normalize_embeddings: true
+
+training:
+  enabled: false
+  batch_size: 4
+  gradient_accumulation_steps: 8
+  learning_rate: 1.0e-5
+  weight_decay: 0.01
+  epochs: 5
