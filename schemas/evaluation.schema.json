@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Yangjunjie-Lin/recoalign/main/schemas/evaluation.schema.json",
+  "title": "ReCoAlign baseline evaluation record",
+  "type": "object",
+  "required": ["schema_version", "created_at", "metrics", "metadata", "predictions_file"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "created_at": {"type": "string", "format": "date-time"},
+    "metrics": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {"type": "string", "minLength": 1},
+      "additionalProperties": {"type": "number"}
+    },
+    "metadata": {"type": "object"},
+    "predictions_file": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}
