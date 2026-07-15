@@ -34,6 +34,52 @@
         "tie": {"type": "boolean"}
       },
       "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "sample_id", "subset", "correct_index", "predicted_index", "correct_score",
+        "top_score", "margin", "correct", "tie"
+      ],
+      "properties": {
+        "sample_id": {"type": "string", "minLength": 1},
+        "subset": {"type": "string", "minLength": 1},
+        "correct_index": {"type": "integer", "minimum": 0},
+        "predicted_index": {"type": "integer", "minimum": 0},
+        "correct_score": {"type": "number"},
+        "top_score": {"type": "number"},
+        "margin": {"type": "number"},
+        "correct": {"type": "boolean"},
+        "tie": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "sample_id", "category", "tags", "scores", "image_to_text_correct",
+        "text_to_image_correct", "group_correct", "tie"
+      ],
+      "properties": {
+        "sample_id": {"type": "string", "minLength": 1},
+        "category": {"type": "string", "minLength": 1},
+        "tags": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "scores": {
+          "type": "array",
+          "items": {"type": "number"},
+          "minItems": 4,
+          "maxItems": 4
+        },
+        "image_to_text_correct": {"type": "boolean"},
+        "text_to_image_correct": {"type": "boolean"},
+        "group_correct": {"type": "boolean"},
+        "tie": {"type": "boolean"}
+      },
+      "additionalProperties": false
     }
   ]
 }

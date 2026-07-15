@@ -1,0 +1,38 @@
+schema_version: 1
+experiment:
+  name: openclip_vit_b32_laion2b_winoground_zero_shot
+  seed: 42
+  output_dir: outputs/openclip_vit_b32_laion2b_winoground_zero_shot
+  tags: [baseline, zero-shot, winoground, diagnostics]
+model:
+  framework: open_clip
+  name: ViT-B-32
+  pretrained: laion2b_s34b_b79k
+  manifest: manifests/checkpoints/openclip_vit_b32_laion2b_s34b_b79k.yaml
+  checkpoint: null
+  device: cuda
+  image_size: 224
+  precision: amp
+  freeze_vision_encoder: true
+  freeze_text_encoder: true
+data:
+  dataset: winoground
+  root: data/winoground
+  manifest: manifests/datasets/winoground.yaml
+  annotation_file: data/winoground/annotations/test.jsonl
+  image_root: data/winoground/images
+  split: test
+evaluation:
+  protocol: winoground-official-400-v1
+  image_batch_size: 32
+  text_batch_size: 64
+  ranking_batch_size: 128
+  recall_at: [1]
+  expected_num_samples: 400
+  required_categories: [winoground]
+  require_caption_token_multiset_match: true
+  normalize_embeddings: true
+  cache_dir: data/cache/embeddings
+  save_predictions: true
+training:
+  enabled: false

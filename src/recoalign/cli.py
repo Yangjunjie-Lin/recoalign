@@ -9,6 +9,11 @@ from pathlib import Path
 
 from recoalign.analysis.results import collect_runs, render_markdown_table
 from recoalign.config import ConfigError, config_digest, load_config
+from recoalign.data.compositional_preparation import (
+    prepare_aro,
+    prepare_bivlc,
+    prepare_winoground,
+)
 from recoalign.data.manifest import ManifestError, load_dataset_manifest, verify_dataset
 from recoalign.data.preparation import prepare_coco, prepare_flickr30k, prepare_sugarcrepe
 from recoalign.evaluation.baseline import evaluate_baseline, write_baseline_outputs
@@ -50,30 +55,36 @@ def build_parser() -> argparse.ArgumentParser:
     flickr = subparsers.add_parser(
         "prepare-flickr30k", help="normalize the Karpathy Flickr30K split"
     )
+    _add_standard_preparation_arguments(flickr)
     flickr.add_argument("--karpathy-json", required=True)
-    flickr.add_argument("--dataset-root", required=True)
-    flickr.add_argument("--manifest-output", required=True)
-    flickr.add_argument("--source", required=True)
-    flickr.add_argument("--license", required=True, dest="license_name")
-    flickr.add_argument("--hash-images", action="store_true")
 
     coco = subparsers.add_parser("prepare-coco", help="normalize the MS COCO Karpathy split")
+    _add_standard_preparation_arguments(coco)
     coco.add_argument("--karpathy-json", required=True)
-    coco.add_argument("--dataset-root", required=True)
-    coco.add_argument("--manifest-output", required=True)
-    coco.add_argument("--source", required=True)
-    coco.add_argument("--license", required=True, dest="license_name")
-    coco.add_argument("--hash-images", action="store_true")
 
     sugar = subparsers.add_parser(
         "prepare-sugarcrepe", help="normalize the seven official SugarCrepe categories"
     )
+    _add_standard_preparation_arguments(sugar)
     sugar.add_argument("--official-data-dir", required=True)
-    sugar.add_argument("--dataset-root", required=True)
-    sugar.add_argument("--manifest-output", required=True)
-    sugar.add_argument("--source", required=True)
-    sugar.add_argument("--license", required=True, dest="license_name")
-    sugar.add_argument("--hash-images", action="store_true")
+
+    aro = subparsers.add_parser(
+        "prepare-aro", help="normalize a path-based export of the four ARO subsets"
+    )
+    _add_standard_preparation_arguments(aro)
+    aro.add_argument("--source-jsonl", required=True)
+
+    winoground = subparsers.add_parser(
+        "prepare-winoground", help="normalize a path-based Winoground export"
+    )
+    _add_standard_preparation_arguments(winoground)
+    winoground.add_argument("--source-jsonl", required=True)
+
+    bivlc = subparsers.add_parser(
+        "prepare-bivlc", help="normalize a path-based BiVLC export"
+    )
+    _add_standard_preparation_arguments(bivlc)
+    bivlc.add_argument("--source-jsonl", required=True)
 
     finalize = subparsers.add_parser("finalize-run", help="finalize a non-reportable run")
     finalize.add_argument("run_dir")
@@ -162,9 +173,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 license_name=args.license_name,
                 hash_images=args.hash_images,
             )
-            print(f"prepared Flickr30K: {manifest['splits']}")
-            print(args.manifest_output)
-            return 0
+            return _print_prepared("Flickr30K", manifest, args.manifest_output)
 
         if args.command == "prepare-coco":
             manifest = prepare_coco(
@@ -175,9 +184,7 @@ def main(argv: Sequence[str] | None = None) -> int:
                 license_name=args.license_name,
                 hash_images=args.hash_images,
             )
-            print(f"prepared MS COCO: {manifest['splits']}")
-            print(args.manifest_output)
-            return 0
+            return _print_prepared("MS COCO", manifest, args.manifest_output)
 
         if args.command == "prepare-sugarcrepe":
             manifest = prepare_sugarcrepe(
@@ -188,9 +195,40 @@ def main(argv: Sequence[str] | None = None) -> int:
                 license_name=args.license_name,
                 hash_images=args.hash_images,
             )
-            print(f"prepared SugarCrepe: {manifest['splits']}")
-            print(args.manifest_output)
-            return 0
+            return _print_prepared("SugarCrepe", manifest, args.manifest_output)
+
+        if args.command == "prepare-aro":
+            manifest = prepare_aro(
+                args.source_jsonl,
+                args.dataset_root,
+                manifest_output=args.manifest_output,
+                source=args.source,
+                license_name=args.license_name,
+                hash_images=args.hash_images,
+            )
+            return _print_prepared("ARO", manifest, args.manifest_output)
+
+        if args.command == "prepare-winoground":
+            manifest = prepare_winoground(
+                args.source_jsonl,
+                args.dataset_root,
+                manifest_output=args.manifest_output,
+                source=args.source,
+                license_name=args.license_name,
+                hash_images=args.hash_images,
+            )
+            return _print_prepared("Winoground", manifest, args.manifest_output)
+
+        if args.command == "prepare-bivlc":
+            manifest = prepare_bivlc(
+                args.source_jsonl,
+                args.dataset_root,
+                manifest_output=args.manifest_output,
+                source=args.source,
+                license_name=args.license_name,
+                hash_images=args.hash_images,
+            )
+            return _print_prepared("BiVLC", manifest, args.manifest_output)
 
         if args.command == "finalize-run":
             with Path(args.metrics).open("r", encoding="utf-8") as handle:
@@ -239,3 +277,17 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"error: {exc}")
         return 2
     return 2
+
+
+def _add_standard_preparation_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--dataset-root", required=True)
+    parser.add_argument("--manifest-output", required=True)
+    parser.add_argument("--source", required=True)
+    parser.add_argument("--license", required=True, dest="license_name")
+    parser.add_argument("--hash-images", action="store_true")
+
+
+def _print_prepared(name: str, manifest: dict[str, object], path: str) -> int:
+    print(f"prepared {name}: {manifest['splits']}")
+    print(path)
+    return 0

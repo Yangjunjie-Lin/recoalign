@@ -1,0 +1,36 @@
+schema_version: 1
+experiment:
+  name: openclip_vit_b16_laion2b_aro_zero_shot
+  seed: 42
+  output_dir: outputs/openclip_vit_b16_laion2b_aro_zero_shot
+  tags: [baseline, zero-shot, aro, diagnostics]
+model:
+  framework: open_clip
+  name: ViT-B-16
+  pretrained: laion2b_s34b_b88k
+  manifest: manifests/checkpoints/openclip_vit_b16_laion2b_s34b_b88k.yaml
+  checkpoint: null
+  device: cuda
+  image_size: 224
+  precision: amp
+  freeze_vision_encoder: true
+  freeze_text_encoder: true
+data:
+  dataset: aro
+  root: data/aro
+  manifest: manifests/datasets/aro.yaml
+  annotation_file: data/aro/annotations/test.jsonl
+  image_root: data/aro/images
+  split: test
+evaluation:
+  protocol: aro-official-four-subset-v1
+  image_batch_size: 24
+  text_batch_size: 64
+  ranking_batch_size: 128
+  recall_at: [1]
+  required_subsets: [vg_attribution, vg_relation, coco_order, flickr30k_order]
+  normalize_embeddings: true
+  cache_dir: data/cache/embeddings
+  save_predictions: true
+training:
+  enabled: false
