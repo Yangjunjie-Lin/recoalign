@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Yangjunjie-Lin/recoalign/main/schemas/prediction.schema.json",
+  "title": "ReCoAlign baseline prediction",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "direction", "query_id", "best_positive_rank", "best_positive_candidate_id",
+        "best_positive_score", "top1_candidate_id", "top1_score"
+      ],
+      "properties": {
+        "direction": {"enum": ["image_to_text", "text_to_image"]},
+        "query_id": {"type": "string", "minLength": 1},
+        "best_positive_rank": {"type": "integer", "minimum": 1},
+        "best_positive_candidate_id": {"type": "string", "minLength": 1},
+        "best_positive_score": {"type": "number"},
+        "top1_candidate_id": {"type": "string", "minLength": 1},
+        "top1_score": {"type": "number"}
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "sample_id", "category", "positive_score", "negative_score", "correct", "tie"
+      ],
+      "properties": {
+        "sample_id": {"type": "string", "minLength": 1},
+        "category": {"type": "string", "minLength": 1},
+        "positive_score": {"type": "number"},
+        "negative_score": {"type": "number"},
+        "correct": {"type": "boolean"},
+        "tie": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    }
+  ]
+}
