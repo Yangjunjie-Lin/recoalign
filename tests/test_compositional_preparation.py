@@ -49,7 +49,9 @@ def test_prepare_aro_writes_normalized_snapshot_and_hashes(tmp_path: Path) -> No
     assert verify_manifest_files(root, loaded) == []
 
 
-def test_prepare_winoground_records_caption_multiset_rate(tmp_path: Path) -> None:
+def test_prepare_winoground_records_alphanumeric_character_multiset_rate(
+    tmp_path: Path,
+) -> None:
     root = tmp_path / "winoground"
     _images(root)
     source = tmp_path / "winoground_source.jsonl"
@@ -76,16 +78,20 @@ def test_prepare_winoground_records_caption_multiset_rate(tmp_path: Path) -> Non
         license_name="upstream terms",
     )
 
-    assert manifest["processing"]["caption_token_multiset_match_rate"] == 100.0
     assert (
-        manifest["processing"]["caption_token_multiset_method"]
+        manifest["processing"]["caption_alphanumeric_character_multiset_match_rate"]
+        == 100.0
+    )
+    assert (
+        manifest["processing"]["caption_alphanumeric_character_multiset_method"]
         == "casefolded_alphanumeric_character_multiset_v1"
     )
+    assert manifest["processing"]["caption_token_multiset_match_rate"] == 100.0
     row = json.loads((root / "annotations" / "test.jsonl").read_text(encoding="utf-8"))
     assert row["category"] == "winoground"
 
 
-def test_prepare_winoground_accepts_official_morpheme_level_pair(tmp_path: Path) -> None:
+def test_prepare_winoground_accepts_character_conserved_official_pair(tmp_path: Path) -> None:
     root = tmp_path / "winoground"
     _images(root)
     source = tmp_path / "winoground_source.jsonl"
@@ -111,9 +117,12 @@ def test_prepare_winoground_accepts_official_morpheme_level_pair(tmp_path: Path)
         license_name="upstream terms",
     )
 
-    assert manifest["processing"]["caption_token_multiset_match_rate"] == 100.0
     assert (
-        manifest["processing"]["caption_token_multiset_method"]
+        manifest["processing"]["caption_alphanumeric_character_multiset_match_rate"]
+        == 100.0
+    )
+    assert (
+        manifest["processing"]["caption_alphanumeric_character_multiset_method"]
         == "casefolded_alphanumeric_character_multiset_v1"
     )
 

@@ -98,7 +98,10 @@ recoalign prepare-winoground \
   --dataset-root data/winoground \
   --manifest-output manifests/datasets/winoground.yaml \
   --source "official Winoground export" \
-  --license "upstream terms verified locally" \
+  --license "official gated research-use terms reviewed locally; upstream restrictions apply" \
+  --source-revision "$WINOGROUND_HF_REVISION" \
+  --exporter-version winoground-hf-export-v2 \
+  --downloaded-at "$WINOGROUND_EXPORTED_AT" \
   --hash-images
 
 recoalign prepare-bivlc \

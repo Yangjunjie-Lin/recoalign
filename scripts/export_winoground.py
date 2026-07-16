@@ -6,23 +6,27 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shutil
 import tempfile
 from collections.abc import Mapping, Sequence
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from PIL import Image
 
 from recoalign.benchmarks.caption_multisets import (
-    WINOGROUND_CONTENT_MULTISET,
+    WINOGROUND_ALPHANUMERIC_CHARACTER_MULTISET,
     caption_multiset_matches,
 )
 
 DEFAULT_DATASET_ID = "facebook/winoground"
 DEFAULT_SPLIT = "test"
 EXPECTED_SAMPLES = 400
+EXPORTER_VERSION = "winoground-hf-export-v2"
 TAG_FIELDS = ("tag", "secondary_tag", "collapsed_tag")
+COMMIT_SHA_PATTERN = re.compile(r"^[0-9a-fA-F]{40}$")
 
 
 def parse_args() -> argparse.Namespace:
@@ -31,6 +35,10 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--dataset-id", default=DEFAULT_DATASET_ID)
     parser.add_argument("--split", default=DEFAULT_SPLIT)
+    parser.add_argument(
+        "--revision",
+        help="pinned 40-character Hugging Face dataset commit SHA",
+    )
     parser.add_argument("--output-root", default="data/winoground")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--overwrite", action="store_true")
@@ -39,11 +47,11 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def load_official_split(dataset_id: str, split: str) -> Any:
+def load_official_split(dataset_id: str, split: str, revision: str | None) -> Any:
     """Load one split lazily so importing this script does not require datasets."""
     from datasets import load_dataset
 
-    return load_dataset(dataset_id, split=split)
+    return load_dataset(dataset_id, split=split, revision=revision)
 
 
 def export_winoground(
@@ -52,6 +60,7 @@ def export_winoground(
     *,
     dataset_id: str = DEFAULT_DATASET_ID,
     split: str = DEFAULT_SPLIT,
+    revision: str | None = None,
     dry_run: bool = False,
     overwrite: bool = False,
     max_samples: int | None = None,
@@ -63,6 +72,7 @@ def export_winoground(
         raise ValueError("max_samples must be positive")
     if image_format not in {"png", "jpeg"}:
         raise ValueError("image_format must be 'png' or 'jpeg'")
+    revision = _normalize_revision(revision)
 
     source_count = len(rows)
     if max_samples is None and source_count != expected_samples:
@@ -72,6 +82,20 @@ def export_winoground(
     export_count = source_count if max_samples is None else min(source_count, max_samples)
     if export_count == 0:
         raise ValueError("Winoground split contains no rows")
+    formal_export = (
+        max_samples is None
+        and expected_samples == EXPECTED_SAMPLES
+        and revision is not None
+    )
+    if (
+        not dry_run
+        and max_samples is None
+        and expected_samples == EXPECTED_SAMPLES
+        and revision is None
+    ):
+        raise ValueError("formal Winoground export requires --revision")
+    if formal_export and not COMMIT_SHA_PATTERN.fullmatch(revision):
+        raise ValueError("formal Winoground export revision must be a 40-character commit SHA")
 
     root = Path(output_root)
     if dry_run:
@@ -80,9 +104,15 @@ def export_winoground(
             export_count,
             dataset_id=dataset_id,
             split=split,
+            revision=revision,
             image_format=image_format,
         )
-        return {**summary, "dry_run": True, "formal_export": max_samples is None}
+        return {
+            **summary,
+            "dry_run": True,
+            "formal_export": formal_export,
+            "exported_at": None,
+        }
 
     root.parent.mkdir(parents=True, exist_ok=True)
     staging_path = Path(tempfile.mkdtemp(prefix=".winoground-export-", dir=root.parent))
@@ -93,6 +123,7 @@ def export_winoground(
             staging_path,
             dataset_id=dataset_id,
             split=split,
+            revision=revision,
             image_format=image_format,
         )
         filenames = [
@@ -104,7 +135,12 @@ def export_winoground(
     finally:
         shutil.rmtree(staging_path, ignore_errors=True)
 
-    return {**summary, "dry_run": False, "formal_export": max_samples is None}
+    return {
+        **summary,
+        "dry_run": False,
+        "formal_export": formal_export,
+        "exported_at": _utc_now(),
+    }
 
 
 def _validate_rows(
@@ -113,13 +149,19 @@ def _validate_rows(
     *,
     dataset_id: str,
     split: str,
+    revision: str | None,
     image_format: str,
 ) -> dict[str, Any]:
     normalized: list[dict[str, Any]] = []
     seen_ids: set[int] = set()
     for index in range(count):
         record, _, _ = _normalize_row(
-            rows[index], index, dataset_id=dataset_id, split=split, image_format=image_format
+            rows[index],
+            index,
+            dataset_id=dataset_id,
+            split=split,
+            revision=revision,
+            image_format=image_format,
         )
         official_id = record["metadata"]["official_id"]
         if official_id in seen_ids:
@@ -136,6 +178,7 @@ def _stage_rows(
     *,
     dataset_id: str,
     split: str,
+    revision: str | None,
     image_format: str,
 ) -> dict[str, Any]:
     image_root = staging_root / "images"
@@ -144,7 +187,12 @@ def _stage_rows(
     seen_ids: set[int] = set()
     for index in range(count):
         record, image_0, image_1 = _normalize_row(
-            rows[index], index, dataset_id=dataset_id, split=split, image_format=image_format
+            rows[index],
+            index,
+            dataset_id=dataset_id,
+            split=split,
+            revision=revision,
+            image_format=image_format,
         )
         official_id = record["metadata"]["official_id"]
         if official_id in seen_ids:
@@ -165,6 +213,7 @@ def _normalize_row(
     *,
     dataset_id: str,
     split: str,
+    revision: str | None,
     image_format: str,
 ) -> tuple[dict[str, Any], Image.Image, Image.Image]:
     if not isinstance(row, Mapping):
@@ -181,6 +230,8 @@ def _normalize_row(
         "official_id": official_id,
         "source_dataset": dataset_id,
         "source_split": split,
+        "source_revision": revision,
+        "exporter_version": EXPORTER_VERSION,
     }
     if tag_metadata:
         metadata["official_tag_fields"] = tag_metadata
@@ -307,33 +358,65 @@ def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
         caption_multiset_matches(
             row["caption_0"],
             row["caption_1"],
-            method=WINOGROUND_CONTENT_MULTISET,
+            method=WINOGROUND_ALPHANUMERIC_CHARACTER_MULTISET,
         )
         for row in rows
     )
     return {
         "dataset_id": rows[0]["metadata"]["source_dataset"],
         "split": rows[0]["metadata"]["source_split"],
+        "revision": rows[0]["metadata"]["source_revision"],
+        "exporter_version": EXPORTER_VERSION,
         "samples": len(rows),
         "unique_sample_ids": len({row["sample_id"] for row in rows}),
         "images": 2 * len(rows),
+        "caption_alphanumeric_character_multiset_matches": matches,
+        "caption_alphanumeric_character_multiset_mismatches": len(rows) - matches,
+        "caption_alphanumeric_character_multiset_match_rate": 100.0 * matches / len(rows),
+        "caption_alphanumeric_character_multiset_method": (
+            WINOGROUND_ALPHANUMERIC_CHARACTER_MULTISET
+        ),
+        # Deprecated aliases retained for existing consumers during schema migration.
         "token_multiset_matches": matches,
         "token_multiset_mismatches": len(rows) - matches,
         "token_multiset_match_rate": 100.0 * matches / len(rows),
-        "token_multiset_method": WINOGROUND_CONTENT_MULTISET,
+        "token_multiset_method": WINOGROUND_ALPHANUMERIC_CHARACTER_MULTISET,
     }
+
+
+def _normalize_revision(revision: str | None) -> str | None:
+    if revision is None:
+        return None
+    normalized = revision.strip()
+    if not normalized:
+        return None
+    return normalized
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def main() -> int:
     args = parse_args()
     try:
-        dataset = load_official_split(args.dataset_id, args.split)
+        revision = _normalize_revision(args.revision)
+        if not args.dry_run and args.max_samples is None and revision is None:
+            raise ValueError("formal Winoground export requires --revision")
+        if (
+            not args.dry_run
+            and args.max_samples is None
+            and not COMMIT_SHA_PATTERN.fullmatch(revision)
+        ):
+            raise ValueError("formal Winoground export revision must be a 40-character commit SHA")
+        dataset = load_official_split(args.dataset_id, args.split, revision)
         print(f"features: {dataset.features}")
         summary = export_winoground(
             dataset,
             args.output_root,
             dataset_id=args.dataset_id,
             split=args.split,
+            revision=revision,
             dry_run=args.dry_run,
             overwrite=args.overwrite,
             max_samples=args.max_samples,

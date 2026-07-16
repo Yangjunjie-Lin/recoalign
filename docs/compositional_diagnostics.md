@@ -53,11 +53,16 @@ matrix `scores[image_index, caption_index]`. The normalized format is:
 
 The runner reports image-to-text accuracy, text-to-image accuracy, group accuracy, tie rate,
 directional margins, category scores, and tag-level group scores. The committed configs require all
-400 official examples and a 100% caption-content multiset match rate. Official examples include
-morpheme-level changes and punctuation attachment that are not equal under whitespace splitting.
-Winoground therefore uses `casefolded_alphanumeric_character_multiset_v1`, recorded in the dataset
-manifest and evaluation metadata. This transparent conservation check does not alter captions and
-does not claim to perform linguistic morpheme segmentation.
+400 official examples and a 100% caption content-check match rate. Winoground uses
+`casefolded_alphanumeric_character_multiset_v1`, recorded in the dataset manifest and evaluation
+metadata as the canonical alphanumeric-character-multiset method. The older
+`caption_token_multiset_*` fields remain deprecated compatibility aliases.
+
+This check case-folds each caption, removes non-alphanumeric characters, and compares character
+frequencies. It does not modify either caption, perform linguistic tokenization, segment morphemes,
+or validate word order: for example, `dog` and `god` pass. It therefore cannot by itself establish
+the official semantic invariant. Dataset identity additionally depends on a fixed Hugging Face
+revision, the source annotation SHA-256, and the complete manifest SHA-256.
 
 ### BiVLC
 
@@ -69,6 +74,15 @@ that image-to-text and text-to-image weaknesses cannot be hidden by a one-way ev
 
 ReCoAlign does not download or redistribute benchmark assets. Export authorized copies to the
 path-based JSONL formats above, place the referenced files under `<dataset-root>/images`, and run:
+
+```bash
+python scripts/export_winoground.py \
+  --revision "$WINOGROUND_HF_REVISION" \
+  --output-root data/winoground
+```
+
+`WINOGROUND_HF_REVISION` must be the reviewed 40-character dataset commit SHA, not `main` or a
+guessed latest revision. Capture the export summary's `exported_at` value for preparation.
 
 ```bash
 recoalign prepare-aro \
@@ -84,7 +98,10 @@ recoalign prepare-winoground \
   --dataset-root data/winoground \
   --manifest-output manifests/datasets/winoground.yaml \
   --source "official Hugging Face Winoground export" \
-  --license "upstream terms verified locally" \
+  --license "official gated research-use terms reviewed locally; upstream restrictions apply" \
+  --source-revision "$WINOGROUND_HF_REVISION" \
+  --exporter-version winoground-hf-export-v2 \
+  --downloaded-at "$WINOGROUND_EXPORTED_AT" \
   --hash-images
 
 recoalign prepare-bivlc \
@@ -97,7 +114,9 @@ recoalign prepare-bivlc \
 ```
 
 The preparation commands preserve the source annotation, write canonical `annotations/test.jsonl`,
-generate a test-image inventory, and create a manifest with SHA-256 hashes.
+generate a test-image inventory, and create a manifest with SHA-256 hashes. For Winoground,
+`downloaded_at` must be the RFC 3339 UTC timestamp from the export summary (or another explicitly
+recorded export timestamp); it is never inferred from a filesystem clock.
 
 ## Running the matrix
 

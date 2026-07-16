@@ -79,6 +79,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     _add_standard_preparation_arguments(winoground)
     winoground.add_argument("--source-jsonl", required=True)
+    winoground.add_argument("--source-revision")
+    winoground.add_argument("--exporter-version")
+    winoground.add_argument("--downloaded-at")
 
     bivlc = subparsers.add_parser(
         "prepare-bivlc", help="normalize a path-based BiVLC export"
@@ -216,6 +219,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 source=args.source,
                 license_name=args.license_name,
                 hash_images=args.hash_images,
+                source_revision=args.source_revision,
+                exporter_version=args.exporter_version,
+                downloaded_at=args.downloaded_at,
             )
             return _print_prepared("Winoground", manifest, args.manifest_output)
 

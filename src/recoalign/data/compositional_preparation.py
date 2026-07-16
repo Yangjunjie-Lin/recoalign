@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import json
+import re
 import shutil
 from collections import Counter
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -12,7 +14,7 @@ import yaml
 
 from recoalign.benchmarks.caption_multisets import (
     WHITESPACE_TOKEN_MULTISET,
-    WINOGROUND_CONTENT_MULTISET,
+    WINOGROUND_ALPHANUMERIC_CHARACTER_MULTISET,
     caption_multiset_matches,
 )
 from recoalign.data.manifest import sha256_file
@@ -113,6 +115,9 @@ def prepare_winoground(
     source: str,
     license_name: str,
     hash_images: bool = False,
+    source_revision: str | None = None,
+    exporter_version: str | None = None,
+    downloaded_at: str | None = None,
 ) -> dict[str, Any]:
     """Prepare the official 400-example Winoground export."""
     return _prepare_paired_matrix(
@@ -126,10 +131,13 @@ def prepare_winoground(
         default_category="winoground",
         notes=(
             "Each row contains two images and two captions with diagonal ground-truth matches. "
-            "The recorded caption multiset method checks official word/morpheme content without "
-            "changing caption text."
+            "The recorded content check compares case-folded alphanumeric character frequencies "
+            "without changing caption text; it is not linguistic tokenization or segmentation."
         ),
         hash_images=hash_images,
+        source_revision=source_revision,
+        exporter_version=exporter_version,
+        downloaded_at=_rfc3339_utc(downloaded_at),
     )
 
 
@@ -172,6 +180,9 @@ def _prepare_paired_matrix(
     default_category: str,
     notes: str,
     hash_images: bool,
+    source_revision: str | None = None,
+    exporter_version: str | None = None,
+    downloaded_at: str | None = None,
 ) -> dict[str, Any]:
     source = _nonempty_argument(source, "source")
     license_name = _nonempty_argument(license_name, "license_name")
@@ -186,9 +197,9 @@ def _prepare_paired_matrix(
     category_counts: Counter[str] = Counter()
     tag_counts: Counter[str] = Counter()
     seen: set[str] = set()
-    token_multiset_matches = 0
-    token_multiset_method = (
-        WINOGROUND_CONTENT_MULTISET
+    content_check_matches = 0
+    content_check_method = (
+        WINOGROUND_ALPHANUMERIC_CHARACTER_MULTISET
         if dataset_name == "winoground"
         else WHITESPACE_TOKEN_MULTISET
     )
@@ -227,14 +238,34 @@ def _prepare_paired_matrix(
         inventory_paths.update((Path("images") / image_0, Path("images") / image_1))
         category_counts[category] += 1
         tag_counts.update(tags)
-        token_multiset_matches += caption_multiset_matches(
+        content_check_matches += caption_multiset_matches(
             caption_0,
             caption_1,
-            method=token_multiset_method,
+            method=content_check_method,
         )
 
     if not rows:
         raise ValueError(f"{dataset_name} source contains no records")
+    content_check_rate = 100.0 * content_check_matches / len(rows)
+    content_check_processing: dict[str, Any]
+    if dataset_name == "winoground":
+        content_check_processing = {
+            "caption_alphanumeric_character_multiset_match_rate": content_check_rate,
+            "caption_alphanumeric_character_multiset_method": content_check_method,
+            # Deprecated aliases retained for existing configs and downstream readers.
+            "caption_token_multiset_match_rate": content_check_rate,
+            "caption_token_multiset_method": content_check_method,
+            **_winoground_provenance(
+                rows,
+                source_revision=source_revision,
+                exporter_version=exporter_version,
+            ),
+        }
+    else:
+        content_check_processing = {
+            "caption_token_multiset_match_rate": content_check_rate,
+            "caption_token_multiset_method": content_check_method,
+        }
     return _write_snapshot(
         root,
         source_copy,
@@ -251,11 +282,11 @@ def _prepare_paired_matrix(
             "format": "recoalign-paired-matrix-jsonl-v1",
             "categories": dict(sorted(category_counts.items())),
             "tags": dict(sorted(tag_counts.items())),
-            "caption_token_multiset_match_rate": 100.0 * token_multiset_matches / len(rows),
-            "caption_token_multiset_method": token_multiset_method,
+            **content_check_processing,
         },
         notes=notes,
         hash_images=hash_images,
+        downloaded_at=downloaded_at,
     )
 
 
@@ -275,6 +306,7 @@ def _write_snapshot(
     processing: dict[str, Any],
     notes: str,
     hash_images: bool,
+    downloaded_at: str | None = None,
 ) -> dict[str, Any]:
     annotation_path = annotation_dir / "test.jsonl"
     _write_jsonl(annotation_path, rows)
@@ -293,7 +325,7 @@ def _write_snapshot(
         "version": version,
         "source": source,
         "license": license_name,
-        "downloaded_at": None,
+        "downloaded_at": downloaded_at,
         "splits": {"test": len(rows)},
         "files": [
             _manifest_entry(source_copy, root),
@@ -438,3 +470,59 @@ def _nonempty_text(value: Any, label: str) -> str:
 
 def _nonempty_argument(value: str, label: str) -> str:
     return _nonempty_text(value, label)
+
+
+def _winoground_provenance(
+    rows: list[dict[str, Any]],
+    *,
+    source_revision: str | None,
+    exporter_version: str | None,
+) -> dict[str, Any]:
+    row_dataset = _consistent_metadata_value(rows, "source_dataset")
+    row_split = _consistent_metadata_value(rows, "source_split")
+    row_revision = _consistent_metadata_value(rows, "source_revision")
+    row_exporter = _consistent_metadata_value(rows, "exporter_version")
+    revision = _resolve_provenance_value(source_revision, row_revision, "source_revision")
+    exporter = _resolve_provenance_value(exporter_version, row_exporter, "exporter_version")
+    if revision is not None and not re.fullmatch(r"[0-9a-fA-F]{40}", revision):
+        raise ValueError("source_revision must be a 40-character commit SHA")
+    return {
+        "source_dataset": row_dataset,
+        "source_split": row_split,
+        "source_revision": revision,
+        "exporter_version": exporter,
+    }
+
+
+def _consistent_metadata_value(rows: list[dict[str, Any]], field: str) -> str | None:
+    values = {row["metadata"].get(field) for row in rows}
+    if len(values) != 1:
+        raise ValueError(f"Winoground rows disagree on metadata.{field}")
+    value = values.pop()
+    if value is None:
+        return None
+    return _nonempty_text(value, f"Winoground metadata.{field}")
+
+
+def _resolve_provenance_value(
+    explicit: str | None,
+    recorded: str | None,
+    field: str,
+) -> str | None:
+    normalized = None if explicit is None else _nonempty_argument(explicit, field)
+    if normalized is not None and recorded is not None and normalized != recorded:
+        raise ValueError(f"{field} does not match exported row metadata")
+    return normalized or recorded
+
+
+def _rfc3339_utc(value: str | None) -> str | None:
+    if value is None:
+        return None
+    normalized = _nonempty_argument(value, "downloaded_at")
+    try:
+        parsed = datetime.fromisoformat(normalized.replace("Z", "+00:00"))
+    except ValueError as exc:
+        raise ValueError("downloaded_at must be an RFC 3339 UTC timestamp") from exc
+    if parsed.tzinfo is None or parsed.utcoffset() != timezone.utc.utcoffset(parsed):
+        raise ValueError("downloaded_at must be an RFC 3339 UTC timestamp")
+    return parsed.isoformat().replace("+00:00", "Z")
