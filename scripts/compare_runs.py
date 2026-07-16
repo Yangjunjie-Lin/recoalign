@@ -14,12 +14,15 @@ import numpy as np
 from recoalign.schema_validation import validate_payload
 
 RUN_IDENTITY_FIELDS = (
+    "config_sha256",
+    "git_commit",
     "dataset_manifest_sha256",
     "checkpoint_manifest_sha256",
     "dataset",
     "dataset_split",
     "model",
     "pretrained",
+    "seed",
     "precision",
 )
 METADATA_IDENTITY_FIELDS = (
@@ -70,6 +73,18 @@ def compare_runs(
         == no_cache["evaluation"]["metadata"].get(field)
         for field in METADATA_IDENTITY_FIELDS
     }
+    cached_run_status_valid = cached["run"]["status"] in {"complete", "reportable"}
+    no_cache_run_status_valid = no_cache["run"]["status"] == "complete"
+
+    cached_cache_metadata = cached["evaluation"]["metadata"].get("cache")
+    no_cache_cache_metadata = no_cache["evaluation"]["metadata"].get("cache")
+    cached_cache_valid = _cache_metadata_is_valid(cached_cache_metadata)
+    no_cache_cache_valid = _cache_metadata_is_valid(no_cache_cache_metadata)
+    cached_cache_enabled = cached_cache_valid and cached_cache_metadata["enabled"] is True
+    no_cache_disabled = no_cache_cache_valid and all(
+        no_cache_cache_metadata[field] is False
+        for field in ("enabled", "images_hit", "texts_hit")
+    )
 
     metric_names_match = set(cached["metrics"]) == set(no_cache["metrics"])
     metric_differences: dict[str, float] = {}
@@ -110,11 +125,6 @@ def compare_runs(
                 if left.get(field) is not right.get(field):
                     decision_differences[field] += 1
 
-    no_cache_metadata = no_cache["evaluation"]["metadata"].get("cache")
-    no_cache_disabled = isinstance(no_cache_metadata, dict) and all(
-        no_cache_metadata.get(field) is False
-        for field in ("enabled", "images_hit", "texts_hit")
-    )
     summary = {
         "cached_run_id": cached["run"]["run_id"],
         "no_cache_run_id": no_cache["run"]["run_id"],
@@ -122,6 +132,10 @@ def compare_runs(
         "rtol": rtol,
         "run_identity_matches": run_identity_matches,
         "metadata_identity_matches": metadata_identity_matches,
+        "cached_run_cache_enabled": cached_cache_enabled,
+        "no_cache_run_cache_disabled": no_cache_disabled,
+        "cached_run_status_valid": cached_run_status_valid,
+        "no_cache_run_status_valid": no_cache_run_status_valid,
         "metric_names_match": metric_names_match,
         "metrics_within_tolerance": metrics_within_tolerance,
         "maximum_metric_absolute_difference": max(metric_differences.values(), default=0.0),
@@ -130,7 +144,6 @@ def compare_runs(
         "scores_within_tolerance": scores_within_tolerance,
         "maximum_score_absolute_difference": max_score_absolute_difference,
         "decision_differences": decision_differences,
-        "no_cache_run_cache_disabled": no_cache_disabled,
     }
     summary["passed"] = all(run_identity_matches.values()) and all(
         metadata_identity_matches.values()
@@ -142,10 +155,21 @@ def compare_runs(
             sample_id_order_match,
             scores_within_tolerance,
             not any(decision_differences.values()),
+            cached_cache_enabled,
             no_cache_disabled,
+            cached_run_status_valid,
+            no_cache_run_status_valid,
         )
     )
     return summary
+
+
+def _cache_metadata_is_valid(value: Any) -> bool:
+    """Return whether cache provenance has the required boolean structure."""
+    return isinstance(value, dict) and all(
+        field in value and isinstance(value[field], bool)
+        for field in ("enabled", "images_hit", "texts_hit")
+    )
 
 
 def _load_run(directory: Path) -> dict[str, Any]:
@@ -155,8 +179,6 @@ def _load_run(directory: Path) -> dict[str, Any]:
     validate_payload("run", run)
     validate_payload("evaluation", evaluation)
     validate_payload("metrics", metrics)
-    if run["status"] not in {"complete", "reportable"}:
-        raise ValueError(f"run is not complete: {directory}")
     if evaluation["metrics"] != metrics:
         raise ValueError(f"metrics.json and evaluation.json differ: {directory}")
     predictions_file = evaluation.get("predictions_file")
