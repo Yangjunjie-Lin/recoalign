@@ -209,7 +209,11 @@ def _evaluate_retrieval(
         "embedding_dimension": int(image_cache.embeddings.shape[1]),
         "max_image_norm_error": image_norm_error,
         "max_text_norm_error": text_norm_error,
-        "cache": {"images_hit": image_cache.hit, "texts_hit": text_cache.hit},
+        "cache": {
+            "enabled": use_cache,
+            "images_hit": image_cache.hit,
+            "texts_hit": text_cache.hit,
+        },
         "timing_seconds": {
             "image_stage": image_seconds,
             "text_stage": text_seconds,
@@ -312,7 +316,11 @@ def _evaluate_sugarcrepe(
         "embedding_dimension": int(image_cache.embeddings.shape[1]),
         "max_image_norm_error": image_norm_error,
         "max_text_norm_error": text_norm_error,
-        "cache": {"images_hit": image_cache.hit, "texts_hit": text_cache.hit},
+        "cache": {
+            "enabled": use_cache,
+            "images_hit": image_cache.hit,
+            "texts_hit": text_cache.hit,
+        },
         "timing_seconds": {
             "image_stage": image_seconds,
             "text_stage": text_seconds,

@@ -111,8 +111,9 @@ def compare_runs(
                     decision_differences[field] += 1
 
     no_cache_metadata = no_cache["evaluation"]["metadata"].get("cache")
-    no_cache_has_no_hits = isinstance(no_cache_metadata, dict) and all(
-        no_cache_metadata.get(field) is False for field in ("images_hit", "texts_hit")
+    no_cache_disabled = isinstance(no_cache_metadata, dict) and all(
+        no_cache_metadata.get(field) is False
+        for field in ("enabled", "images_hit", "texts_hit")
     )
     summary = {
         "cached_run_id": cached["run"]["run_id"],
@@ -129,7 +130,7 @@ def compare_runs(
         "scores_within_tolerance": scores_within_tolerance,
         "maximum_score_absolute_difference": max_score_absolute_difference,
         "decision_differences": decision_differences,
-        "no_cache_run_has_no_hits": no_cache_has_no_hits,
+        "no_cache_run_cache_disabled": no_cache_disabled,
     }
     summary["passed"] = all(run_identity_matches.values()) and all(
         metadata_identity_matches.values()
@@ -141,7 +142,7 @@ def compare_runs(
             sample_id_order_match,
             scores_within_tolerance,
             not any(decision_differences.values()),
-            no_cache_has_no_hits,
+            no_cache_disabled,
         )
     )
     return summary

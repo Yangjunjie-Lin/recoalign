@@ -56,12 +56,31 @@ def test_flickr_baseline_and_embedding_cache(tmp_path: Path) -> None:
     assert first.metrics["i2t_R@1"] == 100.0
     assert first.metrics["t2i_R@1"] == 100.0
     assert first.metrics["mean_recall"] == 100.0
-    assert first.metadata["cache"] == {"images_hit": False, "texts_hit": False}
+    assert first.metadata["cache"] == {
+        "enabled": True,
+        "images_hit": False,
+        "texts_hit": False,
+    }
 
     second = evaluate_baseline(config, encoder=encoder, project_root=tmp_path)
-    assert second.metadata["cache"] == {"images_hit": True, "texts_hit": True}
+    assert second.metadata["cache"] == {
+        "enabled": True,
+        "images_hit": True,
+        "texts_hit": True,
+    }
     assert encoder.image_calls == 1
     assert encoder.text_calls == 1
+
+    no_cache = evaluate_baseline(
+        config, encoder=encoder, project_root=tmp_path, use_cache=False
+    )
+    assert no_cache.metadata["cache"] == {
+        "enabled": False,
+        "images_hit": False,
+        "texts_hit": False,
+    }
+    assert encoder.image_calls == 2
+    assert encoder.text_calls == 2
 
 
 def test_sugarcrepe_reports_macro_and_category_accuracy(tmp_path: Path) -> None:

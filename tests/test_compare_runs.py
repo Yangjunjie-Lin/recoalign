@@ -33,7 +33,21 @@ def test_compare_runs_accepts_tiny_score_differences(tmp_path: Path, research_co
     assert summary["passed"] is True
     assert summary["maximum_score_absolute_difference"] < 1e-6
     assert not any(summary["decision_differences"].values())
-    assert summary["no_cache_run_has_no_hits"] is True
+    assert summary["no_cache_run_cache_disabled"] is True
+
+
+def test_compare_runs_rejects_cold_cache_as_no_cache(tmp_path: Path, research_config) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    path = no_cache / "evaluation.json"
+    evaluation = json.loads(path.read_text())
+    evaluation["metadata"]["cache"]["enabled"] = True
+    atomic_write_json(path, evaluation)
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["no_cache_run_cache_disabled"] is False
 
 
 def test_compare_runs_rejects_decision_difference(tmp_path: Path, research_config) -> None:
@@ -96,7 +110,11 @@ def _run_fixture(
             "model": "ViT-B-32",
             "pretrained": "laion2b_s34b_b79k",
         },
-        "cache": {"images_hit": False, "texts_hit": False},
+        "cache": {
+            "enabled": run_id != "no-cache",
+            "images_hit": False,
+            "texts_hit": False,
+        },
     }
     evaluation = {
         "schema_version": 1,
