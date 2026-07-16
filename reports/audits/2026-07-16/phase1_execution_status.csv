@@ -1,0 +1,19 @@
+model_id,benchmark,execution_status,run_status,reportability_status,metrics_status,prediction_status,cache_comparison_status,blocker
+openai_vit_b32,flickr30k,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openai_vit_b32,mscoco,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openai_vit_b32,sugarcrepe,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openai_vit_b32,aro,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openai_vit_b32,winoground,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openai_vit_b32,bivlc,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b32_laion2b,flickr30k,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b32_laion2b,mscoco,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b32_laion2b,sugarcrepe,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b32_laion2b,aro,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b32_laion2b,winoground,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b32_laion2b,bivlc,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b16_laion2b,flickr30k,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b16_laion2b,mscoco,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b16_laion2b,sugarcrepe,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b16_laion2b,aro,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b16_laion2b,winoground,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
+openclip_vit_b16_laion2b,bivlc,BLOCKED_MISSING_DATA,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,NOT_RUN,authorized dataset snapshot and formal manifest missing
