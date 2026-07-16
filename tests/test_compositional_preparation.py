@@ -77,8 +77,45 @@ def test_prepare_winoground_records_caption_multiset_rate(tmp_path: Path) -> Non
     )
 
     assert manifest["processing"]["caption_token_multiset_match_rate"] == 100.0
+    assert (
+        manifest["processing"]["caption_token_multiset_method"]
+        == "casefolded_alphanumeric_character_multiset_v1"
+    )
     row = json.loads((root / "annotations" / "test.jsonl").read_text(encoding="utf-8"))
     assert row["category"] == "winoground"
+
+
+def test_prepare_winoground_accepts_official_morpheme_level_pair(tmp_path: Path) -> None:
+    root = tmp_path / "winoground"
+    _images(root)
+    source = tmp_path / "winoground_source.jsonl"
+    _write_jsonl(
+        source,
+        [
+            {
+                "sample_id": "13",
+                "image_0": "a.jpg",
+                "image_1": "b.jpg",
+                "caption_0": "a caterpillar with some plants",
+                "caption_1": "a plant with some caterpillars",
+                "tags": ["Noun", "Morpheme-Level"],
+            }
+        ],
+    )
+
+    manifest = prepare_winoground(
+        source,
+        root,
+        manifest_output=tmp_path / "winoground.yaml",
+        source="official dataset export",
+        license_name="upstream terms",
+    )
+
+    assert manifest["processing"]["caption_token_multiset_match_rate"] == 100.0
+    assert (
+        manifest["processing"]["caption_token_multiset_method"]
+        == "casefolded_alphanumeric_character_multiset_v1"
+    )
 
 
 def test_prepare_bivlc_preserves_categories(tmp_path: Path) -> None:
