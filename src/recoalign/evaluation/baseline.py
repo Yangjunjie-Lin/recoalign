@@ -15,6 +15,7 @@ from recoalign.benchmarks.records import load_pairwise_jsonl, load_retrieval_jso
 from recoalign.config import file_digest
 from recoalign.evaluation.cache import EmbeddingCache
 from recoalign.evaluation.compositional import evaluate_pairwise_scores, summarize_pairwise
+from recoalign.evaluation.extended import evaluate_extended_benchmark
 from recoalign.evaluation.retrieval import rank_queries, summarize_ranks
 from recoalign.models.base import VisionLanguageEncoder
 from recoalign.models.openclip_encoder import OpenCLIPConfig, OpenCLIPEncoder
@@ -56,6 +57,7 @@ def evaluate_baseline(
         "dataset_manifest_sha256": file_digest(_resolve(data["manifest"], root)),
         "encoder": model.fingerprint,
     }
+
     started = time.perf_counter()
     if dataset in {"flickr30k", "mscoco"}:
         result = _evaluate_retrieval(
@@ -65,6 +67,18 @@ def evaluate_baseline(
         result = _evaluate_sugarcrepe(
             annotation_file, image_root, model, cache, evaluation, common, use_cache=use_cache
         )
+    elif dataset in {"aro", "winoground", "bivlc"}:
+        extended = evaluate_extended_benchmark(
+            dataset,
+            annotation_file,
+            image_root,
+            model,
+            cache,
+            evaluation,
+            common,
+            use_cache=use_cache,
+        )
+        result = BaselineEvaluation(extended.metrics, extended.metadata, extended.predictions)
     else:
         raise ValueError(f"unsupported baseline dataset: {data['dataset']!r}")
     return _with_runtime_metadata(result, time.perf_counter() - started, model)
@@ -157,28 +171,32 @@ def _evaluate_retrieval(
 
     ranking_batch_size = int(evaluation.get("ranking_batch_size", 128))
     ranking_started = time.perf_counter()
-    i2t = rank_queries(
+    image_to_text = rank_queries(
         image_cache.embeddings,
         text_cache.embeddings,
         image_positives,
         batch_size=ranking_batch_size,
     )
-    t2i = rank_queries(
+    text_to_image = rank_queries(
         text_cache.embeddings,
         image_cache.embeddings,
         caption_positives,
         batch_size=ranking_batch_size,
     )
-    metrics = summarize_ranks(i2t, t2i, evaluation["recall_at"])
+    metrics = summarize_ranks(image_to_text, text_to_image, evaluation["recall_at"])
     ranking_seconds = time.perf_counter() - ranking_started
 
     predictions: list[dict[str, Any]] = []
     for index, record in enumerate(records):
         predictions.append(
-            _rank_prediction("image_to_text", record.image_id, i2t, index, caption_ids)
+            _rank_prediction(
+                "image_to_text", record.image_id, image_to_text, index, caption_ids
+            )
         )
     for index, caption_id in enumerate(caption_ids):
-        predictions.append(_rank_prediction("text_to_image", caption_id, t2i, index, image_ids))
+        predictions.append(
+            _rank_prediction("text_to_image", caption_id, text_to_image, index, image_ids)
+        )
 
     metadata = {
         **common,
@@ -266,14 +284,12 @@ def _evaluate_sugarcrepe(
     pairwise = evaluate_pairwise_scores(positive_scores, negative_scores)
     scoring_seconds = time.perf_counter() - scoring_started
     categories = [record.category for record in records]
-    required_categories = evaluation.get("required_categories")
-    if required_categories is not None:
-        expected, observed = set(required_categories), set(categories)
-        if observed != expected:
-            raise ValueError(
-                "SugarCrepe category mismatch: "
-                f"missing={sorted(expected - observed)}, unexpected={sorted(observed - expected)}"
-            )
+    _require_exact_values(
+        evaluation,
+        "required_categories",
+        categories,
+        label="SugarCrepe category",
+    )
     _require_expected_count(evaluation, "expected_num_samples", len(records))
     metrics = summarize_pairwise(pairwise, categories)
     predictions = [
@@ -360,6 +376,25 @@ def _require_expected_count(evaluation: dict[str, Any], key: str, observed: int)
         raise ValueError(f"evaluation.{key} expected {expected}, observed {observed}")
 
 
+def _require_exact_values(
+    evaluation: dict[str, Any],
+    key: str,
+    observed_values: list[str],
+    *,
+    label: str,
+) -> None:
+    required = evaluation.get(key)
+    if required is None:
+        return
+    expected = set(required)
+    observed = set(observed_values)
+    if observed != expected:
+        raise ValueError(
+            f"{label} mismatch: missing={sorted(expected - observed)}, "
+            f"unexpected={sorted(observed - expected)}"
+        )
+
+
 def _validate_baseline_config(config: dict[str, Any], *, require_openclip: bool) -> None:
     required = (
         "data.annotation_file",
@@ -373,32 +408,45 @@ def _validate_baseline_config(config: dict[str, Any], *, require_openclip: bool)
             if not isinstance(value, dict) or part not in value:
                 raise ValueError(f"baseline configuration is missing {dotted}")
             value = value[part]
+
     for key in ("image_batch_size", "text_batch_size", "ranking_batch_size"):
         value = config["evaluation"].get(key, 128 if key == "ranking_batch_size" else None)
         if not isinstance(value, int) or isinstance(value, bool) or value <= 0:
             raise ValueError(f"evaluation.{key} must be a positive integer")
+
     protocol = config["evaluation"].get("protocol")
     if not isinstance(protocol, str) or not protocol.strip():
         raise ValueError("evaluation.protocol must be a non-empty string")
+
     for key in ("expected_num_images", "expected_num_captions", "expected_num_samples"):
         value = config["evaluation"].get(key)
         if value is not None and (
             not isinstance(value, int) or isinstance(value, bool) or value <= 0
         ):
             raise ValueError(f"evaluation.{key} must be a positive integer")
-    categories = config["evaluation"].get("required_categories")
-    if categories is not None and (
-        not isinstance(categories, list)
-        or not categories
-        or any(not isinstance(item, str) or not item.strip() for item in categories)
-        or len(set(categories)) != len(categories)
-    ):
-        raise ValueError("evaluation.required_categories must be unique non-empty strings")
+
+    for key in ("required_categories", "required_subsets"):
+        values = config["evaluation"].get(key)
+        if values is not None and (
+            not isinstance(values, list)
+            or not values
+            or any(not isinstance(item, str) or not item.strip() for item in values)
+            or len(set(values)) != len(values)
+        ):
+            raise ValueError(f"evaluation.{key} must be unique non-empty strings")
+
+    require_multiset = config["evaluation"].get(
+        "require_caption_token_multiset_match", False
+    )
+    if not isinstance(require_multiset, bool):
+        raise ValueError("evaluation.require_caption_token_multiset_match must be a boolean")
     if config["evaluation"].get("normalize_embeddings", True) is not True:
         raise ValueError("credible baseline evaluation requires normalized embeddings")
     if not isinstance(config["evaluation"].get("save_predictions", True), bool):
         raise ValueError("evaluation.save_predictions must be a boolean")
-    if str(config["data"]["dataset"]).lower() not in {"flickr30k", "mscoco", "sugarcrepe"}:
+
+    supported = {"flickr30k", "mscoco", "sugarcrepe", "aro", "winoground", "bivlc"}
+    if str(config["data"]["dataset"]).lower() not in supported:
         raise ValueError(f"unsupported baseline dataset: {config['data']['dataset']!r}")
     if require_openclip and config["model"]["framework"] != "open_clip":
         raise ValueError("run-baseline currently requires model.framework=open_clip")

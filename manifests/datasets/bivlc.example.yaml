@@ -1,0 +1,21 @@
+schema_version: 1
+name: bivlc
+version: official-human-filtered-v1
+source: replace-with-authorized-source
+license: verify-upstream-terms
+downloaded_at: null
+splits:
+  test: null
+files: []
+processing:
+  format: recoalign-paired-matrix-jsonl-v1
+  source_annotation: source/bivlc.jsonl
+  image_inventory: inventories/images.jsonl
+  inventory_splits: [test]
+  image_hashes: false
+  categories: {}
+  tags: {}
+  caption_token_multiset_match_rate: null
+notes: >-
+  Template only. Export the human-filtered official BiVLC records to local paths, run
+  `recoalign prepare-bivlc`, and hash images before reportable evaluation.

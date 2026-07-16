@@ -1,0 +1,19 @@
+schema_version: 1
+name: aro
+version: replace-with-official-export-version
+source: replace-with-authorized-source
+license: verify-upstream-terms
+downloaded_at: null
+splits:
+  test: null
+files: []
+processing:
+  format: recoalign-multichoice-jsonl-v1
+  source_annotation: source/aro.jsonl
+  image_inventory: inventories/images.jsonl
+  inventory_splits: [test]
+  image_hashes: false
+  subsets: {}
+notes: >-
+  Template only. Prepare Visual Genome Attribution/Relation and COCO/Flickr30K Order through
+  `recoalign prepare-aro`; use --hash-images before promoting results.
