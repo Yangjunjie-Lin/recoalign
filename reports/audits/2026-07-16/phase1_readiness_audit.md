@@ -27,12 +27,13 @@ operational metadata, not permanent experimental conclusions.
 
 - Audit branch: `experiment/phase-1-real-baselines`.
 - Branch pushed: yes.
-- Audit snapshot commit: `db2e799d48a6b68082a0d4b2e9c9381b8bb64d89`.
+- Audit snapshot commit: `0bd4b2a64916d3954d5fd2c2cd5d7861dfeb04ba`.
 - `origin/main`: `9249c5cbee9213400fdb6ae36844202368649282`.
 - `origin/develop`: `0160d3cdb844312e555f6ec2fb1509754bd4d632`.
-- Snapshot versus `origin/main`: 1 ahead, 0 behind.
-- Snapshot versus `origin/develop`: 2 ahead, 0 behind.
-- Pull request: not created at this snapshot; the public GitHub API returned an empty result.
+- Snapshot versus `origin/main`: 2 ahead, 0 behind.
+- Snapshot versus `origin/develop`: 3 ahead, 0 behind.
+- Pull request: open, [#7](https://github.com/Yangjunjie-Lin/recoalign/pull/7), targeting
+  `develop` from `experiment/phase-1-real-baselines`.
 - Merge to `develop`: no.
 - Merge to `main`: no.
 
@@ -100,9 +101,10 @@ formal-manifest verification attempt returned exit code 2 with `manifest does no
 
 ### GitHub Actions evidence
 
-`NOT_RUN` for this readiness revision at the snapshot above because no pull request existed and the
-workflow only triggers for pull requests or pushes to `main`. Local results are not represented as
-CI results.
+`COMPLETE` for audit snapshot `0bd4b2a64916d3954d5fd2c2cd5d7861dfeb04ba`. Pull request #7
+triggered [Actions run 29475564453](https://github.com/Yangjunjie-Lin/recoalign/actions/runs/29475564453);
+both `quality (3.10)` and `quality (3.11)` completed successfully. This evidence applies to the
+named snapshot commit. Local results are not represented as CI results.
 
 ### Blocked checks
 
