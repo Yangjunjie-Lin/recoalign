@@ -7,6 +7,7 @@ from pathlib import Path
 from types import ModuleType
 
 import pytest
+import yaml
 
 from recoalign.experiments.records import create_run, finalize_run
 from recoalign.reproducibility import atomic_write_json
@@ -178,6 +179,10 @@ def _run_fixture(
 ) -> Path:
     config = research_config
     config["data"]["dataset"] = "winoground"
+    manifest_path = Path(config["data"]["manifest"])
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest["name"] = "winoground"
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
     run_dir = create_run(config, output_root=tmp_path / "runs", run_id=run_id)
     metrics = {
         "image_to_text_accuracy": 100.0,

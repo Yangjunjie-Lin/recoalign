@@ -124,6 +124,11 @@ metadata, a recorded UTC acquisition/export time, and the canonical 400-sample s
 marked `requires_regeneration_from_pinned_revision`, `synthetic_or_unverified`, or
 `template_not_generated` are rejected by `promote-run`.
 
+For reportable image runs, `image_hashes=true` is only a declaration, not evidence by itself. The
+image inventory must be manifest-declared and non-empty, and every inventory row's relative path,
+byte size, and SHA-256 must verify against the local image. Promotion also requires the resolved
+config, run record, and snapshotted dataset manifest to agree on the dataset name and split.
+
 ## Running the matrix
 
 Each of the three frozen encoders has ARO, Winoground, and BiVLC configs. For example:

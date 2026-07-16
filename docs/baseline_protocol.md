@@ -75,6 +75,11 @@ A number is not reportable unless the run contains:
 6. aggregate metrics plus per-query or per-sample predictions;
 7. an independent `promote-run` review.
 
+Setting `image_hashes=true` is not sufficient for reportability. The declared image inventory must
+itself be listed in the dataset manifest, be non-empty, and contain a verified byte size and SHA-256
+for every image. The dataset name and split in the resolved config, run record, and dataset manifest
+must also agree before promotion.
+
 Embedding caches are keyed by model identity, dataset manifest, annotation digest, split, and
 protocol version. Cache hits and misses are recorded in `evaluation.json`.
 

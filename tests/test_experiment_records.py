@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 import yaml
 
+from recoalign.data.manifest import sha256_file
 from recoalign.experiments.records import create_run, fail_run, finalize_run, promote_run
 from recoalign.reproducibility import atomic_write_json
 from recoalign.schema_validation import validate_payload
@@ -105,7 +106,46 @@ def test_promote_requires_hashed_image_inventory(tmp_path, research_config) -> N
     run_dir = create_run(research_config, output_root=tmp_path, run_id="fixed-run")
     finalize_run(run_dir, {"R@1": 50}, status="complete")
     _set_clean_git(run_dir)
-    with pytest.raises(ValueError, match="SHA-256 image inventory"):
+    with pytest.raises(ValueError, match="require image_hashes=true"):
+        promote_run(run_dir, reviewed_by="Research Reviewer")
+
+
+def test_promote_rejects_winoground_image_hash_flag_without_inventory(
+    tmp_path, research_config
+) -> None:
+    run_dir = _complete_winoground_run(
+        tmp_path,
+        research_config,
+        remove_processing=("image_inventory",),
+    )
+
+    with pytest.raises(ValueError, match="require an image inventory"):
+        promote_run(run_dir, reviewed_by="Research Reviewer")
+
+
+def test_promote_rejects_undeclared_winoground_image_inventory(
+    tmp_path, research_config
+) -> None:
+    run_dir = _complete_winoground_run(
+        tmp_path,
+        research_config,
+        declare_inventory=False,
+    )
+
+    with pytest.raises(ValueError, match="not declared in manifest files"):
+        promote_run(run_dir, reviewed_by="Research Reviewer")
+
+
+def test_promote_rejects_winoground_inventory_row_without_sha256(
+    tmp_path, research_config
+) -> None:
+    run_dir = _complete_winoground_run(
+        tmp_path,
+        research_config,
+        remove_inventory_row=("sha256",),
+    )
+
+    with pytest.raises(ValueError, match="row missing sha256"):
         promote_run(run_dir, reviewed_by="Research Reviewer")
 
 
@@ -236,7 +276,7 @@ def test_promote_rejects_invalid_canonical_winoground_content_check(
     [
         ("source_dataset", "local/winoground", "source_dataset must be facebook/winoground"),
         ("source_split", "validation", "source_split must be test"),
-        ("image_hashes", False, "require hashed images"),
+        ("image_hashes", False, "require image_hashes=true"),
     ],
 )
 def test_promote_rejects_invalid_winoground_source_contract(
@@ -266,6 +306,96 @@ def test_complete_pinned_winoground_manifest_passes_promotion_gate_fixture(
     assert record["status"] == "reportable"
 
 
+def test_create_run_rejects_config_dataset_manifest_mismatch(
+    tmp_path, research_config
+) -> None:
+    research_config["data"]["dataset"] = "winoground"
+
+    with pytest.raises(
+        ValueError,
+        match="dataset identity mismatch: config declares winoground but manifest declares toy",
+    ):
+        create_run(research_config, output_root=tmp_path, run_id="identity-mismatch")
+
+
+def test_create_run_rejects_split_missing_from_manifest(tmp_path, research_config) -> None:
+    research_config["data"]["split"] = "validation"
+
+    with pytest.raises(
+        ValueError,
+        match="split validation is not declared by manifest toy",
+    ):
+        create_run(research_config, output_root=tmp_path, run_id="split-mismatch")
+
+
+def test_promote_rejects_tampered_run_dataset(tmp_path, research_config) -> None:
+    run_dir = _complete_toy_run(tmp_path, research_config, "tampered-run-dataset")
+    _update_run_record(run_dir, dataset="synthetic")
+
+    with pytest.raises(ValueError, match="run dataset does not match resolved config"):
+        promote_run(run_dir, reviewed_by="Research Reviewer")
+
+
+def test_promote_rejects_tampered_resolved_config_dataset(
+    tmp_path, research_config
+) -> None:
+    run_dir = _complete_toy_run(tmp_path, research_config, "tampered-config-dataset")
+    config_path = run_dir / "config.resolved.yaml"
+    config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+    config["data"]["dataset"] = "synthetic"
+    config_path.write_text(yaml.safe_dump(config, sort_keys=True), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="run dataset does not match resolved config"):
+        promote_run(run_dir, reviewed_by="Research Reviewer")
+
+
+def test_promote_rejects_tampered_snapshot_manifest_name(
+    tmp_path, research_config
+) -> None:
+    run_dir = _complete_toy_run(tmp_path, research_config, "tampered-manifest-name")
+    manifest_path = run_dir / "manifests" / "dataset.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest["name"] = "synthetic"
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="manifest name does not match run dataset"):
+        promote_run(run_dir, reviewed_by="Research Reviewer")
+
+
+def test_promote_rejects_tampered_run_split(tmp_path, research_config) -> None:
+    run_dir = _complete_toy_run(tmp_path, research_config, "tampered-run-split")
+    _update_run_record(run_dir, dataset_split="validation")
+
+    with pytest.raises(ValueError, match="run dataset split does not match resolved config"):
+        promote_run(run_dir, reviewed_by="Research Reviewer")
+
+
+def test_promote_rejects_snapshot_manifest_without_run_split(
+    tmp_path, research_config
+) -> None:
+    run_dir = _complete_toy_run(tmp_path, research_config, "missing-manifest-split")
+    manifest_path = run_dir / "manifests" / "dataset.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest["splits"] = {"validation": 1}
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="dataset manifest does not declare run split"):
+        promote_run(run_dir, reviewed_by="Research Reviewer")
+
+
+def test_promote_rejects_tampered_snapshot_manifest_digest(
+    tmp_path, research_config
+) -> None:
+    run_dir = _complete_toy_run(tmp_path, research_config, "tampered-manifest-digest")
+    manifest_path = run_dir / "manifests" / "dataset.yaml"
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest["notes"] = "tampered after run creation"
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="digest does not match snapshotted manifest"):
+        promote_run(run_dir, reviewed_by="Research Reviewer")
+
+
 def _complete_winoground_run(
     tmp_path: Path,
     research_config,
@@ -273,9 +403,32 @@ def _complete_winoground_run(
     processing_updates: dict[str, object] | None = None,
     remove_processing: tuple[str, ...] = (),
     manifest_updates: dict[str, object] | None = None,
+    declare_inventory: bool = True,
+    remove_inventory_row: tuple[str, ...] = (),
 ) -> Path:
     manifest_path = Path(research_config["data"]["manifest"])
     manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    dataset_root = Path(research_config["data"]["root"])
+    image_path = dataset_root / "images" / "synthetic-image.bin"
+    image_path.parent.mkdir(parents=True, exist_ok=True)
+    image_path.write_bytes(b"synthetic-image-bytes")
+    inventory_row = {
+        "path": "images/synthetic-image.bin",
+        "bytes": image_path.stat().st_size,
+        "sha256": sha256_file(image_path),
+    }
+    for field in remove_inventory_row:
+        inventory_row.pop(field, None)
+    inventory_path = dataset_root / "inventories" / "images.jsonl"
+    inventory_path.parent.mkdir(parents=True, exist_ok=True)
+    inventory_path.write_text(json.dumps(inventory_row) + "\n", encoding="utf-8")
+    inventory_entry = {
+        "path": "inventories/images.jsonl",
+        "bytes": inventory_path.stat().st_size,
+        "sha256": sha256_file(inventory_path),
+    }
+    if declare_inventory:
+        manifest["files"].append(inventory_entry)
     manifest.update(
         {
             "name": "winoground",
@@ -287,6 +440,7 @@ def _complete_winoground_run(
                 "source_split": "test",
                 "source_revision": REVISION,
                 "exporter_version": "winoground-hf-export-v2",
+                "image_inventory": "inventories/images.jsonl",
                 "image_hashes": True,
                 "caption_alphanumeric_character_multiset_match_rate": 100.0,
                 "caption_alphanumeric_character_multiset_method": CONTENT_CHECK_METHOD,
@@ -304,3 +458,18 @@ def _complete_winoground_run(
     finalize_run(run_dir, {"group_accuracy": 50.0}, status="complete")
     _set_clean_git(run_dir)
     return run_dir
+
+
+def _complete_toy_run(tmp_path: Path, research_config, run_id: str) -> Path:
+    run_dir = create_run(research_config, output_root=tmp_path, run_id=run_id)
+    finalize_run(run_dir, {"R@1": 50.0}, status="complete")
+    _set_clean_git(run_dir)
+    return run_dir
+
+
+def _update_run_record(run_dir: Path, **updates: object) -> None:
+    run_path = run_dir / "run.json"
+    record = json.loads(run_path.read_text(encoding="utf-8"))
+    record.update(updates)
+    validate_payload("run", record)
+    atomic_write_json(run_path, record)

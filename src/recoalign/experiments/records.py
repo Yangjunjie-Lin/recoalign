@@ -16,6 +16,7 @@ from recoalign.data.manifest import (
     load_checkpoint_manifest,
     load_dataset_manifest,
     snapshot_manifest,
+    verify_hashed_image_inventory,
     verify_manifest_files,
 )
 from recoalign.reproducibility import atomic_write_json, collect_environment, utc_now
@@ -43,13 +44,15 @@ def create_run(
     run_dir = root / identifier
     if run_dir.exists():
         raise FileExistsError(f"run directory already exists: {run_dir}")
-    run_dir.mkdir(parents=True)
 
     project_root = repository_root()
     dataset_manifest_path = _resolve_path(config["data"]["manifest"], project_root)
     checkpoint_manifest_path = _resolve_path(config["model"]["manifest"], project_root)
     dataset_manifest = load_dataset_manifest(dataset_manifest_path)
     checkpoint_manifest = load_checkpoint_manifest(checkpoint_manifest_path)
+    _validate_dataset_identity(config, dataset_manifest)
+
+    run_dir.mkdir(parents=True)
 
     dataset_root = _resolve_path(config["data"]["root"], project_root)
     checkpoint_root = _resolve_path(config["model"].get("checkpoint_root", "."), project_root)
@@ -171,20 +174,22 @@ def promote_run(
 
     config = _load_yaml(directory / "config.resolved.yaml")
     project_root = repository_root()
-    dataset_manifest = load_dataset_manifest(directory / "manifests" / "dataset.yaml")
+    dataset_manifest_path = directory / "manifests" / "dataset.yaml"
+    dataset_manifest = load_dataset_manifest(dataset_manifest_path)
+    _validate_run_dataset_identity(record, config, dataset_manifest)
+    if file_digest(dataset_manifest_path) != record["dataset_manifest_sha256"]:
+        raise ValueError("run dataset manifest digest does not match snapshotted manifest")
     dataset_root = _resolve_path(config["data"]["root"], project_root)
+    _validate_reportable_image_inventory(record["dataset"], dataset_root, dataset_manifest)
     dataset_verification = _verification_record(dataset_root, dataset_manifest)
     if dataset_verification["status"] != "passed" or dataset_verification["declared_files"] <= 0:
         raise ValueError("dataset files must be declared and verified before promotion")
-    processing = dataset_manifest.get("processing") or {}
-    if processing.get("image_inventory") and processing.get("image_hashes") is not True:
-        raise ValueError(
-            "reportable image benchmarks require a SHA-256 image inventory; "
-            "rerun dataset preparation with --hash-images"
-        )
     _validate_reportable_dataset_provenance(record["dataset"], dataset_manifest)
 
-    checkpoint_manifest = load_checkpoint_manifest(directory / "manifests" / "checkpoint.yaml")
+    checkpoint_manifest_path = directory / "manifests" / "checkpoint.yaml"
+    checkpoint_manifest = load_checkpoint_manifest(checkpoint_manifest_path)
+    if file_digest(checkpoint_manifest_path) != record["checkpoint_manifest_sha256"]:
+        raise ValueError("run checkpoint manifest digest does not match snapshotted manifest")
     checkpoint_root = _resolve_path(config["model"].get("checkpoint_root", "."), project_root)
     checkpoint_verification = _verification_record(checkpoint_root, checkpoint_manifest)
     if checkpoint_verification["status"] == "failed":
@@ -237,6 +242,55 @@ def _verification_record(root: Path, manifest: dict[str, Any]) -> dict[str, Any]
         "declared_files": declared_files,
         "failures": failures,
     }
+
+
+def _validate_dataset_identity(config: dict[str, Any], manifest: dict[str, Any]) -> None:
+    configured_dataset = config["data"]["dataset"]
+    manifest_dataset = manifest["name"]
+    if configured_dataset != manifest_dataset:
+        raise ValueError(
+            "dataset identity mismatch: "
+            f"config declares {configured_dataset} but manifest declares {manifest_dataset}"
+        )
+    configured_split = config["data"]["split"]
+    if configured_split not in manifest["splits"]:
+        raise ValueError(
+            "dataset split mismatch: "
+            f"split {configured_split} is not declared by manifest {manifest_dataset}"
+        )
+
+
+def _validate_run_dataset_identity(
+    record: dict[str, Any],
+    config: dict[str, Any],
+    manifest: dict[str, Any],
+) -> None:
+    configured_dataset = config["data"]["dataset"]
+    if record["dataset"] != configured_dataset:
+        raise ValueError("run dataset does not match resolved config")
+    if manifest["name"] != record["dataset"]:
+        raise ValueError("dataset manifest name does not match run dataset")
+
+    configured_split = config["data"]["split"]
+    if record["dataset_split"] != configured_split:
+        raise ValueError("run dataset split does not match resolved config")
+    if record["dataset_split"] not in manifest["splits"]:
+        raise ValueError("dataset manifest does not declare run split")
+
+
+def _validate_reportable_image_inventory(
+    dataset_name: str,
+    dataset_root: Path,
+    manifest: dict[str, Any],
+) -> None:
+    processing = manifest.get("processing")
+    has_inventory = isinstance(processing, dict) and "image_inventory" in processing
+    if dataset_name != "winoground" and not has_inventory:
+        return
+    failures = verify_hashed_image_inventory(dataset_root, manifest)
+    if failures:
+        preview = "; ".join(failures[:5])
+        raise ValueError(f"hashed image inventory verification failed: {preview}")
 
 
 def _validate_reportable_dataset_provenance(

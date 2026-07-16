@@ -7,6 +7,7 @@ from pathlib import Path
 from types import ModuleType
 
 import numpy as np
+import yaml
 
 from recoalign.evaluation.diagnostics import (
     evaluate_paired_matrix_scores,
@@ -68,6 +69,10 @@ def _run_fixture(tmp_path: Path, research_config) -> Path:
 
     config = research_config
     config["data"]["dataset"] = "winoground"
+    manifest_path = Path(config["data"]["manifest"])
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest["name"] = "winoground"
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
     run_dir = create_run(config, output_root=tmp_path / "runs", run_id="winoground-test")
     scores = np.asarray(
         [
