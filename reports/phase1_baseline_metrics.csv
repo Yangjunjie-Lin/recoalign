@@ -1,0 +1,19 @@
+model_id,benchmark,execution_status,run_status,reportability_status,metrics,blocker
+openai_vit_b32,flickr30k,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openai_vit_b32,mscoco,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openai_vit_b32,sugarcrepe,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openai_vit_b32,aro,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openai_vit_b32,winoground,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openai_vit_b32,bivlc,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b32_laion2b,flickr30k,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b32_laion2b,mscoco,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b32_laion2b,sugarcrepe,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b32_laion2b,aro,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b32_laion2b,winoground,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b32_laion2b,bivlc,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b16_laion2b,flickr30k,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b16_laion2b,mscoco,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b16_laion2b,sugarcrepe,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b16_laion2b,aro,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b16_laion2b,winoground,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent
+openclip_vit_b16_laion2b,bivlc,blocked by missing data,NOT RUN,NOT RUN,NOT RUN,formal dataset snapshot and manifest absent

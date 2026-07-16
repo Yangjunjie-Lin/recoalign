@@ -1,0 +1,7 @@
+benchmark,classification,status,verification_exit_code,missing_root,missing_annotation,missing_image_root,missing_manifest,error
+flickr30k,missing_data,blocked,2,data/flickr30k,data/flickr30k/annotations/test.jsonl,data/flickr30k/images,manifests/datasets/flickr30k.yaml,error: manifest does not exist: manifests/datasets/flickr30k.yaml
+mscoco,missing_data,blocked,2,data/mscoco,data/mscoco/annotations/test.jsonl,data/mscoco/images,manifests/datasets/mscoco.yaml,error: manifest does not exist: manifests/datasets/mscoco.yaml
+sugarcrepe,missing_data,blocked,2,data/sugarcrepe,data/sugarcrepe/annotations/test.jsonl,data/sugarcrepe/images/val2017,manifests/datasets/sugarcrepe.yaml,error: manifest does not exist: manifests/datasets/sugarcrepe.yaml
+aro,missing_data,blocked,2,data/aro,data/aro/annotations/test.jsonl,data/aro/images,manifests/datasets/aro.yaml,error: manifest does not exist: manifests/datasets/aro.yaml
+winoground,missing_data,blocked,2,data/winoground,data/winoground/annotations/test.jsonl,data/winoground/images,manifests/datasets/winoground.yaml,error: manifest does not exist: manifests/datasets/winoground.yaml
+bivlc,missing_data,blocked,2,data/bivlc,data/bivlc/annotations/test.jsonl,data/bivlc/images,manifests/datasets/bivlc.yaml,error: manifest does not exist: manifests/datasets/bivlc.yaml
