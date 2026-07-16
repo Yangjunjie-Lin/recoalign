@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import json
 import math
+import re
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -21,6 +23,7 @@ from recoalign.schema_validation import repository_root, validate_payload
 
 RUN_STATUSES = {"pilot", "partial", "failed", "complete", "reportable"}
 FINALIZABLE_STATUSES = RUN_STATUSES - {"reportable"}
+WINOGROUND_CONTENT_CHECK_METHOD = "casefolded_alphanumeric_character_multiset_v1"
 
 
 def create_run(
@@ -179,6 +182,7 @@ def promote_run(
             "reportable image benchmarks require a SHA-256 image inventory; "
             "rerun dataset preparation with --hash-images"
         )
+    _validate_reportable_dataset_provenance(record["dataset"], dataset_manifest)
 
     checkpoint_manifest = load_checkpoint_manifest(directory / "manifests" / "checkpoint.yaml")
     checkpoint_root = _resolve_path(config["model"].get("checkpoint_root", "."), project_root)
@@ -233,6 +237,58 @@ def _verification_record(root: Path, manifest: dict[str, Any]) -> dict[str, Any]
         "declared_files": declared_files,
         "failures": failures,
     }
+
+
+def _validate_reportable_dataset_provenance(
+    dataset_name: str,
+    manifest: dict[str, Any],
+) -> None:
+    """Enforce dataset-specific provenance required for reportable promotion."""
+    if dataset_name != "winoground":
+        return
+
+    processing = manifest.get("processing")
+    if not isinstance(processing, dict):
+        raise ValueError("Winoground dataset provenance is not pinned and verified")
+    if processing.get("provenance_status") != "pinned_revision_verified":
+        raise ValueError("Winoground dataset provenance is not pinned and verified")
+    if processing.get("source_dataset") != "facebook/winoground":
+        raise ValueError("Winoground source_dataset must be facebook/winoground")
+    if processing.get("source_split") != "test":
+        raise ValueError("Winoground source_split must be test")
+
+    revision = processing.get("source_revision")
+    if not isinstance(revision, str) or re.fullmatch(r"[0-9a-fA-F]{40}", revision) is None:
+        raise ValueError("Winoground source_revision must be a 40-character commit SHA")
+    exporter_version = processing.get("exporter_version")
+    if not isinstance(exporter_version, str) or not exporter_version.strip():
+        raise ValueError("Winoground exporter_version is missing")
+    if not _is_rfc3339_utc(manifest.get("downloaded_at")):
+        raise ValueError("Winoground downloaded_at is missing or invalid")
+    if manifest.get("splits", {}).get("test") != 400:
+        raise ValueError("Winoground reportable runs require exactly 400 test samples")
+    if processing.get("image_hashes") is not True:
+        raise ValueError("Winoground reportable runs require hashed images")
+
+    match_rate = processing.get("caption_alphanumeric_character_multiset_match_rate")
+    method = processing.get("caption_alphanumeric_character_multiset_method")
+    if (
+        isinstance(match_rate, bool)
+        or not isinstance(match_rate, (int, float))
+        or float(match_rate) != 100.0
+        or method != WINOGROUND_CONTENT_CHECK_METHOD
+    ):
+        raise ValueError("Winoground caption content check is missing or invalid")
+
+
+def _is_rfc3339_utc(value: Any) -> bool:
+    if not isinstance(value, str) or not value.strip():
+        return False
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    return parsed.tzinfo is not None and parsed.utcoffset() == timezone.utc.utcoffset(parsed)
 
 
 def _resolve_path(value: str | Path, project_root: Path) -> Path:

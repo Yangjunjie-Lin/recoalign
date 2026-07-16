@@ -121,5 +121,5 @@ processing:
   image_hashes: true
 notes: Each row contains two images and two captions with diagonal ground-truth matches.
   The content check compares case-folded alphanumeric character frequencies without changing
-  caption text. The committed hashes predate pinned-revision provenance and must not be used for
-  a reportable run until the local snapshot is regenerated or verified from a fixed revision.
+  caption text. This manifest can verify the historical local file snapshot but is intentionally
+  ineligible for reportable promotion until regenerated from a pinned official revision.

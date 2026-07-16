@@ -259,6 +259,7 @@ def _prepare_paired_matrix(
                 rows,
                 source_revision=source_revision,
                 exporter_version=exporter_version,
+                downloaded_at=downloaded_at,
             ),
         }
     else:
@@ -477,34 +478,88 @@ def _winoground_provenance(
     *,
     source_revision: str | None,
     exporter_version: str | None,
+    downloaded_at: str | None,
 ) -> dict[str, Any]:
-    row_dataset = _consistent_metadata_value(rows, "source_dataset")
-    row_split = _consistent_metadata_value(rows, "source_split")
-    row_revision = _consistent_metadata_value(rows, "source_revision")
-    row_exporter = _consistent_metadata_value(rows, "exporter_version")
-    revision = _resolve_provenance_value(source_revision, row_revision, "source_revision")
-    exporter = _resolve_provenance_value(exporter_version, row_exporter, "exporter_version")
-    if revision is not None and not re.fullmatch(r"[0-9a-fA-F]{40}", revision):
-        raise ValueError("source_revision must be a 40-character commit SHA")
+    formal_snapshot = len(rows) == 400
+    if formal_snapshot:
+        row_dataset = _required_consistent_metadata_value(rows, "source_dataset")
+        row_split = _required_consistent_metadata_value(rows, "source_split")
+        revision = _required_consistent_metadata_value(rows, "source_revision")
+        exporter = _required_consistent_metadata_value(rows, "exporter_version")
+        _validate_explicit_provenance(source_revision, revision, "source_revision")
+        _validate_explicit_provenance(exporter_version, exporter, "exporter_version")
+        if row_dataset != "facebook/winoground":
+            raise ValueError(
+                "formal Winoground snapshot source_dataset must be facebook/winoground"
+            )
+        if row_split != "test":
+            raise ValueError("formal Winoground snapshot source_split must be test")
+        if re.fullmatch(r"[0-9a-fA-F]{40}", revision) is None:
+            raise ValueError(
+                "formal Winoground snapshot source_revision must be a 40-character commit SHA"
+            )
+        if downloaded_at is None:
+            raise ValueError("formal Winoground snapshot requires downloaded_at")
+        provenance_status = "pinned_revision_verified"
+    else:
+        row_dataset = _consistent_metadata_value(rows, "source_dataset")
+        row_split = _consistent_metadata_value(rows, "source_split")
+        row_revision = _consistent_metadata_value(rows, "source_revision")
+        row_exporter = _consistent_metadata_value(rows, "exporter_version")
+        revision = _resolve_optional_provenance(
+            source_revision, row_revision, "source_revision"
+        )
+        exporter = _resolve_optional_provenance(
+            exporter_version, row_exporter, "exporter_version"
+        )
+        if revision is not None and re.fullmatch(r"[0-9a-fA-F]{40}", revision) is None:
+            raise ValueError("source_revision must be a 40-character commit SHA")
+        provenance_status = "synthetic_or_unverified"
     return {
         "source_dataset": row_dataset,
         "source_split": row_split,
         "source_revision": revision,
         "exporter_version": exporter,
+        "provenance_status": provenance_status,
     }
 
 
 def _consistent_metadata_value(rows: list[dict[str, Any]], field: str) -> str | None:
-    values = {row["metadata"].get(field) for row in rows}
-    if len(values) != 1:
+    values = [row["metadata"].get(field) for row in rows]
+    if any(value != values[0] for value in values[1:]):
         raise ValueError(f"Winoground rows disagree on metadata.{field}")
-    value = values.pop()
+    value = values[0]
     if value is None:
         return None
     return _nonempty_text(value, f"Winoground metadata.{field}")
 
 
-def _resolve_provenance_value(
+def _required_consistent_metadata_value(rows: list[dict[str, Any]], field: str) -> str:
+    if any(field not in row["metadata"] or row["metadata"][field] is None for row in rows):
+        if field == "source_revision":
+            raise ValueError("formal Winoground snapshot is missing pinned row source_revision")
+        if field == "exporter_version":
+            raise ValueError("formal Winoground snapshot is missing row exporter_version")
+        raise ValueError(f"formal Winoground snapshot is missing row metadata.{field}")
+    value = _consistent_metadata_value(rows, field)
+    if value is None:
+        raise ValueError(f"formal Winoground snapshot is missing row metadata.{field}")
+    return value
+
+
+def _validate_explicit_provenance(
+    explicit: str | None,
+    recorded: str,
+    field: str,
+) -> None:
+    if explicit is None:
+        return
+    normalized = _nonempty_argument(explicit, field)
+    if normalized != recorded:
+        raise ValueError(f"{field} does not match exported row metadata")
+
+
+def _resolve_optional_provenance(
     explicit: str | None,
     recorded: str | None,
     field: str,

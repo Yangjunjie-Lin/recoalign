@@ -118,6 +118,12 @@ generate a test-image inventory, and create a manifest with SHA-256 hashes. For 
 `downloaded_at` must be the RFC 3339 UTC timestamp from the export summary (or another explicitly
 recorded export timestamp); it is never inferred from a filesystem clock.
 
+For Winoground, file hashes alone are insufficient for reportability. A reportable run requires a
+manifest generated from an official pinned 40-character Hugging Face revision, consistent exporter
+metadata, a recorded UTC acquisition/export time, and the canonical 400-sample split. Manifests
+marked `requires_regeneration_from_pinned_revision`, `synthetic_or_unverified`, or
+`template_not_generated` are rejected by `promote-run`.
+
 ## Running the matrix
 
 Each of the three frozen encoders has ARO, Winoground, and BiVLC configs. For example:
