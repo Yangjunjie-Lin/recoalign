@@ -8,6 +8,11 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from recoalign.benchmarks.caption_multisets import (
+    WHITESPACE_TOKEN_MULTISET,
+    caption_multiset_matches,
+)
+
 
 @dataclass(frozen=True)
 class MultiChoiceEvaluation:
@@ -224,15 +229,21 @@ def summarize_paired_matrix(
     return metrics
 
 
-def token_multiset_match_rate(caption_pairs: Sequence[tuple[str, str]]) -> float:
-    """Return how often both captions contain the same case-insensitive whitespace tokens."""
+def token_multiset_match_rate(
+    caption_pairs: Sequence[tuple[str, str]],
+    *,
+    method: str = WHITESPACE_TOKEN_MULTISET,
+) -> float:
+    """Return the match rate under an explicit caption-content multiset policy."""
     if not caption_pairs:
         raise ValueError("caption_pairs must be non-empty")
 
-    def token_bag(text: str) -> Counter[str]:
-        return Counter(text.lower().split())
-
     return float(
-        np.mean([token_bag(first) == token_bag(second) for first, second in caption_pairs])
+        np.mean(
+            [
+                caption_multiset_matches(first, second, method=method)
+                for first, second in caption_pairs
+            ]
+        )
         * 100.0
     )

@@ -1,0 +1,116 @@
+schema_version: 1
+name: winoground
+version: official-400-v1
+source: facebook/winoground official Hugging Face dataset, test split
+license: Meta Images Research License (Apr 11, 2024); non-commercial research evaluation
+  use; upstream restrictions apply
+downloaded_at: null
+splits:
+  test: 400
+files:
+- path: source/winoground.jsonl
+  bytes: 197931
+  sha256: f2e5502843d31f2016535d289c1ad6e6bdd0deb35e247bbc178ba11c85293d90
+- path: annotations/test.jsonl
+  bytes: 197931
+  sha256: f2e5502843d31f2016535d289c1ad6e6bdd0deb35e247bbc178ba11c85293d90
+- path: inventories/images.jsonl
+  bytes: 107132
+  sha256: 94f0d84b2099dc5ca27011c70ee94f186c802f8ccb17f60dd877b3793b1394b7
+processing:
+  format: recoalign-paired-matrix-jsonl-v1
+  categories:
+    winoground: 400
+  tags:
+    Adjective-Age: 2
+    Adjective-Animate: 8
+    Adjective-Color: 44
+    Adjective-Color (3-way swap): 1
+    Adjective-Height: 1
+    Adjective-Manner: 9
+    Adjective-Manner Phrase: 1
+    Adjective-Shape: 6
+    Adjective-Size: 12
+    Adjective-Spatial: 2
+    Adjective-Speed: 2
+    Adjective-Speed Phrase, Verb-Intransitive: 1
+    Adjective-Temperature: 6
+    Adjective-Temporal: 1
+    Adjective-Texture: 7
+    Adjective-Weight: 3
+    Adverb-Animate: 1
+    Adverb-Spatial: 1
+    Adverb-Spatial Phrase: 1
+    Adverb-Temporal: 2
+    Altered POS: 18
+    Altered POS, Determiner-Numeral: 1
+    Both: 26
+    Determiner-Numeral: 18
+    Determiner-Numeral Phrase: 1
+    Determiner-Numeral, Noun Phrase: 5
+    Determiner-Possessive: 6
+    Morpheme-Level: 17
+    Morpheme-Level, Series: 1
+    Negation, Noun Phrase, Preposition Phrase: 1
+    Negation, Scope: 11
+    Noun: 107
+    Noun Phrase: 22
+    Noun Phrase, Adjective-Animate: 1
+    Noun Phrase, Adjective-Color: 1
+    Noun Phrase, Determiner-Numeral: 1
+    Noun Phrase, Determiner-Possessive: 2
+    Noun, Adjective-Color: 1
+    Noun, Adjective-Size: 1
+    Noun, Preposition Phrase, Scope: 1
+    Noun, Verb-Intransitive: 1
+    Object: 141
+    Pragmatics: 17
+    Pragmatics, Series: 2
+    Preposition: 21
+    Preposition Phrase: 6
+    Preposition Phrase, Scope: 7
+    Pronoun, Noun Phrase: 1
+    Pronoun, Verb-Intransitive: 1
+    Relation: 233
+    Relative Clause, Scope: 1
+    Scope: 3
+    Scope, Adjective-Manner: 4
+    Scope, Adjective-Texture: 1
+    Scope, Altered POS, Verb-Intransitive, Verb-Transitive: 1
+    Scope, Conjunction: 1
+    Scope, Conjunction Phrase: 2
+    Scope, Noun, Preposition: 1
+    Scope, Preposition: 2
+    Scope, Preposition Phrase: 2
+    Scope, Preposition Phrase, Adjective-Color: 1
+    Scope, Preposition, Verb-Intransitive: 1
+    Scope, Relative Clause: 1
+    Scope, Verb-Transitive: 1
+    Sentence: 5
+    Series: 23
+    Symbolic: 28
+    Symbolic, Morpheme-Level: 3
+    Symbolic, Pragmatics: 5
+    Symbolic, Series: 5
+    Verb-Intransitive: 11
+    Verb-Intransitive Phrase: 1
+    Verb-Intransitive Phrase, Adverb-Animate: 1
+    Verb-Intransitive Phrase, Preposition: 1
+    Verb-Intransitive, Adjective-Manner: 1
+    Verb-Intransitive, Determiner-Numeral: 1
+    Verb-Intransitive, Noun: 2
+    Verb-Intransitive, Verb-Transitive Phrase: 2
+    Verb-Transitive: 4
+    Verb-Transitive Phrase: 1
+    Verb-Transitive Phrase, Verb-Intransitive, Preposition Phrase: 1
+    Verb-Transitive, Noun: 1
+  caption_token_multiset_match_rate: 100.0
+  caption_token_multiset_method: casefolded_alphanumeric_character_multiset_v1
+  source_annotation: source/winoground.jsonl
+  image_inventory: inventories/images.jsonl
+  inventory_splits:
+  - test
+  image_hashes: true
+notes: Each row contains two images and two captions with diagonal ground-truth matches.
+  The recorded caption multiset method checks official word/morpheme content without
+  changing caption text.

@@ -53,7 +53,11 @@ matrix `scores[image_index, caption_index]`. The normalized format is:
 
 The runner reports image-to-text accuracy, text-to-image accuracy, group accuracy, tie rate,
 directional margins, category scores, and tag-level group scores. The committed configs require all
-400 official examples and a 100% caption token-multiset match rate.
+400 official examples and a 100% caption-content multiset match rate. Official examples include
+morpheme-level changes and punctuation attachment that are not equal under whitespace splitting.
+Winoground therefore uses `casefolded_alphanumeric_character_multiset_v1`, recorded in the dataset
+manifest and evaluation metadata. This transparent conservation check does not alter captions and
+does not claim to perform linguistic morpheme segmentation.
 
 ### BiVLC
 

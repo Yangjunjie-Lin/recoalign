@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from recoalign.benchmarks.caption_multisets import WINOGROUND_CONTENT_MULTISET
 from recoalign.evaluation.diagnostics import (
     evaluate_multichoice_scores,
     evaluate_paired_matrix_scores,
@@ -58,3 +59,15 @@ def test_paired_matrix_reports_both_directions_and_group() -> None:
 def test_token_multiset_match_rate_is_order_invariant() -> None:
     assert token_multiset_match_rate([("a red cup", "cup red a")]) == 100.0
     assert token_multiset_match_rate([("a red cup", "cup red a"), ("one", "two")]) == 50.0
+
+
+def test_token_multiset_match_rate_supports_official_morpheme_cases() -> None:
+    pairs = [
+        ("a caterpillar with some plants", "a plant with some caterpillars"),
+        ("first the cream, then the jam", "first the jam, then the cream"),
+        ("The dog rides without a visible tongue", "The dog rides with a visible tongue out"),
+    ]
+
+    assert (
+        token_multiset_match_rate(pairs, method=WINOGROUND_CONTENT_MULTISET) == 100.0
+    )

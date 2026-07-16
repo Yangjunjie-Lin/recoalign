@@ -90,6 +90,10 @@ def test_winoground_baseline_reports_directional_and_group_scores(tmp_path: Path
     assert result.metrics["text_to_image_accuracy"] == 100.0
     assert result.metrics["group_accuracy"] == 100.0
     assert result.metrics["caption_token_multiset_match_rate"] == 100.0
+    assert (
+        result.metadata["caption_token_multiset_method"]
+        == "casefolded_alphanumeric_character_multiset_v1"
+    )
     assert result.metrics["group_accuracy/tag/spatial"] == 100.0
 
     run_dir = tmp_path / "run"
@@ -121,7 +125,7 @@ def test_winoground_rejects_non_matching_caption_token_multisets(tmp_path: Path)
     try:
         evaluate_baseline(config, encoder=DiagnosticEncoder(), project_root=tmp_path)
     except ValueError as exc:
-        assert "identical caption token multisets" in str(exc)
+        assert "matching caption content multisets" in str(exc)
     else:
         raise AssertionError("expected Winoground token-multiset validation to fail")
 
