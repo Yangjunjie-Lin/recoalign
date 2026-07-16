@@ -1,0 +1,17 @@
+{
+  "status": "NOT_RUN",
+  "dataset_revision": null,
+  "manifest_sha256": null,
+  "annotation_sha256": null,
+  "cached_run_id": null,
+  "no_cache_run_id": null,
+  "git_commit": null,
+  "config_sha256": null,
+  "seed": null,
+  "metrics": null,
+  "maximum_score_absolute_difference": null,
+  "decision_differences": null,
+  "manual_review_count": null,
+  "reviewer": null,
+  "promotion_status": "NOT_RUN"
+}
