@@ -10,6 +10,10 @@ from typing import Any
 
 import numpy as np
 
+from recoalign.benchmarks.caption_multisets import (
+    WHITESPACE_TOKEN_MULTISET,
+    WINOGROUND_CONTENT_MULTISET,
+)
 from recoalign.benchmarks.records import (
     load_multichoice_jsonl,
     load_paired_matrix_jsonl,
@@ -278,13 +282,18 @@ def _evaluate_paired_matrix(
         categories,
         tags=[record.tags for record in records],
     )
+    multiset_method = (
+        WINOGROUND_CONTENT_MULTISET if dataset == "winoground" else WHITESPACE_TOKEN_MULTISET
+    )
     multiset_rate = token_multiset_match_rate(
-        [(record.caption_0, record.caption_1) for record in records]
+        [(record.caption_0, record.caption_1) for record in records],
+        method=multiset_method,
     )
     metrics["caption_token_multiset_match_rate"] = multiset_rate
     if evaluation.get("require_caption_token_multiset_match", False) and multiset_rate != 100.0:
         raise ValueError(
-            f"{dataset} requires identical caption token multisets; observed {multiset_rate:.4f}%"
+            f"{dataset} requires matching caption content multisets under {multiset_method}; "
+            f"observed {multiset_rate:.4f}%"
         )
     scoring_seconds = time.perf_counter() - scoring_started
 
@@ -315,6 +324,7 @@ def _evaluate_paired_matrix(
         "max_image_norm_error": image_norm_error,
         "max_text_norm_error": text_norm_error,
         "caption_token_multiset_match_rate": multiset_rate,
+        "caption_token_multiset_method": multiset_method,
         "cache": {"images_hit": image_cache.hit, "texts_hit": text_cache.hit},
         "timing_seconds": {
             "image_stage": image_seconds,

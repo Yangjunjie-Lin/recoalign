@@ -10,6 +10,11 @@ from typing import Any
 
 import yaml
 
+from recoalign.benchmarks.caption_multisets import (
+    WHITESPACE_TOKEN_MULTISET,
+    WINOGROUND_CONTENT_MULTISET,
+    caption_multiset_matches,
+)
 from recoalign.data.manifest import sha256_file
 
 
@@ -121,7 +126,8 @@ def prepare_winoground(
         default_category="winoground",
         notes=(
             "Each row contains two images and two captions with diagonal ground-truth matches. "
-            "Official Winoground captions should have identical token multisets."
+            "The recorded caption multiset method checks official word/morpheme content without "
+            "changing caption text."
         ),
         hash_images=hash_images,
     )
@@ -181,6 +187,11 @@ def _prepare_paired_matrix(
     tag_counts: Counter[str] = Counter()
     seen: set[str] = set()
     token_multiset_matches = 0
+    token_multiset_method = (
+        WINOGROUND_CONTENT_MULTISET
+        if dataset_name == "winoground"
+        else WHITESPACE_TOKEN_MULTISET
+    )
     for index, row in enumerate(_load_jsonl(source_copy), start=1):
         sample_id = _required_text(row, "sample_id", index)
         if sample_id in seen:
@@ -216,8 +227,10 @@ def _prepare_paired_matrix(
         inventory_paths.update((Path("images") / image_0, Path("images") / image_1))
         category_counts[category] += 1
         tag_counts.update(tags)
-        token_multiset_matches += Counter(caption_0.lower().split()) == Counter(
-            caption_1.lower().split()
+        token_multiset_matches += caption_multiset_matches(
+            caption_0,
+            caption_1,
+            method=token_multiset_method,
         )
 
     if not rows:
@@ -239,6 +252,7 @@ def _prepare_paired_matrix(
             "categories": dict(sorted(category_counts.items())),
             "tags": dict(sorted(tag_counts.items())),
             "caption_token_multiset_match_rate": 100.0 * token_multiset_matches / len(rows),
+            "caption_token_multiset_method": token_multiset_method,
         },
         notes=notes,
         hash_images=hash_images,

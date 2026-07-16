@@ -53,6 +53,9 @@ def test_export_preserves_order_text_tags_and_metadata(tmp_path: Path) -> None:
     exported = _read_rows(tmp_path)
     assert summary["samples"] == 2
     assert summary["unique_sample_ids"] == 2
+    assert summary["token_multiset_method"] == (
+        "casefolded_alphanumeric_character_multiset_v1"
+    )
     assert exported[0]["sample_id"] == "winoground-000007"
     assert exported[0]["caption_0"] == rows[0]["caption_0"]
     assert exported[0]["caption_1"] == rows[0]["caption_1"]
@@ -73,6 +76,17 @@ def test_export_preserves_order_text_tags_and_metadata(tmp_path: Path) -> None:
         assert image_0.getpixel((0, 0)) == (255, 0, 0)
     with Image.open(tmp_path / "images" / exported[0]["image_1"]) as image_1:
         assert image_1.getpixel((0, 0)) == (0, 0, 255)
+
+
+def test_export_preserves_empty_official_secondary_tag(tmp_path: Path) -> None:
+    row = _row()
+    row["secondary_tag"] = ""
+
+    EXPORTER.export_winoground([row], tmp_path, expected_samples=1)
+
+    exported = _read_rows(tmp_path)[0]
+    assert exported["tags"] == ["Relation", "Spatial"]
+    assert exported["metadata"]["official_tag_fields"]["secondary_tag"] == ""
 
 
 def test_export_dry_run_validates_without_writing(tmp_path: Path) -> None:

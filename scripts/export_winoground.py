@@ -8,12 +8,16 @@ import json
 import os
 import shutil
 import tempfile
-from collections import Counter
 from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
 from PIL import Image
+
+from recoalign.benchmarks.caption_multisets import (
+    WINOGROUND_CONTENT_MULTISET,
+    caption_multiset_matches,
+)
 
 DEFAULT_DATASET_ID = "facebook/winoground"
 DEFAULT_SPLIT = "test"
@@ -238,14 +242,16 @@ def _official_tags(
         if field not in row or row[field] is None:
             continue
         value = row[field]
-        if isinstance(value, list):
+        if isinstance(value, str):
+            metadata[field] = value
+            if value.strip():
+                tags.append(value)
+        elif isinstance(value, list):
             normalized = [_tag_value(item, field, index) for item in value]
             tags.extend(normalized)
             metadata[field] = normalized
         else:
-            normalized_value = _tag_value(value, field, index)
-            tags.append(normalized_value)
-            metadata[field] = normalized_value
+            raise ValueError(f"row {index}: {field} must be a string or list of strings")
     return tags, metadata
 
 
@@ -298,8 +304,11 @@ def _install_staged_export(
 
 def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
     matches = sum(
-        Counter(row["caption_0"].lower().split())
-        == Counter(row["caption_1"].lower().split())
+        caption_multiset_matches(
+            row["caption_0"],
+            row["caption_1"],
+            method=WINOGROUND_CONTENT_MULTISET,
+        )
         for row in rows
     )
     return {
@@ -311,6 +320,7 @@ def _summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
         "token_multiset_matches": matches,
         "token_multiset_mismatches": len(rows) - matches,
         "token_multiset_match_rate": 100.0 * matches / len(rows),
+        "token_multiset_method": WINOGROUND_CONTENT_MULTISET,
     }
 
 
