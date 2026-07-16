@@ -1,30 +1,19 @@
 from __future__ import annotations
 
-import importlib.util
 import json
+import subprocess
 import sys
 from pathlib import Path
-from types import ModuleType
+from types import SimpleNamespace
 
 import pytest
 import yaml
 
 from recoalign.experiments.records import create_run, finalize_run
+from recoalign.experiments.run_comparison import compare_runs
 from recoalign.reproducibility import atomic_write_json
 
-SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "compare_runs.py"
-
-
-def _load_comparator() -> ModuleType:
-    spec = importlib.util.spec_from_file_location("compare_runs", SCRIPT_PATH)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
-
-
-COMPARATOR = _load_comparator()
+COMPARATOR = SimpleNamespace(compare_runs=compare_runs)
 
 
 def test_compare_runs_accepts_tiny_score_differences(tmp_path: Path, research_config) -> None:
@@ -73,6 +62,27 @@ def test_compare_runs_rejects_different_seed(tmp_path: Path, research_config) ->
 
     assert summary["passed"] is False
     assert summary["run_identity_matches"]["seed"] is False
+
+
+def test_compare_runs_rejects_different_manifest_sha(tmp_path: Path, research_config) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    _update_run(no_cache, dataset_manifest_sha256="b" * 64)
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["run_identity_matches"]["dataset_manifest_sha256"] is False
+
+
+def test_compare_runs_rejects_scores_outside_tolerance(tmp_path: Path, research_config) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.1)
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["scores_within_tolerance"] is False
 
 
 def test_compare_runs_rejects_cold_cache_as_no_cache(tmp_path: Path, research_config) -> None:
@@ -170,6 +180,20 @@ def test_compare_runs_rejects_decision_difference(tmp_path: Path, research_confi
     assert summary["decision_differences"]["tie"] == 1
 
 
+def test_compare_runs_cli_wrapper_help() -> None:
+    script = Path(__file__).resolve().parents[1] / "scripts" / "compare_runs.py"
+
+    result = subprocess.run(
+        [sys.executable, str(script), "--help"],
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "cached_run" in result.stdout
+
+
 def _run_fixture(
     tmp_path: Path,
     research_config,
@@ -205,9 +229,7 @@ def _run_fixture(
         "group_correct": True,
         "tie": False,
     }
-    (run_dir / "predictions.jsonl").write_text(
-        json.dumps(prediction) + "\n", encoding="utf-8"
-    )
+    (run_dir / "predictions.jsonl").write_text(json.dumps(prediction) + "\n", encoding="utf-8")
     run = json.loads((run_dir / "run.json").read_text())
     metadata = {
         "protocol_version": 1,

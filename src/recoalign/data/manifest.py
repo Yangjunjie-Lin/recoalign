@@ -11,6 +11,7 @@ from typing import Any
 
 import yaml
 
+from recoalign.benchmarks.caption_multisets import caption_multiset_matches
 from recoalign.schema_validation import validate_payload
 
 
@@ -72,6 +73,144 @@ def verify_dataset(root: str | Path, manifest: dict[str, Any]) -> list[str]:
     """Backward-compatible dataset verification alias."""
     validate_payload("dataset_manifest", manifest)
     return verify_manifest_files(root, manifest)
+
+
+def verify_annotation_inventory_coverage(
+    root: str | Path,
+    manifest: dict[str, Any],
+    *,
+    split: str,
+    expected_annotation_sha256: str,
+) -> list[str]:
+    """Verify paired-matrix annotation provenance and exact image-inventory coverage."""
+    root_path = Path(root)
+    processing = manifest.get("processing")
+    if not isinstance(processing, dict) or processing.get("format") != (
+        "recoalign-paired-matrix-jsonl-v1"
+    ):
+        return ["annotation inventory coverage requires recoalign-paired-matrix-jsonl-v1"]
+
+    annotation = f"annotations/{split}.jsonl"
+    entries = [
+        entry
+        for entry in manifest.get("files", [])
+        if isinstance(entry, dict) and entry.get("path") == annotation
+    ]
+    if not entries:
+        return [f"evaluation annotation is not declared in manifest files: {annotation}"]
+    entry = entries[0]
+    failures: list[str] = []
+    if not _is_nonnegative_integer(entry.get("bytes")):
+        failures.append(f"invalid evaluation annotation manifest bytes: {annotation}")
+    if not _is_sha256(entry.get("sha256")):
+        failures.append(f"invalid evaluation annotation manifest sha256: {annotation}")
+    if failures:
+        return failures
+    failures.extend(_verify_file_entry(root_path, entry))
+    if not _is_sha256(expected_annotation_sha256):
+        failures.append("evaluation annotation sha256 is missing or invalid")
+    elif entry["sha256"].lower() != expected_annotation_sha256.lower():
+        failures.append("evaluation annotation sha256 does not match dataset manifest")
+    annotation_path = root_path / Path(annotation)
+    if failures or not annotation_path.is_file():
+        return failures
+
+    referenced_paths: set[str] = set()
+    seen_sample_ids: set[str] = set()
+    content_matches = 0
+    annotation_rows = 0
+    method = processing.get("caption_alphanumeric_character_multiset_method")
+    with annotation_path.open("r", encoding="utf-8") as handle:
+        for line_number, line in enumerate(handle, start=1):
+            if not line.strip():
+                continue
+            annotation_rows += 1
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError as exc:
+                failures.append(
+                    f"invalid evaluation annotation JSON at {annotation}:{line_number}: {exc.msg}"
+                )
+                continue
+            if not isinstance(row, dict):
+                failures.append(f"invalid evaluation annotation row: {annotation}:{line_number}")
+                continue
+            sample_id = row.get("sample_id")
+            if not isinstance(sample_id, str) or not sample_id.strip():
+                failures.append(f"invalid annotation sample ID: {annotation}:{line_number}")
+            elif sample_id in seen_sample_ids:
+                failures.append(f"duplicate annotation sample ID: {sample_id}")
+            else:
+                seen_sample_ids.add(sample_id)
+            for field in ("image_0", "image_1"):
+                value = row.get(field)
+                if not isinstance(value, str) or not value.strip():
+                    failures.append(f"annotation row missing {field}: {annotation}:{line_number}")
+                    continue
+                if not _is_safe_relative_path(value):
+                    failures.append(f"unsafe annotation image path: {value}")
+                    continue
+                referenced_paths.add((PurePosixPath("images") / PurePosixPath(value)).as_posix())
+            caption_0 = row.get("caption_0")
+            caption_1 = row.get("caption_1")
+            if (
+                isinstance(caption_0, str)
+                and isinstance(caption_1, str)
+                and isinstance(method, str)
+            ):
+                try:
+                    content_matches += caption_multiset_matches(
+                        caption_0,
+                        caption_1,
+                        method=method,
+                    )
+                except ValueError:
+                    failures.append("Winoground caption content check method is invalid")
+                    method = None
+
+    inventory = processing.get("image_inventory")
+    if not isinstance(inventory, str) or not _is_safe_relative_path(inventory):
+        failures.append("reportable image benchmarks require an image inventory")
+        return failures
+    inventory_path = root_path / Path(inventory)
+    if not inventory_path.is_file():
+        failures.append(f"missing image inventory: {inventory}")
+        return failures
+    inventory_paths: set[str] = set()
+    with inventory_path.open("r", encoding="utf-8") as handle:
+        for _line_number, line in enumerate(handle, start=1):
+            if not line.strip():
+                continue
+            try:
+                inventory_row = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            path_text = inventory_row.get("path") if isinstance(inventory_row, dict) else None
+            if isinstance(path_text, str) and _is_safe_relative_path(path_text):
+                inventory_paths.add(PurePosixPath(path_text).as_posix())
+
+    missing = sorted(referenced_paths - inventory_paths)
+    extra = sorted(inventory_paths - referenced_paths)
+    expected_rows = manifest.get("splits", {}).get(split)
+    if not _is_nonnegative_integer(expected_rows) or annotation_rows != expected_rows:
+        failures.append(
+            f"evaluation annotation row count does not match manifest split: "
+            f"expected {expected_rows}, observed {annotation_rows}"
+        )
+    if missing:
+        failures.append(_coverage_failure("missing", missing))
+    if extra:
+        failures.append(_coverage_failure("extra", extra))
+    expected_rate = processing.get("caption_alphanumeric_character_multiset_match_rate")
+    if annotation_rows and method is not None:
+        observed_rate = 100.0 * content_matches / annotation_rows
+        if (
+            not isinstance(expected_rate, (int, float))
+            or isinstance(expected_rate, bool)
+            or (float(expected_rate) != observed_rate)
+        ):
+            failures.append("Winoground caption content check does not match evaluation annotation")
+    return failures
 
 
 def snapshot_manifest(source: str | Path, destination: str | Path) -> None:
@@ -243,6 +382,16 @@ def _is_nonnegative_integer(value: Any) -> bool:
 
 def _is_sha256(value: Any) -> bool:
     return isinstance(value, str) and re.fullmatch(r"[0-9a-fA-F]{64}", value) is not None
+
+
+def _coverage_failure(kind: str, paths: list[str]) -> str:
+    preview = ", ".join(paths[:3])
+    if kind == "missing":
+        return f"image inventory is missing {len(paths)} annotation-referenced images: {preview}"
+    return (
+        f"image inventory contains {len(paths)} images not referenced by the evaluation annotation"
+        f": {preview}"
+    )
 
 
 def _load_manifest(path: str | Path, schema_name: str) -> dict[str, Any]:

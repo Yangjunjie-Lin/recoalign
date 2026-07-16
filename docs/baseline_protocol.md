@@ -80,6 +80,15 @@ itself be listed in the dataset manifest, be non-empty, and contain a verified b
 for every image. The dataset name and split in the resolved config, run record, and dataset manifest
 must also agree before promotion.
 
+Winoground promotion additionally digest-verifies the resolved config and cross-checks run, config,
+evaluation, and manifest identities. It requires a complete cache-disabled verification run with
+identical provenance, recomputes the comparison inside `promote-run`, schema-validates and recomputes
+all 400 predictions, and requires review CSV coverage of every prediction ID. The normalized
+annotation image references must exactly equal the hashed inventory. Comparison, prediction review,
+and promotion evidence are copied into the canonical run and recorded with SHA-256 hashes. The
+verification run remains `complete`; no hand-authored comparison report can substitute for these
+gates.
+
 Embedding caches are keyed by model identity, dataset manifest, annotation digest, split, and
 protocol version. Cache hits and misses are recorded in `evaluation.json`.
 

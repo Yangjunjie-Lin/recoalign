@@ -129,6 +129,14 @@ image inventory must be manifest-declared and non-empty, and every inventory row
 byte size, and SHA-256 must verify against the local image. Promotion also requires the resolved
 config, run record, and snapshotted dataset manifest to agree on the dataset name and split.
 
+Winoground reportability also requires exact agreement between normalized annotation image
+references and the hashed inventory, a cache-enabled canonical run, and a separate complete
+cache-disabled verification run. `promote-run` recomputes their comparison internally, audits all
+400 prediction score matrices, decisions, and metrics, and validates a 400-row manual mapping review
+CSV. It snapshots the comparison and review into the canonical run and records their hashes. The
+verification run is never promoted, and reviewer notes or a hand-written comparison JSON are not
+sufficient.
+
 ## Running the matrix
 
 Each of the three frozen encoders has ARO, Winoground, and BiVLC configs. For example:
@@ -144,8 +152,8 @@ recoalign run-baseline \
   --config configs/baseline/openclip_vit_b32_laion2b_bivlc.yaml
 ```
 
-A cache-free rerun and manual inspection of incorrect predictions are required before promotion to
-`reportable`.
+A cache-free rerun and full manual mapping review are required before Winoground promotion to
+`reportable`. This repository currently claims no real reportable Winoground result.
 
 ## Interpretation rules
 

@@ -2,9 +2,14 @@
 
 from __future__ import annotations
 
+import csv
 import json
 import math
+import os
 import re
+import shutil
+import tempfile
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -15,9 +20,16 @@ from recoalign.config import config_digest, file_digest, validate_config
 from recoalign.data.manifest import (
     load_checkpoint_manifest,
     load_dataset_manifest,
+    sha256_file,
     snapshot_manifest,
+    verify_annotation_inventory_coverage,
     verify_hashed_image_inventory,
     verify_manifest_files,
+)
+from recoalign.experiments.run_comparison import compare_runs
+from recoalign.experiments.winoground_audit import (
+    audit_winoground_run,
+    load_prediction_sample_ids,
 )
 from recoalign.reproducibility import atomic_write_json, collect_environment, utc_now
 from recoalign.schema_validation import repository_root, validate_payload
@@ -149,6 +161,8 @@ def promote_run(
     run_dir: str | Path,
     *,
     reviewed_by: str,
+    verification_run: str | Path | None = None,
+    prediction_review: str | Path | None = None,
     notes: str | None = None,
 ) -> dict[str, Any]:
     """Promote one reviewed, clean, fully verified run to ``reportable``."""
@@ -162,9 +176,6 @@ def promote_run(
         raise ValueError("only complete runs can be promoted to reportable")
 
     environment = _load_json(directory / "environment.json", "environment")
-    metrics_path = directory / str(record.get("metrics_file") or "metrics.json")
-    metrics = _load_json(metrics_path, "metrics")
-    _validate_metrics(metrics)
 
     git = environment["git"]
     if git["commit"] is None or record["git_commit"] != git["commit"]:
@@ -173,19 +184,37 @@ def promote_run(
         raise ValueError("dirty or unknown Git state cannot be promoted to reportable")
 
     config = _load_yaml(directory / "config.resolved.yaml")
+    if config_digest(config) != record["config_sha256"]:
+        raise ValueError("run config digest does not match resolved config")
+    _validate_run_config_identity(record, config)
     project_root = repository_root()
     dataset_manifest_path = directory / "manifests" / "dataset.yaml"
     dataset_manifest = load_dataset_manifest(dataset_manifest_path)
-    _validate_run_dataset_identity(record, config, dataset_manifest)
     if file_digest(dataset_manifest_path) != record["dataset_manifest_sha256"]:
         raise ValueError("run dataset manifest digest does not match snapshotted manifest")
+    _validate_run_dataset_identity(record, config, dataset_manifest)
     dataset_root = _resolve_path(config["data"]["root"], project_root)
     _validate_reportable_image_inventory(record["dataset"], dataset_root, dataset_manifest)
     dataset_verification = _verification_record(dataset_root, dataset_manifest)
     if dataset_verification["status"] != "passed" or dataset_verification["declared_files"] <= 0:
         raise ValueError("dataset files must be declared and verified before promotion")
     _validate_reportable_dataset_provenance(record["dataset"], dataset_manifest)
-
+    is_winoground = record["dataset"] == "winoground"
+    evaluation: dict[str, Any] | None = None
+    if is_winoground:
+        evaluation = _load_json(directory / "evaluation.json", "evaluation")
+        _validate_evaluation_identity(record, evaluation)
+        _validate_winoground_annotation_path(config, dataset_root, project_root)
+        coverage_failures = verify_annotation_inventory_coverage(
+            dataset_root,
+            dataset_manifest,
+            split=record["dataset_split"],
+            expected_annotation_sha256=evaluation["metadata"].get("annotation_sha256", ""),
+        )
+        if coverage_failures:
+            raise ValueError(
+                f"annotation and image inventory verification failed: {coverage_failures[0]}"
+            )
     checkpoint_manifest_path = directory / "manifests" / "checkpoint.yaml"
     checkpoint_manifest = load_checkpoint_manifest(checkpoint_manifest_path)
     if file_digest(checkpoint_manifest_path) != record["checkpoint_manifest_sha256"]:
@@ -195,17 +224,81 @@ def promote_run(
     if checkpoint_verification["status"] == "failed":
         raise ValueError("checkpoint manifest file verification failed")
 
-    record["dataset_verification"] = dataset_verification
-    record["checkpoint_verification"] = checkpoint_verification
-    record["status"] = "reportable"
-    record["review"] = {
+    metrics_path = directory / str(record.get("metrics_file") or "metrics.json")
+    metrics = _load_json(metrics_path, "metrics")
+    _validate_metrics(metrics)
+
+    comparison: dict[str, Any] | None = None
+    audit: dict[str, Any] | None = None
+    review_summary: dict[str, Any] | None = None
+    verification_record: dict[str, Any] | None = None
+    if is_winoground:
+        if verification_run is None:
+            raise ValueError("Winoground promotion requires a cache-disabled verification run")
+        if prediction_review is None:
+            raise ValueError("Winoground promotion requires prediction review evidence")
+        expected_samples = dataset_manifest["splits"][record["dataset_split"]]
+        audit = audit_winoground_run(
+            directory,
+            expected_samples=expected_samples,
+            write_outputs=False,
+        )
+        prediction_ids = load_prediction_sample_ids(directory)
+        verification_directory = Path(verification_run)
+        if _same_directory(directory, verification_directory):
+            raise ValueError("verification run must be different from canonical run")
+        verification_record = load_run(verification_directory)
+        if verification_record["run_id"] == record["run_id"]:
+            raise ValueError("verification run ID must differ from canonical run ID")
+        if verification_record["status"] != "complete":
+            raise ValueError("verification run status must be complete")
+        if verification_record["review"] is not None:
+            raise ValueError("verification run review must be null")
+        comparison = compare_runs(directory, verification_directory)
+        if comparison.get("passed") is not True:
+            gates = ", ".join(_failed_comparison_gates(comparison)[:5])
+            suffix = f": {gates}" if gates else ""
+            raise ValueError(f"cache-disabled verification comparison did not pass{suffix}")
+        review_summary = _validate_prediction_review(prediction_review, prediction_ids)
+
+    reviewed_at = utc_now()
+    review_record: dict[str, Any] = {
         "reviewed_by": reviewer,
-        "reviewed_at": utc_now(),
+        "reviewed_at": reviewed_at,
         "decision": "reportable",
         "notes": notes,
     }
+    installed_review: Path | None = None
+    if is_winoground:
+        assert comparison is not None
+        assert audit is not None
+        assert review_summary is not None
+        assert verification_record is not None
+        evidence_fields, installed_review = _install_promotion_evidence(
+            directory,
+            comparison=comparison,
+            prediction_review=Path(prediction_review),
+            review_summary=review_summary,
+            audit=audit,
+            canonical_run_id=record["run_id"],
+            verification_run_id=verification_record["run_id"],
+            reviewed_by=reviewer,
+            reviewed_at=reviewed_at,
+            notes=notes,
+        )
+        review_record.update(evidence_fields)
+
+    record["dataset_verification"] = dataset_verification
+    record["checkpoint_verification"] = checkpoint_verification
+    record["status"] = "reportable"
+    record["review"] = review_record
     validate_payload("run", record)
-    atomic_write_json(directory / "run.json", record)
+    try:
+        atomic_write_json(directory / "run.json", record)
+    except Exception:
+        if installed_review is not None:
+            shutil.rmtree(installed_review, ignore_errors=True)
+        raise
     return record
 
 
@@ -276,6 +369,242 @@ def _validate_run_dataset_identity(
         raise ValueError("run dataset split does not match resolved config")
     if record["dataset_split"] not in manifest["splits"]:
         raise ValueError("dataset manifest does not declare run split")
+
+
+def _validate_run_config_identity(record: dict[str, Any], config: dict[str, Any]) -> None:
+    model = config["model"]
+    experiment = config["experiment"]
+    checks = (
+        ("model", model["name"], "run model does not match resolved config"),
+        (
+            "pretrained",
+            model["pretrained"],
+            "run pretrained weights do not match resolved config",
+        ),
+        ("seed", experiment["seed"], "run seed does not match resolved config"),
+        ("precision", model.get("precision"), "run precision does not match resolved config"),
+        ("checkpoint", model.get("checkpoint"), "run checkpoint does not match resolved config"),
+    )
+    for field, configured, error in checks:
+        if record.get(field) != configured:
+            raise ValueError(error)
+
+
+def _validate_evaluation_identity(
+    record: dict[str, Any],
+    evaluation: dict[str, Any],
+) -> None:
+    metadata = evaluation["metadata"]
+    if metadata.get("dataset") != record["dataset"]:
+        raise ValueError("evaluation dataset does not match run")
+    if metadata.get("split") != record["dataset_split"]:
+        raise ValueError("evaluation split does not match run")
+    if metadata.get("dataset_manifest_sha256") != record["dataset_manifest_sha256"]:
+        raise ValueError("evaluation dataset manifest digest does not match run")
+    encoder = metadata.get("encoder")
+    if not isinstance(encoder, dict) or encoder.get("model") != record["model"]:
+        raise ValueError("evaluation encoder model does not match run")
+    if encoder.get("pretrained") != record["pretrained"]:
+        raise ValueError("evaluation encoder pretrained weights do not match run")
+
+
+def _validate_winoground_annotation_path(
+    config: dict[str, Any],
+    dataset_root: Path,
+    project_root: Path,
+) -> None:
+    annotation_value = config["data"].get("annotation_file")
+    if not isinstance(annotation_value, str) or not annotation_value.strip():
+        raise ValueError("resolved config does not declare the Winoground evaluation annotation")
+    annotation_path = _resolve_path(annotation_value, project_root)
+    expected_path = dataset_root / "annotations" / f"{config['data']['split']}.jsonl"
+    if annotation_path.resolve() != expected_path.resolve():
+        raise ValueError("resolved config does not reference the normalized Winoground annotation")
+
+
+def _same_directory(left: Path, right: Path) -> bool:
+    try:
+        return left.resolve() == right.resolve()
+    except OSError:
+        return os.path.abspath(left) == os.path.abspath(right)
+
+
+def _failed_comparison_gates(comparison: dict[str, Any]) -> list[str]:
+    failures: list[str] = []
+    failures.extend(
+        f"run identity {field}"
+        for field, passed in comparison.get("run_identity_matches", {}).items()
+        if passed is not True
+    )
+    failures.extend(
+        f"evaluation metadata {field}"
+        for field, passed in comparison.get("metadata_identity_matches", {}).items()
+        if passed is not True
+    )
+    scalar_gates = {
+        "cached_run_cache_enabled": "canonical cache enabled",
+        "no_cache_run_cache_disabled": "verification cache disabled",
+        "cached_run_status_valid": "canonical status",
+        "no_cache_run_status_valid": "verification status",
+        "metric_names_match": "metric names",
+        "metrics_within_tolerance": "metrics tolerance",
+        "prediction_count_match": "prediction count",
+        "sample_id_order_match": "sample ID order",
+        "scores_within_tolerance": "score tolerance",
+    }
+    failures.extend(
+        label for field, label in scalar_gates.items() if comparison.get(field) is not True
+    )
+    if any(comparison.get("decision_differences", {}).values()):
+        failures.append("prediction decisions")
+    return failures
+
+
+REVIEW_FIELDS = (
+    "sample_id",
+    "review_group",
+    "mapping_checked",
+    "visual_review_status",
+    "annotation_issue",
+    "notes",
+)
+VISUAL_REVIEW_STATUSES = {"pass", "issue", "uncertain"}
+ANNOTATION_ISSUES = {"none", "possible", "confirmed"}
+
+
+def _validate_prediction_review(
+    review_path: str | Path,
+    prediction_ids: list[str],
+) -> dict[str, Any]:
+    path = Path(review_path)
+    if not path.is_file():
+        raise FileNotFoundError("prediction review CSV is missing")
+    with path.open("r", encoding="utf-8-sig", newline="") as handle:
+        reader = csv.DictReader(handle)
+        header = reader.fieldnames or []
+        missing_fields = [field for field in REVIEW_FIELDS if field not in header]
+        if missing_fields:
+            raise ValueError(
+                f"prediction review CSV is missing required headers: {', '.join(missing_fields)}"
+            )
+        rows = list(reader)
+
+    expected_ids = set(prediction_ids)
+    observed_ids: set[str] = set()
+    visual_counts: Counter[str] = Counter()
+    annotation_counts: Counter[str] = Counter()
+    mapping_checked_count = 0
+    for line_number, row in enumerate(rows, start=2):
+        sample_id = (row.get("sample_id") or "").strip()
+        if not sample_id:
+            raise ValueError(f"prediction review line {line_number} has an empty sample_id")
+        if sample_id in observed_ids:
+            raise ValueError(f"prediction review contains duplicate sample_id: {sample_id}")
+        observed_ids.add(sample_id)
+        if not (row.get("review_group") or "").strip():
+            raise ValueError(f"prediction review line {line_number} has an empty review_group")
+        mapping_checked = (row.get("mapping_checked") or "").strip().lower()
+        if mapping_checked not in {"true", "false"}:
+            raise ValueError("prediction review mapping_checked must be true or false")
+        if mapping_checked != "true":
+            raise ValueError("every prediction review row must have mapping_checked=true")
+        mapping_checked_count += 1
+        visual_status = (row.get("visual_review_status") or "").strip().lower()
+        if visual_status not in VISUAL_REVIEW_STATUSES:
+            raise ValueError("prediction review visual_review_status is invalid")
+        annotation_issue = (row.get("annotation_issue") or "").strip().lower()
+        if annotation_issue not in ANNOTATION_ISSUES:
+            raise ValueError("prediction review annotation_issue is invalid")
+        notes = (row.get("notes") or "").strip()
+        if visual_status in {"issue", "uncertain"} and not notes:
+            raise ValueError(f"prediction review {visual_status} rows require notes")
+        visual_counts[visual_status] += 1
+        annotation_counts[annotation_issue] += 1
+
+    missing_ids = sorted(expected_ids - observed_ids)
+    extra_ids = sorted(observed_ids - expected_ids)
+    if missing_ids:
+        raise ValueError(f"prediction review is missing {len(missing_ids)} prediction sample IDs")
+    if extra_ids:
+        raise ValueError(f"prediction review contains {len(extra_ids)} unknown sample IDs")
+    if len(rows) != len(prediction_ids):
+        raise ValueError("prediction review row count does not match predictions")
+    return {
+        "prediction_review_count": len(rows),
+        "mapping_checked_count": mapping_checked_count,
+        "visual_review_status_counts": {
+            status: visual_counts[status] for status in sorted(VISUAL_REVIEW_STATUSES)
+        },
+        "annotation_issue_counts": {
+            status: annotation_counts[status] for status in sorted(ANNOTATION_ISSUES)
+        },
+    }
+
+
+def _install_promotion_evidence(
+    directory: Path,
+    *,
+    comparison: dict[str, Any],
+    prediction_review: Path,
+    review_summary: dict[str, Any],
+    audit: dict[str, Any],
+    canonical_run_id: str,
+    verification_run_id: str,
+    reviewed_by: str,
+    reviewed_at: str,
+    notes: str | None,
+) -> tuple[dict[str, Any], Path]:
+    review_dir = directory / "review"
+    if review_dir.exists():
+        raise ValueError("promotion evidence already exists")
+    staging = Path(tempfile.mkdtemp(prefix=".review-staging-", dir=directory))
+    try:
+        comparison_path = staging / "run_comparison.json"
+        atomic_write_json(comparison_path, comparison)
+        comparison_sha = sha256_file(comparison_path)
+        review_path = staging / "prediction_review.csv"
+        shutil.copyfile(prediction_review, review_path)
+        review_sha = sha256_file(review_path)
+        evidence = {
+            "schema_version": 1,
+            "canonical_run_id": canonical_run_id,
+            "verification_run_id": verification_run_id,
+            "comparison_file": "review/run_comparison.json",
+            "comparison_sha256": comparison_sha,
+            "comparison_passed": True,
+            "prediction_review_file": "review/prediction_review.csv",
+            "prediction_review_sha256": review_sha,
+            **review_summary,
+            "prediction_audit": {
+                "prediction_count": audit["prediction_count"],
+                "unique_sample_ids": audit["unique_sample_ids"],
+                "metrics_recomputed": audit["metrics_recomputed"],
+                "decisions_recomputed": audit["decisions_recomputed"],
+            },
+            "reviewed_by": reviewed_by,
+            "reviewed_at": reviewed_at,
+            "notes": notes,
+        }
+        evidence_path = staging / "promotion_evidence.json"
+        atomic_write_json(evidence_path, evidence)
+        evidence_sha = sha256_file(evidence_path)
+        os.replace(staging, review_dir)
+    except Exception:
+        shutil.rmtree(staging, ignore_errors=True)
+        raise
+    return (
+        {
+            "verification_run_id": verification_run_id,
+            "promotion_evidence_file": "review/promotion_evidence.json",
+            "promotion_evidence_sha256": evidence_sha,
+            "comparison_file": "review/run_comparison.json",
+            "comparison_sha256": comparison_sha,
+            "prediction_review_file": "review/prediction_review.csv",
+            "prediction_review_sha256": review_sha,
+            "prediction_review_count": review_summary["prediction_review_count"],
+        },
+        review_dir,
+    )
 
 
 def _validate_reportable_image_inventory(
