@@ -9,13 +9,23 @@ splits:
 files: []
 processing:
   format: recoalign-paired-matrix-jsonl-v1
+  source_dataset: facebook/winoground
+  source_split: test
+  source_revision: null
+  exporter_version: winoground-hf-export-v2
+  provenance_status: template_not_generated
   source_annotation: source/winoground.jsonl
   image_inventory: inventories/images.jsonl
   inventory_splits: [test]
   image_hashes: false
   categories: {winoground: 400}
   tags: {}
-  caption_token_multiset_match_rate: 100.0
+  caption_alphanumeric_character_multiset_match_rate: null
+  caption_alphanumeric_character_multiset_method: casefolded_alphanumeric_character_multiset_v1
+  caption_token_multiset_match_rate: null
+  caption_token_multiset_method: casefolded_alphanumeric_character_multiset_v1
+  caption_token_multiset_alias_status: deprecated
 notes: >-
-  Template only. Export the official Hugging Face dataset to local image paths, run
-  `recoalign prepare-winoground`, and hash images before reportable evaluation.
+  Template only. Export a pinned official Hugging Face dataset revision to local image paths, run
+  `recoalign prepare-winoground`, and hash images before reportable evaluation. The character
+  multiset check is not a word-order or linguistic segmentation validator.

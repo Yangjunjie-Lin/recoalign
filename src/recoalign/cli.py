@@ -79,6 +79,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     _add_standard_preparation_arguments(winoground)
     winoground.add_argument("--source-jsonl", required=True)
+    winoground.add_argument("--source-revision")
+    winoground.add_argument("--exporter-version")
+    winoground.add_argument("--downloaded-at")
 
     bivlc = subparsers.add_parser(
         "prepare-bivlc", help="normalize a path-based BiVLC export"
@@ -96,6 +99,20 @@ def build_parser() -> argparse.ArgumentParser:
         "promote-run", help="promote one reviewed complete run to reportable"
     )
     promote.add_argument("run_dir")
+    promote.add_argument(
+        "--verification-run",
+        help=(
+            "required for Winoground reportable promotion; complete cache-disabled rerun "
+            "with identical provenance"
+        ),
+    )
+    promote.add_argument(
+        "--prediction-review",
+        help=(
+            "required for Winoground reportable promotion; CSV covering every prediction "
+            "sample ID and mapping review"
+        ),
+    )
     promote.add_argument("--reviewed-by", required=True)
     promote.add_argument("--notes")
 
@@ -216,6 +233,9 @@ def main(argv: Sequence[str] | None = None) -> int:
                 source=args.source,
                 license_name=args.license_name,
                 hash_images=args.hash_images,
+                source_revision=args.source_revision,
+                exporter_version=args.exporter_version,
+                downloaded_at=args.downloaded_at,
             )
             return _print_prepared("Winoground", manifest, args.manifest_output)
 
@@ -238,7 +258,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         if args.command == "promote-run":
-            promote_run(args.run_dir, reviewed_by=args.reviewed_by, notes=args.notes)
+            promote_run(
+                args.run_dir,
+                verification_run=args.verification_run,
+                prediction_review=args.prediction_review,
+                reviewed_by=args.reviewed_by,
+                notes=args.notes,
+            )
             print(Path(args.run_dir) / "run.json")
             return 0
 

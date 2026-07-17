@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import numpy as np
 
-from recoalign.benchmarks.caption_multisets import WINOGROUND_CONTENT_MULTISET
+from recoalign.benchmarks.caption_multisets import (
+    WINOGROUND_ALPHANUMERIC_CHARACTER_MULTISET,
+    caption_multiset_matches,
+)
 from recoalign.evaluation.diagnostics import (
     evaluate_multichoice_scores,
     evaluate_paired_matrix_scores,
@@ -61,7 +64,7 @@ def test_token_multiset_match_rate_is_order_invariant() -> None:
     assert token_multiset_match_rate([("a red cup", "cup red a"), ("one", "two")]) == 50.0
 
 
-def test_token_multiset_match_rate_supports_official_morpheme_cases() -> None:
+def test_alphanumeric_character_multiset_accepts_character_conserved_pairs() -> None:
     pairs = [
         ("a caterpillar with some plants", "a plant with some caterpillars"),
         ("first the cream, then the jam", "first the jam, then the cream"),
@@ -69,5 +72,17 @@ def test_token_multiset_match_rate_supports_official_morpheme_cases() -> None:
     ]
 
     assert (
-        token_multiset_match_rate(pairs, method=WINOGROUND_CONTENT_MULTISET) == 100.0
+        token_multiset_match_rate(
+            pairs,
+            method=WINOGROUND_ALPHANUMERIC_CHARACTER_MULTISET,
+        )
+        == 100.0
+    )
+
+
+def test_alphanumeric_character_multiset_is_not_a_word_order_validator() -> None:
+    assert caption_multiset_matches(
+        "dog",
+        "god",
+        method=WINOGROUND_ALPHANUMERIC_CHARACTER_MULTISET,
     )
