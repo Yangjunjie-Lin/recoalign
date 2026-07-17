@@ -80,12 +80,60 @@
             "reviewed_by": {"type": "string", "minLength": 1},
             "reviewed_at": {"type": "string", "format": "date-time"},
             "decision": {"const": "reportable"},
-            "notes": {"type": ["string", "null"]}
+            "notes": {"type": ["string", "null"]},
+            "verification_run_id": {"type": "string", "minLength": 1},
+            "promotion_evidence_file": {"type": "string", "minLength": 1},
+            "promotion_evidence_sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "comparison_file": {"type": "string", "minLength": 1},
+            "comparison_sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "prediction_review_file": {"type": "string", "minLength": 1},
+            "prediction_review_sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "prediction_review_count": {"type": "integer", "minimum": 1}
           },
           "additionalProperties": false
         }
       ]
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "dataset": {"const": "winoground"},
+          "status": {"const": "reportable"}
+        },
+        "required": ["dataset", "status"]
+      },
+      "then": {
+        "properties": {
+          "review": {
+            "type": "object",
+            "required": [
+              "verification_run_id",
+              "promotion_evidence_file",
+              "promotion_evidence_sha256",
+              "comparison_file",
+              "comparison_sha256",
+              "prediction_review_file",
+              "prediction_review_sha256",
+              "prediction_review_count"
+            ],
+            "properties": {
+              "prediction_review_count": {"const": 400}
+            }
+          }
+        }
+      }
+    }
+  ],
   "additionalProperties": false
 }

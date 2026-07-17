@@ -25,6 +25,7 @@ def _load_exporter() -> ModuleType:
 
 
 EXPORTER = _load_exporter()
+REVISION = "a" * 40
 
 
 def _row(official_id: int = 0) -> dict[str, Any]:
@@ -48,14 +49,23 @@ def _read_rows(root: Path) -> list[dict[str, Any]]:
 def test_export_preserves_order_text_tags_and_metadata(tmp_path: Path) -> None:
     rows = [_row(7), _row(12)]
 
-    summary = EXPORTER.export_winoground(rows, tmp_path, expected_samples=2)
+    summary = EXPORTER.export_winoground(
+        rows,
+        tmp_path,
+        revision=REVISION,
+        expected_samples=2,
+    )
 
     exported = _read_rows(tmp_path)
     assert summary["samples"] == 2
     assert summary["unique_sample_ids"] == 2
-    assert summary["token_multiset_method"] == (
+    assert summary["caption_alphanumeric_character_multiset_method"] == (
         "casefolded_alphanumeric_character_multiset_v1"
     )
+    assert summary["revision"] == REVISION
+    assert summary["exporter_version"] == "winoground-hf-export-v2"
+    assert summary["formal_export"] is False
+    assert summary["exported_at"].endswith("Z")
     assert exported[0]["sample_id"] == "winoground-000007"
     assert exported[0]["caption_0"] == rows[0]["caption_0"]
     assert exported[0]["caption_1"] == rows[0]["caption_1"]
@@ -70,8 +80,12 @@ def test_export_preserves_order_text_tags_and_metadata(tmp_path: Path) -> None:
             "tag": "Relation",
         },
         "source_dataset": "facebook/winoground",
+        "source_revision": REVISION,
         "source_split": "test",
+        "exporter_version": "winoground-hf-export-v2",
     }
+    assert REVISION not in exported[0]["image_0"]
+    assert "token" not in exported[0]["metadata"]
     with Image.open(tmp_path / "images" / exported[0]["image_0"]) as image_0:
         assert image_0.getpixel((0, 0)) == (255, 0, 0)
     with Image.open(tmp_path / "images" / exported[0]["image_1"]) as image_1:
@@ -135,9 +149,73 @@ def test_export_requires_400_samples_for_formal_run(tmp_path: Path) -> None:
         EXPORTER.export_winoground([_row()], tmp_path)
 
 
+def test_formal_export_requires_revision(tmp_path: Path) -> None:
+    rows = [_row(index) for index in range(400)]
+
+    with pytest.raises(ValueError, match="requires --revision"):
+        EXPORTER.export_winoground(rows, tmp_path)
+
+
+@pytest.mark.parametrize(
+    ("max_samples", "expected_samples", "revision", "expected_formal"),
+    [
+        (None, 400, REVISION, True),
+        (400, 400, REVISION, False),
+        (None, 1, REVISION, False),
+        (None, 400, None, False),
+    ],
+)
+def test_formal_export_requires_full_pinned_snapshot(
+    tmp_path: Path,
+    max_samples: int | None,
+    expected_samples: int,
+    revision: str | None,
+    expected_formal: bool,
+) -> None:
+    rows = [_row(index) for index in range(expected_samples)]
+
+    summary = EXPORTER.export_winoground(
+        rows,
+        tmp_path,
+        dry_run=True,
+        max_samples=max_samples,
+        expected_samples=expected_samples,
+        revision=revision,
+    )
+
+    assert summary["formal_export"] is expected_formal
+
+
+def test_revision_is_passed_to_hugging_face_loader(monkeypatch) -> None:
+    calls = []
+    datasets = ModuleType("datasets")
+
+    def fake_load_dataset(dataset_id, **kwargs):
+        calls.append((dataset_id, kwargs))
+        return ["fixture"]
+
+    datasets.load_dataset = fake_load_dataset
+    monkeypatch.setitem(sys.modules, "datasets", datasets)
+
+    loaded = EXPORTER.load_official_split("facebook/winoground", "test", REVISION)
+
+    assert loaded == ["fixture"]
+    assert calls == [
+        (
+            "facebook/winoground",
+            {"split": "test", "revision": REVISION},
+        )
+    ]
+
+
 def test_export_output_is_accepted_by_prepare_winoground(tmp_path: Path) -> None:
     dataset_root = tmp_path / "winoground"
-    EXPORTER.export_winoground([_row()], dataset_root, expected_samples=1)
+    EXPORTER.export_winoground(
+        [_row()],
+        dataset_root,
+        revision=REVISION,
+        expected_samples=1,
+    )
 
     manifest = prepare_winoground(
         dataset_root / "incoming" / "winoground.jsonl",
@@ -146,9 +224,16 @@ def test_export_output_is_accepted_by_prepare_winoground(tmp_path: Path) -> None
         source="synthetic test fixture",
         license_name="test only",
         hash_images=True,
+        downloaded_at="2026-07-16T00:00:00Z",
     )
 
     assert manifest["splits"] == {"test": 1}
     assert manifest["processing"]["image_hashes"] is True
-    assert manifest["processing"]["caption_token_multiset_match_rate"] == 100.0
+    assert manifest["downloaded_at"] == "2026-07-16T00:00:00Z"
+    assert (
+        manifest["processing"]["caption_alphanumeric_character_multiset_match_rate"]
+        == 100.0
+    )
+    assert manifest["processing"]["source_revision"] == REVISION
+    assert manifest["processing"]["exporter_version"] == "winoground-hf-export-v2"
     assert len((dataset_root / "annotations" / "test.jsonl").read_text().splitlines()) == 1

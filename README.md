@@ -98,7 +98,10 @@ recoalign prepare-winoground \
   --dataset-root data/winoground \
   --manifest-output manifests/datasets/winoground.yaml \
   --source "official Winoground export" \
-  --license "upstream terms verified locally" \
+  --license "official gated research-use terms reviewed locally; upstream restrictions apply" \
+  --source-revision "$WINOGROUND_HF_REVISION" \
+  --exporter-version winoground-hf-export-v2 \
+  --downloaded-at "$WINOGROUND_EXPORTED_AT" \
   --hash-images
 
 recoalign prepare-bivlc \
@@ -149,13 +152,28 @@ outputs/<run-id>/
 
 A technically complete run is not automatically a paper claim. Promotion requires a clean Git state,
 valid manifests, a hash-verified test-image inventory, finite schema-valid metrics, a cache-free
-verification rerun, prediction inspection, and reviewer identity.
+verification rerun, prediction inspection, and reviewer identity. A Winoground run cannot become
+reportable from reviewer notes alone: promotion recomputes the cached/no-cache comparison and the
+prediction decisions and metrics, requires a full 400-sample mapping review, verifies exact
+annotation-to-inventory coverage, and snapshots and hashes the resulting evidence.
+Both the canonical and cache-disabled verification runs undergo the same config, environment,
+manifest, annotation, prediction, decision, and metric integrity checks. Predictions must align
+row-for-row with the normalized annotation, including sample ID, category, and tags.
+
+A reportable Winoground result is revalidated when collected for tables. The collector verifies the
+promotion evidence hashes, comparison gates, 400-row review evidence, canonical artifact digests,
+and the retained complete verification run. A hand-edited `run.json` is not sufficient for inclusion.
 
 ```bash
 recoalign promote-run outputs/<run-id> \
+  --verification-run outputs/<no-cache-run-id> \
+  --prediction-review reports/experiments/winoground/reviewed_sample_ids.csv \
   --reviewed-by "Yangjunjie Lin" \
   --notes "Checked indexing, manifests, blind controls, predictions, and cache-free rerun."
 ```
+
+For Winoground, the verification run must remain `complete` and cache-disabled; only the canonical
+cache-enabled run is promoted. A user-supplied comparison JSON is not accepted as evidence.
 
 Interpretation rules:
 

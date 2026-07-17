@@ -1,27 +1,19 @@
 from __future__ import annotations
 
-import importlib.util
 import json
+import subprocess
 import sys
 from pathlib import Path
-from types import ModuleType
+from types import SimpleNamespace
+
+import pytest
+import yaml
 
 from recoalign.experiments.records import create_run, finalize_run
+from recoalign.experiments.run_comparison import compare_runs
 from recoalign.reproducibility import atomic_write_json
 
-SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "compare_runs.py"
-
-
-def _load_comparator() -> ModuleType:
-    spec = importlib.util.spec_from_file_location("compare_runs", SCRIPT_PATH)
-    assert spec is not None and spec.loader is not None
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
-
-
-COMPARATOR = _load_comparator()
+COMPARATOR = SimpleNamespace(compare_runs=compare_runs)
 
 
 def test_compare_runs_accepts_tiny_score_differences(tmp_path: Path, research_config) -> None:
@@ -33,7 +25,77 @@ def test_compare_runs_accepts_tiny_score_differences(tmp_path: Path, research_co
     assert summary["passed"] is True
     assert summary["maximum_score_absolute_difference"] < 1e-6
     assert not any(summary["decision_differences"].values())
+    assert summary["cached_run_cache_enabled"] is True
     assert summary["no_cache_run_cache_disabled"] is True
+    assert summary["cached_run_status_valid"] is True
+    assert summary["no_cache_run_status_valid"] is True
+
+
+def test_compare_runs_rejects_different_config_sha(tmp_path: Path, research_config) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    _update_run(no_cache, config_sha256="b" * 64)
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["run_identity_matches"]["config_sha256"] is False
+
+
+def test_compare_runs_rejects_different_git_commit(tmp_path: Path, research_config) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    _update_run(no_cache, git_commit="b" * 40)
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["run_identity_matches"]["git_commit"] is False
+
+
+def test_compare_runs_rejects_different_seed(tmp_path: Path, research_config) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    _update_run(no_cache, seed=999)
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["run_identity_matches"]["seed"] is False
+
+
+def test_compare_runs_rejects_different_manifest_sha(tmp_path: Path, research_config) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    _update_run(no_cache, dataset_manifest_sha256="b" * 64)
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["run_identity_matches"]["dataset_manifest_sha256"] is False
+
+
+def test_compare_runs_rejects_different_checkpoint_identity(
+    tmp_path: Path, research_config
+) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    _update_run(no_cache, checkpoint="other-checkpoint")
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["run_identity_matches"]["checkpoint"] is False
+
+
+def test_compare_runs_rejects_scores_outside_tolerance(tmp_path: Path, research_config) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.1)
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["scores_within_tolerance"] is False
 
 
 def test_compare_runs_rejects_cold_cache_as_no_cache(tmp_path: Path, research_config) -> None:
@@ -50,6 +112,81 @@ def test_compare_runs_rejects_cold_cache_as_no_cache(tmp_path: Path, research_co
     assert summary["no_cache_run_cache_disabled"] is False
 
 
+def test_compare_runs_rejects_two_no_cache_runs(tmp_path: Path, research_config) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    _update_cache(cached, enabled=False)
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["cached_run_cache_enabled"] is False
+
+
+def test_compare_runs_rejects_two_cache_enabled_runs(tmp_path: Path, research_config) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    _update_cache(no_cache, enabled=True)
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["no_cache_run_cache_disabled"] is False
+
+
+@pytest.mark.parametrize(
+    "cache_value",
+    [
+        {"images_hit": False, "texts_hit": False},
+        {"enabled": "false", "images_hit": False, "texts_hit": False},
+    ],
+)
+def test_compare_runs_rejects_malformed_cache_metadata(
+    tmp_path: Path, research_config, cache_value
+) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    path = no_cache / "evaluation.json"
+    evaluation = json.loads(path.read_text())
+    evaluation["metadata"]["cache"] = cache_value
+    atomic_write_json(path, evaluation)
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["no_cache_run_cache_disabled"] is False
+
+
+def test_compare_runs_rejects_reportable_no_cache_verification(
+    tmp_path: Path, research_config
+) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    _update_run(
+        no_cache,
+        status="reportable",
+        review={
+            "reviewed_by": "test reviewer",
+            "reviewed_at": "2026-07-16T00:00:00+00:00",
+            "decision": "reportable",
+            "notes": "test fixture only",
+            "verification_run_id": "unused",
+            "promotion_evidence_file": "review/promotion_evidence.json",
+            "promotion_evidence_sha256": "a" * 64,
+            "comparison_file": "review/run_comparison.json",
+            "comparison_sha256": "a" * 64,
+            "prediction_review_file": "review/prediction_review.csv",
+            "prediction_review_sha256": "a" * 64,
+            "prediction_review_count": 400,
+        },
+    )
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["no_cache_run_status_valid"] is False
+
+
 def test_compare_runs_rejects_decision_difference(tmp_path: Path, research_config) -> None:
     cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
     no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
@@ -64,6 +201,20 @@ def test_compare_runs_rejects_decision_difference(tmp_path: Path, research_confi
     assert summary["decision_differences"]["tie"] == 1
 
 
+def test_compare_runs_cli_wrapper_help() -> None:
+    script = Path(__file__).resolve().parents[1] / "scripts" / "compare_runs.py"
+
+    result = subprocess.run(
+        [sys.executable, str(script), "--help"],
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+
+    assert result.returncode == 0
+    assert "cached_run" in result.stdout
+
+
 def _run_fixture(
     tmp_path: Path,
     research_config,
@@ -73,6 +224,10 @@ def _run_fixture(
 ) -> Path:
     config = research_config
     config["data"]["dataset"] = "winoground"
+    manifest_path = Path(config["data"]["manifest"])
+    manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
+    manifest["name"] = "winoground"
+    manifest_path.write_text(yaml.safe_dump(manifest, sort_keys=False), encoding="utf-8")
     run_dir = create_run(config, output_root=tmp_path / "runs", run_id=run_id)
     metrics = {
         "image_to_text_accuracy": 100.0,
@@ -81,6 +236,7 @@ def _run_fixture(
         "tie_rate": 0.0,
         "mean_image_to_text_margin": 0.7,
         "mean_text_to_image_margin": 0.6,
+        "caption_alphanumeric_character_multiset_match_rate": 100.0,
         "caption_token_multiset_match_rate": 100.0,
     }
     finalize_run(run_dir, metrics, status="complete")
@@ -94,9 +250,7 @@ def _run_fixture(
         "group_correct": True,
         "tie": False,
     }
-    (run_dir / "predictions.jsonl").write_text(
-        json.dumps(prediction) + "\n", encoding="utf-8"
-    )
+    (run_dir / "predictions.jsonl").write_text(json.dumps(prediction) + "\n", encoding="utf-8")
     run = json.loads((run_dir / "run.json").read_text())
     metadata = {
         "protocol_version": 1,
@@ -125,3 +279,17 @@ def _run_fixture(
     }
     atomic_write_json(run_dir / "evaluation.json", evaluation)
     return run_dir
+
+
+def _update_run(run_dir: Path, **updates) -> None:
+    path = run_dir / "run.json"
+    run = json.loads(path.read_text())
+    run.update(updates)
+    atomic_write_json(path, run)
+
+
+def _update_cache(run_dir: Path, **updates) -> None:
+    path = run_dir / "evaluation.json"
+    evaluation = json.loads(path.read_text())
+    evaluation["metadata"]["cache"].update(updates)
+    atomic_write_json(path, evaluation)

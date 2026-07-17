@@ -12,7 +12,7 @@ import numpy as np
 
 from recoalign.benchmarks.caption_multisets import (
     WHITESPACE_TOKEN_MULTISET,
-    WINOGROUND_CONTENT_MULTISET,
+    WINOGROUND_ALPHANUMERIC_CHARACTER_MULTISET,
 )
 from recoalign.benchmarks.records import (
     load_multichoice_jsonl,
@@ -287,12 +287,17 @@ def _evaluate_paired_matrix(
         tags=[record.tags for record in records],
     )
     multiset_method = (
-        WINOGROUND_CONTENT_MULTISET if dataset == "winoground" else WHITESPACE_TOKEN_MULTISET
+        WINOGROUND_ALPHANUMERIC_CHARACTER_MULTISET
+        if dataset == "winoground"
+        else WHITESPACE_TOKEN_MULTISET
     )
     multiset_rate = token_multiset_match_rate(
         [(record.caption_0, record.caption_1) for record in records],
         method=multiset_method,
     )
+    if dataset == "winoground":
+        metrics["caption_alphanumeric_character_multiset_match_rate"] = multiset_rate
+    # Deprecated alias retained for existing configs and result readers.
     metrics["caption_token_multiset_match_rate"] = multiset_rate
     if evaluation.get("require_caption_token_multiset_match", False) and multiset_rate != 100.0:
         raise ValueError(
@@ -342,6 +347,13 @@ def _evaluate_paired_matrix(
         "score_matrix_convention": "scores[image_index, caption_index], diagonal is correct",
         "tie_policy": "all four diagonal-vs-off-diagonal comparisons are strict",
     }
+    if dataset == "winoground":
+        metadata.update(
+            {
+                "caption_alphanumeric_character_multiset_match_rate": multiset_rate,
+                "caption_alphanumeric_character_multiset_method": multiset_method,
+            }
+        )
     return ExtendedBenchmarkEvaluation(metrics, metadata, predictions)
 
 
