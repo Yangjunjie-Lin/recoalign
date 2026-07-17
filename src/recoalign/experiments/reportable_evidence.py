@@ -7,12 +7,16 @@ import re
 from pathlib import Path, PurePosixPath, PureWindowsPath
 from typing import Any
 
-from recoalign.data.manifest import sha256_file
+import yaml
+
+from recoalign.config import validate_config
+from recoalign.data.manifest import load_dataset_manifest, sha256_file
 from recoalign.experiments.records import (
     WINOGROUND_ARTIFACTS,
     load_run,
     validate_completed_winoground_run_integrity,
     validate_prediction_review,
+    validate_winoground_run_identity,
 )
 from recoalign.experiments.run_comparison import (
     DECISION_FIELDS,
@@ -30,13 +34,31 @@ def validate_reportable_run_evidence(
     """Validate promotion evidence and the retained cache-disabled run."""
     directory = Path(run_dir)
     run = load_run(directory)
-    if run["dataset"] != "winoground":
-        return {"directory": directory, "run": run}
     if run["status"] != "reportable":
-        raise ValueError("Winoground evidence validation requires status reportable")
+        raise ValueError("reportable evidence validation requires status reportable")
     review = run.get("review")
+    config_dataset = _peek_config_dataset(directory / "config.resolved.yaml")
+    has_winoground_evidence = isinstance(review, dict) and any(
+        field in review
+        for field in (
+            "verification_run_id",
+            "promotion_evidence_file",
+            "comparison_file",
+            "prediction_review_file",
+        )
+    )
+    is_winoground = (
+        run.get("dataset") == "winoground"
+        or config_dataset == "winoground"
+        or has_winoground_evidence
+        or (directory / "review" / "promotion_evidence.json").is_file()
+    )
+    if not is_winoground:
+        return {"directory": directory, "run": run}
     if not isinstance(review, dict) or review.get("decision") != "reportable":
         raise ValueError("reportable Winoground run requires reportable review metadata")
+    if run.get("dataset") != "winoground":
+        raise ValueError("run dataset does not match reportable Winoground evidence")
 
     evidence_path = _review_file(directory, review, "promotion_evidence")
     comparison_path = _review_file(directory, review, "comparison")
@@ -105,6 +127,17 @@ def validate_reportable_run_evidence(
         directory,
         evidence.get("canonical_artifacts"),
         label="reportable canonical",
+    )
+    config = _load_yaml(directory / "config.resolved.yaml")
+    environment = _load_json(directory / "environment.json", "environment")
+    dataset_manifest = load_dataset_manifest(directory / "manifests" / "dataset.yaml")
+    evaluation = _load_json(directory / "evaluation.json", "evaluation")
+    validate_winoground_run_identity(
+        run,
+        config=config,
+        environment=environment,
+        dataset_manifest=dataset_manifest,
+        evaluation=evaluation,
     )
 
     root = Path(results_root) if results_root is not None else directory.parent
@@ -264,6 +297,26 @@ def _load_json(path: Path, label: str) -> dict[str, Any]:
     if not isinstance(payload, dict):
         raise ValueError(f"{label} must be a JSON object")
     return payload
+
+
+def _load_yaml(path: Path) -> dict[str, Any]:
+    payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError(f"YAML record must be an object: {path}")
+    validate_config(payload)
+    return payload
+
+
+def _peek_config_dataset(path: Path) -> Any:
+    if not path.is_file():
+        return None
+    try:
+        payload = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except yaml.YAMLError:
+        return None
+    if not isinstance(payload, dict) or not isinstance(payload.get("data"), dict):
+        return None
+    return payload["data"].get("dataset")
 
 
 def _is_sha256(value: Any) -> bool:

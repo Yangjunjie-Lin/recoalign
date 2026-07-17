@@ -326,14 +326,9 @@ def validate_completed_winoground_run_integrity(
     config = _load_yaml(directory / "config.resolved.yaml")
     if config_digest(config) != run["config_sha256"]:
         raise ValueError("run config digest does not match resolved config")
-    _validate_run_config_identity(run, config)
 
     environment = _load_json(directory / "environment.json", "environment")
     git = environment["git"]
-    if not isinstance(git.get("commit"), str) or not git["commit"].strip():
-        raise ValueError("environment Git commit must be non-empty")
-    if run["git_commit"] != git["commit"]:
-        raise ValueError("run Git commit is inconsistent with environment.json")
     if require_clean_git and git.get("dirty") is not False:
         raise ValueError("dirty or unknown Git state cannot be used for reportable results")
     if require_clean_git and git.get("untracked_count", 0) != 0:
@@ -344,7 +339,6 @@ def validate_completed_winoground_run_integrity(
     dataset_manifest = load_dataset_manifest(dataset_manifest_path)
     if file_digest(dataset_manifest_path) != run["dataset_manifest_sha256"]:
         raise ValueError("run dataset manifest digest does not match snapshotted manifest")
-    _validate_run_dataset_identity(run, config, dataset_manifest)
     if dataset_manifest.get("splits", {}).get("test") != 400:
         raise ValueError("Winoground reportable runs require exactly 400 test samples")
     dataset_root = _resolve_path(config["data"]["root"], project_root)
@@ -362,7 +356,13 @@ def validate_completed_winoground_run_integrity(
     _validate_reportable_dataset_provenance(run["dataset"], dataset_manifest)
 
     evaluation = _load_json(directory / "evaluation.json", "evaluation")
-    _validate_evaluation_identity(run, evaluation, config=config)
+    validate_winoground_run_identity(
+        run,
+        config=config,
+        environment=environment,
+        dataset_manifest=dataset_manifest,
+        evaluation=evaluation,
+    )
     metadata = evaluation["metadata"]
     if metadata.get("benchmark") != "winoground_paired_matrix":
         raise ValueError("evaluation benchmark must be winoground_paired_matrix")
@@ -441,6 +441,31 @@ def validate_completed_winoground_run_integrity(
         "prediction_sample_ids": prediction_sample_ids,
         "artifact_digests": artifact_digests,
     }
+
+
+def validate_winoground_run_identity(
+    run: dict[str, Any],
+    *,
+    config: dict[str, Any],
+    environment: dict[str, Any],
+    dataset_manifest: dict[str, Any],
+    evaluation: dict[str, Any],
+) -> None:
+    """Bind mutable run metadata to immutable Winoground artifacts."""
+    if run.get("dataset") != "winoground":
+        raise ValueError("run dataset does not match reportable Winoground evidence")
+    if config_digest(config) != run["config_sha256"]:
+        raise ValueError("run config digest does not match resolved config")
+    _validate_run_config_identity(run, config)
+    _validate_run_dataset_identity(run, config, dataset_manifest)
+    git = environment["git"]
+    if not isinstance(git.get("commit"), str) or not git["commit"].strip():
+        raise ValueError("environment Git commit must be non-empty")
+    if run["git_commit"] != git["commit"]:
+        raise ValueError("run Git commit is inconsistent with environment.json")
+    if run.get("metrics_file") != "metrics.json":
+        raise ValueError("run must reference metrics.json")
+    _validate_evaluation_identity(run, evaluation, config=config)
 
 
 def _validate_metrics(metrics: dict[str, int | float]) -> dict[str, float]:

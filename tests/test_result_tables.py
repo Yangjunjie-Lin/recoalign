@@ -80,6 +80,47 @@ def test_collect_runs_rejects_hand_edited_winoground_reportable_status(
         collect_runs(tmp_path)
 
 
+def test_collect_runs_rejects_tampered_winoground_dataset_identity(
+    tmp_path, research_config
+) -> None:
+    canonical, _verification = _promoted_winoground_pair(tmp_path, research_config)
+    path = canonical / "run.json"
+    run = json.loads(path.read_text(encoding="utf-8"))
+    run["dataset"] = "other"
+    atomic_write_json(path, run)
+
+    with pytest.raises(ValueError, match="dataset does not match reportable Winoground evidence"):
+        collect_runs(tmp_path)
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "error"),
+    [
+        ("model", "other", "model does not match"),
+        ("pretrained", "other", "pretrained weights do not match"),
+        ("seed", 999, "seed does not match"),
+        ("git_commit", "b" * 40, "environment.json"),
+        ("dataset_split", "validation", "dataset split does not match"),
+        ("precision", "fp16", "precision does not match"),
+    ],
+)
+def test_collect_runs_rechecks_reportable_canonical_identity(
+    tmp_path,
+    research_config,
+    field: str,
+    value: object,
+    error: str,
+) -> None:
+    canonical, _verification = _promoted_winoground_pair(tmp_path, research_config)
+    path = canonical / "run.json"
+    run = json.loads(path.read_text(encoding="utf-8"))
+    run[field] = value
+    atomic_write_json(path, run)
+
+    with pytest.raises(ValueError, match=error):
+        collect_runs(tmp_path)
+
+
 @pytest.mark.parametrize(
     ("target", "mutation", "error"),
     [

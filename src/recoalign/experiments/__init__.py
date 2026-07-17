@@ -10,6 +10,7 @@ from recoalign.experiments.records import (
     promote_run,
     validate_completed_winoground_run_integrity,
     validate_prediction_review,
+    validate_winoground_run_identity,
 )
 from recoalign.experiments.reportable_evidence import validate_reportable_run_evidence
 from recoalign.experiments.run_comparison import compare_runs
@@ -28,4 +29,5 @@ __all__ = [
     "validate_completed_winoground_run_integrity",
     "validate_prediction_review",
     "validate_reportable_run_evidence",
+    "validate_winoground_run_identity",
 ]

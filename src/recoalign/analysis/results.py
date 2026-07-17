@@ -24,7 +24,7 @@ def collect_runs(
             continue
         if record["status"] == "reportable" and not isinstance(record.get("review"), dict):
             raise ValueError(f"reportable run is missing review metadata: {run_file.parent}")
-        if record["status"] == "reportable" and record["dataset"] == "winoground":
+        if record["status"] == "reportable":
             try:
                 validate_reportable_run_evidence(run_file.parent, results_root=root)
             except (FileNotFoundError, ValueError) as exc:
