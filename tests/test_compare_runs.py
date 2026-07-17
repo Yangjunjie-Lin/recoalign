@@ -75,6 +75,19 @@ def test_compare_runs_rejects_different_manifest_sha(tmp_path: Path, research_co
     assert summary["run_identity_matches"]["dataset_manifest_sha256"] is False
 
 
+def test_compare_runs_rejects_different_checkpoint_identity(
+    tmp_path: Path, research_config
+) -> None:
+    cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
+    no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.0)
+    _update_run(no_cache, checkpoint="other-checkpoint")
+
+    summary = COMPARATOR.compare_runs(cached, no_cache)
+
+    assert summary["passed"] is False
+    assert summary["run_identity_matches"]["checkpoint"] is False
+
+
 def test_compare_runs_rejects_scores_outside_tolerance(tmp_path: Path, research_config) -> None:
     cached = _run_fixture(tmp_path, research_config, "cached", score_delta=0.0)
     no_cache = _run_fixture(tmp_path, research_config, "no-cache", score_delta=0.1)
@@ -157,6 +170,14 @@ def test_compare_runs_rejects_reportable_no_cache_verification(
             "reviewed_at": "2026-07-16T00:00:00+00:00",
             "decision": "reportable",
             "notes": "test fixture only",
+            "verification_run_id": "unused",
+            "promotion_evidence_file": "review/promotion_evidence.json",
+            "promotion_evidence_sha256": "a" * 64,
+            "comparison_file": "review/run_comparison.json",
+            "comparison_sha256": "a" * 64,
+            "prediction_review_file": "review/prediction_review.csv",
+            "prediction_review_sha256": "a" * 64,
+            "prediction_review_count": 400,
         },
     )
 

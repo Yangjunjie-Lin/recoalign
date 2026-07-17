@@ -37,6 +37,15 @@ from recoalign.schema_validation import repository_root, validate_payload
 RUN_STATUSES = {"pilot", "partial", "failed", "complete", "reportable"}
 FINALIZABLE_STATUSES = RUN_STATUSES - {"reportable"}
 WINOGROUND_CONTENT_CHECK_METHOD = "casefolded_alphanumeric_character_multiset_v1"
+WINOGROUND_ARTIFACTS = (
+    "config.resolved.yaml",
+    "environment.json",
+    "manifests/dataset.yaml",
+    "manifests/checkpoint.yaml",
+    "evaluation.json",
+    "metrics.json",
+    "predictions.jsonl",
+)
 
 
 def create_run(
@@ -174,6 +183,68 @@ def promote_run(
     record = load_run(directory)
     if record["status"] != "complete":
         raise ValueError("only complete runs can be promoted to reportable")
+    if record["review"] is not None:
+        raise ValueError("complete promotion candidates must have null review metadata")
+
+    if record["dataset"] == "winoground":
+        canonical_integrity = validate_completed_winoground_run_integrity(
+            directory,
+            expected_cache_enabled=True,
+        )
+        if verification_run is None:
+            raise ValueError("Winoground promotion requires a cache-disabled verification run")
+        if prediction_review is None:
+            raise ValueError("Winoground promotion requires prediction review evidence")
+        verification_directory = Path(verification_run)
+        if _same_directory(directory, verification_directory):
+            raise ValueError("verification run must be different from canonical run")
+        verification_integrity = validate_completed_winoground_run_integrity(
+            verification_directory,
+            expected_cache_enabled=False,
+        )
+        verification_record = verification_integrity["run"]
+        if verification_record["run_id"] == record["run_id"]:
+            raise ValueError("verification run ID must differ from canonical run ID")
+
+        comparison = compare_runs(directory, verification_directory)
+        if comparison.get("passed") is not True:
+            gates = ", ".join(_failed_comparison_gates(comparison)[:5])
+            suffix = f": {gates}" if gates else ""
+            raise ValueError(f"cache-disabled verification comparison did not pass{suffix}")
+        review_summary = validate_prediction_review(
+            prediction_review,
+            canonical_integrity["prediction_sample_ids"],
+        )
+        reviewed_at = utc_now()
+        evidence_fields, installed_review = _install_promotion_evidence(
+            directory,
+            comparison=comparison,
+            prediction_review=Path(prediction_review),
+            review_summary=review_summary,
+            audit=canonical_integrity["audit"],
+            canonical_integrity=canonical_integrity,
+            verification_integrity=verification_integrity,
+            reviewed_by=reviewer,
+            reviewed_at=reviewed_at,
+            notes=notes,
+        )
+        record["dataset_verification"] = canonical_integrity["dataset_verification"]
+        record["checkpoint_verification"] = canonical_integrity["checkpoint_verification"]
+        record["status"] = "reportable"
+        record["review"] = {
+            "reviewed_by": reviewer,
+            "reviewed_at": reviewed_at,
+            "decision": "reportable",
+            "notes": notes,
+            **evidence_fields,
+        }
+        validate_payload("run", record)
+        try:
+            atomic_write_json(directory / "run.json", record)
+        except Exception:
+            shutil.rmtree(installed_review, ignore_errors=True)
+            raise
+        return record
 
     environment = _load_json(directory / "environment.json", "environment")
 
@@ -199,22 +270,6 @@ def promote_run(
     if dataset_verification["status"] != "passed" or dataset_verification["declared_files"] <= 0:
         raise ValueError("dataset files must be declared and verified before promotion")
     _validate_reportable_dataset_provenance(record["dataset"], dataset_manifest)
-    is_winoground = record["dataset"] == "winoground"
-    evaluation: dict[str, Any] | None = None
-    if is_winoground:
-        evaluation = _load_json(directory / "evaluation.json", "evaluation")
-        _validate_evaluation_identity(record, evaluation)
-        _validate_winoground_annotation_path(config, dataset_root, project_root)
-        coverage_failures = verify_annotation_inventory_coverage(
-            dataset_root,
-            dataset_manifest,
-            split=record["dataset_split"],
-            expected_annotation_sha256=evaluation["metadata"].get("annotation_sha256", ""),
-        )
-        if coverage_failures:
-            raise ValueError(
-                f"annotation and image inventory verification failed: {coverage_failures[0]}"
-            )
     checkpoint_manifest_path = directory / "manifests" / "checkpoint.yaml"
     checkpoint_manifest = load_checkpoint_manifest(checkpoint_manifest_path)
     if file_digest(checkpoint_manifest_path) != record["checkpoint_manifest_sha256"]:
@@ -228,39 +283,6 @@ def promote_run(
     metrics = _load_json(metrics_path, "metrics")
     _validate_metrics(metrics)
 
-    comparison: dict[str, Any] | None = None
-    audit: dict[str, Any] | None = None
-    review_summary: dict[str, Any] | None = None
-    verification_record: dict[str, Any] | None = None
-    if is_winoground:
-        if verification_run is None:
-            raise ValueError("Winoground promotion requires a cache-disabled verification run")
-        if prediction_review is None:
-            raise ValueError("Winoground promotion requires prediction review evidence")
-        expected_samples = dataset_manifest["splits"][record["dataset_split"]]
-        audit = audit_winoground_run(
-            directory,
-            expected_samples=expected_samples,
-            write_outputs=False,
-        )
-        prediction_ids = load_prediction_sample_ids(directory)
-        verification_directory = Path(verification_run)
-        if _same_directory(directory, verification_directory):
-            raise ValueError("verification run must be different from canonical run")
-        verification_record = load_run(verification_directory)
-        if verification_record["run_id"] == record["run_id"]:
-            raise ValueError("verification run ID must differ from canonical run ID")
-        if verification_record["status"] != "complete":
-            raise ValueError("verification run status must be complete")
-        if verification_record["review"] is not None:
-            raise ValueError("verification run review must be null")
-        comparison = compare_runs(directory, verification_directory)
-        if comparison.get("passed") is not True:
-            gates = ", ".join(_failed_comparison_gates(comparison)[:5])
-            suffix = f": {gates}" if gates else ""
-            raise ValueError(f"cache-disabled verification comparison did not pass{suffix}")
-        review_summary = _validate_prediction_review(prediction_review, prediction_ids)
-
     reviewed_at = utc_now()
     review_record: dict[str, Any] = {
         "reviewed_by": reviewer,
@@ -268,37 +290,12 @@ def promote_run(
         "decision": "reportable",
         "notes": notes,
     }
-    installed_review: Path | None = None
-    if is_winoground:
-        assert comparison is not None
-        assert audit is not None
-        assert review_summary is not None
-        assert verification_record is not None
-        evidence_fields, installed_review = _install_promotion_evidence(
-            directory,
-            comparison=comparison,
-            prediction_review=Path(prediction_review),
-            review_summary=review_summary,
-            audit=audit,
-            canonical_run_id=record["run_id"],
-            verification_run_id=verification_record["run_id"],
-            reviewed_by=reviewer,
-            reviewed_at=reviewed_at,
-            notes=notes,
-        )
-        review_record.update(evidence_fields)
-
     record["dataset_verification"] = dataset_verification
     record["checkpoint_verification"] = checkpoint_verification
     record["status"] = "reportable"
     record["review"] = review_record
     validate_payload("run", record)
-    try:
-        atomic_write_json(directory / "run.json", record)
-    except Exception:
-        if installed_review is not None:
-            shutil.rmtree(installed_review, ignore_errors=True)
-        raise
+    atomic_write_json(directory / "run.json", record)
     return record
 
 
@@ -306,6 +303,144 @@ def load_run(run_dir: str | Path) -> dict[str, Any]:
     """Load and validate an existing run record."""
     path = Path(run_dir) / "run.json"
     return _load_json(path, "run")
+
+
+def validate_completed_winoground_run_integrity(
+    run_dir: str | Path,
+    *,
+    expected_cache_enabled: bool,
+    require_clean_git: bool = True,
+) -> dict[str, Any]:
+    """Fully validate one immutable, completed Winoground run."""
+    if not isinstance(expected_cache_enabled, bool):
+        raise ValueError("expected_cache_enabled must be a boolean")
+    directory = Path(run_dir)
+    run = load_run(directory)
+    if run["status"] != "complete":
+        raise ValueError("Winoground integrity validation requires status complete")
+    if run["review"] is not None:
+        raise ValueError("Winoground integrity validation requires review null")
+    if run["dataset"] != "winoground":
+        raise ValueError("Winoground integrity validation requires dataset winoground")
+
+    config = _load_yaml(directory / "config.resolved.yaml")
+    if config_digest(config) != run["config_sha256"]:
+        raise ValueError("run config digest does not match resolved config")
+    _validate_run_config_identity(run, config)
+
+    environment = _load_json(directory / "environment.json", "environment")
+    git = environment["git"]
+    if not isinstance(git.get("commit"), str) or not git["commit"].strip():
+        raise ValueError("environment Git commit must be non-empty")
+    if run["git_commit"] != git["commit"]:
+        raise ValueError("run Git commit is inconsistent with environment.json")
+    if require_clean_git and git.get("dirty") is not False:
+        raise ValueError("dirty or unknown Git state cannot be used for reportable results")
+    if require_clean_git and git.get("untracked_count", 0) != 0:
+        raise ValueError("untracked files cannot be used for reportable results")
+
+    project_root = repository_root()
+    dataset_manifest_path = directory / "manifests" / "dataset.yaml"
+    dataset_manifest = load_dataset_manifest(dataset_manifest_path)
+    if file_digest(dataset_manifest_path) != run["dataset_manifest_sha256"]:
+        raise ValueError("run dataset manifest digest does not match snapshotted manifest")
+    _validate_run_dataset_identity(run, config, dataset_manifest)
+    if dataset_manifest.get("splits", {}).get("test") != 400:
+        raise ValueError("Winoground reportable runs require exactly 400 test samples")
+    dataset_root = _resolve_path(config["data"]["root"], project_root)
+    _validate_reportable_image_inventory(run["dataset"], dataset_root, dataset_manifest)
+    dataset_failures = verify_manifest_files(
+        dataset_root,
+        dataset_manifest,
+        require_hashed_inventory=True,
+    )
+    if dataset_failures:
+        raise ValueError(f"dataset file verification failed: {dataset_failures[0]}")
+    dataset_verification = _verification_record(dataset_root, dataset_manifest)
+    if dataset_verification["status"] != "passed" or dataset_verification["declared_files"] <= 0:
+        raise ValueError("dataset files must be declared and verified before promotion")
+    _validate_reportable_dataset_provenance(run["dataset"], dataset_manifest)
+
+    evaluation = _load_json(directory / "evaluation.json", "evaluation")
+    _validate_evaluation_identity(run, evaluation, config=config)
+    metadata = evaluation["metadata"]
+    if metadata.get("benchmark") != "winoground_paired_matrix":
+        raise ValueError("evaluation benchmark must be winoground_paired_matrix")
+    if metadata.get("num_samples") != 400:
+        raise ValueError("Winoground evaluation must contain exactly 400 samples")
+    if evaluation.get("predictions_file") != "predictions.jsonl":
+        raise ValueError("evaluation must reference predictions.jsonl")
+    if run.get("metrics_file") != "metrics.json":
+        raise ValueError("run must reference metrics.json")
+    metrics = _load_json(directory / "metrics.json", "metrics")
+    if evaluation.get("metrics") != metrics:
+        raise ValueError("metrics.json and evaluation.json metrics differ")
+    _validate_metrics(metrics)
+
+    _validate_winoground_annotation_path(config, dataset_root, project_root)
+    annotation_path = dataset_root / "annotations" / f"{run['dataset_split']}.jsonl"
+    coverage_failures = verify_annotation_inventory_coverage(
+        dataset_root,
+        dataset_manifest,
+        split=run["dataset_split"],
+        expected_annotation_sha256=metadata.get("annotation_sha256", ""),
+    )
+    if coverage_failures:
+        raise ValueError(
+            f"annotation and image inventory verification failed: {coverage_failures[0]}"
+        )
+
+    checkpoint_manifest_path = directory / "manifests" / "checkpoint.yaml"
+    checkpoint_manifest = load_checkpoint_manifest(checkpoint_manifest_path)
+    if file_digest(checkpoint_manifest_path) != run["checkpoint_manifest_sha256"]:
+        raise ValueError("run checkpoint manifest digest does not match snapshotted manifest")
+    checkpoint_root = _resolve_path(config["model"].get("checkpoint_root", "."), project_root)
+    checkpoint_verification = _verification_record(checkpoint_root, checkpoint_manifest)
+    if checkpoint_manifest.get("files") and checkpoint_verification["status"] != "passed":
+        raise ValueError("checkpoint manifest file verification failed")
+    if checkpoint_verification["status"] == "failed":
+        raise ValueError("checkpoint manifest file verification failed")
+
+    cache = metadata.get("cache")
+    if not isinstance(cache, dict) or any(
+        field not in cache or not isinstance(cache[field], bool)
+        for field in ("enabled", "images_hit", "texts_hit")
+    ):
+        raise ValueError("evaluation cache metadata must contain boolean fields")
+    if cache["enabled"] is not expected_cache_enabled:
+        state = "enabled" if expected_cache_enabled else "disabled"
+        raise ValueError(f"Winoground run cache must be {state}")
+    if not expected_cache_enabled and (
+        cache["images_hit"] is not False or cache["texts_hit"] is not False
+    ):
+        raise ValueError("cache-disabled verification run must report no cache hits")
+
+    audit = audit_winoground_run(
+        directory,
+        expected_samples=400,
+        annotation_path=annotation_path,
+        require_annotation_alignment=True,
+        write_outputs=False,
+    )
+    prediction_sample_ids = load_prediction_sample_ids(directory)
+    artifact_digests = {
+        relative: sha256_file(directory / relative) for relative in WINOGROUND_ARTIFACTS
+    }
+    return {
+        "directory": directory,
+        "run": run,
+        "config": config,
+        "environment": environment,
+        "dataset_manifest": dataset_manifest,
+        "checkpoint_manifest": checkpoint_manifest,
+        "dataset_verification": dataset_verification,
+        "checkpoint_verification": checkpoint_verification,
+        "evaluation": evaluation,
+        "metrics": metrics,
+        "audit": audit,
+        "prediction_sample_ids": prediction_sample_ids,
+        "artifact_digests": artifact_digests,
+    }
 
 
 def _validate_metrics(metrics: dict[str, int | float]) -> dict[str, float]:
@@ -393,6 +528,8 @@ def _validate_run_config_identity(record: dict[str, Any], config: dict[str, Any]
 def _validate_evaluation_identity(
     record: dict[str, Any],
     evaluation: dict[str, Any],
+    *,
+    config: dict[str, Any] | None = None,
 ) -> None:
     metadata = evaluation["metadata"]
     if metadata.get("dataset") != record["dataset"]:
@@ -406,6 +543,10 @@ def _validate_evaluation_identity(
         raise ValueError("evaluation encoder model does not match run")
     if encoder.get("pretrained") != record["pretrained"]:
         raise ValueError("evaluation encoder pretrained weights do not match run")
+    if encoder.get("precision") != record["precision"]:
+        raise ValueError("evaluation encoder precision does not match run")
+    if config is not None and encoder.get("framework") != config["model"]["framework"]:
+        raise ValueError("evaluation encoder framework does not match resolved config")
 
 
 def _validate_winoground_annotation_path(
@@ -472,7 +613,7 @@ VISUAL_REVIEW_STATUSES = {"pass", "issue", "uncertain"}
 ANNOTATION_ISSUES = {"none", "possible", "confirmed"}
 
 
-def _validate_prediction_review(
+def validate_prediction_review(
     review_path: str | Path,
     prediction_ids: list[str],
 ) -> dict[str, Any]:
@@ -541,6 +682,9 @@ def _validate_prediction_review(
     }
 
 
+_validate_prediction_review = validate_prediction_review
+
+
 def _install_promotion_evidence(
     directory: Path,
     *,
@@ -548,8 +692,8 @@ def _install_promotion_evidence(
     prediction_review: Path,
     review_summary: dict[str, Any],
     audit: dict[str, Any],
-    canonical_run_id: str,
-    verification_run_id: str,
+    canonical_integrity: dict[str, Any],
+    verification_integrity: dict[str, Any],
     reviewed_by: str,
     reviewed_at: str,
     notes: str | None,
@@ -565,10 +709,22 @@ def _install_promotion_evidence(
         review_path = staging / "prediction_review.csv"
         shutil.copyfile(prediction_review, review_path)
         review_sha = sha256_file(review_path)
+        canonical_run = canonical_integrity["run"]
+        verification_run = verification_integrity["run"]
         evidence = {
             "schema_version": 1,
-            "canonical_run_id": canonical_run_id,
-            "verification_run_id": verification_run_id,
+            "canonical_run_id": canonical_run["run_id"],
+            "verification_run_id": verification_run["run_id"],
+            "canonical_config_sha256": canonical_run["config_sha256"],
+            "canonical_dataset_manifest_sha256": canonical_run["dataset_manifest_sha256"],
+            "canonical_checkpoint_manifest_sha256": canonical_run[
+                "checkpoint_manifest_sha256"
+            ],
+            "canonical_artifacts": canonical_integrity["artifact_digests"],
+            "verification_artifacts": verification_integrity["artifact_digests"],
+            "verification_run_record_sha256": sha256_file(
+                verification_integrity["directory"] / "run.json"
+            ),
             "comparison_file": "review/run_comparison.json",
             "comparison_sha256": comparison_sha,
             "comparison_passed": True,
@@ -580,6 +736,11 @@ def _install_promotion_evidence(
                 "unique_sample_ids": audit["unique_sample_ids"],
                 "metrics_recomputed": audit["metrics_recomputed"],
                 "decisions_recomputed": audit["decisions_recomputed"],
+                "annotation_alignment_verified": audit["annotation_alignment_verified"],
+                "all_recomputed_metrics_verified": audit[
+                    "all_recomputed_metrics_verified"
+                ],
+                "recomputed_metric_count": audit["recomputed_metric_count"],
             },
             "reviewed_by": reviewed_by,
             "reviewed_at": reviewed_at,
@@ -594,7 +755,7 @@ def _install_promotion_evidence(
         raise
     return (
         {
-            "verification_run_id": verification_run_id,
+            "verification_run_id": verification_run["run_id"],
             "promotion_evidence_file": "review/promotion_evidence.json",
             "promotion_evidence_sha256": evidence_sha,
             "comparison_file": "review/run_comparison.json",

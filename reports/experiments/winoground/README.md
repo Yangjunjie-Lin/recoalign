@@ -19,3 +19,9 @@ annotation-to-inventory coverage. `promote-run` snapshots the comparison and rev
 canonical run and records SHA-256 hashes; it does not accept a hand-authored comparison JSON. The
 verification run remains `complete`, and this repository still contains no real reportable
 Winoground result.
+
+Canonical and verification runs are audited against the same config, environment, manifests,
+normalized annotation, predictions, decisions, and all recomputable metrics. Prediction sample ID,
+category, tags, and row order must match the normalized annotation exactly. Table collection
+revalidates the promotion hashes, comparison gates, 400-row review, artifact digests, and the unique
+retained complete verification run.

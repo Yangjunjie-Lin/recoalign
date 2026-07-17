@@ -156,6 +156,13 @@ verification rerun, prediction inspection, and reviewer identity. A Winoground r
 reportable from reviewer notes alone: promotion recomputes the cached/no-cache comparison and the
 prediction decisions and metrics, requires a full 400-sample mapping review, verifies exact
 annotation-to-inventory coverage, and snapshots and hashes the resulting evidence.
+Both the canonical and cache-disabled verification runs undergo the same config, environment,
+manifest, annotation, prediction, decision, and metric integrity checks. Predictions must align
+row-for-row with the normalized annotation, including sample ID, category, and tags.
+
+A reportable Winoground result is revalidated when collected for tables. The collector verifies the
+promotion evidence hashes, comparison gates, 400-row review evidence, canonical artifact digests,
+and the retained complete verification run. A hand-edited `run.json` is not sufficient for inclusion.
 
 ```bash
 recoalign promote-run outputs/<run-id> \

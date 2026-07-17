@@ -11,6 +11,7 @@ from recoalign.experiments.records import (
     fail_run,
     finalize_run,
     promote_run,
+    validate_completed_winoground_run_integrity,
 )
 from recoalign.reproducibility import atomic_write_json
 from recoalign.schema_validation import validate_payload
@@ -432,13 +433,21 @@ def test_winoground_promotion_requires_complete_verification_status(
     if status == "reportable":
         updates["review"] = {
             "reviewed_by": "synthetic reviewer",
-            "reviewed_at": "2026-07-16T00:00:00+00:00",
-            "decision": "reportable",
-            "notes": "synthetic fixture",
-        }
+                "reviewed_at": "2026-07-16T00:00:00+00:00",
+                "decision": "reportable",
+                "notes": "synthetic fixture",
+                "verification_run_id": "other",
+                "promotion_evidence_file": "review/promotion_evidence.json",
+                "promotion_evidence_sha256": "a" * 64,
+                "comparison_file": "review/run_comparison.json",
+                "comparison_sha256": "a" * 64,
+                "prediction_review_file": "review/prediction_review.csv",
+                "prediction_review_sha256": "a" * 64,
+                "prediction_review_count": 400,
+            }
     _update_run_record(verification, **updates)
 
-    with pytest.raises(ValueError, match="verification run status must be complete"):
+    with pytest.raises(ValueError, match="requires status complete"):
         promote_run(
             run_dir,
             verification_run=verification,
@@ -460,7 +469,7 @@ def test_winoground_promotion_requires_null_verification_review(tmp_path, resear
         },
     )
 
-    with pytest.raises(ValueError, match="verification run review must be null"):
+    with pytest.raises(ValueError, match="requires review null"):
         promote_run(
             run_dir,
             verification_run=verification,
@@ -481,7 +490,7 @@ def test_winoground_promotion_rejects_invalid_cache_pair(
     evaluation["metadata"]["cache"]["enabled"] = target == "verification"
     atomic_write_json(evaluation_path, evaluation)
 
-    with pytest.raises(ValueError, match="comparison did not pass"):
+    with pytest.raises(ValueError, match="run cache must be"):
         promote_run(
             run_dir,
             verification_run=verification,
@@ -491,22 +500,22 @@ def test_winoground_promotion_rejects_invalid_cache_pair(
 
 
 @pytest.mark.parametrize(
-    ("field", "value"),
+    ("field", "value", "error"),
     [
-        ("config_sha256", "b" * 64),
-        ("git_commit", "b" * 40),
-        ("seed", 999),
-        ("dataset_manifest_sha256", "b" * 64),
+        ("config_sha256", "b" * 64, "config digest"),
+        ("git_commit", "b" * 40, "environment.json"),
+        ("seed", 999, "seed does not match"),
+        ("dataset_manifest_sha256", "b" * 64, "dataset manifest digest"),
     ],
 )
 def test_winoground_promotion_recomputes_identity_comparison(
-    tmp_path, research_config, field: str, value: object
+    tmp_path, research_config, field: str, value: object, error: str
 ) -> None:
     run_dir = _complete_winoground_run(tmp_path, research_config)
     verification = _complete_winoground_verification_run(tmp_path, research_config)
     _update_run_record(verification, **{field: value})
 
-    with pytest.raises(ValueError, match="comparison did not pass"):
+    with pytest.raises(ValueError, match=error):
         promote_run(
             run_dir,
             verification_run=verification,
@@ -529,12 +538,174 @@ def test_winoground_promotion_recomputes_prediction_comparison(
         rows[0]["tie"] = True
     path.write_text("".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8")
 
-    with pytest.raises(ValueError, match="comparison did not pass"):
+    error = "comparison did not pass" if mutation == "score" else "does not match recomputed scores"
+    with pytest.raises(ValueError, match=error):
         promote_run(
             run_dir,
             verification_run=verification,
             prediction_review=_write_synthetic_prediction_review(tmp_path),
             reviewed_by="Research Reviewer",
+        )
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("model.name", "other"),
+        ("model.pretrained", "other"),
+        ("experiment.seed", 999),
+        ("model.precision", "fp16"),
+        ("data.root", "other-root"),
+    ],
+)
+def test_verification_integrity_rejects_tampered_resolved_config(
+    tmp_path: Path,
+    research_config,
+    field: str,
+    value: object,
+) -> None:
+    _complete_winoground_run(tmp_path, research_config)
+    verification = _complete_winoground_verification_run(tmp_path, research_config)
+    config_path = verification / "config.resolved.yaml"
+    config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+    section, name = field.split(".")
+    config[section][name] = value
+    config_path.write_text(yaml.safe_dump(config, sort_keys=True), encoding="utf-8")
+    run_field = {
+        "model.name": "model",
+        "model.pretrained": "pretrained",
+        "experiment.seed": "seed",
+        "model.precision": "precision",
+    }.get(field)
+    if run_field is not None:
+        _update_run_record(verification, **{run_field: value})
+
+    with pytest.raises(ValueError, match="config digest"):
+        validate_completed_winoground_run_integrity(
+            verification,
+            expected_cache_enabled=False,
+        )
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "error"),
+    [
+        ("commit", "b" * 40, "inconsistent with environment"),
+        ("dirty", True, "dirty or unknown"),
+        ("untracked_count", 1, "untracked files"),
+    ],
+)
+def test_verification_integrity_rejects_tampered_environment(
+    tmp_path: Path,
+    research_config,
+    field: str,
+    value: object,
+    error: str,
+) -> None:
+    _complete_winoground_run(tmp_path, research_config)
+    verification = _complete_winoground_verification_run(tmp_path, research_config)
+    path = verification / "environment.json"
+    environment = json.loads(path.read_text(encoding="utf-8"))
+    environment["git"][field] = value
+    atomic_write_json(path, environment)
+
+    with pytest.raises(ValueError, match=error):
+        validate_completed_winoground_run_integrity(
+            verification,
+            expected_cache_enabled=False,
+        )
+
+
+@pytest.mark.parametrize("manifest", ["dataset", "checkpoint"])
+def test_verification_integrity_rejects_tampered_manifest_snapshot(
+    tmp_path: Path,
+    research_config,
+    manifest: str,
+) -> None:
+    _complete_winoground_run(tmp_path, research_config)
+    verification = _complete_winoground_verification_run(tmp_path, research_config)
+    path = verification / "manifests" / f"{manifest}.yaml"
+    path.write_text(path.read_text(encoding="utf-8") + "\n", encoding="utf-8")
+
+    with pytest.raises(ValueError, match=f"{manifest} manifest digest"):
+        validate_completed_winoground_run_integrity(
+            verification,
+            expected_cache_enabled=False,
+        )
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "error"),
+    [
+        ("dataset", "other", "dataset does not match"),
+        ("split", "validation", "split does not match"),
+        ("dataset_manifest_sha256", "b" * 64, "manifest digest"),
+        ("encoder.model", "other", "encoder model"),
+        ("encoder.pretrained", "other", "pretrained weights"),
+        ("encoder.precision", "fp16", "encoder precision"),
+        ("annotation_sha256", "b" * 64, "annotation sha256"),
+    ],
+)
+def test_verification_integrity_rejects_tampered_evaluation_identity(
+    tmp_path: Path,
+    research_config,
+    field: str,
+    value: object,
+    error: str,
+) -> None:
+    _complete_winoground_run(tmp_path, research_config)
+    verification = _complete_winoground_verification_run(tmp_path, research_config)
+    path = verification / "evaluation.json"
+    evaluation = json.loads(path.read_text(encoding="utf-8"))
+    if field.startswith("encoder."):
+        evaluation["metadata"]["encoder"][field.split(".", maxsplit=1)[1]] = value
+    else:
+        evaluation["metadata"][field] = value
+    atomic_write_json(path, evaluation)
+
+    with pytest.raises(ValueError, match=error):
+        validate_completed_winoground_run_integrity(
+            verification,
+            expected_cache_enabled=False,
+        )
+
+
+def test_verification_integrity_audits_decisions_independently(
+    tmp_path: Path, research_config
+) -> None:
+    canonical = _complete_winoground_run(tmp_path, research_config)
+    verification = _complete_winoground_verification_run(tmp_path, research_config)
+    for run_dir in (canonical, verification):
+        path = run_dir / "predictions.jsonl"
+        rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
+        rows[0]["group_correct"] = False
+        path.write_text("".join(json.dumps(row) + "\n" for row in rows), encoding="utf-8")
+
+    with pytest.raises(ValueError, match="does not match recomputed scores"):
+        validate_completed_winoground_run_integrity(
+            verification,
+            expected_cache_enabled=False,
+        )
+
+
+def test_verification_integrity_recomputes_metrics_from_scores(
+    tmp_path: Path, research_config
+) -> None:
+    _complete_winoground_run(tmp_path, research_config)
+    verification = _complete_winoground_verification_run(tmp_path, research_config)
+    metrics_path = verification / "metrics.json"
+    evaluation_path = verification / "evaluation.json"
+    metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
+    metrics["group_accuracy/winoground"] = 0.0
+    atomic_write_json(metrics_path, metrics)
+    evaluation = json.loads(evaluation_path.read_text(encoding="utf-8"))
+    evaluation["metrics"] = metrics
+    atomic_write_json(evaluation_path, evaluation)
+
+    with pytest.raises(ValueError, match="does not match recomputed predictions"):
+        validate_completed_winoground_run_integrity(
+            verification,
+            expected_cache_enabled=False,
         )
 
 
@@ -917,6 +1088,7 @@ def _write_synthetic_winoground_outputs(run_dir: Path, *, cache_enabled: bool) -
                 "framework": "synthetic",
                 "model": record["model"],
                 "pretrained": record["pretrained"],
+                "precision": record["precision"],
             },
             "benchmark": "winoground_paired_matrix",
             "num_samples": 400,

@@ -137,6 +137,12 @@ CSV. It snapshots the comparison and review into the canonical run and records t
 verification run is never promoted, and reviewer notes or a hand-written comparison JSON are not
 sufficient.
 
+Both runs receive the same full integrity audit, and each prediction must match the normalized
+annotation at the same row for sample ID, category, and tags. All recomputable category, tag,
+aggregate, and caption-content metrics are verified. Report generation also revalidates promotion
+evidence hashes, artifact digests, comparison gates, all 400 review rows, and the retained complete
+verification run; a hand-edited `run.json` is insufficient.
+
 ## Running the matrix
 
 Each of the three frozen encoders has ARO, Winoground, and BiVLC configs. For example:

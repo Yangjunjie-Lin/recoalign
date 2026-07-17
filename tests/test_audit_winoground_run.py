@@ -55,12 +55,104 @@ def test_audit_rejects_prediction_decision_mismatch(tmp_path: Path, research_con
 
 def test_audit_accepts_valid_400_row_synthetic_fixture(tmp_path: Path, research_config) -> None:
     run_dir = _run_fixture(tmp_path, research_config, sample_count=400)
+    annotation_path = _write_normalized_annotations(run_dir)
 
-    summary = audit_winoground_run(run_dir, expected_samples=400, write_outputs=False)
+    summary = audit_winoground_run(
+        run_dir,
+        expected_samples=400,
+        annotation_path=annotation_path,
+        require_annotation_alignment=True,
+        write_outputs=False,
+    )
 
     assert summary["prediction_count"] == 400
     assert summary["metrics_recomputed"] is True
     assert summary["decisions_recomputed"] is True
+    assert summary["annotation_alignment_verified"] is True
+    assert summary["all_recomputed_metrics_verified"] is True
+    assert summary["recomputed_metric_count"] > 6
+
+
+@pytest.mark.parametrize(
+    ("field", "value", "error"),
+    [
+        ("sample_id", "other", "prediction 1 sample_id"),
+        ("category", "other", "prediction 1 category"),
+        ("tags", ["other"], "prediction 1 tags"),
+    ],
+)
+def test_audit_rejects_prediction_annotation_row_mismatch(
+    tmp_path: Path,
+    research_config,
+    field: str,
+    value: object,
+    error: str,
+) -> None:
+    run_dir = _run_fixture(tmp_path, research_config)
+    annotation_path = _write_normalized_annotations(run_dir)
+    rows = _read_jsonl(annotation_path)
+    rows[1][field] = value
+    _write_jsonl(annotation_path, rows)
+
+    with pytest.raises(ValueError, match=error):
+        audit_winoground_run(
+            run_dir,
+            expected_samples=3,
+            annotation_path=annotation_path,
+            require_annotation_alignment=True,
+            write_outputs=False,
+        )
+
+
+def test_audit_rejects_prediction_annotation_order_mismatch(
+    tmp_path: Path, research_config
+) -> None:
+    run_dir = _run_fixture(tmp_path, research_config)
+    annotation_path = _write_normalized_annotations(run_dir)
+    rows = _read_jsonl(annotation_path)
+    rows[0], rows[1] = rows[1], rows[0]
+    _write_jsonl(annotation_path, rows)
+
+    with pytest.raises(ValueError, match="prediction 0 sample_id"):
+        audit_winoground_run(
+            run_dir,
+            expected_samples=3,
+            annotation_path=annotation_path,
+            require_annotation_alignment=True,
+            write_outputs=False,
+        )
+
+
+@pytest.mark.parametrize(
+    ("mutation", "error"),
+    [
+        ("missing", "normalized annotation 1 is missing sample_id"),
+        ("duplicate", "duplicate sample_id"),
+    ],
+)
+def test_audit_rejects_invalid_annotation_sample_ids(
+    tmp_path: Path,
+    research_config,
+    mutation: str,
+    error: str,
+) -> None:
+    run_dir = _run_fixture(tmp_path, research_config)
+    annotation_path = _write_normalized_annotations(run_dir)
+    rows = _read_jsonl(annotation_path)
+    if mutation == "missing":
+        rows[1].pop("sample_id")
+    else:
+        rows[1]["sample_id"] = rows[0]["sample_id"]
+    _write_jsonl(annotation_path, rows)
+
+    with pytest.raises(ValueError, match=error):
+        audit_winoground_run(
+            run_dir,
+            expected_samples=3,
+            annotation_path=annotation_path,
+            require_annotation_alignment=True,
+            write_outputs=False,
+        )
 
 
 def test_audit_rejects_missing_predictions_file(tmp_path: Path, research_config) -> None:
@@ -151,6 +243,53 @@ def test_audit_rejects_metrics_prediction_mismatch(tmp_path: Path, research_conf
         audit_winoground_run(run_dir, expected_samples=3)
 
 
+@pytest.mark.parametrize(
+    "metric",
+    [
+        "group_accuracy/winoground",
+        "image_to_text_accuracy/winoground",
+        "text_to_image_accuracy/winoground",
+        "macro_category_group_accuracy",
+        "group_accuracy/tag/synthetic",
+        "caption_alphanumeric_character_multiset_match_rate",
+    ],
+)
+def test_audit_rejects_tampered_recomputable_metric(
+    tmp_path: Path,
+    research_config,
+    metric: str,
+) -> None:
+    run_dir = _run_fixture(tmp_path, research_config, sample_count=400)
+    annotation_path = _write_normalized_annotations(run_dir)
+    _mutate_metric(run_dir, metric, 0.0)
+
+    with pytest.raises(ValueError, match="does not match"):
+        audit_winoground_run(
+            run_dir,
+            expected_samples=400,
+            annotation_path=annotation_path,
+            require_annotation_alignment=True,
+            write_outputs=False,
+        )
+
+
+def test_audit_rejects_deprecated_caption_alias_mismatch(
+    tmp_path: Path, research_config
+) -> None:
+    run_dir = _run_fixture(tmp_path, research_config, sample_count=400)
+    annotation_path = _write_normalized_annotations(run_dir)
+    _mutate_metric(run_dir, "caption_token_multiset_match_rate", 0.0)
+
+    with pytest.raises(ValueError, match="deprecated metric"):
+        audit_winoground_run(
+            run_dir,
+            expected_samples=400,
+            annotation_path=annotation_path,
+            require_annotation_alignment=True,
+            write_outputs=False,
+        )
+
+
 def test_audit_winoground_cli_wrapper_help() -> None:
     script = Path(__file__).resolve().parents[1] / "scripts" / "audit_winoground_run.py"
 
@@ -195,6 +334,7 @@ def _run_fixture(tmp_path: Path, research_config, *, sample_count: int = 3) -> P
     result = evaluate_paired_matrix_scores(scores)
     categories = ["winoground"] * sample_count
     metrics = summarize_paired_matrix(result, categories, tags)
+    metrics["caption_alphanumeric_character_multiset_match_rate"] = 100.0
     metrics["caption_token_multiset_match_rate"] = 100.0
     finalize_run(run_dir, metrics, status="complete")
 
@@ -230,3 +370,35 @@ def _write_jsonl(path: Path, rows: list[dict]) -> None:
     with path.open("w", encoding="utf-8") as handle:
         for row in rows:
             handle.write(json.dumps(row) + "\n")
+
+
+def _read_jsonl(path: Path) -> list[dict]:
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
+
+
+def _write_normalized_annotations(run_dir: Path) -> Path:
+    predictions = _read_jsonl(run_dir / "predictions.jsonl")
+    path = run_dir / "normalized-test.jsonl"
+    rows = [
+        {
+            "sample_id": row["sample_id"],
+            "category": row["category"],
+            "tags": row["tags"],
+            "caption_0": "synthetic caption",
+            "caption_1": "caption synthetic",
+        }
+        for row in predictions
+    ]
+    _write_jsonl(path, rows)
+    return path
+
+
+def _mutate_metric(run_dir: Path, name: str, value: float) -> None:
+    metrics_path = run_dir / "metrics.json"
+    evaluation_path = run_dir / "evaluation.json"
+    metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
+    metrics[name] = value
+    metrics_path.write_text(json.dumps(metrics), encoding="utf-8")
+    evaluation = json.loads(evaluation_path.read_text(encoding="utf-8"))
+    evaluation["metrics"] = metrics
+    evaluation_path.write_text(json.dumps(evaluation), encoding="utf-8")

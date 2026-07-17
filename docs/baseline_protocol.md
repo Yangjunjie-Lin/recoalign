@@ -89,6 +89,15 @@ and promotion evidence are copied into the canonical run and recorded with SHA-2
 verification run remains `complete`; no hand-authored comparison report can substitute for these
 gates.
 
+The canonical and cache-disabled verification runs receive the same config, environment, manifest,
+annotation, prediction, decision, and metric integrity audit. Predictions must align row-for-row
+with the normalized annotation by sample ID, category, and tags, and every category, tag, aggregate,
+and retained caption-content metric that can be recomputed is checked.
+
+Table collection revalidates reportable Winoground evidence: promotion and artifact hashes, all
+comparison gates, the 400-row review, and the unique retained complete verification run. Editing
+`run.json` by hand cannot make a result eligible for a generated table.
+
 Embedding caches are keyed by model identity, dataset manifest, annotation digest, split, and
 protocol version. Cache hits and misses are recorded in `evaluation.json`.
 

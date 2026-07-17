@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from recoalign.experiments.records import load_run
+from recoalign.experiments.reportable_evidence import validate_reportable_run_evidence
 from recoalign.schema_validation import validate_payload
 
 
@@ -23,6 +24,13 @@ def collect_runs(
             continue
         if record["status"] == "reportable" and not isinstance(record.get("review"), dict):
             raise ValueError(f"reportable run is missing review metadata: {run_file.parent}")
+        if record["status"] == "reportable" and record["dataset"] == "winoground":
+            try:
+                validate_reportable_run_evidence(run_file.parent, results_root=root)
+            except (FileNotFoundError, ValueError) as exc:
+                raise ValueError(
+                    f"reportable Winoground evidence validation failed: {exc}"
+                ) from exc
         metrics_path = run_file.parent / str(record.get("metrics_file") or "metrics.json")
         if not metrics_path.is_file():
             raise FileNotFoundError(f"metrics file is missing: {metrics_path}")

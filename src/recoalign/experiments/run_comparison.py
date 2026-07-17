@@ -20,8 +20,10 @@ RUN_IDENTITY_FIELDS = (
     "dataset_split",
     "model",
     "pretrained",
+    "checkpoint",
     "seed",
     "precision",
+    "metrics_file",
 )
 METADATA_IDENTITY_FIELDS = (
     "protocol_version",
