@@ -1,0 +1,7 @@
+dataset,access_status,license_reviewed,official_source,source_revision,downloaded_at,manifest_path,manifest_sha256,declared_files,hash_verification,expected_samples,actual_samples,ready_for_real_run,blocker
+flickr30k,NOT_AUDITED,NO,,,,manifests/datasets/flickr30k.yaml,,0,NOT_RUN,,,NO,authorized Karpathy 1K test snapshot and formal manifest are absent
+mscoco,NOT_AUDITED,NO,,,,manifests/datasets/mscoco.yaml,,0,NOT_RUN,,,NO,authorized Karpathy 5K test snapshot and formal manifest are absent
+sugarcrepe,NOT_AUDITED,NO,,,,manifests/datasets/sugarcrepe.yaml,,0,NOT_RUN,,,NO,authorized official snapshot and formal manifest are absent
+aro,NOT_AUDITED,NO,,,,manifests/datasets/aro.yaml,,0,NOT_RUN,,,NO,authorized official snapshot and formal manifest are absent
+winoground,AUTHORIZED_CACHED,YES,facebook/winoground,b400e173549071916ad1b3d449293bc8d8b4b763,,manifests/datasets/winoground.yaml,1b1ce668dde5be03fc05f2c1fceef178a1aca45d7ce007ed17b854aed17fbd13,3,HISTORICAL_FILES_VERIFIED_PROVENANCE_INELIGIBLE,400,400,NO,pinned export and formal manifest regeneration required; live HF API currently resets connections
+bivlc,NOT_AUDITED,NO,,,,manifests/datasets/bivlc.yaml,,0,NOT_RUN,,,NO,authorized official snapshot and formal manifest are absent

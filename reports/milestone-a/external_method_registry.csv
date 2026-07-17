@@ -1,0 +1,3 @@
+method,paper,official_repo,repo_commit,checkpoint_source,checkpoint_sha256,license,environment_file,supported_benchmarks,reported_metrics,reproduction_status,blocker
+FLAIR,,,,,,,,,,NOT_STARTED,A3 intentionally deferred until the first Winoground closure and frozen baseline sequencing permit it
+Concept-Centric CLIP,,,,,,,,,,NOT_STARTED,A3 intentionally deferred until the first Winoground closure and frozen baseline sequencing permit it
