@@ -48,7 +48,10 @@ The OpenCLIP `ViT-B-32 / laion2b_s34b_b79k` smoke test passed in offline mode ag
 downloaded official Hugging Face cache artifact. It produced two finite 512-dimensional
 embeddings. The cached checkpoint artifact is 605,143,316 bytes with SHA-256
 `ac4f8c4b88af6d963118cbf40ad93176d092abbedfcb752601ae1866352656e6`.
-No checkpoint file is stored in Git.
+The official model repository revision is `1a25a446712ba5ee05982a381eed697ef9b435cf`;
+its repository metadata declares the MIT license. The committed lightweight checkpoint manifest
+declares the local ignored artifact, so run creation verifies bytes and SHA-256 instead of recording
+an unverified registry-only resolution. No checkpoint file is stored in Git.
 
 The environment was repaired after discovering a truncated zero-byte CUDA library. Because the
 committed bootstrap profile does not pin the PyTorch release line, the local repair explicitly
@@ -97,4 +100,3 @@ A0 release and repository readiness are complete. A1 execution is permitted only
 2. the manifest is committed;
 3. the branch is clean at one frozen commit;
 4. the canonical and cache-disabled verification runs are both newly executed from that commit.
-
