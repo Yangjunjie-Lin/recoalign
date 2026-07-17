@@ -3,5 +3,5 @@ flickr30k,NOT_AUDITED,NO,,,,manifests/datasets/flickr30k.yaml,,0,NOT_RUN,,,NO,au
 mscoco,NOT_AUDITED,NO,,,,manifests/datasets/mscoco.yaml,,0,NOT_RUN,,,NO,authorized Karpathy 5K test snapshot and formal manifest are absent
 sugarcrepe,NOT_AUDITED,NO,,,,manifests/datasets/sugarcrepe.yaml,,0,NOT_RUN,,,NO,authorized official snapshot and formal manifest are absent
 aro,NOT_AUDITED,NO,,,,manifests/datasets/aro.yaml,,0,NOT_RUN,,,NO,authorized official snapshot and formal manifest are absent
-winoground,AUTHORIZED_CACHED,YES,facebook/winoground,b400e173549071916ad1b3d449293bc8d8b4b763,,manifests/datasets/winoground.yaml,1b1ce668dde5be03fc05f2c1fceef178a1aca45d7ce007ed17b854aed17fbd13,3,HISTORICAL_FILES_VERIFIED_PROVENANCE_INELIGIBLE,400,400,NO,pinned export and formal manifest regeneration required; live HF API currently resets connections
+winoground,AUTHORIZED_CACHED_OFFICIAL,YES,facebook/winoground,b400e173549071916ad1b3d449293bc8d8b4b763,2026-07-17T07:50:36.596337Z,manifests/datasets/winoground.yaml,65f142abb0d1d44845824e952f50befd6a6c017da8769f945fc4f35d74de8020,3,PASSED_WITH_800_SHA256_IMAGE_INVENTORY,400,400,YES,live HF API revalidation currently resets connections; pinned official cache export and local verification passed
 bivlc,NOT_AUDITED,NO,,,,manifests/datasets/bivlc.yaml,,0,NOT_RUN,,,NO,authorized official snapshot and formal manifest are absent

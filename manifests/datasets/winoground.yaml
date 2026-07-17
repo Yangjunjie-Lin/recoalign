@@ -1,29 +1,23 @@
 schema_version: 1
 name: winoground
 version: official-400-v1
-source: facebook/winoground official Hugging Face dataset, test split
-license: Official gated Winoground research-use terms reviewed locally; upstream restrictions
-  apply.
-downloaded_at: null
+source: official-Hugging-Face-Winoground-export
+license: official-gated-research-use-terms-reviewed-locally-upstream-restrictions-apply
+downloaded_at: '2026-07-17T07:50:36.596337Z'
 splits:
   test: 400
 files:
 - path: source/winoground.jsonl
-  bytes: 197931
-  sha256: f2e5502843d31f2016535d289c1ad6e6bdd0deb35e247bbc178ba11c85293d90
+  bytes: 241931
+  sha256: 1baac2321f07ab95da6d4fd22c967cbee26d2f306932224d690c9223f536fdd8
 - path: annotations/test.jsonl
-  bytes: 197931
-  sha256: f2e5502843d31f2016535d289c1ad6e6bdd0deb35e247bbc178ba11c85293d90
+  bytes: 241931
+  sha256: 1baac2321f07ab95da6d4fd22c967cbee26d2f306932224d690c9223f536fdd8
 - path: inventories/images.jsonl
   bytes: 107132
   sha256: 94f0d84b2099dc5ca27011c70ee94f186c802f8ccb17f60dd877b3793b1394b7
 processing:
   format: recoalign-paired-matrix-jsonl-v1
-  source_dataset: facebook/winoground
-  source_split: test
-  source_revision: null
-  exporter_version: null
-  provenance_status: requires_regeneration_from_pinned_revision
   categories:
     winoground: 400
   tags:
@@ -113,13 +107,16 @@ processing:
   caption_alphanumeric_character_multiset_method: casefolded_alphanumeric_character_multiset_v1
   caption_token_multiset_match_rate: 100.0
   caption_token_multiset_method: casefolded_alphanumeric_character_multiset_v1
-  caption_token_multiset_alias_status: deprecated
+  source_dataset: facebook/winoground
+  source_split: test
+  source_revision: b400e173549071916ad1b3d449293bc8d8b4b763
+  exporter_version: winoground-hf-export-v2
+  provenance_status: pinned_revision_verified
   source_annotation: source/winoground.jsonl
   image_inventory: inventories/images.jsonl
   inventory_splits:
   - test
   image_hashes: true
 notes: Each row contains two images and two captions with diagonal ground-truth matches.
-  The content check compares case-folded alphanumeric character frequencies without changing
-  caption text. This manifest can verify the historical local file snapshot but is intentionally
-  ineligible for reportable promotion until regenerated from a pinned official revision.
+  The recorded content check compares case-folded alphanumeric character frequencies
+  without changing caption text; it is not linguistic tokenization or segmentation.
