@@ -67,6 +67,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="validate inputs and print review progress without starting a server",
     )
+    parser.add_argument(
+        "--require-complete",
+        action="store_true",
+        help="with --check-only, exit 1 unless all 400 human-review rows are complete",
+    )
     return parser.parse_args()
 
 
@@ -100,17 +105,26 @@ def _review_group(prediction: dict[str, Any]) -> str:
     return "both_directions_incorrect"
 
 
-def _completed(row: dict[str, str]) -> bool:
+def _review_state(row: dict[str, str]) -> str:
     mapping = row["mapping_checked"].strip().lower()
     visual = row["visual_review_status"].strip().lower()
     annotation = row["annotation_issue"].strip().lower()
     notes = row["notes"].strip()
-    return (
-        mapping == "true"
-        and visual in VISUAL_STATUSES
-        and annotation in ANNOTATION_ISSUES
-        and (visual not in {"issue", "uncertain"} or bool(notes))
-    )
+    if not any((mapping, visual, annotation, notes)):
+        return "pending"
+    if mapping != "true":
+        raise ValueError("mapping_checked must be true for a nonblank review row")
+    if visual not in VISUAL_STATUSES:
+        raise ValueError("visual_review_status is invalid for a nonblank review row")
+    if annotation not in ANNOTATION_ISSUES:
+        raise ValueError("annotation_issue is invalid for a nonblank review row")
+    if visual in {"issue", "uncertain"} and not notes:
+        raise ValueError(f"{visual} rows require notes")
+    return "complete"
+
+
+def _completed(row: dict[str, str]) -> bool:
+    return _review_state(row) == "complete"
 
 
 def _inside(path: Path, root: Path) -> bool:
@@ -159,6 +173,11 @@ class ReviewWorkspace:
             review_rows = [
                 {field: (row.get(field) or "") for field in REVIEW_FIELDS} for row in reader
             ]
+        for line_number, review_row in enumerate(review_rows, start=2):
+            try:
+                _review_state(review_row)
+            except ValueError as exc:
+                raise ValueError(f"review CSV line {line_number}: {exc}") from exc
 
         prediction_ids = [str(row.get("sample_id") or "") for row in predictions]
         annotation_ids = [str(row.get("sample_id") or "") for row in annotations]
@@ -231,6 +250,7 @@ class ReviewWorkspace:
             "rows": len(self.rows),
             "completed_rows": completed,
             "remaining_rows": len(self.rows) - completed,
+            "complete": completed == 400,
             "visual_review_status_counts": {
                 status: visual[status] for status in sorted(VISUAL_STATUSES)
             },
@@ -474,6 +494,9 @@ def make_handler(workspace: ReviewWorkspace) -> type[BaseHTTPRequestHandler]:
 
 def main() -> int:
     args = parse_args()
+    if args.require_complete and not args.check_only:
+        print("error: --require-complete requires --check-only")
+        return 2
     if args.host not in {"127.0.0.1", "localhost", "::1"}:
         print("error: the review helper may bind only to a loopback address")
         return 2
@@ -482,8 +505,11 @@ def main() -> int:
     except (FileNotFoundError, OSError, TypeError, ValueError, yaml.YAMLError) as exc:
         print(f"error: {exc}")
         return 2
-    print(json.dumps(workspace.summary(), indent=2, sort_keys=True))
+    summary = workspace.summary()
+    print(json.dumps(summary, indent=2, sort_keys=True))
     if args.check_only:
+        if args.require_complete and not summary["complete"]:
+            return 1
         return 0
     server = ThreadingHTTPServer((args.host, args.port), make_handler(workspace))
     url = f"http://{args.host}:{server.server_port}/"

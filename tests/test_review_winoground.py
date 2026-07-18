@@ -75,6 +75,94 @@ def test_review_workspace_requires_notes_for_uncertain(
         )
 
 
+@pytest.mark.parametrize(("completed_rows", "expected_exit"), [(0, 1), (399, 1), (400, 0)])
+def test_require_complete_exit_status(
+    tmp_path: Path,
+    review_helper: ModuleType,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+    completed_rows: int,
+    expected_exit: int,
+) -> None:
+    run_dir, review_path = _review_fixture(tmp_path)
+    _complete_review_rows(review_path, completed_rows)
+    monkeypatch.setattr(review_helper, "REPOSITORY_ROOT", tmp_path)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "review_winoground.py",
+            "--run-dir",
+            str(run_dir),
+            "--review-csv",
+            str(review_path),
+            "--check-only",
+            "--require-complete",
+        ],
+    )
+
+    assert review_helper.main() == expected_exit
+    summary = json.loads(capsys.readouterr().out)
+    assert summary["completed_rows"] == completed_rows
+    assert summary["remaining_rows"] == 400 - completed_rows
+    assert summary["complete"] is (completed_rows == 400)
+
+
+def test_check_only_remains_successful_for_incomplete_queue(
+    tmp_path: Path,
+    review_helper: ModuleType,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    run_dir, review_path = _review_fixture(tmp_path)
+    monkeypatch.setattr(review_helper, "REPOSITORY_ROOT", tmp_path)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "review_winoground.py",
+            "--run-dir",
+            str(run_dir),
+            "--review-csv",
+            str(review_path),
+            "--check-only",
+        ],
+    )
+
+    assert review_helper.main() == 0
+    assert json.loads(capsys.readouterr().out)["complete"] is False
+
+
+def test_invalid_review_row_exits_two(
+    tmp_path: Path,
+    review_helper: ModuleType,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    run_dir, review_path = _review_fixture(tmp_path)
+    with review_path.open(encoding="utf-8-sig", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    rows[0]["mapping_checked"] = "false"
+    _write_review_rows(review_path, rows)
+    monkeypatch.setattr(review_helper, "REPOSITORY_ROOT", tmp_path)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "review_winoground.py",
+            "--run-dir",
+            str(run_dir),
+            "--review-csv",
+            str(review_path),
+            "--check-only",
+            "--require-complete",
+        ],
+    )
+
+    assert review_helper.main() == 2
+    assert "mapping_checked must be true" in capsys.readouterr().out
+
+
 def _review_fixture(tmp_path: Path) -> tuple[Path, Path]:
     run_dir = tmp_path / "run"
     image_root = tmp_path / "images"
@@ -141,6 +229,23 @@ def _review_fixture(tmp_path: Path) -> tuple[Path, Path]:
                 [f"winoground-{index:06d}", "both_directions_incorrect", "", "", "", ""]
             )
     return run_dir, review_path
+
+
+def _complete_review_rows(path: Path, count: int) -> None:
+    with path.open(encoding="utf-8-sig", newline="") as handle:
+        rows = list(csv.DictReader(handle))
+    for row in rows[:count]:
+        row["mapping_checked"] = "true"
+        row["visual_review_status"] = "pass"
+        row["annotation_issue"] = "none"
+    _write_review_rows(path, rows)
+
+
+def _write_review_rows(path: Path, rows: list[dict[str, str]]) -> None:
+    with path.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=rows[0], quoting=csv.QUOTE_ALL)
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 def _write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:

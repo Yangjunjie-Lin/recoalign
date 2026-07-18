@@ -85,7 +85,7 @@ repair only; no frozen experiment config changed.
   difference counts are zero.
 - `reports/experiments/winoground/reviewed_sample_ids.csv` is still a review queue: all 400 sample
   IDs and machine-generated groups align with canonical predictions, but 0 of 400 rows has complete
-  human review fields.
+  human review fields. Its filename does not imply review completion.
 - The canonical run is not promoted and no formal result record exists.
 
 ## Matrix readiness
