@@ -1,0 +1,20 @@
+{
+  "backend": "official_llava_1_5_7b_vision_projector",
+  "complete": true,
+  "device": "cuda",
+  "dtype": "torch.float16",
+  "hidden_size": 4096,
+  "index_sha256": "9edee6e43cdcb254ef19c2a21523e1e9718f15b0d7ca443894514480884e1e19",
+  "llava_commit": "4481d270cc22fd5c4d1bb5df129622006ccd9234",
+  "llava_repo": "liuhaotian/llava-v1.5-7b",
+  "n_samples": 1008,
+  "phase0_mean_cosine_mean": 0.9999989867210388,
+  "phase0_mean_cosine_min": 0.9999822378158569,
+  "phase0_mean_max_abs_difference": 0.031172752380371094,
+  "projector_sha256": "be33a3b477e091832a3c8a9fabf5769c43b4cb2c161fc8c464b7bb214f16143a",
+  "token_count": 576,
+  "vision_model_type": "CLIPVisionModel",
+  "vision_repo": "openai/clip-vit-large-patch14-336",
+  "vision_select_feature": "patch",
+  "vision_select_layer": -2
+}

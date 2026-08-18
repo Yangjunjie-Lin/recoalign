@@ -1,0 +1,11 @@
+{
+  "classes": 72,
+  "n_test": 288,
+  "n_train": 720,
+  "samples_per_test_class": 4,
+  "samples_per_train_class": 10,
+  "seed": 20260818,
+  "selected_index_sha256": "9edee6e43cdcb254ef19c2a21523e1e9718f15b0d7ca443894514480884e1e19",
+  "source_metadata": "D:\\UoM_CS\\GitHub\\recoalign\\recoalign_phase0_validation\\synthetic_dataset\\metadata.jsonl",
+  "source_metadata_sha256": "70e3cc090692f2267a05038aef8bd079ee1b0f55f75f1ea0b78efdcb6bf0c0d8"
+}

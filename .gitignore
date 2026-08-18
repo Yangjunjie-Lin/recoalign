@@ -41,6 +41,8 @@ checkpoints/
 outputs/
 wandb/
 runs/
+recoalign_phase0B_validation/features/*.npy
+recoalign_phase0B_validation/features/*_progress.json
 *.ckpt
 *.pth
 *.pt

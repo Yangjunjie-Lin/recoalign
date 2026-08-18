@@ -1,0 +1,18 @@
+{
+  "attention_samples": 24,
+  "bootstrap_samples": 2000,
+  "cuda_decoder_layers": 28,
+  "device": "cuda",
+  "layer_indices": [0, 8, 16, 24, 32],
+  "max_object_drop": 0.1,
+  "min_specific_drop": 0.15,
+  "min_za_accuracy": 0.8,
+  "model_dir": "../outputs/models/llava-v1.5-7b",
+  "n_test": 288,
+  "n_train": 720,
+  "protocol_mode": "full",
+  "quantization": "nf4",
+  "seed": 20260818,
+  "source_phase0_dir": "../recoalign_phase0_validation",
+  "vision_batch_size": 4
+}

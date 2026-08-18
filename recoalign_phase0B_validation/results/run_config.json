@@ -1,0 +1,140 @@
+{
+  "config": {
+    "attention_samples": 24,
+    "bootstrap_samples": 2000,
+    "cuda_decoder_layers": 28,
+    "device": "cuda",
+    "force_llm": false,
+    "force_vision": false,
+    "layer_indices": [
+      0,
+      8,
+      16,
+      24,
+      32
+    ],
+    "max_object_drop": 0.1,
+    "min_specific_drop": 0.15,
+    "min_za_accuracy": 0.8,
+    "model_dir": "D:\\UoM_CS\\GitHub\\recoalign\\outputs\\models\\llava-v1.5-7b",
+    "n_test": 288,
+    "n_train": 720,
+    "prompt_prefix": "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: ",
+    "prompt_suffix": "\nDescribe the two colored shapes and their spatial relation in one concise sentence. ASSISTANT:",
+    "protocol_mode": "full",
+    "quantization": "nf4",
+    "root": "D:\\UoM_CS\\GitHub\\recoalign\\recoalign_phase0B_validation",
+    "scientific_protocol_valid": true,
+    "seed": 20260818,
+    "source_phase0_dir": "D:\\UoM_CS\\GitHub\\recoalign\\recoalign_phase0_validation",
+    "vision_batch_size": 4
+  },
+  "feature_extraction": {
+    "analysis_environment": {
+      "numpy": "2.4.6",
+      "python": "3.12.6",
+      "scikit_learn": "1.7.0",
+      "scipy": "1.15.3"
+    },
+    "llm": {
+      "attention_definition": "mean-head attention mass from decision position to 576 visual tokens",
+      "attention_rows": 768,
+      "backend": "frozen_llava_1_5_7b_vicuna_language_model",
+      "bitsandbytes_version": "0.48.2",
+      "checkpoint": {
+        "commit": "4481d270cc22fd5c4d1bb5df129622006ccd9234",
+        "repo": "liuhaotian/llava-v1.5-7b",
+        "shards": {
+          "pytorch_model-00001-of-00002.bin": {
+            "size": 9976634558,
+            "upstream_lfs_sha256": "492fdfa63cf314097d99da81a3586d54a97adc1471a0ae0535f5caa269b86314"
+          },
+          "pytorch_model-00002-of-00002.bin": {
+            "size": 3542276251,
+            "upstream_lfs_sha256": "c0eb94eb3fa578a4c63567f2eca6b0acf6a44a891c257aca0df88ffa891de72e"
+          }
+        },
+        "tree_metadata_sha256": "2ebc70f43e03b0e91632aea996b9c3f3c88bc4dbb157ac889c28bb128a016cec"
+      },
+      "complete": true,
+      "cuda_decoder_layers": 28,
+      "decision_position": "last ASSISTANT prompt token before generation",
+      "device_map": {
+        "lm_head": "cpu",
+        "model.embed_tokens": 0,
+        "model.layers.0": 0,
+        "model.layers.1": 0,
+        "model.layers.10": 0,
+        "model.layers.11": 0,
+        "model.layers.12": 0,
+        "model.layers.13": 0,
+        "model.layers.14": 0,
+        "model.layers.15": 0,
+        "model.layers.16": 0,
+        "model.layers.17": 0,
+        "model.layers.18": 0,
+        "model.layers.19": 0,
+        "model.layers.2": 0,
+        "model.layers.20": 0,
+        "model.layers.21": 0,
+        "model.layers.22": 0,
+        "model.layers.23": 0,
+        "model.layers.24": 0,
+        "model.layers.25": 0,
+        "model.layers.26": 0,
+        "model.layers.27": 0,
+        "model.layers.28": "cpu",
+        "model.layers.29": "cpu",
+        "model.layers.3": 0,
+        "model.layers.30": "cpu",
+        "model.layers.31": "cpu",
+        "model.layers.4": 0,
+        "model.layers.5": 0,
+        "model.layers.6": 0,
+        "model.layers.7": 0,
+        "model.layers.8": 0,
+        "model.layers.9": 0,
+        "model.norm": "cpu",
+        "model.rotary_emb": 0
+      },
+      "hidden_state_index_definition": "0=LLM input embedding (Za at visual positions); k=state after k decoder blocks; 32=post-final-norm state",
+      "index_sha256": "9edee6e43cdcb254ef19c2a21523e1e9718f15b0d7ca443894514480884e1e19",
+      "layers": [
+        0,
+        8,
+        16,
+        24,
+        32
+      ],
+      "model_dir": "D:\\UoM_CS\\GitHub\\recoalign\\outputs\\models\\llava-v1.5-7b",
+      "n_samples": 1008,
+      "prompt_prefix": "A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: ",
+      "prompt_suffix": "\nDescribe the two colored shapes and their spatial relation in one concise sentence. ASSISTANT:",
+      "quantization": "nf4",
+      "quantization_note": "NF4 is a storage/inference approximation only; no parameter is updated. A positive result requires replication in higher precision.",
+      "torch_version": "2.7.1+cu126",
+      "transformers_version": "4.52.4",
+      "visual_pooling": "mean over the unchanged 576 visual-token positions"
+    },
+    "vision_projector": {
+      "backend": "official_llava_1_5_7b_vision_projector",
+      "complete": true,
+      "device": "cuda",
+      "dtype": "torch.float16",
+      "hidden_size": 4096,
+      "index_sha256": "9edee6e43cdcb254ef19c2a21523e1e9718f15b0d7ca443894514480884e1e19",
+      "llava_commit": "4481d270cc22fd5c4d1bb5df129622006ccd9234",
+      "llava_repo": "liuhaotian/llava-v1.5-7b",
+      "n_samples": 1008,
+      "phase0_mean_cosine_mean": 0.9999989867210388,
+      "phase0_mean_cosine_min": 0.9999822378158569,
+      "phase0_mean_max_abs_difference": 0.031172752380371094,
+      "projector_sha256": "be33a3b477e091832a3c8a9fabf5769c43b4cb2c161fc8c464b7bb214f16143a",
+      "token_count": 576,
+      "vision_model_type": "CLIPVisionModel",
+      "vision_repo": "openai/clip-vit-large-patch14-336",
+      "vision_select_feature": "patch",
+      "vision_select_layer": -2
+    }
+  }
+}

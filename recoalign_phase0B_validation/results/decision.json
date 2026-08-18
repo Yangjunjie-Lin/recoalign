@@ -1,0 +1,71 @@
+{
+  "decision": "NO-GO",
+  "layer_audits": {
+    "L08_visual": {
+      "gates": {
+        "composition_drop_ci_above_zero": false,
+        "composition_drop_gt_15pp": false,
+        "composition_minus_object_ci_above_zero": false,
+        "object_drop_lt_10pp": true,
+        "relation_drop_ci_above_zero": false,
+        "relation_drop_gt_15pp": false,
+        "relation_minus_object_ci_above_zero": false
+      },
+      "passes_specific_degradation": false
+    },
+    "L16_visual": {
+      "gates": {
+        "composition_drop_ci_above_zero": false,
+        "composition_drop_gt_15pp": false,
+        "composition_minus_object_ci_above_zero": false,
+        "object_drop_lt_10pp": true,
+        "relation_drop_ci_above_zero": false,
+        "relation_drop_gt_15pp": false,
+        "relation_minus_object_ci_above_zero": false
+      },
+      "passes_specific_degradation": false
+    },
+    "L24_visual": {
+      "gates": {
+        "composition_drop_ci_above_zero": false,
+        "composition_drop_gt_15pp": false,
+        "composition_minus_object_ci_above_zero": false,
+        "object_drop_lt_10pp": true,
+        "relation_drop_ci_above_zero": false,
+        "relation_drop_gt_15pp": false,
+        "relation_minus_object_ci_above_zero": false
+      },
+      "passes_specific_degradation": false
+    },
+    "L32_visual": {
+      "gates": {
+        "composition_drop_ci_above_zero": false,
+        "composition_drop_gt_15pp": false,
+        "composition_minus_object_ci_above_zero": false,
+        "object_drop_lt_10pp": true,
+        "relation_drop_ci_above_zero": false,
+        "relation_drop_gt_15pp": false,
+        "relation_minus_object_ci_above_zero": false
+      },
+      "passes_specific_degradation": false
+    }
+  },
+  "next_phase": null,
+  "observed_max_drops": {
+    "composition": 0.00347222222222221,
+    "object": 0.00347222222222221,
+    "relation": -0.00347222222222221
+  },
+  "passing_layers": [],
+  "pattern": "no material semantic degradation inside the tested LLM layers",
+  "protocol_gates": {
+    "all_linear_probes_converged": true,
+    "full_protocol": true,
+    "za_attribute_accuracy_gte_80pct": true,
+    "za_composition_accuracy_gte_80pct": true,
+    "za_layer0_identity": true,
+    "za_object_accuracy_gte_80pct": true,
+    "za_relation_accuracy_gte_80pct": true
+  },
+  "semantic_utilization_failure": false
+}
