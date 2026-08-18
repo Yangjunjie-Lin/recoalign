@@ -1,0 +1,11 @@
+evaluation,semantic,stage,accuracy,bootstrap_mean,bootstrap_std,ci95_low,ci95_high,drop_from_zv,n_train,n_test,num_classes,pair_accuracy,converged,iterations
+main,object,Zv,1.0,1.0,0.0,1.0,1.0,,8000,2000,3,,True,9
+main,attribute,Zv,0.9995,0.9994845,0.0004966216533068816,0.9985,1.0,,8000,2000,6,,True,48
+main,relation,Zv,1.0,1.0,0.0,1.0,1.0,,8000,2000,4,,True,59
+main,composition,Zv,1.0,1.0,0.0,1.0,1.0,,8000,2000,72,,True,16
+main,object,Za,1.0,1.0,0.0,1.0,1.0,0.0,8000,2000,3,,True,13
+main,attribute,Za,1.0,1.0,0.0,1.0,1.0,-0.0004999999999999449,8000,2000,6,,True,113
+main,relation,Za,0.999,0.998986,0.0007299454844062673,0.9975,1.0,0.0010000000000000009,8000,2000,4,,True,96
+main,composition,Za,1.0,1.0,0.0,1.0,1.0,0.0,8000,2000,72,,True,38
+semantic_isolation,relation,Zv,0.999,0.998997,0.001022014313318711,0.996975,1.0,,8000,1000,4,0.998,True,
+semantic_isolation,relation,Za,0.999,0.9989770000000001,0.0010237162680639355,0.997,1.0,0.0,8000,1000,4,0.998,True,

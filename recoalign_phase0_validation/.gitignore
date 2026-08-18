@@ -1,0 +1,7 @@
+synthetic_dataset/
+features/
+_smoke_workspace/
+experiment_results/run_config.json
+experiment_results/predictions/
+__pycache__/
+*.pyc

@@ -1,0 +1,17 @@
+{
+  "decision": "NO-GO",
+  "gates": {
+    "attribute_drop_lt_15pp": true,
+    "composition_drop_gt_25pp": false,
+    "full_protocol": true,
+    "isolation_drop_ci_above_zero": false,
+    "object_drop_lt_10pp": true,
+    "relation_drop_gt_25pp": false,
+    "relation_vs_object_p_lt_0_05": false
+  },
+  "object_vs_relation_significant": false,
+  "pattern": "Pattern C: no material degradation at the tested projection",
+  "pattern_a_thresholds_met": false,
+  "protocol_valid": true,
+  "semantic_isolation_corroborates": false
+}

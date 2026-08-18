@@ -1,0 +1,52 @@
+{
+  "bootstrap_samples": 2000,
+  "drops": {
+    "attribute": {
+      "bootstrap_mean": -0.000501499999999976,
+      "bootstrap_std": 0.0005026172122311446,
+      "ci95_high": 0.0,
+      "ci95_low": -0.0014999999999999458,
+      "drop": -0.0004999999999999449
+    },
+    "composition": {
+      "bootstrap_mean": 0.0,
+      "bootstrap_std": 0.0,
+      "ci95_high": 0.0,
+      "ci95_low": 0.0,
+      "drop": 0.0
+    },
+    "object": {
+      "bootstrap_mean": 0.0,
+      "bootstrap_std": 0.0,
+      "ci95_high": 0.0,
+      "ci95_low": 0.0,
+      "drop": 0.0
+    },
+    "relation": {
+      "bootstrap_mean": 0.000981749999999973,
+      "bootstrap_std": 0.0006884976049166674,
+      "ci95_high": 0.0024999999999999467,
+      "ci95_low": 0.0,
+      "drop": 0.0010000000000000009
+    }
+  },
+  "object_vs_relation": {
+    "bootstrap_mean": 0.0009744999999999738,
+    "bootstrap_samples": 2000,
+    "bootstrap_std": 0.0006918013042212762,
+    "ci95_high": 0.0024999999999999467,
+    "ci95_low": 0.0,
+    "comparison": "relation_drop_minus_object_drop",
+    "observed_difference": 0.0010000000000000009,
+    "p_one_sided": 0.14592703648175911,
+    "p_two_sided": 0.29185407296351823
+  },
+  "seed": 20260818,
+  "semantic_isolation_drop": {
+    "bootstrap_mean": 0.0,
+    "bootstrap_std": 0.0,
+    "ci95_high": 0.0,
+    "ci95_low": 0.0,
+    "drop": 0.0
+  }
+}
