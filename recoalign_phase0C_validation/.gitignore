@@ -1,0 +1,7 @@
+features/*.npy
+features/*.jsonl
+features/*progress*.json
+features/*manifest*.json
+__pycache__/
+phase0c/__pycache__/
+tests/__pycache__/

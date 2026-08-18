@@ -1,0 +1,35 @@
+{
+  "decision": "NO-GO",
+  "gates": {
+    "availability_behavior_gap": true,
+    "causal_patch_recovery": false,
+    "full_registered_protocol": true,
+    "representation_available": true,
+    "representation_available_on_failures": true
+  },
+  "model_checkpoint": "liuhaotian/llava-v1.5-7b@4481d270cc22fd5c4d1bb5df129622006ccd9234",
+  "observed": {
+    "availability_accuracy_L32": 1.0,
+    "availability_behavior_gap_L32": 0.6180555555555556,
+    "availability_on_errors_L32": 1.0,
+    "behavior_accuracy": 0.3819444444444444,
+    "behavior_error_n": 178,
+    "patch_advantage_L16": 0.08333333333333333,
+    "patch_selected_trials": 24,
+    "positive_patch_recovery_L16": 0.08333333333333333
+  },
+  "protocol_sha256": "0a1aa9447860311eb5df58ae4bff0e7243d0f1f324ad19cdd87e6e4a49011613",
+  "route": "Terminate the ReCoAlign mechanism-discovery route.",
+  "runtime_precision": "nf4",
+  "scope": "frozen LLaVA-1.5-7B (NF4 inference) on the fixed controlled synthetic four-way spatial-relation task",
+  "semantic_access_failure": "NOT ESTABLISHED",
+  "source_index_sha256": "9edee6e43cdcb254ef19c2a21523e1e9718f15b0d7ca443894514480884e1e19",
+  "thresholds": {
+    "min_availability_accuracy": 0.8,
+    "min_error_availability_accuracy": 0.75,
+    "min_error_trials": 24,
+    "min_gap": 0.15,
+    "min_patch_advantage": 0.1,
+    "min_patch_recovery": 0.15
+  }
+}
