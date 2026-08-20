@@ -36,6 +36,8 @@ quantization = [
 dev = [
   "pytest>=8.0",
   "ruff>=0.6",
+  # The test suite covers the trainable interface and therefore exercises Torch.
+  "torch>=2.4,<3",
 ]
 
 [project.scripts]
