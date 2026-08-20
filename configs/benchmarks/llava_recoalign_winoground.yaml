@@ -1,0 +1,23 @@
+schema_version: 1
+output_root: outputs/comprehensive
+model: {name: llava_1_5_7b}
+method:
+  name: recoalign
+  interface_checkpoint: checkpoints/recoalign/llava_1_5_7b/pending.pt
+  injection: hidden_context_only
+benchmark:
+  name: winoground
+  category: compositional
+  format: paired_matrix
+  manifest: manifests/datasets/winoground.yaml
+  annotation_file: data/winoground/annotations/test.jsonl
+  image_root: data/winoground/images
+  split: test
+  expected_samples: 400
+seed: 101
+prompt:
+  protocol_id: comprehensive-reasoning-v1
+  instruction: Answer the question from the image and permitted condition evidence.
+generation: {temperature: 0.0, do_sample: false, max_new_tokens: 32, num_beams: 1}
+statistics: {minimum_seeds: 3, final_seeds: 5}
+protocol_lock: {allow_split_override: false}

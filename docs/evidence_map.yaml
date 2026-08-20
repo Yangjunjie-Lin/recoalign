@@ -1,0 +1,170 @@
+schema_version: 1
+policy:
+  verified_requires_scientific_evidence: true
+  toy_or_reference_results_are_not_claim_eligible: true
+  failed_and_pending_evidence_remains_visible: true
+summary:
+  total_claims: 7
+  verified: 0
+  infrastructure_only: 4
+  pending: 3
+claims:
+- id: C001
+  claim: A structured graph interface improves reasoning over information-controlled
+    text.
+  evidence:
+  - paired graph-versus-caption evaluation
+  - multi-seed uncertainty
+  experiments:
+  - EXP001
+  artifacts:
+  - configs/graph_vs_text.yaml
+  - research/protocols/EXP001_graph_vs_text.md
+  - reports/experiments/exp001/implementation_report.md
+  status: infrastructure_only
+  blocker: No claim-eligible real-VLM multi-seed EXP001 result is complete.
+  artifact_checks:
+  - path: configs/graph_vs_text.yaml
+    exists: true
+  - path: research/protocols/EXP001_graph_vs_text.md
+    exists: true
+  - path: reports/experiments/exp001/implementation_report.md
+    exists: true
+  artifact_inventory_complete: true
+- id: C002
+  claim: Reasoning gains depend on correct relational structure rather than graph-like
+    form.
+  evidence:
+  - partial/corrupt/random graph controls
+  - token-length matching
+  experiments:
+  - EXP002
+  artifacts:
+  - configs/graph_ablation.yaml
+  - research/protocols/EXP002_graph_ablation.md
+  status: infrastructure_only
+  blocker: EXP002 results use an infrastructure ReferenceVLM, not an eligible real
+    VLM.
+  artifact_checks:
+  - path: configs/graph_ablation.yaml
+    exists: true
+  - path: research/protocols/EXP002_graph_ablation.md
+    exists: true
+  artifact_inventory_complete: true
+- id: C003
+  claim: Structured reasoning improves compositional OOD retention and depth transfer.
+  evidence:
+  - composition-disjoint split
+  - OOD retention
+  - hop-depth curve
+  experiments:
+  - EXP003
+  artifacts:
+  - configs/ood_composition.yaml
+  - research/protocols/EXP003_ood_composition.md
+  - docs/composition_split_protocol.md
+  status: infrastructure_only
+  blocker: No claim-eligible real-VLM EXP003 matrix has been completed.
+  artifact_checks:
+  - path: configs/ood_composition.yaml
+    exists: true
+  - path: research/protocols/EXP003_ood_composition.md
+    exists: true
+  - path: docs/composition_split_protocol.md
+    exists: true
+  artifact_inventory_complete: true
+- id: C004
+  claim: Real VLMs preserve semantics but exhibit a structured reasoning interface
+    gap.
+  evidence:
+  - SAS/StAS/RES diagnosis
+  - oracle-structure gain across VLMs
+  experiments:
+  - EXP004
+  artifacts:
+  - configs/diagnosis/interface_diagnosis.yaml
+  - reports/diagnosis/mechanism_diagnosis.md
+  status: pending
+  blocker: EXP004 is a ReferenceVLM infrastructure run; real hidden-state access is
+    pending.
+  artifact_checks:
+  - path: configs/diagnosis/interface_diagnosis.yaml
+    exists: true
+  - path: reports/diagnosis/mechanism_diagnosis.md
+    exists: true
+  artifact_inventory_complete: true
+- id: C005
+  claim: ReCoAlign learns a graph-free structured interface from training supervision.
+  evidence:
+  - TRAIN001-TRAIN003
+  - graph-free inference contract
+  - checkpoint audit
+  experiments:
+  - TRAIN001
+  - TRAIN002
+  - TRAIN003
+  artifacts:
+  - research/experiments/training_registry.yaml
+  - reports/training_framework/training_framework_report.md
+  - reports/training_framework/decision_report.yaml
+  status: infrastructure_only
+  blocker: Toy optimization passes, but real-VLM interface training remains pending.
+  artifact_checks:
+  - path: research/experiments/training_registry.yaml
+    exists: true
+  - path: reports/training_framework/training_framework_report.md
+    exists: true
+  - path: reports/training_framework/decision_report.yaml
+    exists: true
+  artifact_inventory_complete: true
+- id: C006
+  claim: ReCoAlign improves compositional reasoning across models and tasks without
+    severe capability loss.
+  evidence:
+  - frozen 432-cell matrix
+  - paired statistics
+  - capability preservation
+  experiments:
+  - PHASE4_COMPREHENSIVE
+  artifacts:
+  - configs/benchmarks/comprehensive_matrix.yaml
+  - reports/comprehensive_evaluation_report.md
+  - reports/decision_report.json
+  status: pending
+  blocker: The comprehensive matrix currently has 0 of 432 complete cells.
+  artifact_checks:
+  - path: configs/benchmarks/comprehensive_matrix.yaml
+    exists: true
+  - path: reports/comprehensive_evaluation_report.md
+    exists: true
+  - path: reports/decision_report.json
+    exists: true
+  artifact_inventory_complete: true
+  observed_cells: 0
+  planned_cells: 432
+- id: C007
+  claim: The gain is causally attributable to learned structure, not parameters or
+    oracle input.
+  evidence:
+  - registered ablations
+  - token interventions
+  - parameter-matched control
+  experiments:
+  - PHASE5_MECHANISTIC
+  artifacts:
+  - configs/ablations/mechanistic_registry.yaml
+  - reports/mechanistic_validation_report.md
+  - reports/mechanistic/decision_report.yaml
+  status: pending
+  blocker: Only toy causal evidence is available; real multi-seed interventions are
+    pending.
+  artifact_checks:
+  - path: configs/ablations/mechanistic_registry.yaml
+    exists: true
+  - path: reports/mechanistic_validation_report.md
+    exists: true
+  - path: reports/mechanistic/decision_report.yaml
+    exists: true
+  artifact_inventory_complete: true
+  current_decision: INCONCLUSIVE
+  real_vlm_evidence: PENDING

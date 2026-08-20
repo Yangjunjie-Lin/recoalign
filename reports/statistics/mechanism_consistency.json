@@ -1,0 +1,10 @@
+{
+  "diagnosed_interface_gap": false,
+  "mechanism_consistent": false,
+  "method_gain_values": [],
+  "oracle_graph_gain": 0.2833333333333334,
+  "positive_method_gain_fraction": null,
+  "scientific_status": "pending_real_diagnosis",
+  "semantic_availability": 0.04285714285714286,
+  "structured_accessibility": 0.25365698253901847
+}

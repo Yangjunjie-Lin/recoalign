@@ -1,0 +1,7 @@
+schema_version: 1
+ablation: no_graph_supervision
+family: supervision
+base_config: configs/training/recoalign_stage2.yaml
+supervision_level: none
+overrides:
+  training_experiment: TRAIN002_NO_GRAPH_SUPERVISION

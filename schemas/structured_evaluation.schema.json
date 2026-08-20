@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Yangjunjie-Lin/recoalign/main/schemas/structured_evaluation.schema.json",
+  "title": "ReCoAlign structured evaluation metrics",
+  "type": "object",
+  "required": ["experiment", "model_backend", "seed", "dataset_size", "conditions", "contrasts"],
+  "properties": {
+    "experiment": {"type": "string"},
+    "model_backend": {"type": "string"},
+    "seed": {"type": "integer", "minimum": 0},
+    "dataset_size": {"type": "integer", "minimum": 1},
+    "conditions": {"type": "object"},
+    "contrasts": {"type": "object"}
+  },
+  "additionalProperties": true
+}

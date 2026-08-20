@@ -1,0 +1,24 @@
+schema_version: 1
+base_matrix: configs/benchmarks/comprehensive_matrix.yaml
+architecture:
+  - recoalign
+  - no_structure_token
+  - random_structure_token
+  - fixed_graph_encoder
+training:
+  - recoalign
+  - no_structural_loss
+  - no_semantic_loss
+  - no_reasoning_alignment
+data:
+  - synthetic_only
+  - real_only
+  - mixed_training
+control:
+  shared_models: true
+  shared_benchmarks: true
+  shared_seeds: true
+  shared_decoding: true
+  shared_prompts: true
+  single_factor_changes_only: true
+report_failed_cells: true

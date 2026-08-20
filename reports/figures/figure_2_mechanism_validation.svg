@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520">
+<rect width="1200" height="520" fill="#fbfcfe"/>
+<text x="60" y="58" font-family="Arial" font-size="28" font-weight="700" fill="#172033">Mechanism validation chain</text>
+<text x="60" y="88" font-family="Arial" font-size="15" fill="#596579">Protocols implemented; claim-eligible real-VLM results pending</text>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#53637a"/></marker></defs>
+<line x1="290" y1="205" x2="350" y2="205" stroke="#53637a" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="580" y1="205" x2="640" y2="205" stroke="#53637a" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="870" y1="205" x2="930" y2="205" stroke="#53637a" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="70" y="160" width="220" height="90" rx="14" fill="#d9edff" stroke="#26364d" stroke-width="2"/>
+<text x="180.0" y="211.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">EXP001 Graph &gt; Text</text>
+<rect x="360" y="160" width="220" height="90" rx="14" fill="#ffe9c8" stroke="#26364d" stroke-width="2"/>
+<text x="470.0" y="211.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">EXP002 Corruption</text>
+<rect x="650" y="160" width="220" height="90" rx="14" fill="#dcf7e8" stroke="#26364d" stroke-width="2"/>
+<text x="760.0" y="211.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">EXP003 OOD</text>
+<rect x="940" y="160" width="200" height="90" rx="14" fill="#ffe2dc" stroke="#26364d" stroke-width="2"/>
+<text x="1040.0" y="211.0" text-anchor="middle" font-family="Arial" font-size="18" font-weight="600" fill="#172033">Real VLM pending</text>
+</svg>

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReCoAlign EXP004 interface diagnosis result",
+  "type": "object",
+  "required": ["schema_version", "experiment_id", "hypothesis", "model", "status", "metrics", "diagnosis"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "experiment_id": {"const": "EXP004"},
+    "hypothesis": {"const": "H004"},
+    "model": {"type": "string", "minLength": 1},
+    "status": {"enum": ["dry-run", "complete", "failed"]},
+    "metrics": {"type": "object"},
+    "diagnosis": {"type": "object"},
+    "decision": {"enum": ["GO", "NO-GO", "INCONCLUSIVE"]}
+  },
+  "additionalProperties": true
+}

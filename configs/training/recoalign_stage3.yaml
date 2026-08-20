@@ -1,0 +1,47 @@
+schema_version: 1
+training_experiment: TRAIN003
+stage: instruction_adaptation
+model:
+  name: recoalign
+  vision_backbone: registered_vlm_vision_encoder
+  llm_backbone: registered_vlm_llm
+  dataset_family: preregistered_real_task
+  visual_dim: 16
+  interface_dim: 32
+  llm_dim: 32
+  num_structure_tokens: 8
+  num_heads: 4
+  num_object_classes: 8
+  num_attribute_classes: 8
+  num_relation_classes: 8
+  num_composition_classes: 8
+  num_answer_classes: 4
+dataset:
+  name: preregistered_real_reasoning_task
+  version: pending
+  split: train
+  manifest: manifests/datasets/recoalign_stage3_pending.yaml
+  supervision: [image, instruction, answer]
+  allowed_targets: [GQA, MMVP, compositional_benchmarks]
+optimizer:
+  name: adamw
+  weight_decay: 0.01
+scheduler:
+  name: linear
+  warmup_steps: 0
+learning_rate: 0.0001
+batch_size: 8
+epochs: 3
+freeze_policy: interface_only
+loss_weights:
+  semantic: 0.25
+  structural: 0.0
+  reasoning: 1.0
+seed: 303
+gradient_clip_norm: 1.0
+validation_every: 1
+save_every: 1
+output_dir: runs/training
+inference_contract:
+  oracle_graph_allowed: false
+  accepted_inputs: [image, question]

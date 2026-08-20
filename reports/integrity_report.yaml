@@ -1,0 +1,120 @@
+schema_version: 1
+path: reports/integrity_report.yaml
+engineering_artifacts_ready: true
+scientific_submission_ready: false
+checks:
+  claims:
+    passed: true
+    claim_count: 7
+    invalid_verified_claims: []
+  leakage:
+    passed: true
+    checks:
+      research_registry:
+        hypotheses: 4
+        experiments: 4
+        hypothesis_ids:
+        - H001
+        - H002
+        - H003
+        - H004
+        experiment_ids:
+        - EXP001
+        - EXP002
+        - EXP003
+        - EXP004
+        valid: true
+      benchmark_matrix:
+        valid: true
+        models:
+        - llava_1_5_7b
+        - llava_next
+        - qwen_vl
+        - internvl
+        benchmarks:
+        - exp001
+        - exp002
+        - exp003
+        - sugarcrepe
+        - aro
+        - winoground
+        - crepe
+        - gqa
+        - mmvp
+        methods:
+        - original_vlm
+        - caption_reasoning
+        - oracle_graph_prompt
+        - recoalign
+        seeds:
+        - 101
+        - 202
+        - 303
+        minimum_cells: 432
+        no_selective_reporting: true
+      mechanistic_registry:
+        valid: true
+        ablation_count: 14
+        families:
+        - architecture
+        - capacity
+        - causal
+        - loss
+        - supervision
+        no_hidden_ablation: true
+      training_registry:
+        valid: true
+        training_experiments:
+        - TRAIN001
+        - TRAIN002
+        - TRAIN003
+        stages:
+        - instruction_adaptation
+        - reasoning_alignment
+        - structured_interface_pretraining
+        scientific_evaluation_registry_unchanged: true
+    leakage_assertions:
+      protocol_lock: true
+      test_information_leakage: registered manifests and split protocols required
+      no_selective_reporting: true
+  reproducibility:
+    passed: true
+    files:
+    - path: reproducibility/environment.yml
+      exists: true
+    - path: reproducibility/requirements.txt
+      exists: true
+    - path: reproducibility/hardware.md
+      exists: true
+    - path: reproducibility/dataset_protocol.md
+      exists: true
+    - path: reproducibility/training_protocol.md
+      exists: true
+    - path: reproducibility/evaluation_protocol.md
+      exists: true
+  submission:
+    passed: true
+    files:
+    - path: submission/code_structure.md
+      exists: true
+    - path: submission/reproducibility_checklist.md
+      exists: true
+    - path: submission/artifact_description.md
+      exists: true
+    - path: submission/limitations.md
+      exists: true
+  exports:
+    passed: true
+    files:
+    - path: reports/final_repository_audit.md
+      exists: true
+    - path: reports/results/main_results.tex
+      exists: true
+    - path: reports/latex/main_results.tex
+      exists: true
+    - path: reports/figures/figure_1_research_overview.svg
+      exists: true
+blockers:
+- comprehensive benchmark matrix is incomplete (0/432 cells)
+- real-VLM mechanistic evidence is not GO
+decision: NO-GO

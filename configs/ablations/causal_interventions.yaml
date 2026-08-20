@@ -1,0 +1,7 @@
+schema_version: 1
+ablation: causal_interventions
+family: causal
+interventions: [remove, shuffle, replace]
+required_seeds: 5
+oracle_graph_at_inference: false
+report_fields: [accuracy, accuracy_delta, changed_fraction, token_l2_delta]

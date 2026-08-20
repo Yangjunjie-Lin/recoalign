@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "recoalign"
-version = "0.5.0"
-description = "Reproducible research infrastructure for compositional image-text retrieval."
+version = "0.6.0"
+description = "Structured reasoning interface validation for vision-language models."
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [
@@ -24,24 +24,49 @@ dependencies = [
 openclip = [
   "open_clip_torch==3.3.0",
 ]
+vlm = [
+  "torch>=2.4,<3",
+  "transformers>=4.48,<5",
+  "accelerate>=1.0,<2",
+  "sentencepiece>=0.2,<1",
+]
+quantization = [
+  "bitsandbytes>=0.45,<1",
+]
 dev = [
   "pytest>=8.0",
   "ruff>=0.6",
+  # The test suite covers the trainable interface and therefore exercises Torch.
+  "torch>=2.4,<3",
 ]
 
 [project.scripts]
 recoalign = "recoalign.cli:main"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["src", "."]
+include = [
+  "recoalign*",
+  "datasets*",
+  "models*",
+  "diagnosis*",
+  "synthetic_world*",
+  "experiments*",
+  "evaluation*",
+  "training*",
+  "research*",
+]
+exclude = ["archive*"]
 
 [tool.pytest.ini_options]
 addopts = "-q"
 testpaths = ["tests"]
+pythonpath = ["src", "."]
 
 [tool.ruff]
 target-version = "py310"
 line-length = 100
+exclude = ["archive"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]

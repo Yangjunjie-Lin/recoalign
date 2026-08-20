@@ -1,0 +1,5 @@
+schema_version: 1
+protocol_id: caption-condition-v1
+inherits: reasoning_default.yaml
+condition: caption
+model_specific_override_allowed: false

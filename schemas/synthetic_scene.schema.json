@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/Yangjunjie-Lin/recoalign/main/schemas/synthetic_scene.schema.json",
+  "title": "ReCoAlign controlled synthetic compositional sample v2",
+  "type": "object",
+  "required": ["id", "scene_id", "image", "objects", "object_list", "attributes", "relations", "scene_graph", "graph", "caption", "question", "answer", "choices", "split", "metadata"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "scene_id": {"type": "string", "minLength": 1},
+    "image": {"type": "string"},
+    "objects": {"type": "array", "minItems": 2, "maxItems": 5, "items": {"$ref": "#/$defs/object"}},
+    "object_list": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+    "attributes": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/attributes"}},
+    "relations": {"type": "array", "minItems": 1, "maxItems": 4, "items": {"$ref": "#/$defs/relation"}},
+    "scene_graph": {
+      "type": "object",
+      "required": ["objects", "relations"],
+      "properties": {
+        "objects": {"type": "array", "items": {"$ref": "#/$defs/object"}},
+        "relations": {"type": "array", "items": {"$ref": "#/$defs/relation"}}
+      },
+      "additionalProperties": false
+    },
+    "graph": {
+      "type": "object",
+      "required": ["nodes", "edges"],
+      "properties": {
+        "nodes": {"type": "array", "items": {"$ref": "#/$defs/object"}},
+        "edges": {"type": "array", "items": {"$ref": "#/$defs/relation"}}
+      },
+      "additionalProperties": false
+    },
+    "caption": {"type": "string", "minLength": 1},
+    "question": {"type": "string", "minLength": 1},
+    "answer": {"type": "string", "minLength": 1},
+    "choices": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "split": {"type": "string", "minLength": 1},
+    "metadata": {
+      "type": "object",
+      "required": ["generator", "seed", "sample_seed", "question_type", "hop_depth", "difficulty", "primary_relation", "query", "world_sha256", "canonical_facts", "canonical_facts_sha256", "information_control", "render"],
+      "properties": {
+        "generator": {"type": "string", "const": "recoalign.synthetic_world.v2"},
+        "seed": {"type": "integer", "minimum": 0},
+        "sample_seed": {"type": "integer", "minimum": 0},
+        "split": {"type": "string"},
+        "split_strategy": {"type": "string", "enum": ["iid", "composition", "relation", "attribute"]},
+        "composition": {"type": "string"},
+        "ood_split": {"type": "string", "enum": ["iid", "composition_ood", "relation_ood", "hop_ood"]},
+        "partition": {"type": "string", "enum": ["train", "test"]},
+        "pair_id": {"type": "string", "minLength": 1},
+        "relation_sequence": {"type": "array", "minItems": 1, "maxItems": 4, "items": {"$ref": "#/$defs/relationName"}},
+        "relation_combination": {"type": "string", "minLength": 1},
+        "anti_memorization": {"type": "string", "enum": ["object_identity_swap", "relation_recombination", "attribute_transfer"]},
+        "question_type": {"type": "string", "enum": ["object_reasoning", "relation_reasoning", "multi_hop", "attribute_reasoning"]},
+        "hop_depth": {"type": "integer", "minimum": 1, "maximum": 4},
+        "difficulty": {"type": "integer", "minimum": 1, "maximum": 4},
+        "primary_relation": {"$ref": "#/$defs/relationName"},
+        "query": {"type": "object"},
+        "world_sha256": {"$ref": "#/$defs/sha256"},
+        "canonical_facts": {"type": "array", "items": {"type": "string"}},
+        "canonical_facts_sha256": {"$ref": "#/$defs/sha256"},
+        "information_control": {
+          "type": "object",
+          "required": ["graph_facts_sha256", "caption_facts_sha256", "caption_graph_equivalent", "caption_generator"],
+          "properties": {
+            "graph_facts_sha256": {"$ref": "#/$defs/sha256"},
+            "caption_facts_sha256": {"$ref": "#/$defs/sha256"},
+            "caption_graph_equivalent": {"const": true},
+            "caption_generator": {"type": "string", "const": "deterministic-template-v2"}
+          },
+          "additionalProperties": false
+        },
+        "render": {
+          "type": "object",
+          "required": ["renderer", "resolution", "style"],
+          "properties": {
+            "renderer": {"type": "string", "const": "recoalign.synthetic_renderer.v2"},
+            "resolution": {"type": "integer", "minimum": 96},
+            "style": {"type": "string", "enum": ["flat", "outline", "pastel"]}
+          },
+          "additionalProperties": false
+        },
+        "image_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relationName": {"type": "string", "enum": ["left", "right", "above", "below", "front", "behind", "near", "far", "inside", "contains", "touching", "holding"]},
+    "object": {
+      "type": "object",
+      "required": ["id", "category", "shape", "color", "size", "texture"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "category": {"type": "string", "enum": ["animal", "vehicle", "object"]},
+        "shape": {"type": "string", "enum": ["circle", "square", "triangle", "cube", "sphere"]},
+        "color": {"type": "string", "enum": ["red", "blue", "green", "yellow", "purple"]},
+        "size": {"type": "string", "enum": ["small", "medium", "large"]},
+        "texture": {"type": "string", "enum": ["solid", "striped", "dotted"]}
+      },
+      "additionalProperties": false
+    },
+    "attributes": {
+      "type": "object",
+      "required": ["object_id", "category", "shape", "color", "size", "texture"],
+      "properties": {
+        "object_id": {"type": "string"},
+        "category": {"type": "string"},
+        "shape": {"type": "string"},
+        "color": {"type": "string"},
+        "size": {"type": "string"},
+        "texture": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "relation": {
+      "type": "object",
+      "required": ["subject", "relation", "object"],
+      "properties": {
+        "subject": {"type": "string", "minLength": 1},
+        "relation": {"$ref": "#/$defs/relationName"},
+        "object": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

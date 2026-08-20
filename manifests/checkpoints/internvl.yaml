@@ -1,0 +1,8 @@
+schema_version: 1
+framework: transformers_internvl
+model: InternVL2-8B
+identifier: OpenGVLab/InternVL2-8B
+source: https://huggingface.co/OpenGVLab/InternVL2-8B
+license: upstream-model-license-and-terms
+files: []
+notes: Adapter-ready only. Pin revision, code revision, and local hashes before execution.

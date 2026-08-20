@@ -1,199 +1,215 @@
-# ReCoAlign
+# ReCoAlign: Structured Reasoning Interface Learning for Vision-Language Models
 
-**Region-aware Compositional Alignment for Fine-grained Image–Text Retrieval**
+ReCoAlign investigates why VLMs fail on compositional reasoning despite preserving visual semantics,
+and studies whether structured intermediate representations provide a missing reasoning interface.
+The working hypothesis is deliberately narrow:
 
-ReCoAlign is a research framework for testing whether structure-aware supervision can improve
-attribute, relation, role, count, and word-order understanding while preserving conventional
-image–text retrieval quality.
+> A vision-language model may retain useful visual semantics, yet lack a sufficiently structured
+> intermediate interface between visual perception and language reasoning.
 
-> **Project status:** Phase 1.1 diagnostic baseline implemented. The repository supports six
-> benchmarks across three frozen OpenCLIP-compatible encoders. Real benchmark numbers still require
-> authorized local data and GPU execution; no ReCoAlign method or paper result is complete yet.
+The repository is organized around measuring that interface gap before introducing any new loss,
+adapter, or trainable model. The current Phase-1 code supports controlled synthetic validation; it
+does not claim a finished ReCoAlign model.
 
-## Research question
+The Phase-6 paper-package tooling is documented in
+[`docs/paper_ready_package.md`](docs/paper_ready_package.md). It builds an auditable evidence map,
+candidate frozen registry, reproducibility package, anonymous-submission files, and paper exports.
+The current scientific submission decision remains `NO-GO` until claim-eligible real-VLM evidence
+and the frozen benchmark matrix are complete.
 
-Modern vision–language models can match broad image semantics while failing when captions differ only
-in attributes, relations, object roles, counts, or word order. ReCoAlign asks whether explicit
-structural supervision and local visual evidence can improve bidirectional compositional retrieval
-without sacrificing standard retrieval, hard-positive robustness, or zero-shot transfer.
+## Research boundary
 
-## Frozen baseline matrix
+- Frozen benchmark and retrieval infrastructure remains available only as a capability-preservation
+  control; it is not the active scientific contribution.
+- Registered NO-GO mechanism studies are retained under [`archive/`](archive/).
+- The active line is explicit structured-reasoning sufficiency and interface diagnosis.
+- The default backend is a deterministic CPU reference backend for CI. LLaVA-1.5 is an optional
+  injected backend selected by configuration and never silently substituted.
 
-Three encoders are evaluated without task-specific training:
-
-| Model ID | Architecture | Pretrained weights |
-| --- | --- | --- |
-| `openai_vit_b32` | ViT-B/32 | original OpenAI CLIP |
-| `openclip_vit_b32_laion2b` | ViT-B/32 | `laion2b_s34b_b79k` |
-| `openclip_vit_b16_laion2b` | ViT-B/16 | `laion2b_s34b_b88k` |
-
-Each model has committed configs for six benchmarks:
-
-- **Flickr30K Karpathy 1K test:** bidirectional R@1/R@5/R@10, mean recall, median rank, mean rank;
-- **MS COCO Karpathy 5K test:** the same retrieval protocol at larger scale;
-- **SugarCrepe:** overall, macro-category, seven category accuracies, and tie rate;
-- **ARO:** four subset accuracies, macro subset accuracy, margins, ties, and blind heuristics;
-- **Winoground:** image-to-text, text-to-image, group, tag, margin, and tie metrics;
-- **BiVLC:** the same bidirectional two-by-two protocol for positive/negative images and captions.
-
-See [`docs/baseline_protocol.md`](docs/baseline_protocol.md) and
-[`docs/compositional_diagnostics.md`](docs/compositional_diagnostics.md).
-
-## Repository layout
+## Repository map
 
 ```text
-recoalign/
-├── configs/baseline/           # 18 frozen model × benchmark configurations
-├── data/                       # Local datasets and caches; ignored by Git
-├── docs/                       # Protocol, architecture, and reproducibility contracts
-├── environments/              # Versioned bootstrap profiles
-├── manifests/                 # Dataset and checkpoint provenance
-├── results/                   # Reviewed lightweight run summaries
-├── schemas/                   # Runtime-enforced research record contracts
-├── src/recoalign/
-│   ├── benchmarks/             # Retrieval, pairwise, multi-choice, and 2×2 records
-│   ├── data/                   # Manifest and dataset preparation
-│   ├── evaluation/             # Cache, retrieval, compositional, and diagnostic metrics
-│   ├── experiments/            # Run lifecycle and reportability gates
-│   └── models/                 # OpenCLIP inference adapter
-└── tests/                      # CPU-only unit and synthetic end-to-end tests
+configs/                         YAML experiment contracts
+research/                        hypotheses, experiments, protocols, and decision policy
+datasets/                        JSON-compatible scene records
+models/
+  vlm/                           BaseVLM, reference backend, LLaVA boundary
+  structure_encoder/             visual → graph representation boundary
+  reasoning_interface/           structured interface dataclasses/protocols
+  alignment/                     future alignment boundary (no loss yet)
+diagnosis/
+  semantic_probe/                availability probes
+  representation_analysis/       slice summaries
+  interface_gap_analysis/        structured-reasoning contrasts
+src/recoalign/synthetic_world/
+  ontology/                       finite semantic factors and typed relations
+  generator/                      world-first deterministic generation
+  renderer/                       reconstructable image rendering
+  scene_graph/                    oracle graph and licensed inference
+  questions/                      lossless captions and programmatic QA
+  splits/                         IID and factor-held-out policies
+  validation/                     schema, answer, leakage, and equivalence gates
+experiments/
+  graph_vs_text/                 Experiment A
+  graph_ablation/                Experiment B
+  ood_composition/               Experiment C
+  benchmark/                     suite orchestration
+evaluation/                      unified JSON metrics
+runs/                            ignored, self-contained governed run bundles
+training/                        future trainer protocol only
+archive/                         registered NO-GO evidence and original Phase-3 code
+src/recoalign/                   VLM, governance, synthetic-world, and preservation infrastructure
+scripts/                         reproducible command wrappers
+results/                         generated lightweight metrics and predictions
 ```
 
-## Environment
+## Controlled synthetic world
 
-The local target is WSL2, Python 3.10, and an RTX 3060 Laptop GPU with 6 GB VRAM.
+Generate the validated 1,000-sample reference artifact and run the three-seed evaluation interface:
 
 ```bash
-conda env create -f environments/wsl2-cu126-py310.yml
-conda activate recoalign
-pip install -e ".[openclip,dev]"
-
-python scripts/check_environment.py
-python scripts/smoke_test_openclip.py \
-  --model ViT-B-32 \
-  --pretrained laion2b_s34b_b79k
-pytest
+python -m recoalign generate-synthetic --config configs/synthetic_benchmark.yaml --count 1000
+python -m recoalign evaluate-synthetic --config configs/synthetic_benchmark.yaml
 ```
 
-Every run records package, PyTorch, CUDA, driver, GPU, config, Git, dataset manifest, and checkpoint
-manifest identities.
+The first command writes reconstructable image/scene/graph/metadata bundles. The second writes
+`metrics.json`, `predictions.jsonl`, and `decision_report.yaml`; the shipped reference backend is
+infrastructure-only and cannot produce a scientific GO decision. See
+`docs/synthetic_world_design.md` and `docs/synthetic_dataset_protocol.md` for the controlled-factor,
+information-equivalence, and leakage protocols.
 
-## Prepare datasets
+## Governed mechanism-validation experiments
 
-ReCoAlign does not redistribute images or benchmark annotations. Place authorized local copies in the
-documented layout and create hashed manifests. Existing commands cover Flickr30K, MS COCO, and
-SugarCrepe. Phase 1.1 adds:
+The root `recoalign` CLI is the canonical public entry point. The reference backend requires only the
+base Python dependencies and is suitable for smoke tests:
 
 ```bash
-recoalign prepare-aro \
-  --source-jsonl data/aro/incoming/aro.jsonl \
-  --dataset-root data/aro \
-  --manifest-output manifests/datasets/aro.yaml \
-  --source "official ARO export" \
-  --license "upstream terms verified locally" \
-  --hash-images
-
-recoalign prepare-winoground \
-  --source-jsonl data/winoground/incoming/winoground.jsonl \
-  --dataset-root data/winoground \
-  --manifest-output manifests/datasets/winoground.yaml \
-  --source "official Winoground export" \
-  --license "official gated research-use terms reviewed locally; upstream restrictions apply" \
-  --source-revision "$WINOGROUND_HF_REVISION" \
-  --exporter-version winoground-hf-export-v2 \
-  --downloaded-at "$WINOGROUND_EXPORTED_AT" \
-  --hash-images
-
-recoalign prepare-bivlc \
-  --source-jsonl data/bivlc/incoming/bivlc.jsonl \
-  --dataset-root data/bivlc \
-  --manifest-output manifests/datasets/bivlc.yaml \
-  --source "official human-filtered BiVLC export" \
-  --license "upstream terms verified locally" \
-  --hash-images
+python -m recoalign validate-research
+python -m recoalign list-experiments
+python -m recoalign run-experiment EXP001 --dry-run
+python -m recoalign run-experiment EXP002 --dry-run
+python -m recoalign run-experiment EXP003 --dry-run
 ```
 
-Detailed formats are in [`docs/data_preparation.md`](docs/data_preparation.md) and
-[`docs/compositional_diagnostics.md`](docs/compositional_diagnostics.md).
+Each governed invocation writes:
 
-## Run a baseline
+```text
+runs/<experiment-id>/<run-id>/
+├── config.resolved.yaml
+├── command.txt
+├── environment.txt
+├── git_commit.txt
+├── seed.txt
+├── metrics.json
+├── log.txt
+├── manifest.json
+├── decision_report.yaml        authoritative machine-readable decision
+└── decision_report.md          human-readable mirror
+```
+
+To use LLaVA-1.5, install the optional Transformers/bitsandbytes environment, point
+`configs/llava.yaml` at a locally verified checkpoint, and inject the matching backend into
+`models.vlm.Llava15VLM`. The checkpoint revision and quantization must be recorded in the resolved
+run manifest.
+
+## Reproduce the baseline controls
+
+The original OpenCLIP benchmark pipeline remains available through the root `recoalign` CLI. It
+supports dataset manifests, checkpoint hashes, cache/no-cache verification, Winoground review, and
+schema-validated reportability. These retrieval metrics are explicitly capability-preservation
+controls for the structured-reasoning experiments, not the new scientific contribution. The frozen
+identity and claim limits are documented in [`docs/research_identity.md`](docs/research_identity.md),
+[`docs/contribution_framework.md`](docs/contribution_framework.md), and
+[`docs/claim_boundary.md`](docs/claim_boundary.md).
 
 ```bash
-recoalign run-baseline \
-  --config configs/baseline/openclip_vit_b32_laion2b_flickr30k.yaml
-
-recoalign run-baseline \
-  --config configs/baseline/openclip_vit_b32_laion2b_aro.yaml
-
-recoalign run-baseline \
+python -m recoalign validate-config configs/baseline/openclip_vit_b32_laion2b_winoground.yaml
+python -m recoalign run-baseline \
   --config configs/baseline/openclip_vit_b32_laion2b_winoground.yaml
 ```
 
-The command creates a provenance-complete run, uses identity-bound embedding caches, writes aggregate
-metrics and per-sample predictions, and finalizes the run as `complete`. Use `--no-cache` for an
-independent verification rerun.
+Raw datasets, model weights, generated images, and feature arrays stay outside Git. See
+[`docs/architecture.md`](docs/architecture.md), [`docs/reproducibility.md`](docs/reproducibility.md),
+and [`archive/README.md`](archive/README.md) for the scientific and provenance boundaries.
+Scientific governance details are in [`docs/experiment_governance.md`](docs/experiment_governance.md),
+[`docs/hypothesis_tracking.md`](docs/hypothesis_tracking.md), and
+[`docs/decision_protocol.md`](docs/decision_protocol.md).
 
-A run directory contains:
+## EXP001 controlled graph-vs-text validation
 
-```text
-outputs/<run-id>/
-├── config.resolved.yaml
-├── environment.json
-├── evaluation.json
-├── metrics.json
-├── predictions.jsonl
-├── run.json
-└── manifests/
-    ├── checkpoint.yaml
-    └── dataset.yaml
-```
-
-## Reportability
-
-A technically complete run is not automatically a paper claim. Promotion requires a clean Git state,
-valid manifests, a hash-verified test-image inventory, finite schema-valid metrics, a cache-free
-verification rerun, prediction inspection, and reviewer identity. A Winoground run cannot become
-reportable from reviewer notes alone: promotion recomputes the cached/no-cache comparison and the
-prediction decisions and metrics, requires a full 400-sample mapping review, verifies exact
-annotation-to-inventory coverage, and snapshots and hashes the resulting evidence.
-Both the canonical and cache-disabled verification runs undergo the same config, environment,
-manifest, annotation, prediction, decision, and metric integrity checks. Predictions must align
-row-for-row with the normalized annotation, including sample ID, category, and tags.
-
-A reportable Winoground result is revalidated when collected for tables. The collector verifies the
-promotion evidence hashes, comparison gates, 400-row review evidence, canonical artifact digests,
-and the retained complete verification run. A hand-edited `run.json` is not sufficient for inclusion.
+Run the complete five-seed information- and token-controlled instrument bundle with:
 
 ```bash
-recoalign promote-run outputs/<run-id> \
-  --verification-run outputs/<no-cache-run-id> \
-  --prediction-review reports/experiments/winoground/reviewed_sample_ids.csv \
-  --reviewed-by "Yangjunjie Lin" \
-  --notes "Checked indexing, manifests, blind controls, predictions, and cache-free rerun."
+python -m recoalign run-graph-vs-text \
+  --config configs/graph_vs_text.yaml \
+  --output outputs/EXP001
 ```
 
-For Winoground, the verification run must remain `complete` and cache-disabled; only the canonical
-cache-enabled run is promoted. A user-supplied comparison JSON is not accepted as evidence.
+The bundle includes paired predictions, natural/token-matched results, 1–4 hop metrics, error
+taxonomy, graph/text/serialization ablations, preliminary composition-OOD results, three figures,
+artifact hashes, and an eligibility-aware decision report. The shipped ReferenceVLM config validates
+infrastructure only, so its decision is necessarily `INCONCLUSIVE`. See
+[`docs/exp001_graph_vs_text.md`](docs/exp001_graph_vs_text.md) and the explicit local-checkpoint stage-2
+template at [`configs/exp001_llava15.yaml`](configs/exp001_llava15.yaml).
 
-Interpretation rules:
+## EXP002 structural-necessity validation
 
-1. Standard retrieval and compositional scores remain separate.
-2. ARO is always reported by all four subsets and alongside blind heuristics.
-3. Winoground and BiVLC report both directions and group accuracy together.
-4. Ties are incorrect and tie rate is explicit.
-5. Favorable metrics alone never make a run reportable.
+Run the complete five-seed graph completeness/corruption bundle with:
 
-## Roadmap
+```bash
+python -m recoalign run-graph-ablation \
+  --config configs/graph_ablation.yaml \
+  --output outputs/EXP002
+```
 
-- [x] Complete Phase 0 provenance, schema, environment, and promotion infrastructure.
-- [x] Build the 3-model × 3-benchmark Baseline v1 for Flickr30K, COCO, and SugarCrepe.
-- [x] Add ARO, Winoground, and BiVLC with bias controls and failure-oriented predictions.
-- [ ] Produce and independently review all 18 real baseline runs.
-- [ ] Reproduce FLAIR and Concept-Centric CLIP through official inference implementations.
-- [ ] Complete the failure taxonomy and select the smallest supported ReCoAlign hypothesis.
-- [ ] Run multi-backbone, multi-seed, transfer, robustness, and ablation experiments.
+EXP002 retains Image Only and Full Graph baselines; 25/50/75% supporting-relation removal; relation
+flip, entity swap, and same-size Random Graph controls; format and opaque-label interventions; exact
+Full/Random token matching; paired-bootstrap statistics; hop/relation tables; manifests; and three
+figures. ReferenceVLM is again infrastructure-only. See
+[`docs/exp002_structural_necessity.md`](docs/exp002_structural_necessity.md).
 
-## License
+## EXP003 OOD compositional-generalization validation
 
-ReCoAlign source code is licensed under Apache-2.0. Third-party code, datasets, pretrained weights,
-and generated assets remain subject to their own terms.
+```bash
+python -m experiments.ood_composition.runner \
+  --config configs/ood_composition.yaml \
+  --output outputs/EXP003
+```
+
+EXP003 constructively generates IID, composition-novelty, unseen relation-combination, and 3–4 hop
+OOD partitions. It compares Image, Caption, Graph, and length-matched Random Graph conditions and
+reports generalization gap, retention, depth curves, paired bootstrap statistics, and three
+anti-memorization slices. See [`docs/exp003_ood_composition.md`](docs/exp003_ood_composition.md).
+
+## Phase 2.2 structured-interface diagnosis
+
+```bash
+recoalign run-interface-diagnosis --model reference
+recoalign run-experiment --experiment EXP004 --dry-run
+```
+
+EXP004 measures Visual Semantic Availability (SAS), Structured Accessibility (StAS), and Reasoning
+Execution (RES), plus oracle-graph gain, graph reconstruction/latent relation probes, consistency,
+and the registered failure taxonomy. ReferenceVLM output is infrastructure validation only; missing
+hidden-state or graph-reconstruction APIs are recorded as unavailable. See
+[`docs/interface_diagnosis.md`](docs/interface_diagnosis.md),
+[`docs/mechanistic_analysis.md`](docs/mechanistic_analysis.md), and
+[`docs/failure_taxonomy.md`](docs/failure_taxonomy.md).
+
+## Phase 2.1 real VLM evaluation
+
+```bash
+recoalign list-vlm-models
+recoalign run-vlm-eval \
+  --model llava_1_5_7b \
+  --experiment EXP001 \
+  --split test \
+  --dry-run
+```
+
+The model registry exposes ReferenceVLM, LLaVA-1.5, LLaVA-NeXT, Qwen-VL, and InternVL through one
+`BaseVLM` lifecycle. All backbones use the same versioned prompt and answer evaluator. LLaVA-1.5 is
+the first pinned execution target; the other real-model rows remain adapter-ready until checkpoint
+and code revisions are registered. See [`docs/vlm_integration.md`](docs/vlm_integration.md),
+[`docs/vlm_evaluation_protocol.md`](docs/vlm_evaluation_protocol.md), and
+[`docs/model_comparison_protocol.md`](docs/model_comparison_protocol.md).

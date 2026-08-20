@@ -1,0 +1,29 @@
+schema_version: 1
+name: llava_1_5_7b
+adapter: llava_1_5_7b
+scientific_evidence: true
+checkpoint_manifest: manifests/checkpoints/llava_v1_5_7b.yaml
+prompt_protocol: configs/prompts/reasoning_default.yaml
+model:
+  model_id: liuhaotian/llava-v1.5-7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  model_path: outputs/models/llava-v1.5-7b
+  tokenizer_path: outputs/models/llava-v1.5-7b
+  vision_tower_path: openai/clip-vit-large-patch14-336
+  loader: legacy_transformers
+  dtype: float16
+  device_map: auto
+  quantization: nf4
+  local_files_only: true
+  auto_load: true
+generation:
+  temperature: 0.0
+  do_sample: false
+  max_new_tokens: 32
+  num_beams: 1
+runtime:
+  lazy_load: true
+  batch_size: 1
+  cache_enabled: true
+  cache_dir: outputs/cache/vlm/llava_1_5_7b
+compatibility: [EXP001, EXP002, EXP003]

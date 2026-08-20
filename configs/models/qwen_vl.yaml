@@ -1,0 +1,25 @@
+schema_version: 1
+name: qwen_vl
+adapter: qwen_vl
+scientific_evidence: false
+checkpoint_manifest: manifests/checkpoints/qwen_vl.yaml
+prompt_protocol: configs/prompts/reasoning_default.yaml
+model:
+  model_id: Qwen/Qwen2-VL-7B-Instruct
+  revision: UNPINNED
+  model_path: outputs/models/qwen2-vl-7b-instruct
+  dtype: bfloat16
+  device_map: auto
+  local_files_only: true
+  auto_load: false
+generation:
+  temperature: 0.0
+  do_sample: false
+  max_new_tokens: 32
+  num_beams: 1
+runtime:
+  lazy_load: true
+  batch_size: 1
+  cache_enabled: true
+  cache_dir: outputs/cache/vlm/qwen_vl
+compatibility: [EXP001, EXP002, EXP003]

@@ -1,0 +1,17 @@
+schema_version: 1
+name: recoalign-synthetic-compositional
+version: generator-v1
+source: synthetic_world.generator.SyntheticWorldGenerator
+license: Apache-2.0
+splits:
+  test: null
+  train: null
+  ood_test: null
+files: []
+processing:
+  generator: recoalign.synthetic_world.v1
+  deterministic_from_seed: true
+  composition_overlap_required: false
+notes: >-
+  Generated artifacts are bound at run time by the resolved configuration, seed, generator version,
+  and generated dataset manifest. Counts are controlled by each registered experiment configuration.

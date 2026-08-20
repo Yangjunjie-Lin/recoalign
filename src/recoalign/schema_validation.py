@@ -18,6 +18,8 @@ class SchemaValidationError(ValueError):
 def load_schema(name: str) -> dict[str, Any]:
     """Load a JSON Schema from the repository-level ``schemas`` directory."""
     schema_path = repository_root() / "schemas" / f"{name}.schema.json"
+    if not schema_path.is_file() and name == "experiment_result":
+        schema_path = repository_root() / "results" / "schema" / f"{name}.schema.json"
     if not schema_path.is_file():
         raise FileNotFoundError(f"schema does not exist: {schema_path}")
     with schema_path.open("r", encoding="utf-8") as handle:

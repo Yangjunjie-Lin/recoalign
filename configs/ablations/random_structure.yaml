@@ -1,0 +1,6 @@
+schema_version: 1
+ablation: random_structure
+base_config: configs/training/recoalign_stage1.yaml
+overrides:
+  training_experiment: TRAIN001_RANDOM_STRUCTURE
+  epochs: 3

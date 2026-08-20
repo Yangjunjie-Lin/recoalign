@@ -27,8 +27,19 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          for config in configs/baseline/*.yaml configs/ci/*.yaml; do
+          for config in configs/*.yaml configs/baseline/*.yaml configs/ci/*.yaml; do
             python -m recoalign validate-config "${config}"
+          done
+          python -m recoalign validate-research
+      - name: Validate governed experiment dry-runs
+        shell: bash
+        run: |
+          set -euo pipefail
+          for experiment in EXP001 EXP002 EXP003; do
+            python -m recoalign run-experiment "${experiment}" \
+              --dry-run \
+              --output-root "${RUNNER_TEMP}/governance-dry-runs" \
+              --run-id "ci-${experiment}"
           done
       - name: Lint
         run: ruff check .

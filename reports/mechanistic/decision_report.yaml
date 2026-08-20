@@ -1,0 +1,18 @@
+schema_version: 1
+phase: Phase 5
+decision: INCONCLUSIVE
+implementation: GO
+toy_mechanistic_validation: GO
+real_vlm_mechanistic_evidence: PENDING
+criteria:
+  structure_removal_hurts: pending_real_matrix
+  random_tokens_fail: pending_real_matrix
+  representation_contains_composition: pending_real_probe
+  causal_intervention_hurts: pending_real_matrix
+  parameter_matched_control_fails: pending_real_matrix
+  failures_reduce: pending_real_matrix
+blockers:
+  - EXP004 current result is infrastructure_validation, not scientific_evidence
+  - real VLM hidden-context injection is not registered
+  - trained ReCoAlign checkpoints are not available for all target backbones
+  - complete ablation benchmark matrix is not executed

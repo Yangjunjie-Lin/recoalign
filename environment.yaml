@@ -1,0 +1,12 @@
+name: recoalign
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - -r requirements.txt
+      - pytest>=8.0
+      - ruff>=0.6

@@ -304,6 +304,36 @@ def test_audit_winoground_cli_wrapper_help() -> None:
     assert "expected-samples" in result.stdout
 
 
+def test_audit_winoground_cli_verifies_resolved_annotation(
+    tmp_path: Path, research_config
+) -> None:
+    run_dir = _run_fixture(tmp_path, research_config)
+    annotation_path = _write_normalized_annotations(run_dir)
+    config_path = run_dir / "config.resolved.yaml"
+    config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+    config["data"]["annotation_file"] = str(annotation_path)
+    config_path.write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
+    script = Path(__file__).resolve().parents[1] / "scripts" / "audit_winoground_run.py"
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(script),
+            str(run_dir),
+            "--expected-samples",
+            "3",
+        ],
+        capture_output=True,
+        check=False,
+        text=True,
+    )
+
+    assert result.returncode == 0, result.stdout + result.stderr
+    summary = json.loads(result.stdout)
+    assert summary["annotation_alignment_verified"] is True
+    assert summary["all_recomputed_metrics_verified"] is True
+
+
 def _run_fixture(tmp_path: Path, research_config, *, sample_count: int = 3) -> Path:
     from recoalign.experiments.records import create_run, finalize_run
     from recoalign.reproducibility import atomic_write_json

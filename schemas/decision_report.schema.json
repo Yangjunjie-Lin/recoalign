@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReCoAlign scientific experiment decision report",
+  "type": "object",
+  "required": [
+    "schema_version", "experiment_id", "evidence", "statistical_result",
+    "robustness_check", "final_decision", "next_action"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "experiment_id": {"type": "string", "pattern": "^EXP[0-9]{3}$"},
+    "evidence": {
+      "type": "object",
+      "required": [
+        "hypothesis_id", "run_id", "result_status", "model", "dataset", "evidence_role"
+      ],
+      "properties": {
+        "hypothesis_id": {"type": "string", "pattern": "^H[0-9]{3}$"},
+        "run_id": {"type": ["string", "null"]},
+        "result_status": {"type": ["string", "null"]},
+        "model": {"type": ["string", "null"]},
+        "dataset": {"type": ["string", "null"]},
+        "evidence_role": {
+          "enum": ["infrastructure_validation", "scientific_evidence"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "statistical_result": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "metric_path", "mean", "minimum_gain", "confidence_interval", "p_value",
+          "significance_level", "complete", "passed"
+        ],
+        "properties": {
+          "metric_path": {"type": "string", "minLength": 1},
+          "mean": {"type": ["number", "null"]},
+          "minimum_gain": {"type": "number"},
+          "confidence_interval": {
+            "oneOf": [
+              {"type": "null"},
+              {
+                "type": "object",
+                "required": ["lower", "upper", "excludes_zero_required"],
+                "properties": {
+                  "lower": {"type": "number"},
+                  "upper": {"type": "number"},
+                  "excludes_zero_required": {"type": "boolean"}
+                },
+                "additionalProperties": false
+              }
+            ]
+          },
+          "p_value": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "significance_level": {"type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1},
+          "complete": {"type": "boolean"},
+          "passed": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "robustness_check": {
+      "type": "object",
+      "required": [
+        "result_complete", "registry_validated", "model_matches_registration",
+        "dataset_matches_registration", "model_scientific_decision_allowed", "criteria",
+        "manifest_assertions", "passed"
+      ],
+      "properties": {
+        "result_complete": {"type": "boolean"},
+        "registry_validated": {"type": "boolean"},
+        "model_matches_registration": {"type": "boolean"},
+        "dataset_matches_registration": {"type": "boolean"},
+        "model_scientific_decision_allowed": {"type": "boolean"},
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "metric_path", "observed_seeds", "minimum_seeds", "positive_seed_fraction",
+              "minimum_positive_seed_fraction", "complete", "passed"
+            ],
+            "properties": {
+              "metric_path": {"type": "string", "minLength": 1},
+              "observed_seeds": {"type": ["integer", "null"], "minimum": 0},
+              "minimum_seeds": {"type": "integer", "minimum": 1},
+              "positive_seed_fraction": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+              "minimum_positive_seed_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+              "complete": {"type": "boolean"},
+              "passed": {"type": "boolean"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "manifest_assertions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["assertion", "expected", "observed", "complete", "passed"],
+            "properties": {
+              "assertion": {"type": "string", "minLength": 1},
+              "expected": {},
+              "observed": {"type": "array"},
+              "complete": {"type": "boolean"},
+              "passed": {"type": "boolean"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "passed": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "final_decision": {"enum": ["GO", "NO-GO", "INCONCLUSIVE"]},
+    "next_action": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

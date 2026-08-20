@@ -1,0 +1,21 @@
+{
+  "blockers": [
+    "fewer than two models have complete ReCoAlign evidence",
+    "fewer than three benchmarks have complete ReCoAlign evidence",
+    "paired ReCoAlign improvements are absent or inconsistent"
+  ],
+  "complete_cells": 0,
+  "criteria": {
+    "all_matrix_cells_reported": false,
+    "consistent_paired_gain": false,
+    "minimum_seeds": 3,
+    "multiple_benchmarks": false,
+    "multiple_models": false,
+    "no_selective_reporting": true
+  },
+  "decision": "INCONCLUSIVE",
+  "generated_at": "2026-08-19T20:49:00.091192+00:00",
+  "planned_cells": 432,
+  "schema_version": 1,
+  "scientific_claim": "No comprehensive scientific claim is made until the frozen matrix is complete"
+}

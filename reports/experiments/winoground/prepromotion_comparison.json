@@ -1,0 +1,47 @@
+{
+  "atol": 1e-06,
+  "cached_run_cache_enabled": true,
+  "cached_run_id": "wg-openclip-b32-laion2b-canonical-20260717-13d2c51",
+  "cached_run_status_valid": true,
+  "decision_differences": {
+    "group_correct": 0,
+    "image_to_text_correct": 0,
+    "text_to_image_correct": 0,
+    "tie": 0
+  },
+  "maximum_metric_absolute_difference": 0.0,
+  "maximum_score_absolute_difference": 0.0,
+  "metadata_identity_matches": {
+    "annotation_sha256": true,
+    "dataset": true,
+    "dataset_manifest_sha256": true,
+    "encoder": true,
+    "protocol": true,
+    "protocol_version": true,
+    "split": true
+  },
+  "metric_names_match": true,
+  "metrics_within_tolerance": true,
+  "no_cache_run_cache_disabled": true,
+  "no_cache_run_id": "wg-openclip-b32-laion2b-verification-nocache-20260717-13d2c51",
+  "no_cache_run_status_valid": true,
+  "passed": true,
+  "prediction_count_match": true,
+  "rtol": 1e-06,
+  "run_identity_matches": {
+    "checkpoint": true,
+    "checkpoint_manifest_sha256": true,
+    "config_sha256": true,
+    "dataset": true,
+    "dataset_manifest_sha256": true,
+    "dataset_split": true,
+    "git_commit": true,
+    "metrics_file": true,
+    "model": true,
+    "precision": true,
+    "pretrained": true,
+    "seed": true
+  },
+  "sample_id_order_match": true,
+  "scores_within_tolerance": true
+}

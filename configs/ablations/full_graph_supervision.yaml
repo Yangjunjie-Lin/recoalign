@@ -1,0 +1,7 @@
+schema_version: 1
+ablation: full_graph_supervision
+family: supervision
+base_config: configs/training/recoalign_stage1.yaml
+supervision_level: full
+overrides:
+  training_experiment: TRAIN001_FULL_GRAPH_SUPERVISION
