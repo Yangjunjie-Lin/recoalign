@@ -18,6 +18,8 @@ CLAIMS: tuple[dict[str, Any], ...] = (
             "configs/graph_vs_text.yaml",
             "research/protocols/EXP001_graph_vs_text.md",
             "reports/experiments/exp001/implementation_report.md",
+            "reports/paper_evidence/EXP001/metrics.json",
+            "reports/paper_evidence/EXP001/decision_report.yaml",
         ],
         "status": "infrastructure_only",
         "blocker": "No claim-eligible real-VLM multi-seed EXP001 result is complete.",
@@ -30,6 +32,8 @@ CLAIMS: tuple[dict[str, Any], ...] = (
         "artifacts": [
             "configs/graph_ablation.yaml",
             "research/protocols/EXP002_graph_ablation.md",
+            "reports/paper_evidence/EXP002/metrics.json",
+            "reports/paper_evidence/EXP002/decision_report.yaml",
         ],
         "status": "infrastructure_only",
         "blocker": "EXP002 results use an infrastructure ReferenceVLM, not an eligible real VLM.",
@@ -43,6 +47,8 @@ CLAIMS: tuple[dict[str, Any], ...] = (
             "configs/ood_composition.yaml",
             "research/protocols/EXP003_ood_composition.md",
             "docs/composition_split_protocol.md",
+            "reports/paper_evidence/EXP003/metrics.json",
+            "reports/paper_evidence/EXP003/decision_report.yaml",
         ],
         "status": "infrastructure_only",
         "blocker": "No claim-eligible real-VLM EXP003 matrix has been completed.",
@@ -55,6 +61,8 @@ CLAIMS: tuple[dict[str, Any], ...] = (
         "artifacts": [
             "configs/diagnosis/interface_diagnosis.yaml",
             "reports/diagnosis/mechanism_diagnosis.md",
+            "reports/paper_evidence/EXP004/metrics.json",
+            "reports/paper_evidence/EXP004/decision_report.yaml",
         ],
         "status": "pending",
         "blocker": "EXP004 is a ReferenceVLM infrastructure run; real hidden-state access is pending.",
@@ -104,6 +112,7 @@ CLAIMS: tuple[dict[str, Any], ...] = (
 def build_evidence_map(root: str | Path | None = None) -> dict[str, Any]:
     project = project_root(root)
     claims = [dict(claim) for claim in CLAIMS]
+    _apply_frozen_real_vlm_evidence(project, claims)
     for claim in claims:
         claim["artifact_checks"] = [
             {"path": artifact, "exists": (project / artifact).is_file()}
@@ -139,6 +148,8 @@ def build_evidence_map(root: str | Path | None = None) -> dict[str, Any]:
         "summary": {
             "total_claims": len(claims),
             "verified": sum(claim["status"] == "verified" for claim in claims),
+            "falsified": sum(claim["status"] == "falsified" for claim in claims),
+            "inconclusive": sum(claim["status"] == "inconclusive" for claim in claims),
             "infrastructure_only": sum(
                 claim["status"] == "infrastructure_only" for claim in claims
             ),
@@ -148,3 +159,46 @@ def build_evidence_map(root: str | Path | None = None) -> dict[str, Any]:
     }
     write_yaml(project / "docs/evidence_map.yaml", payload)
     return payload
+
+
+def _apply_frozen_real_vlm_evidence(
+    project: Path, claims: list[dict[str, Any]]
+) -> None:
+    """Overlay registered outcomes only when the published real-VLM freeze exists.
+
+    A completed NO-GO is claim-eligible falsifying evidence, not pending evidence.
+    Failed integrity gates remain inconclusive and are never promoted.
+    """
+
+    manifest_path = project / "reports/paper_evidence/artifact_manifest.yaml"
+    if not manifest_path.is_file():
+        return
+    manifest = load_yaml(manifest_path)
+    experiments = manifest.get("experiments", {})
+    by_claim = {"C001": "EXP001", "C002": "EXP002", "C003": "EXP003", "C004": "EXP004"}
+    for claim in claims:
+        experiment_id = by_claim.get(claim["id"])
+        if experiment_id is None or experiment_id not in experiments:
+            continue
+        result = experiments[experiment_id]
+        decision = str(result.get("decision", "INCONCLUSIVE"))
+        completed = result.get("status") == "complete"
+        if completed and decision == "GO":
+            status = "verified"
+            blocker = None
+        elif completed and decision == "NO-GO":
+            status = "falsified"
+            blocker = "The preregistered real-VLM gate completed and falsified this claim."
+        else:
+            status = "inconclusive"
+            blocker = "The real-VLM run failed a preregistered integrity/completeness gate."
+        claim.update(
+            {
+                "status": status,
+                "blocker": blocker,
+                "evidence_role": "scientific_evidence",
+                "registered_decision": decision,
+                "evidence_scope": "frozen LLaVA-1.5-7B execution",
+                "evidence_manifest": "reports/paper_evidence/artifact_manifest.yaml",
+            }
+        )

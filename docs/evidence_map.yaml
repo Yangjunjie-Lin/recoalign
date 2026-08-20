@@ -5,9 +5,11 @@ policy:
   failed_and_pending_evidence_remains_visible: true
 summary:
   total_claims: 7
-  verified: 0
-  infrastructure_only: 4
-  pending: 3
+  verified: 1
+  falsified: 2
+  inconclusive: 1
+  infrastructure_only: 1
+  pending: 2
 claims:
 - id: C001
   claim: A structured graph interface improves reasoning over information-controlled
@@ -21,14 +23,24 @@ claims:
   - configs/graph_vs_text.yaml
   - research/protocols/EXP001_graph_vs_text.md
   - reports/experiments/exp001/implementation_report.md
-  status: infrastructure_only
-  blocker: No claim-eligible real-VLM multi-seed EXP001 result is complete.
+  - reports/paper_evidence/EXP001/metrics.json
+  - reports/paper_evidence/EXP001/decision_report.yaml
+  status: falsified
+  blocker: The preregistered real-VLM gate completed and falsified this claim.
+  evidence_role: scientific_evidence
+  registered_decision: NO-GO
+  evidence_scope: frozen LLaVA-1.5-7B execution
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
   artifact_checks:
   - path: configs/graph_vs_text.yaml
     exists: true
   - path: research/protocols/EXP001_graph_vs_text.md
     exists: true
   - path: reports/experiments/exp001/implementation_report.md
+    exists: true
+  - path: reports/paper_evidence/EXP001/metrics.json
+    exists: true
+  - path: reports/paper_evidence/EXP001/decision_report.yaml
     exists: true
   artifact_inventory_complete: true
 - id: C002
@@ -42,13 +54,22 @@ claims:
   artifacts:
   - configs/graph_ablation.yaml
   - research/protocols/EXP002_graph_ablation.md
-  status: infrastructure_only
-  blocker: EXP002 results use an infrastructure ReferenceVLM, not an eligible real
-    VLM.
+  - reports/paper_evidence/EXP002/metrics.json
+  - reports/paper_evidence/EXP002/decision_report.yaml
+  status: verified
+  blocker: null
+  evidence_role: scientific_evidence
+  registered_decision: GO
+  evidence_scope: frozen LLaVA-1.5-7B execution
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
   artifact_checks:
   - path: configs/graph_ablation.yaml
     exists: true
   - path: research/protocols/EXP002_graph_ablation.md
+    exists: true
+  - path: reports/paper_evidence/EXP002/metrics.json
+    exists: true
+  - path: reports/paper_evidence/EXP002/decision_report.yaml
     exists: true
   artifact_inventory_complete: true
 - id: C003
@@ -63,14 +84,24 @@ claims:
   - configs/ood_composition.yaml
   - research/protocols/EXP003_ood_composition.md
   - docs/composition_split_protocol.md
-  status: infrastructure_only
-  blocker: No claim-eligible real-VLM EXP003 matrix has been completed.
+  - reports/paper_evidence/EXP003/metrics.json
+  - reports/paper_evidence/EXP003/decision_report.yaml
+  status: inconclusive
+  blocker: The real-VLM run failed a preregistered integrity/completeness gate.
+  evidence_role: scientific_evidence
+  registered_decision: INCONCLUSIVE
+  evidence_scope: frozen LLaVA-1.5-7B execution
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
   artifact_checks:
   - path: configs/ood_composition.yaml
     exists: true
   - path: research/protocols/EXP003_ood_composition.md
     exists: true
   - path: docs/composition_split_protocol.md
+    exists: true
+  - path: reports/paper_evidence/EXP003/metrics.json
+    exists: true
+  - path: reports/paper_evidence/EXP003/decision_report.yaml
     exists: true
   artifact_inventory_complete: true
 - id: C004
@@ -84,13 +115,22 @@ claims:
   artifacts:
   - configs/diagnosis/interface_diagnosis.yaml
   - reports/diagnosis/mechanism_diagnosis.md
-  status: pending
-  blocker: EXP004 is a ReferenceVLM infrastructure run; real hidden-state access is
-    pending.
+  - reports/paper_evidence/EXP004/metrics.json
+  - reports/paper_evidence/EXP004/decision_report.yaml
+  status: falsified
+  blocker: The preregistered real-VLM gate completed and falsified this claim.
+  evidence_role: scientific_evidence
+  registered_decision: NO-GO
+  evidence_scope: frozen LLaVA-1.5-7B execution
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
   artifact_checks:
   - path: configs/diagnosis/interface_diagnosis.yaml
     exists: true
   - path: reports/diagnosis/mechanism_diagnosis.md
+    exists: true
+  - path: reports/paper_evidence/EXP004/metrics.json
+    exists: true
+  - path: reports/paper_evidence/EXP004/decision_report.yaml
     exists: true
   artifact_inventory_complete: true
 - id: C005

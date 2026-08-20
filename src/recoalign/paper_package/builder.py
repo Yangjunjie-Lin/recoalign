@@ -29,14 +29,21 @@ def build_paper_package(root: str | Path | None = None) -> dict[str, Any]:
     write_text(
         project / "docs/limitations.md",
         "# Limitations\n\n"
-        "- Real VLM evaluation and hidden-state diagnosis require substantial GPU memory and time.\n"
+        "- The frozen LLaVA-1.5-7B evidence does not support the main interface-gap claim.\n"
         "- Stage-1 structural labels come from a synthetic world; real-task transfer remains unverified.\n"
         "- LLaVA-NeXT, Qwen-VL, and InternVL are adapter-ready but lack complete claim-eligible runs.\n"
         "- The comprehensive benchmark and mechanistic matrices are incomplete.\n"
-        "- Current toy and ReferenceVLM outputs validate infrastructure, not scientific efficacy.\n",
+        "- ReCoAlign itself has no claim-eligible trained real-VLM checkpoint.\n",
     )
     integrity = build_integrity_report(project)
     decision = "GO" if integrity["scientific_submission_ready"] else "NO-GO"
+    evidence_check = integrity["checks"].get("claim_evidence", {})
+    evidence_decision = str(evidence_check.get("scientific_decision", "pending")).lower()
+    real_vlm_evidence = (
+        f"completed_{evidence_decision.replace('-', '_')}"
+        if evidence_check.get("passed") is True
+        else "pending_or_invalid"
+    )
     readiness = {
         "schema_version": 1,
         "package_status": "implementation_complete",
@@ -47,7 +54,7 @@ def build_paper_package(root: str | Path | None = None) -> dict[str, Any]:
         "claims_total": evidence["summary"]["total_claims"],
         "complete_matrix_cells": exports["complete_matrix_cells"],
         "planned_matrix_cells": exports["planned_matrix_cells"],
-        "real_vlm_evidence": "pending",
+        "real_vlm_evidence": real_vlm_evidence,
         "tag_created": False,
         "tag_blocker": "Tag creation requires GO, clean worktree, and a committed frozen snapshot.",
         "blockers": integrity["blockers"],
@@ -219,7 +226,7 @@ def _write_submission_files(
         destination / "limitations.md",
         "# Limitations\n\n"
         "- Real VLM inference is compute- and memory-intensive.\n"
-        "- The current mechanism diagnosis does not have eligible real hidden-state runs.\n"
+        "- The LLaVA diagnosis accesses visual hidden representations but does not support the registered interface-gap pattern.\n"
         "- Stage-1 structural supervision is synthetic; transfer must be measured rather than assumed.\n"
         "- Backbone adapters for LLaVA-NeXT, Qwen-VL, and InternVL are interface boundaries until executed.\n"
         "- The complete 432-cell benchmark matrix is not yet populated.\n",
@@ -256,8 +263,8 @@ def _readiness_markdown(readiness: dict[str, Any], integrity: dict[str, Any]) ->
             "",
             "## Experimental evidence",
             "",
-            "Synthetic protocols, controls, registries, and toy mechanistic tests are present. Real-VLM diagnosis, training, "
-            "and comprehensive benchmark cells remain incomplete.",
+        "Frozen LLaVA-1.5-7B evidence is present: EXP001 and EXP004 are NO-GO, EXP002 is GO, and EXP003 is "
+        "INCONCLUSIVE after a preregistered integrity failure. ReCoAlign training and the comprehensive matrix remain incomplete.",
             "",
             "## Reproducibility status",
             "",

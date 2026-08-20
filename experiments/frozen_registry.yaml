@@ -1,22 +1,30 @@
-schema_version: 1
-freeze_name: v2.0-paper-ready
-freeze_status: candidate_not_released
+schema_version: 2
+freeze_name: llava-claim-evidence-20260820
+freeze_status: evidence_frozen_no_go
 protocol_changes_allowed: false
 results_may_only_be_appended_under_frozen_protocol: true
 git:
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
+  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  evidence_execution_commit: be69ca1fd2155a9339a0937ff327be9e4a5d3753
   dirty: true
   tag_created: false
-  tag_blocker: Scientific submission decision is NO-GO and worktree is dirty; tagging
-    would be misleading.
+  tag_blocker: Scientific submission decision is NO-GO; tagging would be misleading.
+model_manifest: reports/paper_evidence/model_manifest.yaml
+evidence_artifact_manifest: reports/paper_evidence/artifact_manifest.yaml
+scientific_decision: NO-GO
 experiments:
 - experiment_id: EXP001
   kind: evaluation
   final_config: configs/graph_vs_text.yaml
   config_sha256: 5c004ddd897cff4d8f389eb09754ed2a6e364d555d111afd9452ad57e005aabb
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  checkpoint: null
-  checkpoint_sha256: null
+  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  checkpoint: manifests/checkpoints/llava_v1_5_7b.yaml
+  checkpoint_sha256: 8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7
+  checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
+  model: liuhaotian/llava-v1.5-7b
+  model_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  model_config: configs/models/llava_1_5_7b.yaml
+  model_config_sha256: 1c002ccffa56a876b8f857144e3d3697fcfb5ec72e9756f413849a5b9a076138
   dataset_version: generator-v2
   dataset_manifest: manifests/datasets/synthetic_world_v2.yaml
   dataset_manifest_sha256: f00a1d19bfd5f968e97a0502e59f30183f0266c4e702c0bacf68bae916336bf6
@@ -26,15 +34,23 @@ experiments:
   - 20260820
   - 20260821
   - 20260822
-  status: protocol_registered_evidence_pending
-  evidence_role: infrastructure_validation
+  status: complete
+  decision: NO-GO
+  evidence_role: scientific_evidence
+  claim_eligible: true
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
 - experiment_id: EXP002
   kind: evaluation
   final_config: configs/graph_ablation.yaml
   config_sha256: 6eabf257a6a0219473468af21f9b6a73f6f2087bfce3b4494e9ab37cbf09e948
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  checkpoint: null
-  checkpoint_sha256: null
+  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  checkpoint: manifests/checkpoints/llava_v1_5_7b.yaml
+  checkpoint_sha256: 8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7
+  checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
+  model: liuhaotian/llava-v1.5-7b
+  model_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  model_config: configs/models/llava_1_5_7b.yaml
+  model_config_sha256: 1c002ccffa56a876b8f857144e3d3697fcfb5ec72e9756f413849a5b9a076138
   dataset_version: generator-v2
   dataset_manifest: manifests/datasets/synthetic_world_v2.yaml
   dataset_manifest_sha256: f00a1d19bfd5f968e97a0502e59f30183f0266c4e702c0bacf68bae916336bf6
@@ -44,15 +60,23 @@ experiments:
   - 20260820
   - 20260821
   - 20260822
-  status: protocol_registered_evidence_pending
-  evidence_role: infrastructure_validation
+  status: complete
+  decision: GO
+  evidence_role: scientific_evidence
+  claim_eligible: true
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
 - experiment_id: EXP003
   kind: evaluation
   final_config: configs/ood_composition.yaml
   config_sha256: e2ea7d4ac3ee66882f576f4a0f2cf1c2cb36a6945f3798fe06c9cb13b8d5ae3e
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  checkpoint: null
-  checkpoint_sha256: null
+  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  checkpoint: manifests/checkpoints/llava_v1_5_7b.yaml
+  checkpoint_sha256: 8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7
+  checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
+  model: liuhaotian/llava-v1.5-7b
+  model_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  model_config: configs/models/llava_1_5_7b.yaml
+  model_config_sha256: 1c002ccffa56a876b8f857144e3d3697fcfb5ec72e9756f413849a5b9a076138
   dataset_version: generator-v2
   dataset_manifest: manifests/datasets/synthetic_world_v2.yaml
   dataset_manifest_sha256: f00a1d19bfd5f968e97a0502e59f30183f0266c4e702c0bacf68bae916336bf6
@@ -62,15 +86,23 @@ experiments:
   - 20260820
   - 20260821
   - 20260822
-  status: protocol_registered_evidence_pending
-  evidence_role: infrastructure_validation
+  status: failed_integrity_gate
+  decision: INCONCLUSIVE
+  evidence_role: scientific_evidence
+  claim_eligible: false
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
 - experiment_id: EXP004
   kind: evaluation
   final_config: configs/diagnosis/interface_diagnosis.yaml
   config_sha256: c01a71b1a8bb5ecca8ece0b31af14e9b03ac4ce1bb84738a816c1d1b5e054c19
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  checkpoint: null
-  checkpoint_sha256: null
+  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  checkpoint: manifests/checkpoints/llava_v1_5_7b.yaml
+  checkpoint_sha256: 8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7
+  checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
+  model: liuhaotian/llava-v1.5-7b
+  model_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  model_config: configs/models/llava_1_5_7b.yaml
+  model_config_sha256: 1c002ccffa56a876b8f857144e3d3697fcfb5ec72e9756f413849a5b9a076138
   dataset_version: generator-v2
   dataset_manifest: manifests/datasets/synthetic_world_v2.yaml
   dataset_manifest_sha256: f00a1d19bfd5f968e97a0502e59f30183f0266c4e702c0bacf68bae916336bf6
@@ -80,13 +112,16 @@ experiments:
   - 20260820
   - 20260821
   - 20260822
-  status: protocol_registered_evidence_pending
-  evidence_role: infrastructure_validation
+  status: complete
+  decision: NO-GO
+  evidence_role: scientific_evidence
+  claim_eligible: true
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
 - experiment_id: TRAIN001
   kind: training
   final_config: configs/training/recoalign_stage1.yaml
   config_sha256: 252dfc9687734bf30756921d416a62731541229b74ae0a322dae77d2e9b07f7b
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
+  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
   checkpoint: null
   checkpoint_sha256: null
   dataset_version: generator-v2
@@ -98,7 +133,7 @@ experiments:
   kind: training
   final_config: configs/training/recoalign_stage2.yaml
   config_sha256: 2e3f69be9e518f06656ca2e49d117ef750176304129d59bf91e42a89335d3f04
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
+  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
   checkpoint: null
   checkpoint_sha256: null
   dataset_version: generator-v2
@@ -110,7 +145,7 @@ experiments:
   kind: training
   final_config: configs/training/recoalign_stage3.yaml
   config_sha256: 7e72afb3bf358677c255c1429dd5dd165fed449fde7066d2405f3fe731ee885f
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
+  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
   checkpoint: null
   checkpoint_sha256: null
   dataset_version: pending

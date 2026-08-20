@@ -7,6 +7,12 @@ checks:
     passed: true
     claim_count: 7
     invalid_verified_claims: []
+  claim_evidence:
+    passed: true
+    scientific_decision: NO-GO
+    model: liuhaotian/llava-v1.5-7b
+    experiments: 4
+    failures: []
   leakage:
     passed: true
     checks:
@@ -116,5 +122,6 @@ checks:
       exists: true
 blockers:
 - comprehensive benchmark matrix is incomplete (0/432 cells)
+- frozen real-VLM evidence decision is NO-GO
 - real-VLM mechanistic evidence is not GO
 decision: NO-GO

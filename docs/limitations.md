@@ -1,7 +1,7 @@
 # Limitations
 
-- Real VLM evaluation and hidden-state diagnosis require substantial GPU memory and time.
+- The frozen LLaVA-1.5-7B evidence does not support the main interface-gap claim.
 - Stage-1 structural labels come from a synthetic world; real-task transfer remains unverified.
 - LLaVA-NeXT, Qwen-VL, and InternVL are adapter-ready but lack complete claim-eligible runs.
 - The comprehensive benchmark and mechanistic matrices are incomplete.
-- Current toy and ReferenceVLM outputs validate infrastructure, not scientific efficacy.
+- ReCoAlign itself has no claim-eligible trained real-VLM checkpoint.
