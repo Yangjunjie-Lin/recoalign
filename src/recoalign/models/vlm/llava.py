@@ -12,6 +12,7 @@ import numpy as np
 from PIL import Image
 
 from datasets.records import SceneRecord
+from recoalign.data.manifest import load_checkpoint_manifest
 from recoalign.models.vlm.base import BaseVLM, PreparedInput
 from synthetic_world.compositional_tasks.tasks import InputSetting
 
@@ -32,6 +33,7 @@ class Llava15VLM(BaseVLM):
         device_map: str = "auto",
         quantization: str | None = None,
         local_files_only: bool = True,
+        checkpoint_manifest: str | Path | None = None,
         generation_config: dict[str, Any] | None = None,
         **kwargs: Any,
     ) -> None:
@@ -43,7 +45,13 @@ class Llava15VLM(BaseVLM):
         self.device_map = device_map
         self.quantization = quantization
         self.local_files_only = local_files_only
+        self.tokenizer_path = Path(tokenizer_path) if tokenizer_path else self.model_dir
+        self.vision_tower_path = vision_tower_path
+        self.checkpoint_manifest_path = (
+            _resolve_repository_path(checkpoint_manifest) if checkpoint_manifest else None
+        )
         self.generation = dict(generation_config or {})
+        self._backend_injected = backend is not None
         self.backend = backend
         if self.backend is None and auto_load:
             backend_class = (
@@ -72,10 +80,11 @@ class Llava15VLM(BaseVLM):
         auto_load: bool = False,
         quantization: str | None = None,
         max_new_tokens: int = 32,
+        checkpoint_manifest: str | Path | None = None,
         **kwargs: Any,
     ) -> Llava15VLM:
         path = Path(model_dir)
-        if not path.exists():
+        if not path.is_dir() and checkpoint_manifest is None:
             raise FileNotFoundError(f"LLaVA checkpoint directory does not exist: {path}")
         generation = dict(kwargs.pop("generation_config", {}))
         generation.setdefault("max_new_tokens", max_new_tokens)
@@ -83,6 +92,7 @@ class Llava15VLM(BaseVLM):
             model_dir=path,
             auto_load=auto_load,
             quantization=quantization,
+            checkpoint_manifest=checkpoint_manifest,
             generation_config=generation,
             **kwargs,
         )
@@ -101,11 +111,22 @@ class Llava15VLM(BaseVLM):
             quantization=config.get("quantization"),
             local_files_only=bool(config.get("local_files_only", True)),
             max_new_tokens=int(generation.get("max_new_tokens", 32)),
+            checkpoint_manifest=config.get("checkpoint_manifest"),
             generation_config=generation,
             **kwargs,
         )
 
     def load(self) -> Llava15VLM:
+        if not self.model_dir.is_dir() and not self._backend_injected:
+            manifest = (
+                f" (declared by {self.checkpoint_manifest_path.as_posix()})"
+                if self.checkpoint_manifest_path
+                else ""
+            )
+            raise FileNotFoundError(
+                "LLaVA runtime requires the local checkpoint directory "
+                f"{self.model_dir}{manifest}; download the pinned checkpoint before inference"
+            )
         backend = self._require_backend()
         if hasattr(backend, "load"):
             backend.load()
@@ -184,6 +205,8 @@ class Llava15VLM(BaseVLM):
         return np.asarray(backend.encode_visual_hidden(images))
 
     def count_tokens(self, text: str) -> int:
+        if not self.model_dir.is_dir() and not self._backend_injected:
+            return super().count_tokens(text)
         backend = self._require_backend()
         if hasattr(backend, "count_tokens"):
             return int(backend.count_tokens(text))
@@ -244,10 +267,32 @@ class Llava15VLM(BaseVLM):
             "quantization": self.quantization,
             "local_files_only": self.local_files_only,
             "generation": self.generation,
+            "checkpoint_manifest": (
+                self.checkpoint_manifest_path.as_posix()
+                if self.checkpoint_manifest_path
+                else None
+            ),
             "evidence_role": "scientific_evidence",
         }
 
     def dry_run(self) -> dict[str, Any]:
+        checkpoint_manifest: dict[str, Any] = {}
+        checkpoint_manifest_error: str | None = None
+        if self.checkpoint_manifest_path is not None:
+            try:
+                checkpoint_manifest = load_checkpoint_manifest(self.checkpoint_manifest_path)
+            except (FileNotFoundError, OSError, ValueError) as exc:
+                checkpoint_manifest_error = f"{type(exc).__name__}: {exc}"
+        declared_files = [
+            str(entry["path"])
+            for entry in checkpoint_manifest.get("files", [])
+            if isinstance(entry, dict) and isinstance(entry.get("path"), str)
+        ]
+        declared_weight_files = [
+            path
+            for path in declared_files
+            if Path(path).suffix in {".bin", ".safetensors"}
+        ]
         config_path = self.model_dir / "config.json"
         payload = (
             json.loads(config_path.read_text(encoding="utf-8")) if config_path.is_file() else {}
@@ -285,6 +330,7 @@ class Llava15VLM(BaseVLM):
         )
         index_path = self.model_dir / "pytorch_model.bin.index.json"
         checkpoint_format = "unknown"
+        checkpoint_format_source = "unavailable"
         if index_path.is_file():
             weight_map = json.loads(index_path.read_text(encoding="utf-8")).get("weight_map", {})
             keys = tuple(str(key) for key in weight_map)
@@ -295,43 +341,87 @@ class Llava15VLM(BaseVLM):
                 if any(key.startswith("model.language_model.layers.") for key in keys)
                 else "unknown"
             )
+            checkpoint_format_source = "local_index"
+        elif declared_weight_files:
+            # A manifest can establish the expected loader contract without making
+            # the ignored model weights part of the repository or CI artifact.
+            checkpoint_format = (
+                "legacy_llava"
+                if self.loader == "legacy_transformers"
+                else "transformers_llava"
+                if self.loader == "transformers_llava"
+                else "unknown"
+            )
+            checkpoint_format_source = "checkpoint_manifest"
         loader_compatible = (self.loader, checkpoint_format) in {
             ("legacy_transformers", "legacy_llava"),
             ("transformers_llava", "transformers_llava"),
         }
         processor_ready = False
+        processor_contract_ready = _processor_contract_ready(
+            declared_files,
+            processor_ready=False,
+            vision_tower_path=self.vision_tower_path,
+        )
         processor_error = None
         processor_classes: dict[str, str] = {}
-        try:
-            backend = self._require_backend()
-            if hasattr(backend, "_ensure_processor"):
-                processor = backend._ensure_processor()
-                processor_classes = {
-                    "processor": type(processor).__name__,
-                    "tokenizer": type(processor.tokenizer).__name__,
-                    "image_processor": type(processor.image_processor).__name__,
-                }
-            processor_ready = True
-        except (ImportError, OSError, RuntimeError, ValueError) as exc:
-            processor_error = f"{type(exc).__name__}: {exc}"
+        if self.model_dir.is_dir():
+            try:
+                backend = self._require_backend()
+                if hasattr(backend, "_ensure_processor"):
+                    processor = backend._ensure_processor()
+                    processor_classes = {
+                        "processor": type(processor).__name__,
+                        "tokenizer": type(processor.tokenizer).__name__,
+                        "image_processor": type(processor.image_processor).__name__,
+                    }
+                processor_ready = True
+                processor_contract_ready = _processor_contract_ready(
+                    declared_files,
+                    processor_ready=True,
+                    vision_tower_path=self.vision_tower_path,
+                )
+            except (ImportError, OSError, RuntimeError, ValueError) as exc:
+                processor_error = f"{type(exc).__name__}: {exc}"
+        else:
+            processor_error = (
+                "FileNotFoundError: checkpoint directory does not exist: "
+                f"{self.model_dir}"
+            )
         return {
             "adapter": self.model_id,
             "checkpoint_exists": self.model_dir.is_dir(),
             "checkpoint_files": checkpoint_files,
+            "checkpoint_files_declared": declared_files,
+            "checkpoint_manifest": (
+                self.checkpoint_manifest_path.as_posix()
+                if self.checkpoint_manifest_path
+                else None
+            ),
+            "checkpoint_manifest_exists": bool(
+                self.checkpoint_manifest_path and self.checkpoint_manifest_path.is_file()
+            ),
+            "checkpoint_manifest_loaded": (
+                self.checkpoint_manifest_path is not None and checkpoint_manifest_error is None
+            ),
+            "checkpoint_manifest_error": checkpoint_manifest_error,
             "model_type": payload.get("model_type"),
             "architectures": payload.get("architectures", []),
             "checkpoint_format": checkpoint_format,
+            "checkpoint_format_source": checkpoint_format_source,
             "loader": self.loader,
             "loader_compatible": loader_compatible,
             "dependencies": dependencies,
             "hardware": hardware,
             "hardware_ready": hardware_ready,
             "processor_ready": processor_ready,
+            "processor_contract_ready": processor_contract_ready,
             "processor_classes": processor_classes,
             "processor_error": processor_error,
             "runtime_ready": (
                 self.model_dir.is_dir()
                 and bool(checkpoint_files)
+                and not checkpoint_manifest_error
                 and all(dependencies.values())
                 and hardware_ready
                 and processor_ready
@@ -675,6 +765,38 @@ def _generation_kwargs(base: dict[str, Any], override: dict[str, Any]) -> dict[s
     if do_sample:
         result["temperature"] = float(values.get("temperature", 1.0))
     return result
+
+
+def _resolve_repository_path(value: str | Path) -> Path:
+    path = Path(value)
+    if path.is_absolute():
+        return path
+    repository = Path(__file__).resolve().parents[4]
+    return repository / path
+
+
+def _processor_contract_ready(
+    declared_files: list[str],
+    *,
+    processor_ready: bool,
+    vision_tower_path: str | Path | None,
+) -> bool:
+    """Report whether the manifest/config declares enough processor inputs.
+
+    This is intentionally weaker than ``processor_ready``: it is safe for a
+    manifest-only dry-run and never implies that a local processor was loaded.
+    """
+
+    if processor_ready:
+        return True
+    names = {Path(path).name for path in declared_files}
+    tokenizer_declared = bool(names & {"tokenizer.json", "tokenizer.model"})
+    return (
+        "config.json" in names
+        and "tokenizer_config.json" in names
+        and tokenizer_declared
+        and bool(vision_tower_path)
+    )
 
 
 def _torch_dtype(torch: Any, value: str) -> Any:

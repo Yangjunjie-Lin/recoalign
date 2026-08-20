@@ -170,18 +170,35 @@ def test_reference_evaluation_emits_uniform_prediction_fields() -> None:
     assert all(row["evaluation"]["evaluation_method"] for row in rows)
 
 
-def test_llava_dry_run_validates_checkpoint_without_loading_weights() -> None:
+def test_llava_dry_run_validates_manifest_without_loading_weights(tmp_path: Path) -> None:
     registry = ModelRegistry()
     config = registry.definition("llava_1_5_7b").experiment_model_config()
+    config["model_path"] = str(tmp_path / "llava-v1.5-7b")
+    config["tokenizer_path"] = config["model_path"]
     report = dry_run_model(config)
     assert report["weights_loaded"] is False
-    assert report["checkpoint_files"]
+    assert report["checkpoint_exists"] is False
+    assert report["checkpoint_files"] == []
+    assert report["checkpoint_files_declared"]
+    assert report["checkpoint_manifest_loaded"] is True
+    assert report["checkpoint_manifest_exists"] is True
     assert report["checkpoint_format"] == "legacy_llava"
+    assert report["checkpoint_format_source"] == "checkpoint_manifest"
     assert report["loader"] == "legacy_transformers"
     assert report["loader_compatible"] is True
-    assert report["processor_ready"] is True
-    assert all(report["dependencies"].values())
-    assert report["runtime_ready"] is report["hardware_ready"]
+    assert report["processor_ready"] is False
+    assert report["processor_contract_ready"] is True
+    assert report["runtime_ready"] is False
+
+
+def test_llava_runtime_rejects_missing_checkpoint_after_manifest_dry_run(tmp_path: Path) -> None:
+    registry = ModelRegistry()
+    config = registry.definition("llava_1_5_7b").experiment_model_config()
+    config["model_path"] = str(tmp_path / "llava-v1.5-7b")
+    config["tokenizer_path"] = config["model_path"]
+    model = Llava15VLM.from_config(config)
+    with pytest.raises(FileNotFoundError, match="download the pinned checkpoint"):
+        model.load()
 
 
 def test_vlm_eval_dry_run_writes_required_bundle(tmp_path: Path) -> None:
@@ -206,6 +223,8 @@ def test_vlm_eval_dry_run_writes_required_bundle(tmp_path: Path) -> None:
     assert run["checkpoint"]["revision"] == "4481d270cc22fd5c4d1bb5df129622006ccd9234"
     assert run["runtime"]["torch"]
     assert run["dry_run_validation"]["weights_loaded"] is False
+    assert run["dry_run_validation"]["checkpoint_manifest_loaded"] is True
+    assert run["dry_run_validation"]["runtime_ready"] is False
 
 
 def test_vlm_eval_rejects_posthoc_split_changes(tmp_path: Path) -> None:
