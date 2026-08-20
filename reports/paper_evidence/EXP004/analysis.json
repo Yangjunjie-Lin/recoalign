@@ -1,0 +1,170 @@
+{
+  "claim_status": "requires_review",
+  "classification": "TYPE_A_SEMANTIC_FAILURE",
+  "failure_taxonomy": {
+    "multi_hop_failure": 24,
+    "object_failure": 43,
+    "relation_failure": 22,
+    "structure_misuse": 61
+  },
+  "interpretation": "Visual semantic probes are low; an interface diagnosis is not supported.",
+  "model": "llava_1_5_7b",
+  "scores": {
+    "failure_taxonomy": {
+      "multi_hop_failure": 24,
+      "object_failure": 43,
+      "relation_failure": 22,
+      "structure_misuse": 61
+    },
+    "interface_gap": {
+      "confidence_interval": {
+        "level": 0.95,
+        "lower": -0.20733176068908454,
+        "method": "percentile_bootstrap",
+        "samples": 2000,
+        "upper": -0.13601337692726134
+      },
+      "mean": -0.1716731202351846,
+      "n_seeds": 5,
+      "positive_seed_fraction": 0.0,
+      "statistical_test": {
+        "alternative": "greater",
+        "degrees_of_freedom": 4,
+        "mean_difference": -0.1716731202351846,
+        "n": 5,
+        "p_value": 0.9994129099448902,
+        "statistic": -8.256056301141339,
+        "test": "paired_t_test",
+        "zero_variance": false
+      },
+      "std": 0.046495899828384146,
+      "values": [
+        -0.1431811911264435,
+        -0.21446541583687412,
+        -0.17876316487154392,
+        -0.21448240345006525,
+        -0.10747342589099634
+      ]
+    },
+    "oracle_graph_gain": {
+      "confidence_interval": {
+        "level": 0.95,
+        "lower": 0.425,
+        "method": "percentile_bootstrap",
+        "samples": 2000,
+        "upper": 0.4583333333333333
+      },
+      "mean": 0.4416666666666667,
+      "n_seeds": 5,
+      "positive_seed_fraction": 1.0,
+      "statistical_test": {
+        "alternative": "greater",
+        "degrees_of_freedom": 4,
+        "mean_difference": 0.4416666666666667,
+        "n": 5,
+        "p_value": 8.524242427476736e-07,
+        "statistic": 43.274318789169506,
+        "test": "paired_t_test",
+        "zero_variance": false
+      },
+      "std": 0.022821773229381913,
+      "values": [
+        0.45833333333333337,
+        0.4583333333333333,
+        0.4166666666666667,
+        0.4583333333333333,
+        0.4166666666666667
+      ]
+    },
+    "res": {
+      "confidence_interval": {
+        "level": 0.95,
+        "lower": 0.8333333333333334,
+        "method": "percentile_bootstrap",
+        "samples": 2000,
+        "upper": 0.8666666666666665
+      },
+      "mean": 0.85,
+      "n_seeds": 5,
+      "positive_seed_fraction": 1.0,
+      "statistical_test": {
+        "alternative": "greater",
+        "degrees_of_freedom": 4,
+        "mean_difference": 0.85,
+        "n": 5,
+        "p_value": 6.229967353110766e-08,
+        "statistic": 83.28265125462812,
+        "test": "paired_t_test",
+        "zero_variance": false
+      },
+      "std": 0.022821773229381902,
+      "values": [
+        0.8333333333333334,
+        0.875,
+        0.8333333333333334,
+        0.875,
+        0.8333333333333334
+      ]
+    },
+    "sas": {
+      "confidence_interval": {
+        "level": 0.95,
+        "lower": 0.10714285714285714,
+        "method": "percentile_bootstrap",
+        "samples": 2000,
+        "upper": 0.1357142857142857
+      },
+      "mean": 0.12142857142857141,
+      "n_seeds": 5,
+      "positive_seed_fraction": 1.0,
+      "statistical_test": {
+        "alternative": "greater",
+        "degrees_of_freedom": 4,
+        "mean_difference": 0.12142857142857141,
+        "n": 5,
+        "p_value": 7.809587445384292e-05,
+        "statistic": 13.880441875771341,
+        "test": "paired_t_test",
+        "zero_variance": false
+      },
+      "std": 0.01956151991089879,
+      "values": [
+        0.10714285714285714,
+        0.10714285714285714,
+        0.14285714285714285,
+        0.10714285714285714,
+        0.14285714285714285
+      ]
+    },
+    "stas": {
+      "confidence_interval": {
+        "level": 0.95,
+        "lower": 0.2645835014029222,
+        "method": "percentile_bootstrap",
+        "samples": 2000,
+        "upper": 0.3216189161160639
+      },
+      "mean": 0.29310169166375605,
+      "n_seeds": 5,
+      "positive_seed_fraction": 1.0,
+      "statistical_test": {
+        "alternative": "greater",
+        "degrees_of_freedom": 4,
+        "mean_difference": 0.29310169166375605,
+        "n": 5,
+        "p_value": 3.692092962437332e-05,
+        "statistic": 16.784568803352872,
+        "test": "paired_t_test",
+        "zero_variance": false
+      },
+      "std": 0.0390474914523524,
+      "values": [
+        0.25032404826930066,
+        0.32160827297973127,
+        0.32162030772868677,
+        0.3216252605929224,
+        0.2503305687481392
+      ]
+    }
+  }
+}

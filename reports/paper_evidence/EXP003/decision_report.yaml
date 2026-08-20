@@ -1,0 +1,126 @@
+schema_version: 1
+experiment_id: EXP003
+evidence:
+  hypothesis_id: H003
+  run_id: exp003-failed-20260820T155940.441157+0000
+  result_status: failed
+  model: frozen-llava_1_5_7b
+  dataset: recoalign-synthetic-compositional-world@generator-v2
+  evidence_role: scientific_evidence
+statistical_result:
+- metric_path: ood.graph_over_caption.estimate
+  mean: null
+  minimum_gain: 0.05
+  confidence_interval: null
+  p_value: null
+  significance_level: 0.05
+  complete: false
+  passed: false
+- metric_path: generalization.retention_advantage.graph_over_caption
+  mean: null
+  minimum_gain: 0.02
+  confidence_interval: null
+  p_value: null
+  significance_level: 0.05
+  complete: false
+  passed: false
+- metric_path: reasoning_depth.graph_advantage_slope
+  mean: null
+  minimum_gain: 0.0
+  confidence_interval: null
+  p_value: null
+  significance_level: 0.05
+  complete: false
+  passed: false
+- metric_path: ood.graph_over_random_graph.estimate
+  mean: null
+  minimum_gain: 0.05
+  confidence_interval: null
+  p_value: null
+  significance_level: 0.05
+  complete: false
+  passed: false
+robustness_check:
+  result_complete: false
+  registry_validated: true
+  model_matches_registration: true
+  dataset_matches_registration: true
+  model_scientific_decision_allowed: true
+  criteria:
+  - metric_path: ood.graph_over_caption.estimate
+    observed_seeds: null
+    minimum_seeds: 5
+    positive_seed_fraction: null
+    minimum_positive_seed_fraction: 0.8
+    complete: false
+    passed: false
+  - metric_path: generalization.retention_advantage.graph_over_caption
+    observed_seeds: null
+    minimum_seeds: 5
+    positive_seed_fraction: null
+    minimum_positive_seed_fraction: 0.8
+    complete: false
+    passed: false
+  - metric_path: reasoning_depth.graph_advantage_slope
+    observed_seeds: null
+    minimum_seeds: 5
+    positive_seed_fraction: null
+    minimum_positive_seed_fraction: 0.8
+    complete: false
+    passed: false
+  - metric_path: ood.graph_over_random_graph.estimate
+    observed_seeds: null
+    minimum_seeds: 5
+    positive_seed_fraction: null
+    minimum_positive_seed_fraction: 0.8
+    complete: false
+    passed: false
+  manifest_assertions:
+  - assertion: generator
+    expected: recoalign.synthetic_world.v2
+    observed: []
+    complete: false
+    passed: false
+  - assertion: composition_overlap
+    expected: false
+    observed: []
+    complete: false
+    passed: false
+  - assertion: relation_combination_overlap
+    expected: false
+    observed: []
+    complete: false
+    passed: false
+  - assertion: hop_depth_overlap
+    expected: false
+    observed: []
+    complete: false
+    passed: false
+  - assertion: primitive_coverage
+    expected: true
+    observed: []
+    complete: false
+    passed: false
+  - assertion: sample_id_overlap
+    expected: false
+    observed: []
+    complete: false
+    passed: false
+  - assertion: random_graph_not_equivalent
+    expected: true
+    observed: []
+    complete: false
+    passed: false
+  - assertion: random_graph_length_matched
+    expected: true
+    observed: []
+    complete: false
+    passed: false
+  - assertion: test_information_leakage
+    expected: false
+    observed: []
+    complete: false
+    passed: false
+  passed: false
+final_decision: INCONCLUSIVE
+next_action: Resolve missing or ineligible evidence and rerun the preregistered protocol.

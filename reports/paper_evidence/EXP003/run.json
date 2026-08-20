@@ -1,0 +1,10 @@
+{
+  "completed_at": "2026-08-20T15:59:40.479498+00:00",
+  "completed_seeds": [],
+  "decision": "INCONCLUSIVE",
+  "error": "RuntimeError: EXP003 integrity gate failed: {'generator': 'recoalign.synthetic_world.v2', 'composition_overlap': False, 'relation_combination_overlap': False, 'hop_depth_overlap': False, 'primitive_coverage': True, 'sample_id_overlap': False, 'random_graph_not_equivalent': True, 'random_graph_length_matched': False, 'test_information_leakage': False}",
+  "experiment_id": "EXP003",
+  "run_id": "exp003-failed-20260820T155940.441157+0000",
+  "schema_version": 1,
+  "status": "failed"
+}

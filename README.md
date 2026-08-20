@@ -14,8 +14,12 @@ does not claim a finished ReCoAlign model.
 The Phase-6 paper-package tooling is documented in
 [`docs/paper_ready_package.md`](docs/paper_ready_package.md). It builds an auditable evidence map,
 candidate frozen registry, reproducibility package, anonymous-submission files, and paper exports.
-The current scientific submission decision remains `NO-GO` until claim-eligible real-VLM evidence
-and the frozen benchmark matrix are complete.
+The first frozen LLaVA-1.5-7B claim-evidence execution is now complete for EXP001, EXP002, and
+EXP004; EXP003 stopped at its preregistered token-length integrity gate after one full seed. The
+scientific submission decision remains `NO-GO`: EXP001 and EXP004 falsified their registered gates,
+EXP002 passed, and EXP003 is `INCONCLUSIVE`. Auditable metrics, decisions, figures, and compressed
+raw predictions are published under [`reports/paper_evidence/`](reports/paper_evidence/README.md).
+See [`reports/paper_readiness_report.md`](reports/paper_readiness_report.md) for the current decision.
 
 ## Research boundary
 

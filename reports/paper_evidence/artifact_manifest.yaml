@@ -1,0 +1,103 @@
+schema_version: 1
+package: recoalign-llava-claim-evidence-20260820
+scientific_decision: NO-GO
+source_commit: be69ca1fd2155a9339a0937ff327be9e4a5d3753
+model:
+  identifier: liuhaotian/llava-v1.5-7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
+  quantization: nf4
+  dtype: float16
+  loader: legacy_transformers
+prompt:
+  protocol: reasoning-default-v1
+  sha256: 1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492
+runtime:
+  python: 3.12.6
+  torch: 2.7.1+cu126
+  transformers: 4.52.4
+  bitsandbytes: 0.48.2
+  cuda_runtime: "12.6"
+  gpu: NVIDIA GeForce RTX 3060 Laptop GPU
+  gpu_memory_bytes: 6441926656
+experiments:
+  EXP001:
+    status: complete
+    decision: NO-GO
+    seeds: [20260818, 20260819, 20260820, 20260821, 20260822]
+    prediction_lines: 8000
+    metrics:
+      path: EXP001/metrics.json
+      bytes: 187934
+      sha256: 3d3f46d9594a0d6b378819821855264f149637973543df0130cd98437709ec70
+    decision_report:
+      path: EXP001/decision_report.yaml
+      bytes: 3761
+      sha256: f3fbd24a243b22215cb0f93dc96b90e6fa836d1cc2fbfa43cdb5c0681bf32bb4
+    predictions:
+      path: EXP001/predictions.jsonl.gz
+      bytes: 1031381
+      sha256: 2043cf1fd2d4947d47979ece3c59ebc8c122c5745f9339ed0e6c35109301fb95
+      decompressed_bytes: 13446401
+      decompressed_sha256: fd931962f4ceec17089126290d1118129988a253607452ad47a8e14c05002442
+  EXP002:
+    status: complete
+    decision: GO
+    seeds: [20260818, 20260819, 20260820, 20260821, 20260822]
+    prediction_lines: 6000
+    metrics:
+      path: EXP002/metrics.json
+      bytes: 419283
+      sha256: b5a2663dc64f02fe11fdd9ccbefc1613eca8730161f379f0959a8d3bd001dd74
+    decision_report:
+      path: EXP002/decision_report.yaml
+      bytes: 5199
+      sha256: c013d38cf85ec6447406b7c60733c05a9be0aa7934b871d6e3ea95d9fa19ef0e
+    predictions:
+      path: EXP002/predictions.jsonl.gz
+      bytes: 438413
+      sha256: 7d4dc58fc1c2fba4bd59767d16d3315c3910ddc1d376b491edffbb958ed22da8
+      decompressed_bytes: 7471566
+      decompressed_sha256: 1b2f4767324f22d6ec72bad1896896a638844349de4087e0caa2392a85a61a8c
+  EXP003:
+    status: failed_integrity_gate
+    decision: INCONCLUSIVE
+    completed_seed: 20260818
+    prediction_lines: 1920
+    failed_assertion: random_graph_length_matched
+    metrics:
+      path: EXP003/metrics.json
+      bytes: 620
+      sha256: 585df9ea102640cc6fa76a5f6f978ad4bdf5aba6766101016d2151c6e6de7a5a
+    decision_report:
+      path: EXP003/decision_report.yaml
+      bytes: 3310
+      sha256: 310c6712ae8f66c1a2d5e04ab5d0dc83dc7a93e224fe28da7bfc19f5fcb38b02
+    predictions:
+      path: EXP003/seed_20260818_predictions_unpromoted.jsonl.gz
+      bytes: 235786
+      sha256: a7252434e2182d722eb555782bd3826aa7ee2a19fa56790687f9898a2d7c5c14
+      decompressed_bytes: 4073203
+      decompressed_sha256: e562836bd740fb9f85e58346763f13030a3682c8ac8df3c944c4cdedcdc5ed90
+  EXP004:
+    status: complete
+    decision: NO-GO
+    seeds: [20260818, 20260819, 20260820, 20260821, 20260822]
+    prediction_lines: 360
+    metrics:
+      path: EXP004/metrics.json
+      bytes: 83544
+      sha256: 25f348f66b802abd4c04ea12248480eb7497ad3970735adb2421036cebbaf74e
+    decision_report:
+      path: EXP004/decision_report.yaml
+      bytes: 2550
+      sha256: 98904d1e58640923ddc63756668103c643b2b10f38eea1b2318c07c1a4791563
+    predictions:
+      path: EXP004/predictions.jsonl.gz
+      bytes: 43389
+      sha256: 3a88c95ef68339a2c319b4595ca0ed1932e409513dfba81630be87b3080c013e
+      decompressed_bytes: 586235
+      decompressed_sha256: 80b393e56ee0d536b9db9cd37fb67e11b8f4da3844b0af3fbc1f5812e66c153c
+retention_policy:
+  tracked: metrics, decisions, figures, compressed predictions, integrity records
+  ignored: checkpoint weights, inference cache, generated images, local preflights, full run trees

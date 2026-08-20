@@ -57,6 +57,9 @@ reports/mechanism/
 reports/cell_reports.json
 reports/matrix_plan.json
 reports/failure_analysis/**/errors.jsonl
+# Single-seed preflights and retries are process artifacts; complete matrix-cell
+# summaries remain trackable under reports/failure_analysis/<EXP>/<model>/<EXP>/.
+reports/failure_analysis/**/EXP*_seed*/
 
 # Machine-local capture; portable environment specifications remain tracked
 reproducibility/environment.json

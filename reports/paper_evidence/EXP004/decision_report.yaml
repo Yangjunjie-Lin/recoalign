@@ -1,0 +1,105 @@
+schema_version: 1
+experiment_id: EXP004
+evidence:
+  hypothesis_id: H004
+  run_id: EXP004-efb45fc90b75
+  result_status: complete
+  model: frozen-llava_1_5_7b
+  dataset: recoalign-synthetic-compositional-world@generator-v2
+  evidence_role: scientific_evidence
+statistical_result:
+- metric_path: diagnosis.interface_gap
+  mean: -0.1716731202351846
+  minimum_gain: 0.1
+  confidence_interval:
+    lower: -0.20733176068908454
+    upper: -0.13601337692726134
+    excludes_zero_required: true
+  p_value: 0.9994129099448902
+  significance_level: 0.05
+  complete: true
+  passed: false
+- metric_path: diagnosis.sas
+  mean: 0.12142857142857141
+  minimum_gain: 0.75
+  confidence_interval:
+    lower: 0.10714285714285714
+    upper: 0.1357142857142857
+    excludes_zero_required: true
+  p_value: 7.809587445384292e-05
+  significance_level: 0.05
+  complete: true
+  passed: false
+- metric_path: diagnosis.oracle_graph_gain
+  mean: 0.4416666666666667
+  minimum_gain: 0.05
+  confidence_interval:
+    lower: 0.425
+    upper: 0.4583333333333333
+    excludes_zero_required: true
+  p_value: 8.524242427476736e-07
+  significance_level: 0.05
+  complete: true
+  passed: true
+robustness_check:
+  result_complete: true
+  registry_validated: true
+  model_matches_registration: true
+  dataset_matches_registration: true
+  model_scientific_decision_allowed: true
+  criteria:
+  - metric_path: diagnosis.interface_gap
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 0.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: false
+  - metric_path: diagnosis.sas
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 1.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: true
+  - metric_path: diagnosis.oracle_graph_gain
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 1.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: true
+  manifest_assertions:
+  - assertion: semantic_probe_scene_disjoint
+    expected: true
+    observed:
+    - true
+    - true
+    - true
+    - true
+    - true
+    complete: true
+    passed: true
+  - assertion: training_enabled
+    expected: false
+    observed:
+    - false
+    - false
+    - false
+    - false
+    - false
+    complete: true
+    passed: true
+  - assertion: oracle_graph_is_external
+    expected: true
+    observed:
+    - true
+    - true
+    - true
+    - true
+    - true
+    complete: true
+    passed: true
+  passed: false
+final_decision: NO-GO
+next_action: Record the falsifying result and revise or retire the hypothesis.

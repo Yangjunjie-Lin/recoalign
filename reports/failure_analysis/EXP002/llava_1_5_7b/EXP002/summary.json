@@ -1,0 +1,27 @@
+{
+  "artifacts": {
+    "errors": "errors.jsonl",
+    "summary": "summary.json"
+  },
+  "conditions": {
+    "graph_order_randomized": 78,
+    "image_only": 306,
+    "object_swap": 87,
+    "partial_graph_25": 262,
+    "partial_graph_50": 269,
+    "partial_graph_75": 301,
+    "random_graph": 359,
+    "relation_flip": 305,
+    "relation_label_randomized": 302,
+    "scene_graph": 88
+  },
+  "failure_count": 2357,
+  "failure_rate": 0.3928333333333333,
+  "failure_types": {
+    "multi_hop_failure": 533,
+    "object_failure": 854,
+    "relation_failure": 970
+  },
+  "prediction_count": 6000,
+  "schema_version": 1
+}

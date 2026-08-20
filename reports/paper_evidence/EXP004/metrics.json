@@ -1,0 +1,1966 @@
+{
+  "dataset": "recoalign-synthetic-compositional-world@generator-v2",
+  "decision": "NO-GO",
+  "diagnosis": {
+    "claim_status": "requires_review",
+    "classification": "TYPE_A_SEMANTIC_FAILURE",
+    "failure_taxonomy": {
+      "multi_hop_failure": 24,
+      "object_failure": 43,
+      "relation_failure": 22,
+      "structure_misuse": 61
+    },
+    "interpretation": "Visual semantic probes are low; an interface diagnosis is not supported.",
+    "model": "llava_1_5_7b",
+    "scores": {
+      "failure_taxonomy": {
+        "multi_hop_failure": 24,
+        "object_failure": 43,
+        "relation_failure": 22,
+        "structure_misuse": 61
+      },
+      "interface_gap": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": -0.20733176068908454,
+          "method": "percentile_bootstrap",
+          "samples": 2000,
+          "upper": -0.13601337692726134
+        },
+        "mean": -0.1716731202351846,
+        "n_seeds": 5,
+        "positive_seed_fraction": 0.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": -0.1716731202351846,
+          "n": 5,
+          "p_value": 0.9994129099448902,
+          "statistic": -8.256056301141339,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.046495899828384146,
+        "values": [
+          -0.1431811911264435,
+          -0.21446541583687412,
+          -0.17876316487154392,
+          -0.21448240345006525,
+          -0.10747342589099634
+        ]
+      },
+      "oracle_graph_gain": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.425,
+          "method": "percentile_bootstrap",
+          "samples": 2000,
+          "upper": 0.4583333333333333
+        },
+        "mean": 0.4416666666666667,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 0.4416666666666667,
+          "n": 5,
+          "p_value": 8.524242427476736e-07,
+          "statistic": 43.274318789169506,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.022821773229381913,
+        "values": [
+          0.45833333333333337,
+          0.4583333333333333,
+          0.4166666666666667,
+          0.4583333333333333,
+          0.4166666666666667
+        ]
+      },
+      "res": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.8333333333333334,
+          "method": "percentile_bootstrap",
+          "samples": 2000,
+          "upper": 0.8666666666666665
+        },
+        "mean": 0.85,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 0.85,
+          "n": 5,
+          "p_value": 6.229967353110766e-08,
+          "statistic": 83.28265125462812,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.022821773229381902,
+        "values": [
+          0.8333333333333334,
+          0.875,
+          0.8333333333333334,
+          0.875,
+          0.8333333333333334
+        ]
+      },
+      "sas": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.10714285714285714,
+          "method": "percentile_bootstrap",
+          "samples": 2000,
+          "upper": 0.1357142857142857
+        },
+        "mean": 0.12142857142857141,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 0.12142857142857141,
+          "n": 5,
+          "p_value": 7.809587445384292e-05,
+          "statistic": 13.880441875771341,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.01956151991089879,
+        "values": [
+          0.10714285714285714,
+          0.10714285714285714,
+          0.14285714285714285,
+          0.10714285714285714,
+          0.14285714285714285
+        ]
+      },
+      "stas": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.2645835014029222,
+          "method": "percentile_bootstrap",
+          "samples": 2000,
+          "upper": 0.3216189161160639
+        },
+        "mean": 0.29310169166375605,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 0.29310169166375605,
+          "n": 5,
+          "p_value": 3.692092962437332e-05,
+          "statistic": 16.784568803352872,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.0390474914523524,
+        "values": [
+          0.25032404826930066,
+          0.32160827297973127,
+          0.32162030772868677,
+          0.3216252605929224,
+          0.2503305687481392
+        ]
+      }
+    }
+  },
+  "experiment_id": "EXP004",
+  "hypothesis": "H004",
+  "integrity": {
+    "per_seed": [
+      {
+        "manifest_assertions": {
+          "oracle_graph_is_external": true,
+          "semantic_probe_scene_disjoint": true,
+          "training_enabled": false
+        },
+        "seed": 20260818
+      },
+      {
+        "manifest_assertions": {
+          "oracle_graph_is_external": true,
+          "semantic_probe_scene_disjoint": true,
+          "training_enabled": false
+        },
+        "seed": 20260819
+      },
+      {
+        "manifest_assertions": {
+          "oracle_graph_is_external": true,
+          "semantic_probe_scene_disjoint": true,
+          "training_enabled": false
+        },
+        "seed": 20260820
+      },
+      {
+        "manifest_assertions": {
+          "oracle_graph_is_external": true,
+          "semantic_probe_scene_disjoint": true,
+          "training_enabled": false
+        },
+        "seed": 20260821
+      },
+      {
+        "manifest_assertions": {
+          "oracle_graph_is_external": true,
+          "semantic_probe_scene_disjoint": true,
+          "training_enabled": false
+        },
+        "seed": 20260822
+      }
+    ],
+    "registry_validated": true
+  },
+  "metrics": {
+    "aggregate": {
+      "diagnosis.interface_gap": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": -0.20733176068908454,
+          "method": "percentile_bootstrap",
+          "samples": 2000,
+          "upper": -0.13601337692726134
+        },
+        "mean": -0.1716731202351846,
+        "n_seeds": 5,
+        "positive_seed_fraction": 0.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": -0.1716731202351846,
+          "n": 5,
+          "p_value": 0.9994129099448902,
+          "statistic": -8.256056301141339,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.046495899828384146,
+        "values": [
+          -0.1431811911264435,
+          -0.21446541583687412,
+          -0.17876316487154392,
+          -0.21448240345006525,
+          -0.10747342589099634
+        ]
+      },
+      "diagnosis.oracle_graph_gain": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.425,
+          "method": "percentile_bootstrap",
+          "samples": 2000,
+          "upper": 0.4583333333333333
+        },
+        "mean": 0.4416666666666667,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 0.4416666666666667,
+          "n": 5,
+          "p_value": 8.524242427476736e-07,
+          "statistic": 43.274318789169506,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.022821773229381913,
+        "values": [
+          0.45833333333333337,
+          0.4583333333333333,
+          0.4166666666666667,
+          0.4583333333333333,
+          0.4166666666666667
+        ]
+      },
+      "diagnosis.res": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.8333333333333334,
+          "method": "percentile_bootstrap",
+          "samples": 2000,
+          "upper": 0.8666666666666665
+        },
+        "mean": 0.85,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 0.85,
+          "n": 5,
+          "p_value": 6.229967353110766e-08,
+          "statistic": 83.28265125462812,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.022821773229381902,
+        "values": [
+          0.8333333333333334,
+          0.875,
+          0.8333333333333334,
+          0.875,
+          0.8333333333333334
+        ]
+      },
+      "diagnosis.sas": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.10714285714285714,
+          "method": "percentile_bootstrap",
+          "samples": 2000,
+          "upper": 0.1357142857142857
+        },
+        "mean": 0.12142857142857141,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 0.12142857142857141,
+          "n": 5,
+          "p_value": 7.809587445384292e-05,
+          "statistic": 13.880441875771341,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.01956151991089879,
+        "values": [
+          0.10714285714285714,
+          0.10714285714285714,
+          0.14285714285714285,
+          0.10714285714285714,
+          0.14285714285714285
+        ]
+      },
+      "diagnosis.stas": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.2645835014029222,
+          "method": "percentile_bootstrap",
+          "samples": 2000,
+          "upper": 0.3216189161160639
+        },
+        "mean": 0.29310169166375605,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 0.29310169166375605,
+          "n": 5,
+          "p_value": 3.692092962437332e-05,
+          "statistic": 16.784568803352872,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.0390474914523524,
+        "values": [
+          0.25032404826930066,
+          0.32160827297973127,
+          0.32162030772868677,
+          0.3216252605929224,
+          0.2503305687481392
+        ]
+      },
+      "failure_taxonomy": {
+        "multi_hop_failure": 24,
+        "object_failure": 43,
+        "relation_failure": 22,
+        "structure_misuse": 61
+      }
+    },
+    "per_seed": [
+      {
+        "dataset_size": 24,
+        "manifest_assertions": {
+          "oracle_graph_is_external": true,
+          "semantic_probe_scene_disjoint": true,
+          "training_enabled": false
+        },
+        "scores": {
+          "RES": 0.8333333333333334,
+          "SAS": 0.10714285714285714,
+          "StAS": 0.25032404826930066,
+          "interface_gap": -0.1431811911264435,
+          "oracle_graph_gain": 0.45833333333333337
+        },
+        "seed": 20260818,
+        "stage1": {
+          "SAS": 0.10714285714285714,
+          "available_representation_count": 2,
+          "representations": {
+            "image_encoder": {
+              "probes": {
+                "attribute": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "blue;green;purple;red",
+                    "blue;green;purple;red;yellow",
+                    "blue;green;red",
+                    "blue;green;red;yellow",
+                    "blue;purple",
+                    "blue;red",
+                    "blue;yellow",
+                    "green;purple",
+                    "green;purple;yellow",
+                    "green;red",
+                    "purple;red",
+                    "purple;yellow",
+                    "red;yellow"
+                  ],
+                  "n_classes": 13,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260819,
+                  "status": "available"
+                },
+                "composition": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "blue:circle:large:dotted:vehicle|right|yellow:triangle:small:dotted:animal|multi_hop",
+                    "blue:circle:small:solid:object|above|purple:square:small:striped:object|object_reasoning",
+                    "blue:cube:small:striped:vehicle|contains|purple:square:small:striped:vehicle|attribute_reasoning",
+                    "blue:sphere:large:striped:animal|below|green:square:small:striped:vehicle|multi_hop",
+                    "blue:square:medium:solid:animal|front|purple:cube:medium:solid:object|multi_hop",
+                    "green:triangle:large:dotted:vehicle|behind|purple:sphere:large:dotted:object|multi_hop",
+                    "green:triangle:medium:dotted:vehicle|left|yellow:sphere:large:solid:animal|multi_hop",
+                    "purple:sphere:small:dotted:object|below|green:triangle:large:striped:object|attribute_reasoning",
+                    "purple:sphere:small:solid:animal|holding|blue:cube:large:striped:animal|object_reasoning",
+                    "purple:sphere:small:solid:object|behind|blue:square:large:striped:object|object_reasoning",
+                    "red:circle:medium:dotted:object|near|blue:sphere:medium:striped:object|attribute_reasoning",
+                    "red:cube:large:dotted:vehicle|below|purple:triangle:small:solid:object|attribute_reasoning",
+                    "red:sphere:medium:dotted:vehicle|touching|blue:square:medium:solid:animal|relation_reasoning",
+                    "red:sphere:small:dotted:animal|near|green:triangle:medium:solid:animal|attribute_reasoning",
+                    "red:sphere:small:dotted:animal|right|purple:square:medium:dotted:animal|relation_reasoning",
+                    "red:triangle:medium:striped:object|right|green:sphere:medium:solid:vehicle|relation_reasoning",
+                    "yellow:cube:medium:solid:animal|front|blue:triangle:large:dotted:vehicle|relation_reasoning",
+                    "yellow:cube:medium:solid:object|left|red:circle:medium:solid:animal|attribute_reasoning",
+                    "yellow:sphere:large:striped:vehicle|far|purple:square:small:solid:object|relation_reasoning",
+                    "yellow:sphere:large:striped:vehicle|inside|red:triangle:large:solid:vehicle|object_reasoning",
+                    "yellow:square:large:striped:vehicle|front|red:triangle:large:striped:object|relation_reasoning",
+                    "yellow:triangle:large:striped:animal|behind|purple:circle:medium:solid:animal|object_reasoning",
+                    "yellow:triangle:medium:solid:object|above|red:sphere:small:solid:animal|object_reasoning",
+                    "yellow:triangle:medium:solid:vehicle|above|blue:sphere:small:dotted:object|multi_hop"
+                  ],
+                  "n_classes": 24,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260821,
+                  "status": "available"
+                },
+                "object": {
+                  "accuracy": 0.14285714285714285,
+                  "classes": [
+                    "animal;animal",
+                    "animal;animal;object;object;vehicle",
+                    "animal;animal;object;vehicle",
+                    "animal;object",
+                    "animal;object;object;vehicle",
+                    "animal;object;vehicle",
+                    "animal;vehicle",
+                    "animal;vehicle;vehicle",
+                    "object;object",
+                    "object;object;object;vehicle;vehicle",
+                    "object;vehicle",
+                    "vehicle;vehicle"
+                  ],
+                  "n_classes": 12,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260818,
+                  "status": "available"
+                },
+                "relation": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "above",
+                    "above;above;above;above",
+                    "behind",
+                    "behind;behind;behind;behind",
+                    "below",
+                    "below;below",
+                    "contains",
+                    "far",
+                    "front",
+                    "front;front;front",
+                    "holding",
+                    "inside",
+                    "left",
+                    "left;left",
+                    "near",
+                    "right",
+                    "right;right;right",
+                    "touching"
+                  ],
+                  "n_classes": 18,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260820,
+                  "status": "available"
+                }
+              },
+              "status": "available"
+            },
+            "llm_visual_hidden": {
+              "reason": "NotImplementedError: llava_1_5_7b does not expose visual hidden states",
+              "status": "unavailable"
+            },
+            "projected_visual_token": {
+              "probes": {
+                "attribute": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "blue;green;purple;red",
+                    "blue;green;purple;red;yellow",
+                    "blue;green;red",
+                    "blue;green;red;yellow",
+                    "blue;purple",
+                    "blue;red",
+                    "blue;yellow",
+                    "green;purple",
+                    "green;purple;yellow",
+                    "green;red",
+                    "purple;red",
+                    "purple;yellow",
+                    "red;yellow"
+                  ],
+                  "n_classes": 13,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260819,
+                  "status": "available"
+                },
+                "composition": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "blue:circle:large:dotted:vehicle|right|yellow:triangle:small:dotted:animal|multi_hop",
+                    "blue:circle:small:solid:object|above|purple:square:small:striped:object|object_reasoning",
+                    "blue:cube:small:striped:vehicle|contains|purple:square:small:striped:vehicle|attribute_reasoning",
+                    "blue:sphere:large:striped:animal|below|green:square:small:striped:vehicle|multi_hop",
+                    "blue:square:medium:solid:animal|front|purple:cube:medium:solid:object|multi_hop",
+                    "green:triangle:large:dotted:vehicle|behind|purple:sphere:large:dotted:object|multi_hop",
+                    "green:triangle:medium:dotted:vehicle|left|yellow:sphere:large:solid:animal|multi_hop",
+                    "purple:sphere:small:dotted:object|below|green:triangle:large:striped:object|attribute_reasoning",
+                    "purple:sphere:small:solid:animal|holding|blue:cube:large:striped:animal|object_reasoning",
+                    "purple:sphere:small:solid:object|behind|blue:square:large:striped:object|object_reasoning",
+                    "red:circle:medium:dotted:object|near|blue:sphere:medium:striped:object|attribute_reasoning",
+                    "red:cube:large:dotted:vehicle|below|purple:triangle:small:solid:object|attribute_reasoning",
+                    "red:sphere:medium:dotted:vehicle|touching|blue:square:medium:solid:animal|relation_reasoning",
+                    "red:sphere:small:dotted:animal|near|green:triangle:medium:solid:animal|attribute_reasoning",
+                    "red:sphere:small:dotted:animal|right|purple:square:medium:dotted:animal|relation_reasoning",
+                    "red:triangle:medium:striped:object|right|green:sphere:medium:solid:vehicle|relation_reasoning",
+                    "yellow:cube:medium:solid:animal|front|blue:triangle:large:dotted:vehicle|relation_reasoning",
+                    "yellow:cube:medium:solid:object|left|red:circle:medium:solid:animal|attribute_reasoning",
+                    "yellow:sphere:large:striped:vehicle|far|purple:square:small:solid:object|relation_reasoning",
+                    "yellow:sphere:large:striped:vehicle|inside|red:triangle:large:solid:vehicle|object_reasoning",
+                    "yellow:square:large:striped:vehicle|front|red:triangle:large:striped:object|relation_reasoning",
+                    "yellow:triangle:large:striped:animal|behind|purple:circle:medium:solid:animal|object_reasoning",
+                    "yellow:triangle:medium:solid:object|above|red:sphere:small:solid:animal|object_reasoning",
+                    "yellow:triangle:medium:solid:vehicle|above|blue:sphere:small:dotted:object|multi_hop"
+                  ],
+                  "n_classes": 24,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260821,
+                  "status": "available"
+                },
+                "object": {
+                  "accuracy": 0.14285714285714285,
+                  "classes": [
+                    "animal;animal",
+                    "animal;animal;object;object;vehicle",
+                    "animal;animal;object;vehicle",
+                    "animal;object",
+                    "animal;object;object;vehicle",
+                    "animal;object;vehicle",
+                    "animal;vehicle",
+                    "animal;vehicle;vehicle",
+                    "object;object",
+                    "object;object;object;vehicle;vehicle",
+                    "object;vehicle",
+                    "vehicle;vehicle"
+                  ],
+                  "n_classes": 12,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260818,
+                  "status": "available"
+                },
+                "relation": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "above",
+                    "above;above;above;above",
+                    "behind",
+                    "behind;behind;behind;behind",
+                    "below",
+                    "below;below",
+                    "contains",
+                    "far",
+                    "front",
+                    "front;front;front",
+                    "holding",
+                    "inside",
+                    "left",
+                    "left;left",
+                    "near",
+                    "right",
+                    "right;right;right",
+                    "touching"
+                  ],
+                  "n_classes": 18,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260820,
+                  "status": "available"
+                }
+              },
+              "status": "available"
+            }
+          },
+          "stage": "visual_semantic_availability"
+        },
+        "stage2": {
+          "StAS": 0.25032404826930066,
+          "available_measurement_count": 2,
+          "graph_reconstruction": {
+            "reason": "NotImplementedError: llava_1_5_7b does not expose graph reconstruction",
+            "status": "unavailable"
+          },
+          "latent_relation_probe": {
+            "accuracy": 0.0,
+            "classes": [
+              "above",
+              "above;above;above;above",
+              "behind",
+              "behind;behind;behind;behind",
+              "below",
+              "below;below",
+              "contains",
+              "far",
+              "front",
+              "front;front;front",
+              "holding",
+              "inside",
+              "left",
+              "left;left",
+              "near",
+              "right",
+              "right;right;right",
+              "touching"
+            ],
+            "n_classes": 18,
+            "n_test": 7,
+            "n_train": 17,
+            "seed": 20260919,
+            "status": "available"
+          },
+          "stage": "structured_representation_accessibility",
+          "structure_consistency": {
+            "consistency_gap": 0.0012961930772027452,
+            "different_relation_similarity": 0.9975914817677809,
+            "n_different_pairs": 270,
+            "n_same_pairs": 6,
+            "same_relation_similarity": 0.9988876748449836,
+            "status": "available"
+          }
+        },
+        "stage3": {
+          "RES": 0.8333333333333334,
+          "conditions": {
+            "corrupted_graph": 0.5416666666666666,
+            "image_only": 0.375,
+            "scene_graph": 0.8333333333333334
+          },
+          "corrupted_graph_accuracy": 0.5416666666666666,
+          "failure_taxonomy": {
+            "multi_hop_failure": 5,
+            "object_failure": 10,
+            "relation_failure": 4,
+            "structure_misuse": 11
+          },
+          "image_only_accuracy": 0.375,
+          "noise_sensitivity": 0.29166666666666674,
+          "oracle_graph_accuracy": 0.8333333333333334,
+          "oracle_graph_gain": 0.45833333333333337,
+          "prediction_count": 72,
+          "stage": "reasoning_execution"
+        }
+      },
+      {
+        "dataset_size": 24,
+        "manifest_assertions": {
+          "oracle_graph_is_external": true,
+          "semantic_probe_scene_disjoint": true,
+          "training_enabled": false
+        },
+        "scores": {
+          "RES": 0.875,
+          "SAS": 0.10714285714285714,
+          "StAS": 0.32160827297973127,
+          "interface_gap": -0.21446541583687412,
+          "oracle_graph_gain": 0.4583333333333333
+        },
+        "seed": 20260819,
+        "stage1": {
+          "SAS": 0.10714285714285714,
+          "available_representation_count": 2,
+          "representations": {
+            "image_encoder": {
+              "probes": {
+                "attribute": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "blue;green;purple;red;yellow",
+                    "blue;green;red;yellow",
+                    "blue;purple",
+                    "blue;purple;yellow",
+                    "blue;red",
+                    "blue;red;yellow",
+                    "blue;yellow",
+                    "green;purple;red;yellow",
+                    "green;yellow",
+                    "purple;red",
+                    "purple;yellow"
+                  ],
+                  "n_classes": 11,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260820,
+                  "status": "available"
+                },
+                "composition": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "blue:circle:small:dotted:object|left|yellow:square:small:striped:animal|attribute_reasoning",
+                    "blue:cube:large:solid:vehicle|far|yellow:sphere:large:dotted:object|relation_reasoning",
+                    "blue:cube:small:striped:animal|behind|red:circle:small:solid:vehicle|object_reasoning",
+                    "blue:square:small:striped:object|below|red:circle:small:dotted:object|attribute_reasoning",
+                    "purple:circle:large:solid:vehicle|holding|blue:triangle:small:striped:vehicle|object_reasoning",
+                    "purple:circle:large:solid:vehicle|left|yellow:sphere:medium:solid:animal|multi_hop",
+                    "purple:cube:small:striped:object|above|blue:circle:small:striped:animal|object_reasoning",
+                    "purple:square:medium:solid:animal|near|yellow:triangle:large:striped:animal|attribute_reasoning",
+                    "purple:square:medium:striped:vehicle|near|blue:circle:small:striped:vehicle|attribute_reasoning",
+                    "purple:triangle:medium:dotted:animal|above|red:cube:large:striped:vehicle|object_reasoning",
+                    "red:circle:large:solid:object|right|green:triangle:small:solid:animal|multi_hop",
+                    "red:circle:large:striped:animal|behind|purple:sphere:small:solid:object|object_reasoning",
+                    "red:cube:large:striped:object|below|yellow:triangle:small:solid:object|multi_hop",
+                    "red:cube:medium:striped:object|contains|purple:circle:large:dotted:object|attribute_reasoning",
+                    "red:sphere:large:dotted:vehicle|front|yellow:cube:small:dotted:animal|multi_hop",
+                    "red:sphere:large:solid:animal|above|yellow:triangle:small:solid:object|multi_hop",
+                    "red:sphere:medium:striped:vehicle|behind|green:triangle:large:dotted:object|multi_hop",
+                    "red:triangle:medium:striped:vehicle|front|blue:circle:large:solid:vehicle|relation_reasoning",
+                    "yellow:cube:medium:striped:object|below|purple:square:large:striped:vehicle|attribute_reasoning",
+                    "yellow:cube:small:dotted:animal|touching|green:circle:small:striped:animal|relation_reasoning",
+                    "yellow:cube:small:dotted:object|front|green:sphere:large:dotted:vehicle|relation_reasoning",
+                    "yellow:sphere:large:striped:animal|right|blue:square:large:striped:animal|relation_reasoning",
+                    "yellow:sphere:medium:dotted:object|inside|blue:cube:medium:solid:vehicle|object_reasoning",
+                    "yellow:triangle:large:striped:object|right|purple:sphere:small:solid:object|relation_reasoning"
+                  ],
+                  "n_classes": 24,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260822,
+                  "status": "available"
+                },
+                "object": {
+                  "accuracy": 0.14285714285714285,
+                  "classes": [
+                    "animal;animal",
+                    "animal;animal;object;vehicle",
+                    "animal;animal;vehicle",
+                    "animal;object",
+                    "animal;object;object",
+                    "animal;object;object;vehicle",
+                    "animal;object;vehicle;vehicle;vehicle",
+                    "animal;vehicle",
+                    "object;object",
+                    "object;object;object;vehicle;vehicle",
+                    "object;vehicle",
+                    "vehicle;vehicle"
+                  ],
+                  "n_classes": 12,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260819,
+                  "status": "available"
+                },
+                "relation": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "above",
+                    "above;above;above;above",
+                    "behind",
+                    "behind;behind;behind;behind",
+                    "below",
+                    "below;below",
+                    "contains",
+                    "far",
+                    "front",
+                    "front;front;front",
+                    "holding",
+                    "inside",
+                    "left",
+                    "left;left",
+                    "near",
+                    "right",
+                    "right;right;right",
+                    "touching"
+                  ],
+                  "n_classes": 18,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260821,
+                  "status": "available"
+                }
+              },
+              "status": "available"
+            },
+            "llm_visual_hidden": {
+              "reason": "NotImplementedError: llava_1_5_7b does not expose visual hidden states",
+              "status": "unavailable"
+            },
+            "projected_visual_token": {
+              "probes": {
+                "attribute": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "blue;green;purple;red;yellow",
+                    "blue;green;red;yellow",
+                    "blue;purple",
+                    "blue;purple;yellow",
+                    "blue;red",
+                    "blue;red;yellow",
+                    "blue;yellow",
+                    "green;purple;red;yellow",
+                    "green;yellow",
+                    "purple;red",
+                    "purple;yellow"
+                  ],
+                  "n_classes": 11,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260820,
+                  "status": "available"
+                },
+                "composition": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "blue:circle:small:dotted:object|left|yellow:square:small:striped:animal|attribute_reasoning",
+                    "blue:cube:large:solid:vehicle|far|yellow:sphere:large:dotted:object|relation_reasoning",
+                    "blue:cube:small:striped:animal|behind|red:circle:small:solid:vehicle|object_reasoning",
+                    "blue:square:small:striped:object|below|red:circle:small:dotted:object|attribute_reasoning",
+                    "purple:circle:large:solid:vehicle|holding|blue:triangle:small:striped:vehicle|object_reasoning",
+                    "purple:circle:large:solid:vehicle|left|yellow:sphere:medium:solid:animal|multi_hop",
+                    "purple:cube:small:striped:object|above|blue:circle:small:striped:animal|object_reasoning",
+                    "purple:square:medium:solid:animal|near|yellow:triangle:large:striped:animal|attribute_reasoning",
+                    "purple:square:medium:striped:vehicle|near|blue:circle:small:striped:vehicle|attribute_reasoning",
+                    "purple:triangle:medium:dotted:animal|above|red:cube:large:striped:vehicle|object_reasoning",
+                    "red:circle:large:solid:object|right|green:triangle:small:solid:animal|multi_hop",
+                    "red:circle:large:striped:animal|behind|purple:sphere:small:solid:object|object_reasoning",
+                    "red:cube:large:striped:object|below|yellow:triangle:small:solid:object|multi_hop",
+                    "red:cube:medium:striped:object|contains|purple:circle:large:dotted:object|attribute_reasoning",
+                    "red:sphere:large:dotted:vehicle|front|yellow:cube:small:dotted:animal|multi_hop",
+                    "red:sphere:large:solid:animal|above|yellow:triangle:small:solid:object|multi_hop",
+                    "red:sphere:medium:striped:vehicle|behind|green:triangle:large:dotted:object|multi_hop",
+                    "red:triangle:medium:striped:vehicle|front|blue:circle:large:solid:vehicle|relation_reasoning",
+                    "yellow:cube:medium:striped:object|below|purple:square:large:striped:vehicle|attribute_reasoning",
+                    "yellow:cube:small:dotted:animal|touching|green:circle:small:striped:animal|relation_reasoning",
+                    "yellow:cube:small:dotted:object|front|green:sphere:large:dotted:vehicle|relation_reasoning",
+                    "yellow:sphere:large:striped:animal|right|blue:square:large:striped:animal|relation_reasoning",
+                    "yellow:sphere:medium:dotted:object|inside|blue:cube:medium:solid:vehicle|object_reasoning",
+                    "yellow:triangle:large:striped:object|right|purple:sphere:small:solid:object|relation_reasoning"
+                  ],
+                  "n_classes": 24,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260822,
+                  "status": "available"
+                },
+                "object": {
+                  "accuracy": 0.14285714285714285,
+                  "classes": [
+                    "animal;animal",
+                    "animal;animal;object;vehicle",
+                    "animal;animal;vehicle",
+                    "animal;object",
+                    "animal;object;object",
+                    "animal;object;object;vehicle",
+                    "animal;object;vehicle;vehicle;vehicle",
+                    "animal;vehicle",
+                    "object;object",
+                    "object;object;object;vehicle;vehicle",
+                    "object;vehicle",
+                    "vehicle;vehicle"
+                  ],
+                  "n_classes": 12,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260819,
+                  "status": "available"
+                },
+                "relation": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "above",
+                    "above;above;above;above",
+                    "behind",
+                    "behind;behind;behind;behind",
+                    "below",
+                    "below;below",
+                    "contains",
+                    "far",
+                    "front",
+                    "front;front;front",
+                    "holding",
+                    "inside",
+                    "left",
+                    "left;left",
+                    "near",
+                    "right",
+                    "right;right;right",
+                    "touching"
+                  ],
+                  "n_classes": 18,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260821,
+                  "status": "available"
+                }
+              },
+              "status": "available"
+            }
+          },
+          "stage": "visual_semantic_availability"
+        },
+        "stage2": {
+          "StAS": 0.32160827297973127,
+          "available_measurement_count": 2,
+          "graph_reconstruction": {
+            "reason": "NotImplementedError: llava_1_5_7b does not expose graph reconstruction",
+            "status": "unavailable"
+          },
+          "latent_relation_probe": {
+            "accuracy": 0.14285714285714285,
+            "classes": [
+              "above",
+              "above;above;above;above",
+              "behind",
+              "behind;behind;behind;behind",
+              "below",
+              "below;below",
+              "contains",
+              "far",
+              "front",
+              "front;front;front",
+              "holding",
+              "inside",
+              "left",
+              "left;left",
+              "near",
+              "right",
+              "right;right;right",
+              "touching"
+            ],
+            "n_classes": 18,
+            "n_test": 7,
+            "n_train": 17,
+            "seed": 20260920,
+            "status": "available"
+          },
+          "stage": "structured_representation_accessibility",
+          "structure_consistency": {
+            "consistency_gap": 0.0007188062046393773,
+            "different_relation_similarity": 0.9976942769766592,
+            "n_different_pairs": 270,
+            "n_same_pairs": 6,
+            "same_relation_similarity": 0.9984130831812986,
+            "status": "available"
+          }
+        },
+        "stage3": {
+          "RES": 0.875,
+          "conditions": {
+            "corrupted_graph": 0.5833333333333334,
+            "image_only": 0.4166666666666667,
+            "scene_graph": 0.875
+          },
+          "corrupted_graph_accuracy": 0.5833333333333334,
+          "failure_taxonomy": {
+            "multi_hop_failure": 6,
+            "object_failure": 7,
+            "relation_failure": 4,
+            "structure_misuse": 10
+          },
+          "image_only_accuracy": 0.4166666666666667,
+          "noise_sensitivity": 0.29166666666666663,
+          "oracle_graph_accuracy": 0.875,
+          "oracle_graph_gain": 0.4583333333333333,
+          "prediction_count": 72,
+          "stage": "reasoning_execution"
+        }
+      },
+      {
+        "dataset_size": 24,
+        "manifest_assertions": {
+          "oracle_graph_is_external": true,
+          "semantic_probe_scene_disjoint": true,
+          "training_enabled": false
+        },
+        "scores": {
+          "RES": 0.8333333333333334,
+          "SAS": 0.14285714285714285,
+          "StAS": 0.32162030772868677,
+          "interface_gap": -0.17876316487154392,
+          "oracle_graph_gain": 0.4166666666666667
+        },
+        "seed": 20260820,
+        "stage1": {
+          "SAS": 0.14285714285714285,
+          "available_representation_count": 2,
+          "representations": {
+            "image_encoder": {
+              "probes": {
+                "attribute": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "blue;green",
+                    "blue;green;purple",
+                    "blue;green;purple;red;yellow",
+                    "blue;green;red;yellow",
+                    "blue;red",
+                    "blue;red;yellow",
+                    "blue;yellow",
+                    "green;purple",
+                    "green;red",
+                    "purple;red",
+                    "purple;yellow",
+                    "red;yellow"
+                  ],
+                  "n_classes": 12,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260821,
+                  "status": "available"
+                },
+                "composition": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "blue:circle:medium:solid:animal|behind|yellow:cube:small:dotted:object|multi_hop",
+                    "blue:circle:small:solid:animal|above|green:cube:medium:striped:vehicle|object_reasoning",
+                    "blue:circle:small:solid:vehicle|left|yellow:sphere:medium:solid:vehicle|multi_hop",
+                    "blue:cube:small:dotted:animal|front|yellow:sphere:medium:dotted:object|multi_hop",
+                    "blue:square:small:solid:animal|below|yellow:cube:medium:solid:animal|attribute_reasoning",
+                    "purple:circle:small:dotted:vehicle|touching|green:square:large:dotted:animal|relation_reasoning",
+                    "purple:sphere:medium:solid:animal|below|yellow:square:small:solid:object|attribute_reasoning",
+                    "purple:square:large:striped:animal|below|green:cube:small:striped:animal|multi_hop",
+                    "purple:triangle:large:dotted:vehicle|holding|red:circle:small:dotted:object|object_reasoning",
+                    "purple:triangle:medium:dotted:animal|left|red:circle:small:striped:vehicle|attribute_reasoning",
+                    "red:circle:medium:solid:animal|behind|blue:cube:medium:dotted:vehicle|object_reasoning",
+                    "red:cube:large:solid:object|right|blue:sphere:small:dotted:object|relation_reasoning",
+                    "red:cube:large:striped:object|front|yellow:circle:medium:striped:object|relation_reasoning",
+                    "red:sphere:medium:dotted:animal|inside|blue:circle:small:solid:object|object_reasoning",
+                    "red:square:large:dotted:vehicle|far|green:sphere:large:striped:animal|relation_reasoning",
+                    "red:square:large:solid:animal|contains|blue:cube:small:dotted:vehicle|attribute_reasoning",
+                    "red:triangle:medium:dotted:object|near|green:circle:small:striped:animal|attribute_reasoning",
+                    "yellow:circle:medium:striped:object|front|blue:triangle:small:dotted:object|relation_reasoning",
+                    "yellow:cube:medium:solid:object|behind|red:sphere:small:dotted:animal|object_reasoning",
+                    "yellow:sphere:medium:dotted:animal|near|blue:square:small:solid:animal|attribute_reasoning",
+                    "yellow:square:medium:solid:vehicle|above|green:cube:large:solid:object|multi_hop",
+                    "yellow:square:small:solid:animal|above|red:circle:medium:striped:object|object_reasoning",
+                    "yellow:triangle:medium:solid:object|right|blue:square:small:striped:animal|relation_reasoning",
+                    "yellow:triangle:small:solid:animal|right|blue:circle:medium:striped:animal|multi_hop"
+                  ],
+                  "n_classes": 24,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260823,
+                  "status": "available"
+                },
+                "object": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "animal;animal",
+                    "animal;animal;animal;vehicle",
+                    "animal;animal;object;object;vehicle",
+                    "animal;animal;vehicle",
+                    "animal;object",
+                    "animal;object;object;vehicle",
+                    "animal;object;object;vehicle;vehicle",
+                    "animal;vehicle",
+                    "object;object",
+                    "object;vehicle",
+                    "object;vehicle;vehicle"
+                  ],
+                  "n_classes": 11,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260820,
+                  "status": "available"
+                },
+                "relation": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "above",
+                    "above;above;above;above",
+                    "behind",
+                    "behind;behind;behind;behind",
+                    "below",
+                    "below;below",
+                    "contains",
+                    "far",
+                    "front",
+                    "front;front;front",
+                    "holding",
+                    "inside",
+                    "left",
+                    "left;left",
+                    "near",
+                    "right",
+                    "right;right;right",
+                    "touching"
+                  ],
+                  "n_classes": 18,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260822,
+                  "status": "available"
+                }
+              },
+              "status": "available"
+            },
+            "llm_visual_hidden": {
+              "reason": "NotImplementedError: llava_1_5_7b does not expose visual hidden states",
+              "status": "unavailable"
+            },
+            "projected_visual_token": {
+              "probes": {
+                "attribute": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "blue;green",
+                    "blue;green;purple",
+                    "blue;green;purple;red;yellow",
+                    "blue;green;red;yellow",
+                    "blue;red",
+                    "blue;red;yellow",
+                    "blue;yellow",
+                    "green;purple",
+                    "green;red",
+                    "purple;red",
+                    "purple;yellow",
+                    "red;yellow"
+                  ],
+                  "n_classes": 12,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260821,
+                  "status": "available"
+                },
+                "composition": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "blue:circle:medium:solid:animal|behind|yellow:cube:small:dotted:object|multi_hop",
+                    "blue:circle:small:solid:animal|above|green:cube:medium:striped:vehicle|object_reasoning",
+                    "blue:circle:small:solid:vehicle|left|yellow:sphere:medium:solid:vehicle|multi_hop",
+                    "blue:cube:small:dotted:animal|front|yellow:sphere:medium:dotted:object|multi_hop",
+                    "blue:square:small:solid:animal|below|yellow:cube:medium:solid:animal|attribute_reasoning",
+                    "purple:circle:small:dotted:vehicle|touching|green:square:large:dotted:animal|relation_reasoning",
+                    "purple:sphere:medium:solid:animal|below|yellow:square:small:solid:object|attribute_reasoning",
+                    "purple:square:large:striped:animal|below|green:cube:small:striped:animal|multi_hop",
+                    "purple:triangle:large:dotted:vehicle|holding|red:circle:small:dotted:object|object_reasoning",
+                    "purple:triangle:medium:dotted:animal|left|red:circle:small:striped:vehicle|attribute_reasoning",
+                    "red:circle:medium:solid:animal|behind|blue:cube:medium:dotted:vehicle|object_reasoning",
+                    "red:cube:large:solid:object|right|blue:sphere:small:dotted:object|relation_reasoning",
+                    "red:cube:large:striped:object|front|yellow:circle:medium:striped:object|relation_reasoning",
+                    "red:sphere:medium:dotted:animal|inside|blue:circle:small:solid:object|object_reasoning",
+                    "red:square:large:dotted:vehicle|far|green:sphere:large:striped:animal|relation_reasoning",
+                    "red:square:large:solid:animal|contains|blue:cube:small:dotted:vehicle|attribute_reasoning",
+                    "red:triangle:medium:dotted:object|near|green:circle:small:striped:animal|attribute_reasoning",
+                    "yellow:circle:medium:striped:object|front|blue:triangle:small:dotted:object|relation_reasoning",
+                    "yellow:cube:medium:solid:object|behind|red:sphere:small:dotted:animal|object_reasoning",
+                    "yellow:sphere:medium:dotted:animal|near|blue:square:small:solid:animal|attribute_reasoning",
+                    "yellow:square:medium:solid:vehicle|above|green:cube:large:solid:object|multi_hop",
+                    "yellow:square:small:solid:animal|above|red:circle:medium:striped:object|object_reasoning",
+                    "yellow:triangle:medium:solid:object|right|blue:square:small:striped:animal|relation_reasoning",
+                    "yellow:triangle:small:solid:animal|right|blue:circle:medium:striped:animal|multi_hop"
+                  ],
+                  "n_classes": 24,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260823,
+                  "status": "available"
+                },
+                "object": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "animal;animal",
+                    "animal;animal;animal;vehicle",
+                    "animal;animal;object;object;vehicle",
+                    "animal;animal;vehicle",
+                    "animal;object",
+                    "animal;object;object;vehicle",
+                    "animal;object;object;vehicle;vehicle",
+                    "animal;vehicle",
+                    "object;object",
+                    "object;vehicle",
+                    "object;vehicle;vehicle"
+                  ],
+                  "n_classes": 11,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260820,
+                  "status": "available"
+                },
+                "relation": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "above",
+                    "above;above;above;above",
+                    "behind",
+                    "behind;behind;behind;behind",
+                    "below",
+                    "below;below",
+                    "contains",
+                    "far",
+                    "front",
+                    "front;front;front",
+                    "holding",
+                    "inside",
+                    "left",
+                    "left;left",
+                    "near",
+                    "right",
+                    "right;right;right",
+                    "touching"
+                  ],
+                  "n_classes": 18,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260822,
+                  "status": "available"
+                }
+              },
+              "status": "available"
+            }
+          },
+          "stage": "visual_semantic_availability"
+        },
+        "stage2": {
+          "StAS": 0.32162030772868677,
+          "available_measurement_count": 2,
+          "graph_reconstruction": {
+            "reason": "NotImplementedError: llava_1_5_7b does not expose graph reconstruction",
+            "status": "unavailable"
+          },
+          "latent_relation_probe": {
+            "accuracy": 0.14285714285714285,
+            "classes": [
+              "above",
+              "above;above;above;above",
+              "behind",
+              "behind;behind;behind;behind",
+              "below",
+              "below;below",
+              "contains",
+              "far",
+              "front",
+              "front;front;front",
+              "holding",
+              "inside",
+              "left",
+              "left;left",
+              "near",
+              "right",
+              "right;right;right",
+              "touching"
+            ],
+            "n_classes": 18,
+            "n_test": 7,
+            "n_train": 17,
+            "seed": 20260921,
+            "status": "available"
+          },
+          "stage": "structured_representation_accessibility",
+          "structure_consistency": {
+            "consistency_gap": 0.0007669452004613886,
+            "different_relation_similarity": 0.9978193108876311,
+            "n_different_pairs": 270,
+            "n_same_pairs": 6,
+            "same_relation_similarity": 0.9985862560880925,
+            "status": "available"
+          }
+        },
+        "stage3": {
+          "RES": 0.8333333333333334,
+          "conditions": {
+            "corrupted_graph": 0.5,
+            "image_only": 0.4166666666666667,
+            "scene_graph": 0.8333333333333334
+          },
+          "corrupted_graph_accuracy": 0.5,
+          "failure_taxonomy": {
+            "multi_hop_failure": 5,
+            "object_failure": 8,
+            "relation_failure": 5,
+            "structure_misuse": 12
+          },
+          "image_only_accuracy": 0.4166666666666667,
+          "noise_sensitivity": 0.33333333333333337,
+          "oracle_graph_accuracy": 0.8333333333333334,
+          "oracle_graph_gain": 0.4166666666666667,
+          "prediction_count": 72,
+          "stage": "reasoning_execution"
+        }
+      },
+      {
+        "dataset_size": 24,
+        "manifest_assertions": {
+          "oracle_graph_is_external": true,
+          "semantic_probe_scene_disjoint": true,
+          "training_enabled": false
+        },
+        "scores": {
+          "RES": 0.875,
+          "SAS": 0.10714285714285714,
+          "StAS": 0.3216252605929224,
+          "interface_gap": -0.21448240345006525,
+          "oracle_graph_gain": 0.4583333333333333
+        },
+        "seed": 20260821,
+        "stage1": {
+          "SAS": 0.10714285714285714,
+          "available_representation_count": 2,
+          "representations": {
+            "image_encoder": {
+              "probes": {
+                "attribute": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "blue;green",
+                    "blue;green;purple;red;yellow",
+                    "blue;green;purple;yellow",
+                    "blue;green;yellow",
+                    "blue;purple",
+                    "blue;red",
+                    "blue;yellow",
+                    "green;red",
+                    "green;yellow",
+                    "purple;red",
+                    "purple;red;yellow",
+                    "red;yellow"
+                  ],
+                  "n_classes": 12,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260822,
+                  "status": "available"
+                },
+                "composition": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "blue:circle:small:dotted:animal|left|yellow:sphere:large:dotted:object|multi_hop",
+                    "blue:circle:small:dotted:vehicle|inside|red:sphere:small:dotted:animal|object_reasoning",
+                    "blue:square:large:solid:object|below|green:triangle:medium:striped:animal|attribute_reasoning",
+                    "blue:square:large:striped:animal|right|purple:circle:medium:striped:animal|multi_hop",
+                    "blue:square:small:solid:animal|contains|purple:cube:medium:striped:vehicle|attribute_reasoning",
+                    "green:circle:small:dotted:animal|far|blue:cube:small:striped:animal|relation_reasoning",
+                    "green:cube:medium:solid:animal|right|blue:sphere:small:striped:object|relation_reasoning",
+                    "green:square:large:dotted:vehicle|front|blue:cube:large:striped:object|multi_hop",
+                    "green:triangle:medium:solid:object|above|yellow:sphere:medium:striped:vehicle|multi_hop",
+                    "purple:cube:small:dotted:animal|near|blue:square:small:striped:object|attribute_reasoning",
+                    "purple:square:large:dotted:vehicle|behind|yellow:triangle:large:striped:vehicle|multi_hop",
+                    "purple:square:medium:striped:object|front|blue:sphere:large:dotted:animal|relation_reasoning",
+                    "purple:triangle:small:dotted:vehicle|right|red:cube:large:solid:object|relation_reasoning",
+                    "red:circle:small:striped:object|touching|green:square:large:striped:vehicle|relation_reasoning",
+                    "red:sphere:large:dotted:animal|above|purple:circle:large:solid:object|object_reasoning",
+                    "red:square:large:solid:animal|below|purple:sphere:medium:dotted:object|multi_hop",
+                    "red:triangle:large:dotted:vehicle|behind|yellow:square:medium:dotted:animal|object_reasoning",
+                    "red:triangle:small:striped:object|behind|purple:circle:medium:solid:vehicle|object_reasoning",
+                    "red:triangle:small:striped:object|holding|yellow:circle:small:solid:animal|object_reasoning",
+                    "red:triangle:small:striped:vehicle|near|yellow:circle:medium:dotted:object|attribute_reasoning",
+                    "yellow:circle:small:solid:animal|left|blue:cube:large:dotted:animal|attribute_reasoning",
+                    "yellow:cube:large:striped:object|front|red:circle:small:striped:animal|relation_reasoning",
+                    "yellow:cube:small:striped:vehicle|below|green:sphere:medium:striped:animal|attribute_reasoning",
+                    "yellow:sphere:small:striped:animal|above|blue:triangle:medium:dotted:animal|object_reasoning"
+                  ],
+                  "n_classes": 24,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260824,
+                  "status": "available"
+                },
+                "object": {
+                  "accuracy": 0.14285714285714285,
+                  "classes": [
+                    "animal;animal",
+                    "animal;animal;animal;object",
+                    "animal;animal;object",
+                    "animal;animal;object;vehicle",
+                    "animal;object",
+                    "animal;object;object",
+                    "animal;object;vehicle;vehicle;vehicle",
+                    "animal;vehicle",
+                    "object;object;object;vehicle;vehicle",
+                    "object;vehicle"
+                  ],
+                  "n_classes": 10,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260821,
+                  "status": "available"
+                },
+                "relation": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "above",
+                    "above;above;above;above",
+                    "behind",
+                    "behind;behind;behind;behind",
+                    "below",
+                    "below;below",
+                    "contains",
+                    "far",
+                    "front",
+                    "front;front;front",
+                    "holding",
+                    "inside",
+                    "left",
+                    "left;left",
+                    "near",
+                    "right",
+                    "right;right;right",
+                    "touching"
+                  ],
+                  "n_classes": 18,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260823,
+                  "status": "available"
+                }
+              },
+              "status": "available"
+            },
+            "llm_visual_hidden": {
+              "reason": "NotImplementedError: llava_1_5_7b does not expose visual hidden states",
+              "status": "unavailable"
+            },
+            "projected_visual_token": {
+              "probes": {
+                "attribute": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "blue;green",
+                    "blue;green;purple;red;yellow",
+                    "blue;green;purple;yellow",
+                    "blue;green;yellow",
+                    "blue;purple",
+                    "blue;red",
+                    "blue;yellow",
+                    "green;red",
+                    "green;yellow",
+                    "purple;red",
+                    "purple;red;yellow",
+                    "red;yellow"
+                  ],
+                  "n_classes": 12,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260822,
+                  "status": "available"
+                },
+                "composition": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "blue:circle:small:dotted:animal|left|yellow:sphere:large:dotted:object|multi_hop",
+                    "blue:circle:small:dotted:vehicle|inside|red:sphere:small:dotted:animal|object_reasoning",
+                    "blue:square:large:solid:object|below|green:triangle:medium:striped:animal|attribute_reasoning",
+                    "blue:square:large:striped:animal|right|purple:circle:medium:striped:animal|multi_hop",
+                    "blue:square:small:solid:animal|contains|purple:cube:medium:striped:vehicle|attribute_reasoning",
+                    "green:circle:small:dotted:animal|far|blue:cube:small:striped:animal|relation_reasoning",
+                    "green:cube:medium:solid:animal|right|blue:sphere:small:striped:object|relation_reasoning",
+                    "green:square:large:dotted:vehicle|front|blue:cube:large:striped:object|multi_hop",
+                    "green:triangle:medium:solid:object|above|yellow:sphere:medium:striped:vehicle|multi_hop",
+                    "purple:cube:small:dotted:animal|near|blue:square:small:striped:object|attribute_reasoning",
+                    "purple:square:large:dotted:vehicle|behind|yellow:triangle:large:striped:vehicle|multi_hop",
+                    "purple:square:medium:striped:object|front|blue:sphere:large:dotted:animal|relation_reasoning",
+                    "purple:triangle:small:dotted:vehicle|right|red:cube:large:solid:object|relation_reasoning",
+                    "red:circle:small:striped:object|touching|green:square:large:striped:vehicle|relation_reasoning",
+                    "red:sphere:large:dotted:animal|above|purple:circle:large:solid:object|object_reasoning",
+                    "red:square:large:solid:animal|below|purple:sphere:medium:dotted:object|multi_hop",
+                    "red:triangle:large:dotted:vehicle|behind|yellow:square:medium:dotted:animal|object_reasoning",
+                    "red:triangle:small:striped:object|behind|purple:circle:medium:solid:vehicle|object_reasoning",
+                    "red:triangle:small:striped:object|holding|yellow:circle:small:solid:animal|object_reasoning",
+                    "red:triangle:small:striped:vehicle|near|yellow:circle:medium:dotted:object|attribute_reasoning",
+                    "yellow:circle:small:solid:animal|left|blue:cube:large:dotted:animal|attribute_reasoning",
+                    "yellow:cube:large:striped:object|front|red:circle:small:striped:animal|relation_reasoning",
+                    "yellow:cube:small:striped:vehicle|below|green:sphere:medium:striped:animal|attribute_reasoning",
+                    "yellow:sphere:small:striped:animal|above|blue:triangle:medium:dotted:animal|object_reasoning"
+                  ],
+                  "n_classes": 24,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260824,
+                  "status": "available"
+                },
+                "object": {
+                  "accuracy": 0.14285714285714285,
+                  "classes": [
+                    "animal;animal",
+                    "animal;animal;animal;object",
+                    "animal;animal;object",
+                    "animal;animal;object;vehicle",
+                    "animal;object",
+                    "animal;object;object",
+                    "animal;object;vehicle;vehicle;vehicle",
+                    "animal;vehicle",
+                    "object;object;object;vehicle;vehicle",
+                    "object;vehicle"
+                  ],
+                  "n_classes": 10,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260821,
+                  "status": "available"
+                },
+                "relation": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "above",
+                    "above;above;above;above",
+                    "behind",
+                    "behind;behind;behind;behind",
+                    "below",
+                    "below;below",
+                    "contains",
+                    "far",
+                    "front",
+                    "front;front;front",
+                    "holding",
+                    "inside",
+                    "left",
+                    "left;left",
+                    "near",
+                    "right",
+                    "right;right;right",
+                    "touching"
+                  ],
+                  "n_classes": 18,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260823,
+                  "status": "available"
+                }
+              },
+              "status": "available"
+            }
+          },
+          "stage": "visual_semantic_availability"
+        },
+        "stage2": {
+          "StAS": 0.3216252605929224,
+          "available_measurement_count": 2,
+          "graph_reconstruction": {
+            "reason": "NotImplementedError: llava_1_5_7b does not expose graph reconstruction",
+            "status": "unavailable"
+          },
+          "latent_relation_probe": {
+            "accuracy": 0.14285714285714285,
+            "classes": [
+              "above",
+              "above;above;above;above",
+              "behind",
+              "behind;behind;behind;behind",
+              "below",
+              "below;below",
+              "contains",
+              "far",
+              "front",
+              "front;front;front",
+              "holding",
+              "inside",
+              "left",
+              "left;left",
+              "near",
+              "right",
+              "right;right;right",
+              "touching"
+            ],
+            "n_classes": 18,
+            "n_test": 7,
+            "n_train": 17,
+            "seed": 20260922,
+            "status": "available"
+          },
+          "stage": "structured_representation_accessibility",
+          "structure_consistency": {
+            "consistency_gap": 0.0007867566574037976,
+            "different_relation_similarity": 0.9979003824100035,
+            "n_different_pairs": 270,
+            "n_same_pairs": 6,
+            "same_relation_similarity": 0.9986871390674072,
+            "status": "available"
+          }
+        },
+        "stage3": {
+          "RES": 0.875,
+          "conditions": {
+            "corrupted_graph": 0.4583333333333333,
+            "image_only": 0.4166666666666667,
+            "scene_graph": 0.875
+          },
+          "corrupted_graph_accuracy": 0.4583333333333333,
+          "failure_taxonomy": {
+            "multi_hop_failure": 5,
+            "object_failure": 7,
+            "relation_failure": 5,
+            "structure_misuse": 13
+          },
+          "image_only_accuracy": 0.4166666666666667,
+          "noise_sensitivity": 0.4166666666666667,
+          "oracle_graph_accuracy": 0.875,
+          "oracle_graph_gain": 0.4583333333333333,
+          "prediction_count": 72,
+          "stage": "reasoning_execution"
+        }
+      },
+      {
+        "dataset_size": 24,
+        "manifest_assertions": {
+          "oracle_graph_is_external": true,
+          "semantic_probe_scene_disjoint": true,
+          "training_enabled": false
+        },
+        "scores": {
+          "RES": 0.8333333333333334,
+          "SAS": 0.14285714285714285,
+          "StAS": 0.2503305687481392,
+          "interface_gap": -0.10747342589099634,
+          "oracle_graph_gain": 0.4166666666666667
+        },
+        "seed": 20260822,
+        "stage1": {
+          "SAS": 0.14285714285714285,
+          "available_representation_count": 2,
+          "representations": {
+            "image_encoder": {
+              "probes": {
+                "attribute": {
+                  "accuracy": 0.14285714285714285,
+                  "classes": [
+                    "blue;green",
+                    "blue;green;purple;red",
+                    "blue;green;purple;red;yellow",
+                    "blue;green;purple;yellow",
+                    "blue;purple",
+                    "blue;red",
+                    "blue;yellow",
+                    "green;purple",
+                    "green;purple;red",
+                    "green;red",
+                    "green;red;yellow",
+                    "green;yellow",
+                    "purple;yellow",
+                    "red;yellow"
+                  ],
+                  "n_classes": 14,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260823,
+                  "status": "available"
+                },
+                "composition": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "blue:cube:large:striped:vehicle|above|red:triangle:small:dotted:animal|object_reasoning",
+                    "blue:cube:small:solid:object|below|yellow:square:medium:dotted:object|attribute_reasoning",
+                    "blue:sphere:large:solid:vehicle|right|purple:triangle:large:solid:object|multi_hop",
+                    "blue:sphere:small:striped:animal|front|purple:triangle:medium:striped:animal|multi_hop",
+                    "blue:triangle:medium:striped:object|behind|purple:square:medium:dotted:object|object_reasoning",
+                    "green:circle:large:solid:animal|below|yellow:cube:large:dotted:vehicle|attribute_reasoning",
+                    "green:cube:medium:solid:vehicle|front|red:triangle:medium:striped:object|relation_reasoning",
+                    "green:sphere:small:dotted:object|behind|red:triangle:medium:striped:vehicle|object_reasoning",
+                    "green:sphere:small:dotted:object|touching|purple:cube:medium:dotted:object|relation_reasoning",
+                    "green:square:small:solid:object|inside|blue:circle:small:solid:object|object_reasoning",
+                    "green:triangle:large:dotted:vehicle|front|blue:square:medium:dotted:vehicle|relation_reasoning",
+                    "green:triangle:medium:dotted:vehicle|right|yellow:cube:small:dotted:object|relation_reasoning",
+                    "green:triangle:medium:solid:object|near|purple:sphere:medium:solid:object|attribute_reasoning",
+                    "purple:circle:small:solid:vehicle|above|blue:square:large:dotted:vehicle|multi_hop",
+                    "purple:cube:medium:dotted:object|near|yellow:circle:small:dotted:vehicle|attribute_reasoning",
+                    "purple:cube:medium:striped:vehicle|contains|yellow:square:medium:dotted:object|attribute_reasoning",
+                    "purple:sphere:small:dotted:vehicle|right|green:triangle:medium:dotted:animal|relation_reasoning",
+                    "purple:square:medium:solid:object|far|blue:triangle:large:solid:animal|relation_reasoning",
+                    "red:circle:medium:solid:animal|left|green:sphere:small:dotted:object|multi_hop",
+                    "red:circle:small:solid:vehicle|below|green:sphere:medium:striped:object|multi_hop",
+                    "red:square:medium:striped:animal|left|yellow:triangle:small:striped:animal|attribute_reasoning",
+                    "red:triangle:large:solid:object|holding|blue:sphere:small:solid:animal|object_reasoning",
+                    "yellow:square:medium:dotted:animal|behind|green:circle:small:solid:object|multi_hop",
+                    "yellow:square:small:solid:vehicle|above|blue:cube:large:solid:vehicle|object_reasoning"
+                  ],
+                  "n_classes": 24,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260825,
+                  "status": "available"
+                },
+                "object": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "animal;animal",
+                    "animal;animal;animal;vehicle",
+                    "animal;animal;object;vehicle;vehicle",
+                    "animal;object",
+                    "animal;object;vehicle",
+                    "animal;object;vehicle;vehicle;vehicle",
+                    "animal;vehicle",
+                    "object;object",
+                    "object;object;vehicle;vehicle",
+                    "object;vehicle",
+                    "vehicle;vehicle"
+                  ],
+                  "n_classes": 11,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260822,
+                  "status": "available"
+                },
+                "relation": {
+                  "accuracy": 0.14285714285714285,
+                  "classes": [
+                    "above",
+                    "above;above;above;above",
+                    "behind",
+                    "behind;behind;behind;behind",
+                    "below",
+                    "below;below",
+                    "contains",
+                    "far",
+                    "front",
+                    "front;front;front",
+                    "holding",
+                    "inside",
+                    "left",
+                    "left;left",
+                    "near",
+                    "right",
+                    "right;right;right",
+                    "touching"
+                  ],
+                  "n_classes": 18,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260824,
+                  "status": "available"
+                }
+              },
+              "status": "available"
+            },
+            "llm_visual_hidden": {
+              "reason": "NotImplementedError: llava_1_5_7b does not expose visual hidden states",
+              "status": "unavailable"
+            },
+            "projected_visual_token": {
+              "probes": {
+                "attribute": {
+                  "accuracy": 0.14285714285714285,
+                  "classes": [
+                    "blue;green",
+                    "blue;green;purple;red",
+                    "blue;green;purple;red;yellow",
+                    "blue;green;purple;yellow",
+                    "blue;purple",
+                    "blue;red",
+                    "blue;yellow",
+                    "green;purple",
+                    "green;purple;red",
+                    "green;red",
+                    "green;red;yellow",
+                    "green;yellow",
+                    "purple;yellow",
+                    "red;yellow"
+                  ],
+                  "n_classes": 14,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260823,
+                  "status": "available"
+                },
+                "composition": {
+                  "accuracy": 0.0,
+                  "classes": [
+                    "blue:cube:large:striped:vehicle|above|red:triangle:small:dotted:animal|object_reasoning",
+                    "blue:cube:small:solid:object|below|yellow:square:medium:dotted:object|attribute_reasoning",
+                    "blue:sphere:large:solid:vehicle|right|purple:triangle:large:solid:object|multi_hop",
+                    "blue:sphere:small:striped:animal|front|purple:triangle:medium:striped:animal|multi_hop",
+                    "blue:triangle:medium:striped:object|behind|purple:square:medium:dotted:object|object_reasoning",
+                    "green:circle:large:solid:animal|below|yellow:cube:large:dotted:vehicle|attribute_reasoning",
+                    "green:cube:medium:solid:vehicle|front|red:triangle:medium:striped:object|relation_reasoning",
+                    "green:sphere:small:dotted:object|behind|red:triangle:medium:striped:vehicle|object_reasoning",
+                    "green:sphere:small:dotted:object|touching|purple:cube:medium:dotted:object|relation_reasoning",
+                    "green:square:small:solid:object|inside|blue:circle:small:solid:object|object_reasoning",
+                    "green:triangle:large:dotted:vehicle|front|blue:square:medium:dotted:vehicle|relation_reasoning",
+                    "green:triangle:medium:dotted:vehicle|right|yellow:cube:small:dotted:object|relation_reasoning",
+                    "green:triangle:medium:solid:object|near|purple:sphere:medium:solid:object|attribute_reasoning",
+                    "purple:circle:small:solid:vehicle|above|blue:square:large:dotted:vehicle|multi_hop",
+                    "purple:cube:medium:dotted:object|near|yellow:circle:small:dotted:vehicle|attribute_reasoning",
+                    "purple:cube:medium:striped:vehicle|contains|yellow:square:medium:dotted:object|attribute_reasoning",
+                    "purple:sphere:small:dotted:vehicle|right|green:triangle:medium:dotted:animal|relation_reasoning",
+                    "purple:square:medium:solid:object|far|blue:triangle:large:solid:animal|relation_reasoning",
+                    "red:circle:medium:solid:animal|left|green:sphere:small:dotted:object|multi_hop",
+                    "red:circle:small:solid:vehicle|below|green:sphere:medium:striped:object|multi_hop",
+                    "red:square:medium:striped:animal|left|yellow:triangle:small:striped:animal|attribute_reasoning",
+                    "red:triangle:large:solid:object|holding|blue:sphere:small:solid:animal|object_reasoning",
+                    "yellow:square:medium:dotted:animal|behind|green:circle:small:solid:object|multi_hop",
+                    "yellow:square:small:solid:vehicle|above|blue:cube:large:solid:vehicle|object_reasoning"
+                  ],
+                  "n_classes": 24,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260825,
+                  "status": "available"
+                },
+                "object": {
+                  "accuracy": 0.2857142857142857,
+                  "classes": [
+                    "animal;animal",
+                    "animal;animal;animal;vehicle",
+                    "animal;animal;object;vehicle;vehicle",
+                    "animal;object",
+                    "animal;object;vehicle",
+                    "animal;object;vehicle;vehicle;vehicle",
+                    "animal;vehicle",
+                    "object;object",
+                    "object;object;vehicle;vehicle",
+                    "object;vehicle",
+                    "vehicle;vehicle"
+                  ],
+                  "n_classes": 11,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260822,
+                  "status": "available"
+                },
+                "relation": {
+                  "accuracy": 0.14285714285714285,
+                  "classes": [
+                    "above",
+                    "above;above;above;above",
+                    "behind",
+                    "behind;behind;behind;behind",
+                    "below",
+                    "below;below",
+                    "contains",
+                    "far",
+                    "front",
+                    "front;front;front",
+                    "holding",
+                    "inside",
+                    "left",
+                    "left;left",
+                    "near",
+                    "right",
+                    "right;right;right",
+                    "touching"
+                  ],
+                  "n_classes": 18,
+                  "n_test": 7,
+                  "n_train": 17,
+                  "seed": 20260824,
+                  "status": "available"
+                }
+              },
+              "status": "available"
+            }
+          },
+          "stage": "visual_semantic_availability"
+        },
+        "stage2": {
+          "StAS": 0.2503305687481392,
+          "available_measurement_count": 2,
+          "graph_reconstruction": {
+            "reason": "NotImplementedError: llava_1_5_7b does not expose graph reconstruction",
+            "status": "unavailable"
+          },
+          "latent_relation_probe": {
+            "accuracy": 0.0,
+            "classes": [
+              "above",
+              "above;above;above;above",
+              "behind",
+              "behind;behind;behind;behind",
+              "below",
+              "below;below",
+              "contains",
+              "far",
+              "front",
+              "front;front;front",
+              "holding",
+              "inside",
+              "left",
+              "left;left",
+              "near",
+              "right",
+              "right;right;right",
+              "touching"
+            ],
+            "n_classes": 18,
+            "n_test": 7,
+            "n_train": 17,
+            "seed": 20260923,
+            "status": "available"
+          },
+          "stage": "structured_representation_accessibility",
+          "structure_consistency": {
+            "consistency_gap": 0.0013222749925568822,
+            "different_relation_similarity": 0.9975146379983623,
+            "n_different_pairs": 270,
+            "n_same_pairs": 6,
+            "same_relation_similarity": 0.9988369129909191,
+            "status": "available"
+          }
+        },
+        "stage3": {
+          "RES": 0.8333333333333334,
+          "conditions": {
+            "corrupted_graph": 0.375,
+            "image_only": 0.4166666666666667,
+            "scene_graph": 0.8333333333333334
+          },
+          "corrupted_graph_accuracy": 0.375,
+          "failure_taxonomy": {
+            "multi_hop_failure": 3,
+            "object_failure": 11,
+            "relation_failure": 4,
+            "structure_misuse": 15
+          },
+          "image_only_accuracy": 0.4166666666666667,
+          "noise_sensitivity": 0.45833333333333337,
+          "oracle_graph_accuracy": 0.8333333333333334,
+          "oracle_graph_gain": 0.4166666666666667,
+          "prediction_count": 72,
+          "stage": "reasoning_execution"
+        }
+      }
+    ]
+  },
+  "model": "frozen-llava_1_5_7b",
+  "run_id": "EXP004-efb45fc90b75",
+  "schema_version": 1,
+  "seed": [
+    20260818,
+    20260819,
+    20260820,
+    20260821,
+    20260822
+  ],
+  "status": "complete",
+  "timestamp": "2026-08-20T14:53:39.889630+00:00"
+}

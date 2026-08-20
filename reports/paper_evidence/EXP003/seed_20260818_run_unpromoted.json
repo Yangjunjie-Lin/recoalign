@@ -1,0 +1,119 @@
+{
+  "checkpoint": {
+    "checkpoint_files": [
+      {
+        "exists": true,
+        "expected_bytes": 1161,
+        "observed_bytes": 1161,
+        "path": "config.json",
+        "sha256": "f112de882e31171a105f0d3f69d9e6e8700a40149f0944f4b507d3a41789e492",
+        "size_matches": true
+      },
+      {
+        "exists": true,
+        "expected_bytes": 124,
+        "observed_bytes": 124,
+        "path": "generation_config.json",
+        "sha256": "e453057ea6a89d902d7326b3addbe312a7a6c8faabf777a521c9f2d563f79b8d",
+        "size_matches": true
+      },
+      {
+        "exists": true,
+        "expected_bytes": 41961085,
+        "observed_bytes": 41961085,
+        "path": "mm_projector.bin",
+        "sha256": "be33a3b477e091832a3c8a9fabf5769c43b4cb2c161fc8c464b7bb214f16143a",
+        "size_matches": true
+      },
+      {
+        "exists": true,
+        "expected_bytes": 9976634558,
+        "observed_bytes": 9976634558,
+        "path": "pytorch_model-00001-of-00002.bin",
+        "sha256": "492fdfa63cf314097d99da81a3586d54a97adc1471a0ae0535f5caa269b86314",
+        "size_matches": true
+      },
+      {
+        "exists": true,
+        "expected_bytes": 3542276251,
+        "observed_bytes": 3542276251,
+        "path": "pytorch_model-00002-of-00002.bin",
+        "sha256": "c0eb94eb3fa578a4c63567f2eca6b0acf6a44a891c257aca0df88ffa891de72e",
+        "size_matches": true
+      },
+      {
+        "exists": true,
+        "expected_bytes": 27068,
+        "observed_bytes": 27068,
+        "path": "pytorch_model.bin.index.json",
+        "sha256": "487578d3f7ec21c057596d0f9dc71084acc349eb8f13bd8b5af86c26460f2d31",
+        "size_matches": true
+      },
+      {
+        "exists": true,
+        "expected_bytes": 438,
+        "observed_bytes": 438,
+        "path": "special_tokens_map.json",
+        "sha256": "719833ff26ac897a3ec8ed946028a135de2a351470af59b4008744ab1f0ee9b7",
+        "size_matches": true
+      },
+      {
+        "exists": true,
+        "expected_bytes": 749,
+        "observed_bytes": 749,
+        "path": "tokenizer_config.json",
+        "sha256": "cf01145c6de57f061991ff871e85d0402c38481f968daea8874c431cd0c7740f",
+        "size_matches": true
+      },
+      {
+        "exists": true,
+        "expected_bytes": 499723,
+        "observed_bytes": 499723,
+        "path": "tokenizer.model",
+        "sha256": "9e556afd44213b6bd1be2b850ebbbd98f5481437a8021afaf58ee7fb1818d347",
+        "size_matches": true
+      }
+    ],
+    "checkpoint_fingerprint": "6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6",
+    "device_map": "auto",
+    "dtype": "float16",
+    "framework": "transformers_llava",
+    "generation": {
+      "do_sample": false,
+      "max_new_tokens": 32,
+      "num_beams": 1,
+      "temperature": 0.0
+    },
+    "identifier": "liuhaotian/llava-v1.5-7b",
+    "manifest": "manifests/checkpoints/llava_v1_5_7b.yaml",
+    "manifest_sha256": "8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7",
+    "model": "LLaVA-1.5-7B",
+    "model_config": "configs/models/llava_1_5_7b.yaml",
+    "model_config_sha256": "1c002ccffa56a876b8f857144e3d3697fcfb5ec72e9756f413849a5b9a076138",
+    "model_path": "outputs/models/llava-v1.5-7b",
+    "prompt_protocol": "configs/prompts/reasoning_default.yaml",
+    "prompt_protocol_sha256": "1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492",
+    "quantization": "nf4",
+    "revision": "4481d270cc22fd5c4d1bb5df129622006ccd9234",
+    "source": "https://huggingface.co/liuhaotian/llava-v1.5-7b",
+    "status": "declared"
+  },
+  "dataset_size": 480,
+  "experiment": "EXP003",
+  "git_commit": "be69ca1fd2155a9339a0937ff327be9e4a5d3753",
+  "manifest_assertions": {
+    "composition_overlap": false,
+    "generator": "recoalign.synthetic_world.v2",
+    "hop_depth_overlap": false,
+    "primitive_coverage": true,
+    "random_graph_length_matched": false,
+    "random_graph_not_equivalent": true,
+    "relation_combination_overlap": false,
+    "sample_id_overlap": false,
+    "test_information_leakage": false
+  },
+  "model_backend": "llava_1_5_7b",
+  "prediction_count": 1920,
+  "seed": 20260818,
+  "status": "complete"
+}

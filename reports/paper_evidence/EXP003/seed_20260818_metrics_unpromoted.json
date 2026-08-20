@@ -1,0 +1,1642 @@
+{
+  "anti_memorization": {
+    "attribute_transfer": {
+      "conditions": {
+        "caption": {
+          "accuracy": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 30
+        },
+        "image_only": {
+          "accuracy": 0.26666666666666666,
+          "ci95": [
+            0.1325000000000074,
+            0.43333333333333335
+          ],
+          "n": 30
+        },
+        "random_graph": {
+          "accuracy": 0.16666666666666666,
+          "ci95": [
+            0.03333333333333333,
+            0.3
+          ],
+          "n": 30
+        },
+        "scene_graph": {
+          "accuracy": 0.8333333333333334,
+          "ci95": [
+            0.7,
+            0.9666666666666667
+          ],
+          "n": 30
+        }
+      },
+      "graph_over_caption": {
+        "ci95": [
+          -0.3,
+          -0.03333333333333333
+        ],
+        "estimate": -0.16666666666666666,
+        "first": "scene_graph",
+        "n": 30,
+        "second": "caption",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": -0.3,
+            "upper": -0.03333333333333333
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 30,
+          "p_value": 0.9937006299370063,
+          "samples": 10000,
+          "seed": 40522271,
+          "statistic": -0.16666666666666666
+        }
+      },
+      "graph_over_random_graph": {
+        "ci95": [
+          0.5,
+          0.8333333333333334
+        ],
+        "estimate": 0.6666666666666666,
+        "first": "scene_graph",
+        "n": 30,
+        "second": "random_graph",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.5,
+            "upper": 0.8333333333333334
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 30,
+          "p_value": 9.999000099990002e-05,
+          "samples": 10000,
+          "seed": 40522281,
+          "statistic": 0.6666666666666666
+        }
+      },
+      "n_scenes": 30
+    },
+    "object_identity_swap": {
+      "conditions": {
+        "caption": {
+          "accuracy": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 30
+        },
+        "image_only": {
+          "accuracy": 0.3333333333333333,
+          "ci95": [
+            0.16666666666666666,
+            0.5
+          ],
+          "n": 30
+        },
+        "random_graph": {
+          "accuracy": 0.13333333333333333,
+          "ci95": [
+            0.03333333333333333,
+            0.26666666666666666
+          ],
+          "n": 30
+        },
+        "scene_graph": {
+          "accuracy": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 30
+        }
+      },
+      "graph_over_caption": {
+        "ci95": [
+          0.0,
+          0.0
+        ],
+        "estimate": 0.0,
+        "first": "scene_graph",
+        "n": 30,
+        "second": "caption",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.0,
+            "upper": 0.0
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 30,
+          "p_value": 1.0,
+          "samples": 10000,
+          "seed": 40522269,
+          "statistic": 0.0
+        }
+      },
+      "graph_over_random_graph": {
+        "ci95": [
+          0.7333333333333333,
+          0.9666666666666667
+        ],
+        "estimate": 0.8666666666666667,
+        "first": "scene_graph",
+        "n": 30,
+        "second": "random_graph",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.7333333333333333,
+            "upper": 0.9666666666666667
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 30,
+          "p_value": 9.999000099990002e-05,
+          "samples": 10000,
+          "seed": 40522279,
+          "statistic": 0.8666666666666667
+        }
+      },
+      "n_scenes": 30
+    },
+    "relation_recombination": {
+      "conditions": {
+        "caption": {
+          "accuracy": 0.2,
+          "ci95": [
+            0.1,
+            0.3
+          ],
+          "n": 60
+        },
+        "image_only": {
+          "accuracy": 0.016666666666666666,
+          "ci95": [
+            0.0,
+            0.05
+          ],
+          "n": 60
+        },
+        "random_graph": {
+          "accuracy": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "n": 60
+        },
+        "scene_graph": {
+          "accuracy": 0.21666666666666667,
+          "ci95": [
+            0.11666666666666667,
+            0.3333333333333333
+          ],
+          "n": 60
+        }
+      },
+      "graph_over_caption": {
+        "ci95": [
+          -0.03333333333333333,
+          0.06666666666666667
+        ],
+        "estimate": 0.016666666666666666,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "caption",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": -0.03333333333333333,
+            "upper": 0.06666666666666667
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 0.37706229377062295,
+          "samples": 10000,
+          "seed": 40522270,
+          "statistic": 0.016666666666666666
+        }
+      },
+      "graph_over_random_graph": {
+        "ci95": [
+          0.11666666666666667,
+          0.3333333333333333
+        ],
+        "estimate": 0.21666666666666667,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "random_graph",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.11666666666666667,
+            "upper": 0.3333333333333333
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 0.00019998000199980003,
+          "samples": 10000,
+          "seed": 40522280,
+          "statistic": 0.21666666666666667
+        }
+      },
+      "n_scenes": 60
+    }
+  },
+  "conditions": {
+    "caption": {
+      "accuracy": 0.7916666666666666,
+      "ci95": [
+        0.7375,
+        0.8416666666666667
+      ],
+      "n": 240
+    },
+    "image_only": {
+      "accuracy": 0.20416666666666666,
+      "ci95": [
+        0.15416666666666667,
+        0.25833333333333336
+      ],
+      "n": 240
+    },
+    "random_graph": {
+      "accuracy": 0.07916666666666666,
+      "ci95": [
+        0.04583333333333333,
+        0.11666666666666667
+      ],
+      "n": 240
+    },
+    "scene_graph": {
+      "accuracy": 0.7,
+      "ci95": [
+        0.6416666666666667,
+        0.7583333333333333
+      ],
+      "n": 240
+    }
+  },
+  "experiment": "structured_interface_ood_compositional_generalization",
+  "generalization": {
+    "conditions": {
+      "caption": {
+        "generalization_gap": 0.2777777777777778,
+        "iid_accuracy": 1.0,
+        "ood_accuracy": 0.7222222222222222,
+        "ood_retention_ratio": 0.7222222222222222,
+        "paired_iid_over_ood": {
+          "ci95": [
+            0.23888888888888893,
+            0.3166666666666667
+          ],
+          "estimate": 0.2777777777777778,
+          "n": 60,
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.23888888888888893,
+              "upper": 0.3166666666666667
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 60,
+            "p_value": 9.999000099990002e-05,
+            "samples": 10000,
+            "seed": 40521939,
+            "statistic": 0.2777777777777778
+          }
+        }
+      },
+      "image_only": {
+        "generalization_gap": 0.08333333333333334,
+        "iid_accuracy": 0.26666666666666666,
+        "ood_accuracy": 0.18333333333333332,
+        "ood_retention_ratio": 0.6875,
+        "paired_iid_over_ood": {
+          "ci95": [
+            -0.0111111111111111,
+            0.18333333333333338
+          ],
+          "estimate": 0.08333333333333334,
+          "n": 60,
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": -0.0111111111111111,
+              "upper": 0.18333333333333338
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 60,
+            "p_value": 0.056894310568943104,
+            "samples": 10000,
+            "seed": 40521938,
+            "statistic": 0.08333333333333334
+          }
+        }
+      },
+      "random_graph": {
+        "generalization_gap": 0.02777777777777779,
+        "iid_accuracy": 0.1,
+        "ood_accuracy": 0.07222222222222222,
+        "ood_retention_ratio": 0.7222222222222221,
+        "paired_iid_over_ood": {
+          "ci95": [
+            -0.04444444444444443,
+            0.10555555555555557
+          ],
+          "estimate": 0.027777777777777783,
+          "n": 60,
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": -0.04444444444444443,
+              "upper": 0.10555555555555557
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 60,
+            "p_value": 0.2505749425057494,
+            "samples": 10000,
+            "seed": 40521941,
+            "statistic": 0.027777777777777783
+          }
+        }
+      },
+      "scene_graph": {
+        "generalization_gap": 0.1777777777777778,
+        "iid_accuracy": 0.8333333333333334,
+        "ood_accuracy": 0.6555555555555556,
+        "ood_retention_ratio": 0.7866666666666666,
+        "paired_iid_over_ood": {
+          "ci95": [
+            0.12222222222222225,
+            0.2277777777777778
+          ],
+          "estimate": 0.17777777777777778,
+          "n": 60,
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.12222222222222225,
+              "upper": 0.2277777777777778
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 60,
+            "p_value": 9.999000099990002e-05,
+            "samples": 10000,
+            "seed": 40521940,
+            "statistic": 0.17777777777777778
+          }
+        }
+      }
+    },
+    "retention_advantage": {
+      "caption": 0.7222222222222222,
+      "graph": 0.7866666666666666,
+      "graph_over_caption": 0.06444444444444442
+    }
+  },
+  "integrity": {
+    "manifest_assertions": {
+      "composition_overlap": false,
+      "generator": "recoalign.synthetic_world.v2",
+      "hop_depth_overlap": false,
+      "primitive_coverage": true,
+      "random_graph_length_matched": false,
+      "random_graph_not_equivalent": true,
+      "relation_combination_overlap": false,
+      "sample_id_overlap": false,
+      "test_information_leakage": false
+    },
+    "random_structure_control": {
+      "maximum_token_delta": 4,
+      "n_pairs": 480,
+      "random_graph_length_matched": false,
+      "random_graph_not_equivalent": true
+    },
+    "split_validation": {
+      "assertions": {
+        "composition_overlap": false,
+        "hop_depth_overlap": false,
+        "primitive_coverage": true,
+        "relation_combination_overlap": false,
+        "sample_id_overlap": false
+      },
+      "splits": {
+        "composition_ood": {
+          "composition_overlap": [],
+          "counts": {
+            "test": 60,
+            "train": 60
+          },
+          "hop_depth_overlap": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "missing_primitives": {},
+          "primitive_coverage": true,
+          "relation_combination_overlap": [
+            "above",
+            "above+above+above",
+            "behind+behind",
+            "behind+behind+behind+behind",
+            "below+below",
+            "below+below+below+below",
+            "front",
+            "front+front+front",
+            "left",
+            "left+left+left",
+            "right+right",
+            "right+right+right+right"
+          ],
+          "sample_id_overlap": [],
+          "test_composition_count": 60,
+          "test_hop_depths": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "test_relation_combinations": [
+            "above",
+            "above+above+above",
+            "behind+behind",
+            "behind+behind+behind+behind",
+            "below+below",
+            "below+below+below+below",
+            "front",
+            "front+front+front",
+            "left",
+            "left+left+left",
+            "right+right",
+            "right+right+right+right"
+          ],
+          "train_composition_count": 60,
+          "train_hop_depths": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "train_relation_combinations": [
+            "above",
+            "above+above+above",
+            "behind+behind",
+            "behind+behind+behind+behind",
+            "below+below",
+            "below+below+below+below",
+            "front",
+            "front+front+front",
+            "left",
+            "left+left+left",
+            "right+right",
+            "right+right+right+right"
+          ],
+          "valid": true,
+          "violations": [],
+          "world_hash_overlap": []
+        },
+        "hop_ood": {
+          "composition_overlap": [],
+          "counts": {
+            "test": 60,
+            "train": 60
+          },
+          "hop_depth_overlap": [],
+          "missing_primitives": {},
+          "primitive_coverage": true,
+          "relation_combination_overlap": [],
+          "sample_id_overlap": [],
+          "test_composition_count": 30,
+          "test_hop_depths": [
+            3,
+            4
+          ],
+          "test_relation_combinations": [
+            "above+above+above",
+            "behind+behind+behind+behind",
+            "below+below+below+below",
+            "front+front+front",
+            "left+left+left",
+            "right+right+right+right"
+          ],
+          "train_composition_count": 30,
+          "train_hop_depths": [
+            1,
+            2
+          ],
+          "train_relation_combinations": [
+            "above",
+            "behind+behind",
+            "below+below",
+            "front",
+            "left",
+            "right+right"
+          ],
+          "valid": true,
+          "violations": [],
+          "world_hash_overlap": []
+        },
+        "iid": {
+          "composition_overlap": [
+            "blue:square|above+above+above|purple:sphere|3|multi_hop",
+            "blue:square|above|green:triangle|1|relation_reasoning",
+            "blue:square|behind+behind+behind+behind|red:circle|4|multi_hop",
+            "blue:square|behind+behind|yellow:cube|2|multi_hop",
+            "blue:square|below+below+below+below|red:circle|4|multi_hop",
+            "blue:square|below+below|yellow:cube|2|multi_hop",
+            "blue:square|front+front+front|purple:sphere|3|multi_hop",
+            "blue:square|front|green:triangle|1|relation_reasoning",
+            "blue:square|left+left+left|purple:sphere|3|multi_hop",
+            "blue:square|left|green:triangle|1|relation_reasoning",
+            "blue:square|right+right+right+right|red:circle|4|multi_hop",
+            "blue:square|right+right|yellow:cube|2|multi_hop",
+            "green:triangle|above+above+above|red:circle|3|multi_hop",
+            "green:triangle|above|yellow:cube|1|relation_reasoning",
+            "green:triangle|behind+behind+behind+behind|blue:square|4|multi_hop",
+            "green:triangle|behind+behind|purple:sphere|2|multi_hop",
+            "green:triangle|below+below+below+below|blue:square|4|multi_hop",
+            "green:triangle|below+below|purple:sphere|2|multi_hop",
+            "green:triangle|front+front+front|red:circle|3|multi_hop",
+            "green:triangle|front|yellow:cube|1|relation_reasoning",
+            "green:triangle|left+left+left|red:circle|3|multi_hop",
+            "green:triangle|left|yellow:cube|1|relation_reasoning",
+            "green:triangle|right+right+right+right|blue:square|4|multi_hop",
+            "green:triangle|right+right|purple:sphere|2|multi_hop",
+            "purple:sphere|above+above+above|green:triangle|3|multi_hop",
+            "purple:sphere|above|red:circle|1|relation_reasoning",
+            "purple:sphere|behind+behind+behind+behind|yellow:cube|4|multi_hop",
+            "purple:sphere|behind+behind|blue:square|2|multi_hop",
+            "purple:sphere|below+below+below+below|yellow:cube|4|multi_hop",
+            "purple:sphere|below+below|blue:square|2|multi_hop",
+            "purple:sphere|front+front+front|green:triangle|3|multi_hop",
+            "purple:sphere|front|red:circle|1|relation_reasoning",
+            "purple:sphere|left+left+left|green:triangle|3|multi_hop",
+            "purple:sphere|left|red:circle|1|relation_reasoning",
+            "purple:sphere|right+right+right+right|yellow:cube|4|multi_hop",
+            "purple:sphere|right+right|blue:square|2|multi_hop",
+            "red:circle|above+above+above|yellow:cube|3|multi_hop",
+            "red:circle|above|blue:square|1|relation_reasoning",
+            "red:circle|behind+behind+behind+behind|purple:sphere|4|multi_hop",
+            "red:circle|behind+behind|green:triangle|2|multi_hop",
+            "red:circle|below+below+below+below|purple:sphere|4|multi_hop",
+            "red:circle|below+below|green:triangle|2|multi_hop",
+            "red:circle|front+front+front|yellow:cube|3|multi_hop",
+            "red:circle|front|blue:square|1|relation_reasoning",
+            "red:circle|left+left+left|yellow:cube|3|multi_hop",
+            "red:circle|left|blue:square|1|relation_reasoning",
+            "red:circle|right+right+right+right|purple:sphere|4|multi_hop",
+            "red:circle|right+right|green:triangle|2|multi_hop",
+            "yellow:cube|above+above+above|blue:square|3|multi_hop",
+            "yellow:cube|above|purple:sphere|1|relation_reasoning",
+            "yellow:cube|behind+behind+behind+behind|green:triangle|4|multi_hop",
+            "yellow:cube|behind+behind|red:circle|2|multi_hop",
+            "yellow:cube|below+below+below+below|green:triangle|4|multi_hop",
+            "yellow:cube|below+below|red:circle|2|multi_hop",
+            "yellow:cube|front+front+front|blue:square|3|multi_hop",
+            "yellow:cube|front|purple:sphere|1|relation_reasoning",
+            "yellow:cube|left+left+left|blue:square|3|multi_hop",
+            "yellow:cube|left|purple:sphere|1|relation_reasoning",
+            "yellow:cube|right+right+right+right|green:triangle|4|multi_hop",
+            "yellow:cube|right+right|red:circle|2|multi_hop"
+          ],
+          "counts": {
+            "test": 60,
+            "train": 60
+          },
+          "hop_depth_overlap": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "missing_primitives": {},
+          "primitive_coverage": true,
+          "relation_combination_overlap": [
+            "above",
+            "above+above+above",
+            "behind+behind",
+            "behind+behind+behind+behind",
+            "below+below",
+            "below+below+below+below",
+            "front",
+            "front+front+front",
+            "left",
+            "left+left+left",
+            "right+right",
+            "right+right+right+right"
+          ],
+          "sample_id_overlap": [],
+          "test_composition_count": 60,
+          "test_hop_depths": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "test_relation_combinations": [
+            "above",
+            "above+above+above",
+            "behind+behind",
+            "behind+behind+behind+behind",
+            "below+below",
+            "below+below+below+below",
+            "front",
+            "front+front+front",
+            "left",
+            "left+left+left",
+            "right+right",
+            "right+right+right+right"
+          ],
+          "train_composition_count": 60,
+          "train_hop_depths": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "train_relation_combinations": [
+            "above",
+            "above+above+above",
+            "behind+behind",
+            "behind+behind+behind+behind",
+            "below+below",
+            "below+below+below+below",
+            "front",
+            "front+front+front",
+            "left",
+            "left+left+left",
+            "right+right",
+            "right+right+right+right"
+          ],
+          "valid": true,
+          "violations": [],
+          "world_hash_overlap": []
+        },
+        "relation_ood": {
+          "composition_overlap": [],
+          "counts": {
+            "test": 60,
+            "train": 60
+          },
+          "hop_depth_overlap": [
+            2
+          ],
+          "missing_primitives": {},
+          "primitive_coverage": true,
+          "relation_combination_overlap": [],
+          "sample_id_overlap": [],
+          "test_composition_count": 20,
+          "test_hop_depths": [
+            2
+          ],
+          "test_relation_combinations": [
+            "above+front",
+            "behind+left",
+            "front+above",
+            "left+behind"
+          ],
+          "train_composition_count": 20,
+          "train_hop_depths": [
+            2
+          ],
+          "train_relation_combinations": [
+            "above+left",
+            "behind+above",
+            "front+left",
+            "left+above"
+          ],
+          "valid": true,
+          "violations": [],
+          "world_hash_overlap": []
+        }
+      },
+      "valid": true,
+      "violations": []
+    },
+    "valid": false
+  },
+  "model_backend": "llava_1_5_7b",
+  "ood": {
+    "conditions": {
+      "caption": {
+        "accuracy": 0.7222222222222222,
+        "ci95": [
+          0.6555555555555556,
+          0.7888888888888889
+        ],
+        "n": 180
+      },
+      "image_only": {
+        "accuracy": 0.18333333333333332,
+        "ci95": [
+          0.12777777777777777,
+          0.24444444444444444
+        ],
+        "n": 180
+      },
+      "random_graph": {
+        "accuracy": 0.07222222222222222,
+        "ci95": [
+          0.03888888888888889,
+          0.1111111111111111
+        ],
+        "n": 180
+      },
+      "scene_graph": {
+        "accuracy": 0.6555555555555556,
+        "ci95": [
+          0.5833333333333334,
+          0.7277777777777777
+        ],
+        "n": 180
+      }
+    },
+    "graph_over_caption": {
+      "ci95": [
+        -0.1111111111111111,
+        -0.027777777777777776
+      ],
+      "estimate": -0.06666666666666667,
+      "first": "scene_graph",
+      "n": 180,
+      "second": "caption",
+      "statistical_test": {
+        "alternative": "greater",
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": -0.1111111111111111,
+          "upper": -0.027777777777777776
+        },
+        "method": "paired_bootstrap",
+        "n_pairs": 180,
+        "p_value": 0.9987001299870013,
+        "samples": 10000,
+        "seed": 40521658,
+        "statistic": -0.06666666666666667
+      }
+    },
+    "graph_over_random_graph": {
+      "ci95": [
+        0.5111111111111111,
+        0.6555555555555556
+      ],
+      "estimate": 0.5833333333333334,
+      "first": "scene_graph",
+      "n": 180,
+      "second": "random_graph",
+      "statistical_test": {
+        "alternative": "greater",
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.5111111111111111,
+          "upper": 0.6555555555555556
+        },
+        "method": "paired_bootstrap",
+        "n_pairs": 180,
+        "p_value": 9.999000099990002e-05,
+        "samples": 10000,
+        "seed": 40521659,
+        "statistic": 0.5833333333333334
+      }
+    }
+  },
+  "reasoning_depth": {
+    "depth4_minus_depth1_advantage": -0.26666666666666666,
+    "depths": {
+      "1": {
+        "conditions": {
+          "caption": {
+            "accuracy": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 30
+          },
+          "image_only": {
+            "accuracy": 0.3333333333333333,
+            "ci95": [
+              0.16666666666666666,
+              0.5
+            ],
+            "n": 30
+          },
+          "random_graph": {
+            "accuracy": 0.03333333333333333,
+            "ci95": [
+              0.0,
+              0.1
+            ],
+            "n": 30
+          },
+          "scene_graph": {
+            "accuracy": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 30
+          }
+        },
+        "graph_over_caption": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "estimate": 0.0,
+          "first": "scene_graph",
+          "n": 30,
+          "second": "caption",
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 30,
+            "p_value": 1.0,
+            "samples": 10000,
+            "seed": 40522039,
+            "statistic": 0.0
+          }
+        },
+        "graph_over_random_graph": {
+          "ci95": [
+            0.9,
+            1.0
+          ],
+          "estimate": 0.9666666666666667,
+          "first": "scene_graph",
+          "n": 30,
+          "second": "random_graph",
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.9,
+              "upper": 1.0
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 30,
+            "p_value": 9.999000099990002e-05,
+            "samples": 10000,
+            "seed": 40522059,
+            "statistic": 0.9666666666666667
+          }
+        },
+        "regime": "seen"
+      },
+      "2": {
+        "conditions": {
+          "caption": {
+            "accuracy": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 30
+          },
+          "image_only": {
+            "accuracy": 0.06666666666666667,
+            "ci95": [
+              0.0,
+              0.16666666666666666
+            ],
+            "n": 30
+          },
+          "random_graph": {
+            "accuracy": 0.1,
+            "ci95": [
+              0.0,
+              0.23333333333333334
+            ],
+            "n": 30
+          },
+          "scene_graph": {
+            "accuracy": 0.6666666666666666,
+            "ci95": [
+              0.5,
+              0.8333333333333334
+            ],
+            "n": 30
+          }
+        },
+        "graph_over_caption": {
+          "ci95": [
+            -0.5,
+            -0.16666666666666666
+          ],
+          "estimate": -0.3333333333333333,
+          "first": "scene_graph",
+          "n": 30,
+          "second": "caption",
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": -0.5,
+              "upper": -0.16666666666666666
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 30,
+            "p_value": 1.0,
+            "samples": 10000,
+            "seed": 40522040,
+            "statistic": -0.3333333333333333
+          }
+        },
+        "graph_over_random_graph": {
+          "ci95": [
+            0.4,
+            0.7333333333333333
+          ],
+          "estimate": 0.5666666666666667,
+          "first": "scene_graph",
+          "n": 30,
+          "second": "random_graph",
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.4,
+              "upper": 0.7333333333333333
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 30,
+            "p_value": 9.999000099990002e-05,
+            "samples": 10000,
+            "seed": 40522080,
+            "statistic": 0.5666666666666667
+          }
+        },
+        "regime": "seen"
+      },
+      "3": {
+        "conditions": {
+          "caption": {
+            "accuracy": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 30
+          },
+          "image_only": {
+            "accuracy": 0.2,
+            "ci95": [
+              0.06666666666666667,
+              0.36666666666666664
+            ],
+            "n": 30
+          },
+          "random_graph": {
+            "accuracy": 0.06666666666666667,
+            "ci95": [
+              0.0,
+              0.16666666666666666
+            ],
+            "n": 30
+          },
+          "scene_graph": {
+            "accuracy": 1.0,
+            "ci95": [
+              1.0,
+              1.0
+            ],
+            "n": 30
+          }
+        },
+        "graph_over_caption": {
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "estimate": 0.0,
+          "first": "scene_graph",
+          "n": 30,
+          "second": "caption",
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.0,
+              "upper": 0.0
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 30,
+            "p_value": 1.0,
+            "samples": 10000,
+            "seed": 40522041,
+            "statistic": 0.0
+          }
+        },
+        "graph_over_random_graph": {
+          "ci95": [
+            0.8333333333333334,
+            1.0
+          ],
+          "estimate": 0.9333333333333333,
+          "first": "scene_graph",
+          "n": 30,
+          "second": "random_graph",
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.8333333333333334,
+              "upper": 1.0
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 30,
+            "p_value": 9.999000099990002e-05,
+            "samples": 10000,
+            "seed": 40522101,
+            "statistic": 0.9333333333333333
+          }
+        },
+        "regime": "unseen"
+      },
+      "4": {
+        "conditions": {
+          "caption": {
+            "accuracy": 0.9333333333333333,
+            "ci95": [
+              0.8333333333333334,
+              1.0
+            ],
+            "n": 30
+          },
+          "image_only": {
+            "accuracy": 0.26666666666666666,
+            "ci95": [
+              0.13333333333333333,
+              0.43333333333333335
+            ],
+            "n": 30
+          },
+          "random_graph": {
+            "accuracy": 0.06666666666666667,
+            "ci95": [
+              0.0,
+              0.16666666666666666
+            ],
+            "n": 30
+          },
+          "scene_graph": {
+            "accuracy": 0.6666666666666666,
+            "ci95": [
+              0.5,
+              0.8333333333333334
+            ],
+            "n": 30
+          }
+        },
+        "graph_over_caption": {
+          "ci95": [
+            -0.43333333333333335,
+            -0.13333333333333333
+          ],
+          "estimate": -0.26666666666666666,
+          "first": "scene_graph",
+          "n": 30,
+          "second": "caption",
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": -0.43333333333333335,
+              "upper": -0.13333333333333333
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 30,
+            "p_value": 0.9997000299970003,
+            "samples": 10000,
+            "seed": 40522042,
+            "statistic": -0.26666666666666666
+          }
+        },
+        "graph_over_random_graph": {
+          "ci95": [
+            0.43333333333333335,
+            0.7666666666666667
+          ],
+          "estimate": 0.6,
+          "first": "scene_graph",
+          "n": 30,
+          "second": "random_graph",
+          "statistical_test": {
+            "alternative": "greater",
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.43333333333333335,
+              "upper": 0.7666666666666667
+            },
+            "method": "paired_bootstrap",
+            "n_pairs": 30,
+            "p_value": 9.999000099990002e-05,
+            "samples": 10000,
+            "seed": 40522122,
+            "statistic": 0.6
+          }
+        },
+        "regime": "unseen"
+      }
+    },
+    "graph_advantage_by_depth": {
+      "1": 0.0,
+      "2": -0.3333333333333333,
+      "3": 0.0,
+      "4": -0.26666666666666666
+    },
+    "graph_advantage_slope": -0.04666666666666666
+  },
+  "sample_counts": {
+    "evaluated_scenes": 480,
+    "iid_test_scenes": 60,
+    "ood_test_scenes": 180,
+    "predictions": 1920,
+    "test_scenes": 240
+  },
+  "seed": 20260818,
+  "seen_unseen_composition": {
+    "seen": {
+      "conditions": {
+        "caption": {
+          "accuracy": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 60
+        },
+        "image_only": {
+          "accuracy": 0.26666666666666666,
+          "ci95": [
+            0.16666666666666666,
+            0.38333333333333336
+          ],
+          "n": 60
+        },
+        "random_graph": {
+          "accuracy": 0.03333333333333333,
+          "ci95": [
+            0.0,
+            0.08333333333333333
+          ],
+          "n": 60
+        },
+        "scene_graph": {
+          "accuracy": 0.8333333333333334,
+          "ci95": [
+            0.7333333333333333,
+            0.9166666666666666
+          ],
+          "n": 60
+        }
+      },
+      "graph_over_caption": {
+        "ci95": [
+          -0.26666666666666666,
+          -0.08333333333333333
+        ],
+        "estimate": -0.16666666666666666,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "caption",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": -0.26666666666666666,
+            "upper": -0.08333333333333333
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 0.9995000499950005,
+          "samples": 10000,
+          "seed": 40522149,
+          "statistic": -0.16666666666666666
+        }
+      }
+    },
+    "unseen": {
+      "conditions": {
+        "caption": {
+          "accuracy": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 60
+        },
+        "image_only": {
+          "accuracy": 0.3,
+          "ci95": [
+            0.18333333333333332,
+            0.4166666666666667
+          ],
+          "n": 60
+        },
+        "random_graph": {
+          "accuracy": 0.15,
+          "ci95": [
+            0.06666666666666667,
+            0.25
+          ],
+          "n": 60
+        },
+        "scene_graph": {
+          "accuracy": 0.9166666666666666,
+          "ci95": [
+            0.8333333333333334,
+            0.9833333333333333
+          ],
+          "n": 60
+        }
+      },
+      "graph_over_caption": {
+        "ci95": [
+          -0.16666666666666666,
+          -0.016666666666666666
+        ],
+        "estimate": -0.08333333333333333,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "caption",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": -0.16666666666666666,
+            "upper": -0.016666666666666666
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 0.9884011598840116,
+          "samples": 10000,
+          "seed": 40522150,
+          "statistic": -0.08333333333333333
+        }
+      }
+    }
+  },
+  "splits": {
+    "composition_ood": {
+      "conditions": {
+        "caption": {
+          "accuracy": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 60
+        },
+        "image_only": {
+          "accuracy": 0.3,
+          "ci95": [
+            0.18333333333333332,
+            0.4166666666666667
+          ],
+          "n": 60
+        },
+        "random_graph": {
+          "accuracy": 0.15,
+          "ci95": [
+            0.06666666666666667,
+            0.25
+          ],
+          "n": 60
+        },
+        "scene_graph": {
+          "accuracy": 0.9166666666666666,
+          "ci95": [
+            0.85,
+            0.9833333333333333
+          ],
+          "n": 60
+        }
+      },
+      "graph_over_caption": {
+        "ci95": [
+          -0.16666666666666666,
+          -0.016666666666666666
+        ],
+        "estimate": -0.08333333333333333,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "caption",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": -0.16666666666666666,
+            "upper": -0.016666666666666666
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 0.9905009499050095,
+          "samples": 10000,
+          "seed": 40521839,
+          "statistic": -0.08333333333333333
+        }
+      },
+      "graph_over_random_graph": {
+        "ci95": [
+          0.65,
+          0.8666666666666667
+        ],
+        "estimate": 0.7666666666666667,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "random_graph",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.65,
+            "upper": 0.8666666666666667
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 9.999000099990002e-05,
+          "samples": 10000,
+          "seed": 40521849,
+          "statistic": 0.7666666666666667
+        }
+      }
+    },
+    "hop_ood": {
+      "conditions": {
+        "caption": {
+          "accuracy": 0.9666666666666667,
+          "ci95": [
+            0.9166666666666666,
+            1.0
+          ],
+          "n": 60
+        },
+        "image_only": {
+          "accuracy": 0.23333333333333334,
+          "ci95": [
+            0.13333333333333333,
+            0.35
+          ],
+          "n": 60
+        },
+        "random_graph": {
+          "accuracy": 0.06666666666666667,
+          "ci95": [
+            0.016666666666666666,
+            0.13333333333333333
+          ],
+          "n": 60
+        },
+        "scene_graph": {
+          "accuracy": 0.8333333333333334,
+          "ci95": [
+            0.7333333333333333,
+            0.9166666666666666
+          ],
+          "n": 60
+        }
+      },
+      "graph_over_caption": {
+        "ci95": [
+          -0.23333333333333334,
+          -0.05
+        ],
+        "estimate": -0.13333333333333333,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "caption",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": -0.23333333333333334,
+            "upper": -0.05
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 0.9985001499850015,
+          "samples": 10000,
+          "seed": 40521841,
+          "statistic": -0.13333333333333333
+        }
+      },
+      "graph_over_random_graph": {
+        "ci95": [
+          0.65,
+          0.8666666666666667
+        ],
+        "estimate": 0.7666666666666667,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "random_graph",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.65,
+            "upper": 0.8666666666666667
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 9.999000099990002e-05,
+          "samples": 10000,
+          "seed": 40521851,
+          "statistic": 0.7666666666666667
+        }
+      }
+    },
+    "iid": {
+      "conditions": {
+        "caption": {
+          "accuracy": 1.0,
+          "ci95": [
+            1.0,
+            1.0
+          ],
+          "n": 60
+        },
+        "image_only": {
+          "accuracy": 0.26666666666666666,
+          "ci95": [
+            0.15,
+            0.38333333333333336
+          ],
+          "n": 60
+        },
+        "random_graph": {
+          "accuracy": 0.1,
+          "ci95": [
+            0.03333333333333333,
+            0.18333333333333332
+          ],
+          "n": 60
+        },
+        "scene_graph": {
+          "accuracy": 0.8333333333333334,
+          "ci95": [
+            0.7333333333333333,
+            0.9166666666666666
+          ],
+          "n": 60
+        }
+      },
+      "graph_over_caption": {
+        "ci95": [
+          -0.26666666666666666,
+          -0.08333333333333333
+        ],
+        "estimate": -0.16666666666666666,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "caption",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": -0.26666666666666666,
+            "upper": -0.08333333333333333
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 0.9994000599940006,
+          "samples": 10000,
+          "seed": 40521838,
+          "statistic": -0.16666666666666666
+        }
+      },
+      "graph_over_random_graph": {
+        "ci95": [
+          0.6166666666666667,
+          0.85
+        ],
+        "estimate": 0.7333333333333333,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "random_graph",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.6166666666666667,
+            "upper": 0.85
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 9.999000099990002e-05,
+          "samples": 10000,
+          "seed": 40521848,
+          "statistic": 0.7333333333333333
+        }
+      }
+    },
+    "relation_ood": {
+      "conditions": {
+        "caption": {
+          "accuracy": 0.2,
+          "ci95": [
+            0.1,
+            0.3
+          ],
+          "n": 60
+        },
+        "image_only": {
+          "accuracy": 0.016666666666666666,
+          "ci95": [
+            0.0,
+            0.05
+          ],
+          "n": 60
+        },
+        "random_graph": {
+          "accuracy": 0.0,
+          "ci95": [
+            0.0,
+            0.0
+          ],
+          "n": 60
+        },
+        "scene_graph": {
+          "accuracy": 0.21666666666666667,
+          "ci95": [
+            0.11666666666666667,
+            0.31666666666666665
+          ],
+          "n": 60
+        }
+      },
+      "graph_over_caption": {
+        "ci95": [
+          -0.03333333333333333,
+          0.06666666666666667
+        ],
+        "estimate": 0.016666666666666666,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "caption",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": -0.03333333333333333,
+            "upper": 0.06666666666666667
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 0.36776322367763226,
+          "samples": 10000,
+          "seed": 40521840,
+          "statistic": 0.016666666666666666
+        }
+      },
+      "graph_over_random_graph": {
+        "ci95": [
+          0.11666666666666667,
+          0.3333333333333333
+        ],
+        "estimate": 0.21666666666666667,
+        "first": "scene_graph",
+        "n": 60,
+        "second": "random_graph",
+        "statistical_test": {
+          "alternative": "greater",
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.11666666666666667,
+            "upper": 0.3333333333333333
+          },
+          "method": "paired_bootstrap",
+          "n_pairs": 60,
+          "p_value": 0.00019998000199980003,
+          "samples": 10000,
+          "seed": 40521850,
+          "statistic": 0.21666666666666667
+        }
+      }
+    }
+  }
+}

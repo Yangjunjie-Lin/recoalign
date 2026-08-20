@@ -1,0 +1,5874 @@
+{
+  "confidence_interval": {
+    "contrasts.contrasts.graph_over_text.estimate": {
+      "level": 0.95,
+      "lower": -0.058333333333333334,
+      "method": "percentile_bootstrap",
+      "samples": 10000,
+      "upper": -0.02833333333333333
+    },
+    "controlled_contrasts.token_matched.graph_over_caption.estimate": {
+      "level": 0.95,
+      "lower": -0.10166666666666666,
+      "method": "percentile_bootstrap",
+      "samples": 10000,
+      "upper": -0.05500000000000001
+    },
+    "ood_contrasts.token_matched.graph_over_caption.estimate": {
+      "level": 0.95,
+      "lower": -0.13999999999999999,
+      "method": "percentile_bootstrap",
+      "samples": 10000,
+      "upper": -0.08
+    },
+    "reasoning_depth.token_matched.2.graph_over_caption.estimate": {
+      "level": 0.95,
+      "lower": 0.0,
+      "method": "percentile_bootstrap",
+      "samples": 10000,
+      "upper": 0.0
+    },
+    "reasoning_depth.token_matched.3.graph_over_caption.estimate": {
+      "level": 0.95,
+      "lower": -0.9,
+      "method": "percentile_bootstrap",
+      "samples": 10000,
+      "upper": -0.6799999999999999
+    }
+  },
+  "dataset": "recoalign-synthetic-compositional-world@generator-v2",
+  "decision": "NO-GO",
+  "experiment_id": "EXP001",
+  "hypothesis": "H001",
+  "integrity": {
+    "dataset_version": "generator-v2",
+    "per_seed": [
+      {
+        "dataset_manifest": "outputs/paper_evidence/EXP001/seeds/20260818/dataset/manifest.json",
+        "dataset_manifest_sha256": "4879291a157d8df5136a12dd3610c11a349ade1b02057adfa0fea6c9444cc872",
+        "manifest_assertions": {
+          "caption_graph_equivalent": true,
+          "generator": "recoalign.synthetic_world.v2"
+        },
+        "seed": 20260818
+      },
+      {
+        "dataset_manifest": "outputs/paper_evidence/EXP001/seeds/20260819/dataset/manifest.json",
+        "dataset_manifest_sha256": "4bfc034b9f6c4731708224373b42b9715f789fe3081ebd9b69efa1fb94d8ca72",
+        "manifest_assertions": {
+          "caption_graph_equivalent": true,
+          "generator": "recoalign.synthetic_world.v2"
+        },
+        "seed": 20260819
+      },
+      {
+        "dataset_manifest": "outputs/paper_evidence/EXP001/seeds/20260820/dataset/manifest.json",
+        "dataset_manifest_sha256": "72078738dba2dab4b4416677d4f5791947519bf3b8774af78ac92949f9916413",
+        "manifest_assertions": {
+          "caption_graph_equivalent": true,
+          "generator": "recoalign.synthetic_world.v2"
+        },
+        "seed": 20260820
+      },
+      {
+        "dataset_manifest": "outputs/paper_evidence/EXP001/seeds/20260821/dataset/manifest.json",
+        "dataset_manifest_sha256": "1cc35459a89e27d7397cc4fea79c784ab18edc65b3961c54aad596a4e7357781",
+        "manifest_assertions": {
+          "caption_graph_equivalent": true,
+          "generator": "recoalign.synthetic_world.v2"
+        },
+        "seed": 20260821
+      },
+      {
+        "dataset_manifest": "outputs/paper_evidence/EXP001/seeds/20260822/dataset/manifest.json",
+        "dataset_manifest_sha256": "2c56fd9260512e971178132b7c3bcf86fb8ca4ea26fe2c447499f937d5f75aa3",
+        "manifest_assertions": {
+          "caption_graph_equivalent": true,
+          "generator": "recoalign.synthetic_world.v2"
+        },
+        "seed": 20260822
+      }
+    ],
+    "registry_validated": true
+  },
+  "metrics": {
+    "aggregate": {
+      "contrasts.contrasts.graph_over_text.estimate": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": -0.058333333333333334,
+          "method": "percentile_bootstrap",
+          "samples": 10000,
+          "upper": -0.02833333333333333
+        },
+        "mean": -0.043333333333333335,
+        "n_seeds": 5,
+        "positive_seed_fraction": 0.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": -0.043333333333333335,
+          "n": 5,
+          "p_value": 0.9965063126673401,
+          "statistic": -5.099019513592785,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.019002923751652297,
+        "values": [
+          -0.058333333333333334,
+          -0.025,
+          -0.06666666666666667,
+          -0.025,
+          -0.041666666666666664
+        ]
+      },
+      "controlled_contrasts.token_matched.graph_over_caption.estimate": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": -0.10166666666666666,
+          "method": "percentile_bootstrap",
+          "samples": 10000,
+          "upper": -0.05500000000000001
+        },
+        "mean": -0.07833333333333334,
+        "n_seeds": 5,
+        "positive_seed_fraction": 0.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": -0.07833333333333334,
+          "n": 5,
+          "p_value": 0.9979032872998019,
+          "statistic": -5.875,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.029814239699997195,
+        "values": [
+          -0.075,
+          -0.05,
+          -0.11666666666666667,
+          -0.05,
+          -0.1
+        ]
+      },
+      "ood_contrasts.token_matched.graph_over_caption.estimate": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": -0.13999999999999999,
+          "method": "percentile_bootstrap",
+          "samples": 10000,
+          "upper": -0.08
+        },
+        "mean": -0.11499999999999999,
+        "n_seeds": 5,
+        "positive_seed_fraction": 0.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": -0.11499999999999999,
+          "n": 5,
+          "p_value": 0.9987664784245228,
+          "statistic": -6.782329983125267,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.03791437722025775,
+        "values": [
+          -0.125,
+          -0.05,
+          -0.125,
+          -0.125,
+          -0.15
+        ]
+      },
+      "reasoning_depth.token_matched.2.graph_over_caption.estimate": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.0,
+          "method": "percentile_bootstrap",
+          "samples": 10000,
+          "upper": 0.0
+        },
+        "mean": 0.0,
+        "n_seeds": 5,
+        "positive_seed_fraction": 0.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 0.0,
+          "n": 5,
+          "p_value": 0.5,
+          "statistic": 0.0,
+          "test": "paired_t_test",
+          "zero_variance": true
+        },
+        "std": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "reasoning_depth.token_matched.3.graph_over_caption.estimate": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": -0.9,
+          "method": "percentile_bootstrap",
+          "samples": 10000,
+          "upper": -0.6799999999999999
+        },
+        "mean": -0.8,
+        "n_seeds": 5,
+        "positive_seed_fraction": 0.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": -0.8,
+          "n": 5,
+          "p_value": 0.9998875397677801,
+          "statistic": -12.649110640673516,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.14142135623730953,
+        "values": [
+          -0.6,
+          -0.9,
+          -0.9,
+          -0.7,
+          -0.9
+        ]
+      }
+    },
+    "condition_summaries": {
+      "natural": {
+        "caption": {
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.8933333333333333,
+            "method": "percentile_bootstrap",
+            "samples": 10000,
+            "upper": 0.9199999999999999
+          },
+          "mean": 0.905,
+          "n_seeds": 5,
+          "positive_seed_fraction": 1.0,
+          "statistical_test": {
+            "alternative": "greater",
+            "degrees_of_freedom": 4,
+            "mean_difference": 0.905,
+            "n": 5,
+            "p_value": 1.5943650510941154e-08,
+            "statistic": 117.10639169893423,
+            "test": "paired_t_test",
+            "zero_variance": false
+          },
+          "std": 0.01728036779443975,
+          "values": [
+            0.9083333333333333,
+            0.8916666666666667,
+            0.9333333333333333,
+            0.8916666666666667,
+            0.9
+          ]
+        },
+        "image_only": {
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.3816666666666667,
+            "method": "percentile_bootstrap",
+            "samples": 10000,
+            "upper": 0.4033333333333333
+          },
+          "mean": 0.39333333333333337,
+          "n_seeds": 5,
+          "positive_seed_fraction": 1.0,
+          "statistical_test": {
+            "alternative": "greater",
+            "degrees_of_freedom": 4,
+            "mean_difference": 0.39333333333333337,
+            "n": 5,
+            "p_value": 1.7597027901494755e-07,
+            "statistic": 64.23106436631446,
+            "test": "paired_t_test",
+            "zero_variance": false
+          },
+          "std": 0.013693063937629152,
+          "values": [
+            0.4,
+            0.4,
+            0.4083333333333333,
+            0.38333333333333336,
+            0.375
+          ]
+        },
+        "object_list": {
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.3749583333333337,
+            "method": "percentile_bootstrap",
+            "samples": 10000,
+            "upper": 0.3983333333333333
+          },
+          "mean": 0.38666666666666666,
+          "n_seeds": 5,
+          "positive_seed_fraction": 1.0,
+          "statistical_test": {
+            "alternative": "greater",
+            "degrees_of_freedom": 4,
+            "mean_difference": 0.38666666666666666,
+            "n": 5,
+            "p_value": 3.7295390720171184e-07,
+            "statistic": 53.22445025797032,
+            "test": "paired_t_test",
+            "zero_variance": false
+          },
+          "std": 0.016244657241348277,
+          "values": [
+            0.4083333333333333,
+            0.39166666666666666,
+            0.39166666666666666,
+            0.375,
+            0.36666666666666664
+          ]
+        },
+        "scene_graph": {
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.8550000000000001,
+            "method": "percentile_bootstrap",
+            "samples": 10000,
+            "upper": 0.8666666666666668
+          },
+          "mean": 0.8616666666666667,
+          "n_seeds": 5,
+          "positive_seed_fraction": 1.0,
+          "statistical_test": {
+            "alternative": "greater",
+            "degrees_of_freedom": 4,
+            "mean_difference": 0.8616666666666667,
+            "n": 5,
+            "p_value": 6.717933986877256e-10,
+            "statistic": 258.499999999999,
+            "test": "paired_t_test",
+            "zero_variance": false
+          },
+          "std": 0.007453559924999328,
+          "values": [
+            0.85,
+            0.8666666666666667,
+            0.8666666666666667,
+            0.8666666666666667,
+            0.8583333333333333
+          ]
+        }
+      },
+      "token_matched": {
+        "caption": {
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.9,
+            "method": "percentile_bootstrap",
+            "samples": 10000,
+            "upper": 0.9283333333333333
+          },
+          "mean": 0.9116666666666667,
+          "n_seeds": 5,
+          "positive_seed_fraction": 1.0,
+          "statistical_test": {
+            "alternative": "greater",
+            "degrees_of_freedom": 4,
+            "mean_difference": 0.9116666666666667,
+            "n": 5,
+            "p_value": 1.9291332753468282e-08,
+            "statistic": 111.65590744186667,
+            "test": "paired_t_test",
+            "zero_variance": false
+          },
+          "std": 0.01825741858350552,
+          "values": [
+            0.9166666666666666,
+            0.9,
+            0.9416666666666667,
+            0.9,
+            0.9
+          ]
+        },
+        "image_only": {
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.3816666666666667,
+            "method": "percentile_bootstrap",
+            "samples": 10000,
+            "upper": 0.4033333333333333
+          },
+          "mean": 0.39333333333333337,
+          "n_seeds": 5,
+          "positive_seed_fraction": 1.0,
+          "statistical_test": {
+            "alternative": "greater",
+            "degrees_of_freedom": 4,
+            "mean_difference": 0.39333333333333337,
+            "n": 5,
+            "p_value": 1.7597027901494755e-07,
+            "statistic": 64.23106436631446,
+            "test": "paired_t_test",
+            "zero_variance": false
+          },
+          "std": 0.013693063937629152,
+          "values": [
+            0.4,
+            0.4,
+            0.4083333333333333,
+            0.38333333333333336,
+            0.375
+          ]
+        },
+        "object_list": {
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.37333333333333335,
+            "method": "percentile_bootstrap",
+            "samples": 10000,
+            "upper": 0.3983333333333333
+          },
+          "mean": 0.38666666666666666,
+          "n_seeds": 5,
+          "positive_seed_fraction": 1.0,
+          "statistical_test": {
+            "alternative": "greater",
+            "degrees_of_freedom": 4,
+            "mean_difference": 0.38666666666666666,
+            "n": 5,
+            "p_value": 3.7295390720171184e-07,
+            "statistic": 53.22445025797032,
+            "test": "paired_t_test",
+            "zero_variance": false
+          },
+          "std": 0.016244657241348277,
+          "values": [
+            0.4083333333333333,
+            0.39166666666666666,
+            0.39166666666666666,
+            0.375,
+            0.36666666666666664
+          ]
+        },
+        "scene_graph": {
+          "confidence_interval": {
+            "level": 0.95,
+            "lower": 0.8150000000000001,
+            "method": "percentile_bootstrap",
+            "samples": 10000,
+            "upper": 0.8483333333333333
+          },
+          "mean": 0.8333333333333334,
+          "n_seeds": 5,
+          "positive_seed_fraction": 1.0,
+          "statistical_test": {
+            "alternative": "greater",
+            "degrees_of_freedom": 4,
+            "mean_difference": 0.8333333333333334,
+            "n": 5,
+            "p_value": 5.0656089989331576e-08,
+            "statistic": 87.70580193070302,
+            "test": "paired_t_test",
+            "zero_variance": false
+          },
+          "std": 0.021245914639969915,
+          "values": [
+            0.8416666666666667,
+            0.85,
+            0.825,
+            0.85,
+            0.8
+          ]
+        }
+      }
+    },
+    "per_seed": [
+      {
+        "metrics": {
+          "ablations": {
+            "conditions": {
+              "graph_order_shuffled": {
+                "accuracy": 0.8583333333333333,
+                "n": 120
+              },
+              "graph_serialization_json": {
+                "accuracy": 0.85,
+                "n": 120
+              },
+              "graph_serialization_triples": {
+                "accuracy": 0.8416666666666667,
+                "n": 120
+              },
+              "scene_graph": {
+                "accuracy": 0.85,
+                "n": 120
+              },
+              "text_unordered": {
+                "accuracy": 0.6083333333333333,
+                "n": 120
+              }
+            },
+            "contrasts": {
+              "scene_graph_over_graph_order_shuffled": {
+                "ci95": [
+                  -0.025,
+                  0.0
+                ],
+                "estimate": -0.008333333333333333,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_order_shuffled",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.008333333333333333,
+                  "n": 120,
+                  "p_value": 0.8403302012272704,
+                  "statistic": -1.0,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_graph_serialization_json": {
+                "ci95": [
+                  -0.06666666666666667,
+                  0.06666666666666667
+                ],
+                "estimate": 0.0,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_serialization_json",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.0,
+                  "n": 120,
+                  "p_value": 0.5,
+                  "statistic": 0.0,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_graph_serialization_triples": {
+                "ci95": [
+                  -0.041666666666666664,
+                  0.058333333333333334
+                ],
+                "estimate": 0.008333333333333333,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_serialization_triples",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.008333333333333333,
+                  "n": 120,
+                  "p_value": 0.3702007538273181,
+                  "statistic": 0.33209532224707317,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_text_unordered": {
+                "ci95": [
+                  0.16666666666666666,
+                  0.31666666666666665
+                ],
+                "estimate": 0.24166666666666667,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "text_unordered",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.24166666666666667,
+                  "n": 120,
+                  "p_value": 5.148399484511401e-09,
+                  "statistic": 6.158171556807826,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "conditions": {
+            "caption": {
+              "accuracy": 0.9083333333333333,
+              "n": 120
+            },
+            "image_only": {
+              "accuracy": 0.4,
+              "n": 120
+            },
+            "object_list": {
+              "accuracy": 0.4083333333333333,
+              "n": 120
+            },
+            "scene_graph": {
+              "accuracy": 0.85,
+              "n": 120
+            }
+          },
+          "contrasts": {
+            "contrasts": {
+              "graph_over_text": {
+                "ci95": [
+                  -0.11666666666666667,
+                  0.0
+                ],
+                "estimate": -0.058333333333333334,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.058333333333333334,
+                  "n": 120,
+                  "p_value": 0.9740951234617631,
+                  "statistic": -1.964442351529258,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "controlled_contrasts": {
+            "natural": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.11666666666666667,
+                  0.0
+                ],
+                "estimate": -0.058333333333333334,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.058333333333333334,
+                  "n": 120,
+                  "p_value": 0.9740951234617631,
+                  "statistic": -1.964442351529258,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            },
+            "token_matched": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.13333333333333333,
+                  -0.016666666666666666
+                ],
+                "estimate": -0.075,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.075,
+                  "n": 120,
+                  "p_value": 0.994025941241393,
+                  "statistic": -2.5528888301902892,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "dataset_size": 120,
+          "error_taxonomy": {
+            "natural:caption": {
+              "counts": {
+                "compositional_error": 0,
+                "object_error": 11,
+                "relation_error": 0
+              },
+              "error_rate": 0.09166666666666666,
+              "n": 120
+            },
+            "natural:image_only": {
+              "counts": {
+                "compositional_error": 21,
+                "object_error": 28,
+                "relation_error": 23
+              },
+              "error_rate": 0.6,
+              "n": 120
+            },
+            "natural:object_list": {
+              "counts": {
+                "compositional_error": 25,
+                "object_error": 18,
+                "relation_error": 28
+              },
+              "error_rate": 0.5916666666666667,
+              "n": 120
+            },
+            "natural:scene_graph": {
+              "counts": {
+                "compositional_error": 6,
+                "object_error": 12,
+                "relation_error": 0
+              },
+              "error_rate": 0.15,
+              "n": 120
+            },
+            "token_matched:caption": {
+              "counts": {
+                "compositional_error": 0,
+                "object_error": 10,
+                "relation_error": 0
+              },
+              "error_rate": 0.08333333333333333,
+              "n": 120
+            },
+            "token_matched:image_only": {
+              "counts": {
+                "compositional_error": 21,
+                "object_error": 28,
+                "relation_error": 23
+              },
+              "error_rate": 0.6,
+              "n": 120
+            },
+            "token_matched:object_list": {
+              "counts": {
+                "compositional_error": 25,
+                "object_error": 18,
+                "relation_error": 28
+              },
+              "error_rate": 0.5916666666666667,
+              "n": 120
+            },
+            "token_matched:scene_graph": {
+              "counts": {
+                "compositional_error": 7,
+                "object_error": 12,
+                "relation_error": 0
+              },
+              "error_rate": 0.15833333333333333,
+              "n": 120
+            }
+          },
+          "experiment": "graph_vs_text",
+          "information_control": {
+            "incomplete_pair_count": 0,
+            "maximum_token_delta": 1,
+            "mean_token_delta": 0.6666666666666666,
+            "pair_count": 240,
+            "passed": true,
+            "semantic_hash_mismatch_count": 0,
+            "token_matched_pair_count": 120
+          },
+          "integrity": {
+            "count": 120,
+            "hop_depth": {
+              "1": 90,
+              "2": 10,
+              "3": 10,
+              "4": 10
+            },
+            "leakage": null,
+            "question_types": {
+              "attribute_reasoning": 30,
+              "multi_hop": 30,
+              "object_reasoning": 30,
+              "relation_reasoning": 30
+            },
+            "relations": {
+              "above": 13,
+              "behind": 13,
+              "below": 13,
+              "contains": 7,
+              "far": 7,
+              "front": 13,
+              "holding": 7,
+              "inside": 7,
+              "left": 12,
+              "near": 8,
+              "right": 13,
+              "touching": 7
+            },
+            "valid": true
+          },
+          "model_backend": "llava_1_5_7b",
+          "ood_contrasts": {
+            "natural": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.2,
+                  0.025
+                ],
+                "estimate": -0.075,
+                "first": "scene_graph",
+                "n": 40,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 39,
+                  "mean_difference": -0.075,
+                  "n": 40,
+                  "p_value": 0.9084900192488001,
+                  "statistic": -1.3556165885229252,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            },
+            "token_matched": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.25,
+                  0.0
+                ],
+                "estimate": -0.125,
+                "first": "scene_graph",
+                "n": 40,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 39,
+                  "mean_difference": -0.125,
+                  "n": 40,
+                  "p_value": 0.9711348982211567,
+                  "statistic": -1.955384722187607,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "prediction_count": 1600,
+          "reasoning_depth": {
+            "natural": {
+              "1": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8777777777777778,
+                    "n": 90
+                  },
+                  "image_only": {
+                    "accuracy": 0.43333333333333335,
+                    "n": 90
+                  },
+                  "object_list": {
+                    "accuracy": 0.4888888888888889,
+                    "n": 90
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 90
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.06666666666666667,
+                    0.044444444444444446
+                  ],
+                  "estimate": -0.011111111111111112,
+                  "first": "scene_graph",
+                  "n": 90,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 89,
+                    "mean_difference": -0.011111111111111112,
+                    "n": 90,
+                    "p_value": 0.6461524847735665,
+                    "statistic": -0.37615746119422205,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "2": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              },
+              "3": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.1,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.4,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.9,
+                    -0.3
+                  ],
+                  "estimate": -0.6,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.6,
+                    "n": 10,
+                    "p_value": 0.9974394636178637,
+                    "statistic": -3.674234614174767,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "4": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              }
+            },
+            "token_matched": {
+              "1": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8888888888888888,
+                    "n": 90
+                  },
+                  "image_only": {
+                    "accuracy": 0.43333333333333335,
+                    "n": 90
+                  },
+                  "object_list": {
+                    "accuracy": 0.4888888888888889,
+                    "n": 90
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 90
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.07777777777777778,
+                    0.03333333333333333
+                  ],
+                  "estimate": -0.022222222222222223,
+                  "first": "scene_graph",
+                  "n": 90,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 89,
+                    "mean_difference": -0.022222222222222223,
+                    "n": 90,
+                    "p_value": 0.7913680326548249,
+                    "statistic": -0.8149718427513997,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "2": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              },
+              "3": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.1,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.4,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.9,
+                    -0.3
+                  ],
+                  "estimate": -0.6,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.6,
+                    "n": 10,
+                    "p_value": 0.9974394636178637,
+                    "statistic": -3.674234614174767,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "4": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.9,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.3,
+                    0.0
+                  ],
+                  "estimate": -0.1,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.1,
+                    "n": 10,
+                    "p_value": 0.8282818019310425,
+                    "statistic": -1.0,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              }
+            }
+          },
+          "seed": 20260818,
+          "task_accuracy": {
+            "natural": {
+              "attribute_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.7,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.6333333333333333,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6333333333333333,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7333333333333333,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "multi_hop": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.16666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "object_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.9333333333333333,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.43333333333333335,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.7666666666666667,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "relation_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.23333333333333334,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.06666666666666667,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              }
+            },
+            "token_matched": {
+              "attribute_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.7333333333333333,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.6333333333333333,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6333333333333333,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7333333333333333,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "multi_hop": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.16666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7666666666666667,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "object_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.9333333333333333,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.43333333333333335,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.7666666666666667,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "relation_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.23333333333333334,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.06666666666666667,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              }
+            }
+          },
+          "token_accounting": {
+            "natural:caption": {
+              "accuracy": 0.9083333333333333,
+              "accuracy_per_1000_input_tokens": 1.2779627632134316,
+              "mean_evidence_tokens": 660.9,
+              "mean_input_tokens": 710.7666666666667,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "natural:image_only": {
+              "accuracy": 0.4,
+              "accuracy_per_1000_input_tokens": 0.6202832626899617,
+              "mean_evidence_tokens": 595.0,
+              "mean_input_tokens": 644.8666666666667,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 0.0,
+              "n": 120
+            },
+            "natural:object_list": {
+              "accuracy": 0.4083333333333333,
+              "accuracy_per_1000_input_tokens": 0.6081970061812675,
+              "mean_evidence_tokens": 621.5166666666667,
+              "mean_input_tokens": 671.3833333333333,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 15.0,
+              "n": 120
+            },
+            "natural:scene_graph": {
+              "accuracy": 0.85,
+              "accuracy_per_1000_input_tokens": 1.2020222256266424,
+              "mean_evidence_tokens": 657.275,
+              "mean_input_tokens": 707.1416666666667,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "token_matched:caption": {
+              "accuracy": 0.9166666666666666,
+              "accuracy_per_1000_input_tokens": 1.287016345107583,
+              "mean_evidence_tokens": 662.375,
+              "mean_input_tokens": 712.2416666666667,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "token_matched:image_only": {
+              "accuracy": 0.4,
+              "accuracy_per_1000_input_tokens": 0.6202832626899617,
+              "mean_evidence_tokens": 595.0,
+              "mean_input_tokens": 644.8666666666667,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 0.0,
+              "n": 120
+            },
+            "token_matched:object_list": {
+              "accuracy": 0.4083333333333333,
+              "accuracy_per_1000_input_tokens": 0.6081970061812675,
+              "mean_evidence_tokens": 621.5166666666667,
+              "mean_input_tokens": 671.3833333333333,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 15.0,
+              "n": 120
+            },
+            "token_matched:scene_graph": {
+              "accuracy": 0.8416666666666667,
+              "accuracy_per_1000_input_tokens": 1.1817150077805987,
+              "mean_evidence_tokens": 662.375,
+              "mean_input_tokens": 712.2416666666667,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            }
+          }
+        },
+        "seed": 20260818
+      },
+      {
+        "metrics": {
+          "ablations": {
+            "conditions": {
+              "graph_order_shuffled": {
+                "accuracy": 0.8583333333333333,
+                "n": 120
+              },
+              "graph_serialization_json": {
+                "accuracy": 0.85,
+                "n": 120
+              },
+              "graph_serialization_triples": {
+                "accuracy": 0.8333333333333334,
+                "n": 120
+              },
+              "scene_graph": {
+                "accuracy": 0.8666666666666667,
+                "n": 120
+              },
+              "text_unordered": {
+                "accuracy": 0.675,
+                "n": 120
+              }
+            },
+            "contrasts": {
+              "scene_graph_over_graph_order_shuffled": {
+                "ci95": [
+                  0.0,
+                  0.025
+                ],
+                "estimate": 0.008333333333333333,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_order_shuffled",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.008333333333333333,
+                  "n": 120,
+                  "p_value": 0.15966979877272958,
+                  "statistic": 1.0,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_graph_serialization_json": {
+                "ci95": [
+                  -0.05,
+                  0.08333333333333333
+                ],
+                "estimate": 0.016666666666666666,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_serialization_json",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.016666666666666666,
+                  "n": 120,
+                  "p_value": 0.3095498733632891,
+                  "statistic": 0.49843177867770894,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_graph_serialization_triples": {
+                "ci95": [
+                  -0.016666666666666666,
+                  0.09166666666666666
+                ],
+                "estimate": 0.03333333333333333,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_serialization_triples",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.03333333333333333,
+                  "n": 120,
+                  "p_value": 0.12493296896467188,
+                  "statistic": 1.1563211715113553,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_text_unordered": {
+                "ci95": [
+                  0.10833333333333334,
+                  0.275
+                ],
+                "estimate": 0.19166666666666668,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "text_unordered",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.19166666666666668,
+                  "n": 120,
+                  "p_value": 4.924315699206261e-06,
+                  "statistic": 4.618667645184304,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "conditions": {
+            "caption": {
+              "accuracy": 0.8916666666666667,
+              "n": 120
+            },
+            "image_only": {
+              "accuracy": 0.4,
+              "n": 120
+            },
+            "object_list": {
+              "accuracy": 0.39166666666666666,
+              "n": 120
+            },
+            "scene_graph": {
+              "accuracy": 0.8666666666666667,
+              "n": 120
+            }
+          },
+          "contrasts": {
+            "contrasts": {
+              "graph_over_text": {
+                "ci95": [
+                  -0.09166666666666666,
+                  0.03333333333333333
+                ],
+                "estimate": -0.025,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.025,
+                  "n": 120,
+                  "p_value": 0.7795603160762037,
+                  "statistic": -0.7732980988911998,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "controlled_contrasts": {
+            "natural": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.08333333333333333,
+                  0.03333333333333333
+                ],
+                "estimate": -0.025,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.025,
+                  "n": 120,
+                  "p_value": 0.7795603160762037,
+                  "statistic": -0.7732980988911998,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            },
+            "token_matched": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.11666666666666667,
+                  0.016666666666666666
+                ],
+                "estimate": -0.05,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.05,
+                  "n": 120,
+                  "p_value": 0.93289000190855,
+                  "statistic": -1.5079407648573175,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "dataset_size": 120,
+          "error_taxonomy": {
+            "natural:caption": {
+              "counts": {
+                "compositional_error": 0,
+                "object_error": 13,
+                "relation_error": 0
+              },
+              "error_rate": 0.10833333333333334,
+              "n": 120
+            },
+            "natural:image_only": {
+              "counts": {
+                "compositional_error": 19,
+                "object_error": 28,
+                "relation_error": 25
+              },
+              "error_rate": 0.6,
+              "n": 120
+            },
+            "natural:object_list": {
+              "counts": {
+                "compositional_error": 25,
+                "object_error": 19,
+                "relation_error": 29
+              },
+              "error_rate": 0.6083333333333333,
+              "n": 120
+            },
+            "natural:scene_graph": {
+              "counts": {
+                "compositional_error": 6,
+                "object_error": 9,
+                "relation_error": 1
+              },
+              "error_rate": 0.13333333333333333,
+              "n": 120
+            },
+            "token_matched:caption": {
+              "counts": {
+                "compositional_error": 0,
+                "object_error": 12,
+                "relation_error": 0
+              },
+              "error_rate": 0.1,
+              "n": 120
+            },
+            "token_matched:image_only": {
+              "counts": {
+                "compositional_error": 19,
+                "object_error": 28,
+                "relation_error": 25
+              },
+              "error_rate": 0.6,
+              "n": 120
+            },
+            "token_matched:object_list": {
+              "counts": {
+                "compositional_error": 25,
+                "object_error": 19,
+                "relation_error": 29
+              },
+              "error_rate": 0.6083333333333333,
+              "n": 120
+            },
+            "token_matched:scene_graph": {
+              "counts": {
+                "compositional_error": 9,
+                "object_error": 9,
+                "relation_error": 0
+              },
+              "error_rate": 0.15,
+              "n": 120
+            }
+          },
+          "experiment": "graph_vs_text",
+          "information_control": {
+            "incomplete_pair_count": 0,
+            "maximum_token_delta": 1,
+            "mean_token_delta": 0.6833333333333333,
+            "pair_count": 240,
+            "passed": true,
+            "semantic_hash_mismatch_count": 0,
+            "token_matched_pair_count": 120
+          },
+          "integrity": {
+            "count": 120,
+            "hop_depth": {
+              "1": 90,
+              "2": 10,
+              "3": 10,
+              "4": 10
+            },
+            "leakage": null,
+            "question_types": {
+              "attribute_reasoning": 30,
+              "multi_hop": 30,
+              "object_reasoning": 30,
+              "relation_reasoning": 30
+            },
+            "relations": {
+              "above": 13,
+              "behind": 13,
+              "below": 13,
+              "contains": 7,
+              "far": 7,
+              "front": 13,
+              "holding": 7,
+              "inside": 7,
+              "left": 12,
+              "near": 8,
+              "right": 13,
+              "touching": 7
+            },
+            "valid": true
+          },
+          "model_backend": "llava_1_5_7b",
+          "ood_contrasts": {
+            "natural": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.075,
+                  0.0
+                ],
+                "estimate": -0.025,
+                "first": "scene_graph",
+                "n": 40,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 39,
+                  "mean_difference": -0.025,
+                  "n": 40,
+                  "p_value": 0.8382625274143074,
+                  "statistic": -1.0000000000000002,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            },
+            "token_matched": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.125,
+                  0.0
+                ],
+                "estimate": -0.05,
+                "first": "scene_graph",
+                "n": 40,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 39,
+                  "mean_difference": -0.05,
+                  "n": 40,
+                  "p_value": 0.9200445199842828,
+                  "statistic": -1.432700798822758,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "prediction_count": 1600,
+          "reasoning_depth": {
+            "natural": {
+              "1": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8555555555555555,
+                    "n": 90
+                  },
+                  "image_only": {
+                    "accuracy": 0.4111111111111111,
+                    "n": 90
+                  },
+                  "object_list": {
+                    "accuracy": 0.4666666666666667,
+                    "n": 90
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8888888888888888,
+                    "n": 90
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.03333333333333333,
+                    0.1
+                  ],
+                  "estimate": 0.03333333333333333,
+                  "first": "scene_graph",
+                  "n": 90,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 89,
+                    "mean_difference": 0.03333333333333333,
+                    "n": 90,
+                    "p_value": 0.1600108143945147,
+                    "statistic": 1.0,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "2": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              },
+              "3": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.4,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.9,
+                    -0.3
+                  ],
+                  "estimate": -0.6,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.6,
+                    "n": 10,
+                    "p_value": 0.9974394636178637,
+                    "statistic": -3.674234614174767,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "4": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              }
+            },
+            "token_matched": {
+              "1": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 90
+                  },
+                  "image_only": {
+                    "accuracy": 0.4111111111111111,
+                    "n": 90
+                  },
+                  "object_list": {
+                    "accuracy": 0.4666666666666667,
+                    "n": 90
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.9,
+                    "n": 90
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.022222222222222223,
+                    0.08888888888888889
+                  ],
+                  "estimate": 0.03333333333333333,
+                  "first": "scene_graph",
+                  "n": 90,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 89,
+                    "mean_difference": 0.03333333333333333,
+                    "n": 90,
+                    "p_value": 0.12956189272019691,
+                    "statistic": 1.1357178665776848,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "2": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              },
+              "3": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.1,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -1.0,
+                    -0.7
+                  ],
+                  "estimate": -0.9,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.9,
+                    "n": 10,
+                    "p_value": 0.9999957309743884,
+                    "statistic": -9.0,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "4": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              }
+            }
+          },
+          "seed": 20260819,
+          "task_accuracy": {
+            "natural": {
+              "attribute_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.6666666666666666,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5666666666666667,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "multi_hop": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.36666666666666664,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.16666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "object_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.9,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.7666666666666667,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "relation_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.16666666666666666,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.03333333333333333,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.9666666666666667,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              }
+            },
+            "token_matched": {
+              "attribute_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.7,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5666666666666667,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "multi_hop": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.36666666666666664,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.16666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "object_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.9,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.7666666666666667,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "relation_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.16666666666666666,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.03333333333333333,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              }
+            }
+          },
+          "token_accounting": {
+            "natural:caption": {
+              "accuracy": 0.8916666666666667,
+              "accuracy_per_1000_input_tokens": 1.2540728065446194,
+              "mean_evidence_tokens": 661.1083333333333,
+              "mean_input_tokens": 711.0166666666667,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "natural:image_only": {
+              "accuracy": 0.4,
+              "accuracy_per_1000_input_tokens": 0.6202431870162427,
+              "mean_evidence_tokens": 595.0,
+              "mean_input_tokens": 644.9083333333333,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 0.0,
+              "n": 120
+            },
+            "natural:object_list": {
+              "accuracy": 0.39166666666666666,
+              "accuracy_per_1000_input_tokens": 0.5832568067310318,
+              "mean_evidence_tokens": 621.6083333333333,
+              "mean_input_tokens": 671.5166666666667,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 15.0,
+              "n": 120
+            },
+            "natural:scene_graph": {
+              "accuracy": 0.8666666666666667,
+              "accuracy_per_1000_input_tokens": 1.2254468756996242,
+              "mean_evidence_tokens": 657.3166666666667,
+              "mean_input_tokens": 707.225,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "token_matched:caption": {
+              "accuracy": 0.9,
+              "accuracy_per_1000_input_tokens": 1.263084030173674,
+              "mean_evidence_tokens": 662.6333333333333,
+              "mean_input_tokens": 712.5416666666666,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "token_matched:image_only": {
+              "accuracy": 0.4,
+              "accuracy_per_1000_input_tokens": 0.6202431870162427,
+              "mean_evidence_tokens": 595.0,
+              "mean_input_tokens": 644.9083333333333,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 0.0,
+              "n": 120
+            },
+            "token_matched:object_list": {
+              "accuracy": 0.39166666666666666,
+              "accuracy_per_1000_input_tokens": 0.5832568067310318,
+              "mean_evidence_tokens": 621.6083333333333,
+              "mean_input_tokens": 671.5166666666667,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 15.0,
+              "n": 120
+            },
+            "token_matched:scene_graph": {
+              "accuracy": 0.85,
+              "accuracy_per_1000_input_tokens": 1.1931917880329883,
+              "mean_evidence_tokens": 662.4666666666667,
+              "mean_input_tokens": 712.375,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            }
+          }
+        },
+        "seed": 20260819
+      },
+      {
+        "metrics": {
+          "ablations": {
+            "conditions": {
+              "graph_order_shuffled": {
+                "accuracy": 0.875,
+                "n": 120
+              },
+              "graph_serialization_json": {
+                "accuracy": 0.8833333333333333,
+                "n": 120
+              },
+              "graph_serialization_triples": {
+                "accuracy": 0.8583333333333333,
+                "n": 120
+              },
+              "scene_graph": {
+                "accuracy": 0.8666666666666667,
+                "n": 120
+              },
+              "text_unordered": {
+                "accuracy": 0.6416666666666667,
+                "n": 120
+              }
+            },
+            "contrasts": {
+              "scene_graph_over_graph_order_shuffled": {
+                "ci95": [
+                  -0.03333333333333333,
+                  0.016666666666666666
+                ],
+                "estimate": -0.008333333333333333,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_order_shuffled",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.008333333333333333,
+                  "n": 120,
+                  "p_value": 0.7170608758791128,
+                  "statistic": -0.5757398050506645,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_graph_serialization_json": {
+                "ci95": [
+                  -0.06666666666666667,
+                  0.03333333333333333
+                ],
+                "estimate": -0.016666666666666666,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_serialization_json",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.016666666666666666,
+                  "n": 120,
+                  "p_value": 0.7353314009200858,
+                  "statistic": -0.6308671104414854,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_graph_serialization_triples": {
+                "ci95": [
+                  -0.03333333333333333,
+                  0.05
+                ],
+                "estimate": 0.008333333333333333,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_serialization_triples",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.008333333333333333,
+                  "n": 120,
+                  "p_value": 0.353566856018829,
+                  "statistic": 0.376610566068418,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_text_unordered": {
+                "ci95": [
+                  0.14166666666666666,
+                  0.30833333333333335
+                ],
+                "estimate": 0.225,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "text_unordered",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.225,
+                  "n": 120,
+                  "p_value": 1.8460330630798438e-07,
+                  "statistic": 5.38553730245259,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "conditions": {
+            "caption": {
+              "accuracy": 0.9333333333333333,
+              "n": 120
+            },
+            "image_only": {
+              "accuracy": 0.4083333333333333,
+              "n": 120
+            },
+            "object_list": {
+              "accuracy": 0.39166666666666666,
+              "n": 120
+            },
+            "scene_graph": {
+              "accuracy": 0.8666666666666667,
+              "n": 120
+            }
+          },
+          "contrasts": {
+            "contrasts": {
+              "graph_over_text": {
+                "ci95": [
+                  -0.11666666666666667,
+                  -0.025
+                ],
+                "estimate": -0.06666666666666667,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.06666666666666667,
+                  "n": 120,
+                  "p_value": 0.9978775007730414,
+                  "statistic": -2.9154759474226504,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "controlled_contrasts": {
+            "natural": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.11666666666666667,
+                  -0.025
+                ],
+                "estimate": -0.06666666666666667,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.06666666666666667,
+                  "n": 120,
+                  "p_value": 0.9978775007730414,
+                  "statistic": -2.9154759474226504,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            },
+            "token_matched": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.175,
+                  -0.06666666666666667
+                ],
+                "estimate": -0.11666666666666667,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.11666666666666667,
+                  "n": 120,
+                  "p_value": 0.9999370105580954,
+                  "statistic": -3.9644647976839793,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "dataset_size": 120,
+          "error_taxonomy": {
+            "natural:caption": {
+              "counts": {
+                "compositional_error": 0,
+                "object_error": 8,
+                "relation_error": 0
+              },
+              "error_rate": 0.06666666666666667,
+              "n": 120
+            },
+            "natural:image_only": {
+              "counts": {
+                "compositional_error": 21,
+                "object_error": 27,
+                "relation_error": 23
+              },
+              "error_rate": 0.5916666666666667,
+              "n": 120
+            },
+            "natural:object_list": {
+              "counts": {
+                "compositional_error": 23,
+                "object_error": 20,
+                "relation_error": 30
+              },
+              "error_rate": 0.6083333333333333,
+              "n": 120
+            },
+            "natural:scene_graph": {
+              "counts": {
+                "compositional_error": 6,
+                "object_error": 10,
+                "relation_error": 0
+              },
+              "error_rate": 0.13333333333333333,
+              "n": 120
+            },
+            "token_matched:caption": {
+              "counts": {
+                "compositional_error": 0,
+                "object_error": 7,
+                "relation_error": 0
+              },
+              "error_rate": 0.058333333333333334,
+              "n": 120
+            },
+            "token_matched:image_only": {
+              "counts": {
+                "compositional_error": 21,
+                "object_error": 27,
+                "relation_error": 23
+              },
+              "error_rate": 0.5916666666666667,
+              "n": 120
+            },
+            "token_matched:object_list": {
+              "counts": {
+                "compositional_error": 23,
+                "object_error": 20,
+                "relation_error": 30
+              },
+              "error_rate": 0.6083333333333333,
+              "n": 120
+            },
+            "token_matched:scene_graph": {
+              "counts": {
+                "compositional_error": 11,
+                "object_error": 10,
+                "relation_error": 0
+              },
+              "error_rate": 0.175,
+              "n": 120
+            }
+          },
+          "experiment": "graph_vs_text",
+          "information_control": {
+            "incomplete_pair_count": 0,
+            "maximum_token_delta": 1,
+            "mean_token_delta": 0.7166666666666667,
+            "pair_count": 240,
+            "passed": true,
+            "semantic_hash_mismatch_count": 0,
+            "token_matched_pair_count": 120
+          },
+          "integrity": {
+            "count": 120,
+            "hop_depth": {
+              "1": 90,
+              "2": 10,
+              "3": 10,
+              "4": 10
+            },
+            "leakage": null,
+            "question_types": {
+              "attribute_reasoning": 30,
+              "multi_hop": 30,
+              "object_reasoning": 30,
+              "relation_reasoning": 30
+            },
+            "relations": {
+              "above": 13,
+              "behind": 13,
+              "below": 13,
+              "contains": 7,
+              "far": 7,
+              "front": 13,
+              "holding": 7,
+              "inside": 7,
+              "left": 12,
+              "near": 8,
+              "right": 13,
+              "touching": 7
+            },
+            "valid": true
+          },
+          "model_backend": "llava_1_5_7b",
+          "ood_contrasts": {
+            "natural": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.175,
+                  0.0
+                ],
+                "estimate": -0.075,
+                "first": "scene_graph",
+                "n": 40,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 39,
+                  "mean_difference": -0.075,
+                  "n": 40,
+                  "p_value": 0.9584197553913332,
+                  "statistic": -1.7782469350914571,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            },
+            "token_matched": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.225,
+                  -0.025
+                ],
+                "estimate": -0.125,
+                "first": "scene_graph",
+                "n": 40,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 39,
+                  "mean_difference": -0.125,
+                  "n": 40,
+                  "p_value": 0.9883240398182715,
+                  "statistic": -2.3603873774083293,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "prediction_count": 1600,
+          "reasoning_depth": {
+            "natural": {
+              "1": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.9111111111111111,
+                    "n": 90
+                  },
+                  "image_only": {
+                    "accuracy": 0.4444444444444444,
+                    "n": 90
+                  },
+                  "object_list": {
+                    "accuracy": 0.4444444444444444,
+                    "n": 90
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8888888888888888,
+                    "n": 90
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.05555555555555555,
+                    0.0
+                  ],
+                  "estimate": -0.022222222222222223,
+                  "first": "scene_graph",
+                  "n": 90,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 89,
+                    "mean_difference": -0.022222222222222223,
+                    "n": 90,
+                    "p_value": 0.9207720566015493,
+                    "statistic": -1.4222261679238197,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "2": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              },
+              "3": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.1,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.4,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.9,
+                    -0.3
+                  ],
+                  "estimate": -0.6,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.6,
+                    "n": 10,
+                    "p_value": 0.9974394636178637,
+                    "statistic": -3.674234614174767,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "4": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.2,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              }
+            },
+            "token_matched": {
+              "1": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.9222222222222223,
+                    "n": 90
+                  },
+                  "image_only": {
+                    "accuracy": 0.4444444444444444,
+                    "n": 90
+                  },
+                  "object_list": {
+                    "accuracy": 0.4444444444444444,
+                    "n": 90
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8888888888888888,
+                    "n": 90
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.07777777777777778,
+                    0.0
+                  ],
+                  "estimate": -0.03333333333333333,
+                  "first": "scene_graph",
+                  "n": 90,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 89,
+                    "mean_difference": -0.03333333333333333,
+                    "n": 90,
+                    "p_value": 0.9583775845000001,
+                    "statistic": -1.7518463166731775,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "2": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              },
+              "3": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.1,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.1,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -1.0,
+                    -0.7
+                  ],
+                  "estimate": -0.9,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.9,
+                    "n": 10,
+                    "p_value": 0.9999957309743884,
+                    "statistic": -9.0,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "4": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.2,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.5,
+                    0.0
+                  ],
+                  "estimate": -0.2,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.2,
+                    "n": 10,
+                    "p_value": 0.9160746719714618,
+                    "statistic": -1.4999999999999998,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              }
+            }
+          },
+          "seed": 20260820,
+          "task_accuracy": {
+            "natural": {
+              "attribute_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.7333333333333333,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5333333333333333,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.5333333333333333,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "multi_hop": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.23333333333333334,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "object_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5666666666666667,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.8,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.9666666666666667,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "relation_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.23333333333333334,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              }
+            },
+            "token_matched": {
+              "attribute_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.7666666666666667,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5333333333333333,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.5333333333333333,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "multi_hop": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.23333333333333334,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.6333333333333333,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "object_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5666666666666667,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.8,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.9666666666666667,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "relation_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.23333333333333334,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              }
+            }
+          },
+          "token_accounting": {
+            "natural:caption": {
+              "accuracy": 0.9333333333333333,
+              "accuracy_per_1000_input_tokens": 1.312028489761492,
+              "mean_evidence_tokens": 661.325,
+              "mean_input_tokens": 711.3666666666667,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "natural:image_only": {
+              "accuracy": 0.4083333333333333,
+              "accuracy_per_1000_input_tokens": 0.6330340417285705,
+              "mean_evidence_tokens": 595.0,
+              "mean_input_tokens": 645.0416666666666,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 0.0,
+              "n": 120
+            },
+            "natural:object_list": {
+              "accuracy": 0.39166666666666666,
+              "accuracy_per_1000_input_tokens": 0.5830542116362735,
+              "mean_evidence_tokens": 621.7083333333334,
+              "mean_input_tokens": 671.75,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 15.0,
+              "n": 120
+            },
+            "natural:scene_graph": {
+              "accuracy": 0.8666666666666667,
+              "accuracy_per_1000_input_tokens": 1.224739742804654,
+              "mean_evidence_tokens": 657.5916666666667,
+              "mean_input_tokens": 707.6333333333333,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "token_matched:caption": {
+              "accuracy": 0.9416666666666667,
+              "accuracy_per_1000_input_tokens": 1.3209576358365285,
+              "mean_evidence_tokens": 662.825,
+              "mean_input_tokens": 712.8666666666667,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "token_matched:image_only": {
+              "accuracy": 0.4083333333333333,
+              "accuracy_per_1000_input_tokens": 0.6330340417285705,
+              "mean_evidence_tokens": 595.0,
+              "mean_input_tokens": 645.0416666666666,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 0.0,
+              "n": 120
+            },
+            "token_matched:object_list": {
+              "accuracy": 0.39166666666666666,
+              "accuracy_per_1000_input_tokens": 0.5830542116362735,
+              "mean_evidence_tokens": 621.7083333333334,
+              "mean_input_tokens": 671.75,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 15.0,
+              "n": 120
+            },
+            "token_matched:scene_graph": {
+              "accuracy": 0.825,
+              "accuracy_per_1000_input_tokens": 1.1570286569117854,
+              "mean_evidence_tokens": 662.9916666666667,
+              "mean_input_tokens": 713.0333333333333,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            }
+          }
+        },
+        "seed": 20260820
+      },
+      {
+        "metrics": {
+          "ablations": {
+            "conditions": {
+              "graph_order_shuffled": {
+                "accuracy": 0.8666666666666667,
+                "n": 120
+              },
+              "graph_serialization_json": {
+                "accuracy": 0.8833333333333333,
+                "n": 120
+              },
+              "graph_serialization_triples": {
+                "accuracy": 0.8666666666666667,
+                "n": 120
+              },
+              "scene_graph": {
+                "accuracy": 0.8666666666666667,
+                "n": 120
+              },
+              "text_unordered": {
+                "accuracy": 0.675,
+                "n": 120
+              }
+            },
+            "contrasts": {
+              "scene_graph_over_graph_order_shuffled": {
+                "ci95": [
+                  -0.025,
+                  0.025
+                ],
+                "estimate": 0.0,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_order_shuffled",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.0,
+                  "n": 120,
+                  "p_value": 0.5,
+                  "statistic": 0.0,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_graph_serialization_json": {
+                "ci95": [
+                  -0.075,
+                  0.041666666666666664
+                ],
+                "estimate": -0.016666666666666666,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_serialization_json",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.016666666666666666,
+                  "n": 120,
+                  "p_value": 0.7170608758791128,
+                  "statistic": -0.5757398050506645,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_graph_serialization_triples": {
+                "ci95": [
+                  -0.041666666666666664,
+                  0.041666666666666664
+                ],
+                "estimate": 0.0,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_serialization_triples",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.0,
+                  "n": 120,
+                  "p_value": 0.5,
+                  "statistic": 0.0,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_text_unordered": {
+                "ci95": [
+                  0.10833333333333334,
+                  0.275
+                ],
+                "estimate": 0.19166666666666668,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "text_unordered",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.19166666666666668,
+                  "n": 120,
+                  "p_value": 1.0060656918886579e-05,
+                  "statistic": 4.441584354293901,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "conditions": {
+            "caption": {
+              "accuracy": 0.8916666666666667,
+              "n": 120
+            },
+            "image_only": {
+              "accuracy": 0.38333333333333336,
+              "n": 120
+            },
+            "object_list": {
+              "accuracy": 0.375,
+              "n": 120
+            },
+            "scene_graph": {
+              "accuracy": 0.8666666666666667,
+              "n": 120
+            }
+          },
+          "contrasts": {
+            "contrasts": {
+              "graph_over_text": {
+                "ci95": [
+                  -0.075,
+                  0.025
+                ],
+                "estimate": -0.025,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.025,
+                  "n": 120,
+                  "p_value": 0.8160478444897133,
+                  "statistic": -0.9038438130805212,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "controlled_contrasts": {
+            "natural": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.08333333333333333,
+                  0.025
+                ],
+                "estimate": -0.025,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.025,
+                  "n": 120,
+                  "p_value": 0.8160478444897133,
+                  "statistic": -0.9038438130805212,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            },
+            "token_matched": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.10833333333333334,
+                  0.0
+                ],
+                "estimate": -0.05,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.05,
+                  "n": 120,
+                  "p_value": 0.9583732315947011,
+                  "statistic": -1.746791931307805,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "dataset_size": 120,
+          "error_taxonomy": {
+            "natural:caption": {
+              "counts": {
+                "compositional_error": 0,
+                "object_error": 13,
+                "relation_error": 0
+              },
+              "error_rate": 0.10833333333333334,
+              "n": 120
+            },
+            "natural:image_only": {
+              "counts": {
+                "compositional_error": 22,
+                "object_error": 28,
+                "relation_error": 24
+              },
+              "error_rate": 0.6166666666666667,
+              "n": 120
+            },
+            "natural:object_list": {
+              "counts": {
+                "compositional_error": 25,
+                "object_error": 20,
+                "relation_error": 30
+              },
+              "error_rate": 0.625,
+              "n": 120
+            },
+            "natural:scene_graph": {
+              "counts": {
+                "compositional_error": 5,
+                "object_error": 11,
+                "relation_error": 0
+              },
+              "error_rate": 0.13333333333333333,
+              "n": 120
+            },
+            "token_matched:caption": {
+              "counts": {
+                "compositional_error": 0,
+                "object_error": 12,
+                "relation_error": 0
+              },
+              "error_rate": 0.1,
+              "n": 120
+            },
+            "token_matched:image_only": {
+              "counts": {
+                "compositional_error": 22,
+                "object_error": 28,
+                "relation_error": 24
+              },
+              "error_rate": 0.6166666666666667,
+              "n": 120
+            },
+            "token_matched:object_list": {
+              "counts": {
+                "compositional_error": 25,
+                "object_error": 20,
+                "relation_error": 30
+              },
+              "error_rate": 0.625,
+              "n": 120
+            },
+            "token_matched:scene_graph": {
+              "counts": {
+                "compositional_error": 7,
+                "object_error": 11,
+                "relation_error": 0
+              },
+              "error_rate": 0.15,
+              "n": 120
+            }
+          },
+          "experiment": "graph_vs_text",
+          "information_control": {
+            "incomplete_pair_count": 0,
+            "maximum_token_delta": 1,
+            "mean_token_delta": 0.6333333333333333,
+            "pair_count": 240,
+            "passed": true,
+            "semantic_hash_mismatch_count": 0,
+            "token_matched_pair_count": 120
+          },
+          "integrity": {
+            "count": 120,
+            "hop_depth": {
+              "1": 90,
+              "2": 10,
+              "3": 10,
+              "4": 10
+            },
+            "leakage": null,
+            "question_types": {
+              "attribute_reasoning": 30,
+              "multi_hop": 30,
+              "object_reasoning": 30,
+              "relation_reasoning": 30
+            },
+            "relations": {
+              "above": 13,
+              "behind": 13,
+              "below": 13,
+              "contains": 7,
+              "far": 7,
+              "front": 13,
+              "holding": 7,
+              "inside": 7,
+              "left": 12,
+              "near": 8,
+              "right": 13,
+              "touching": 7
+            },
+            "valid": true
+          },
+          "model_backend": "llava_1_5_7b",
+          "ood_contrasts": {
+            "natural": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.125,
+                  0.075
+                ],
+                "estimate": -0.025,
+                "first": "scene_graph",
+                "n": 40,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 39,
+                  "mean_difference": -0.025,
+                  "n": 40,
+                  "p_value": 0.6697843797058559,
+                  "statistic": -0.44269617063793026,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            },
+            "token_matched": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.25,
+                  0.0
+                ],
+                "estimate": -0.125,
+                "first": "scene_graph",
+                "n": 40,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 39,
+                  "mean_difference": -0.125,
+                  "n": 40,
+                  "p_value": 0.9711348982211567,
+                  "statistic": -1.955384722187607,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "prediction_count": 1600,
+          "reasoning_depth": {
+            "natural": {
+              "1": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8555555555555555,
+                    "n": 90
+                  },
+                  "image_only": {
+                    "accuracy": 0.4222222222222222,
+                    "n": 90
+                  },
+                  "object_list": {
+                    "accuracy": 0.4444444444444444,
+                    "n": 90
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8777777777777778,
+                    "n": 90
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.03333333333333333,
+                    0.07777777777777778
+                  ],
+                  "estimate": 0.022222222222222223,
+                  "first": "scene_graph",
+                  "n": 90,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 89,
+                    "mean_difference": 0.022222222222222223,
+                    "n": 90,
+                    "p_value": 0.20863196734517508,
+                    "statistic": 0.8149718427513997,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "2": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.6,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              },
+              "3": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.1,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.8,
+                    -0.2
+                  ],
+                  "estimate": -0.5,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.5,
+                    "n": 10,
+                    "p_value": 0.9925218180447929,
+                    "statistic": -2.9999999999999996,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "4": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.1,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              }
+            },
+            "token_matched": {
+              "1": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 90
+                  },
+                  "image_only": {
+                    "accuracy": 0.4222222222222222,
+                    "n": 90
+                  },
+                  "object_list": {
+                    "accuracy": 0.4444444444444444,
+                    "n": 90
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8777777777777778,
+                    "n": 90
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.03333333333333333,
+                    0.05555555555555555
+                  ],
+                  "estimate": 0.011111111111111112,
+                  "first": "scene_graph",
+                  "n": 90,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 89,
+                    "mean_difference": 0.011111111111111112,
+                    "n": 90,
+                    "p_value": 0.328621938698771,
+                    "statistic": 0.44521709626454836,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "2": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.6,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              },
+              "3": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.1,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.3,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -1.0,
+                    -0.4
+                  ],
+                  "estimate": -0.7,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.7,
+                    "n": 10,
+                    "p_value": 0.9993385247078662,
+                    "statistic": -4.58257569495584,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "4": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.1,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              }
+            }
+          },
+          "seed": 20260821,
+          "task_accuracy": {
+            "natural": {
+              "attribute_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.7,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5666666666666667,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7666666666666667,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "multi_hop": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.26666666666666666,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.16666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8333333333333334,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "object_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "relation_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.2,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              }
+            },
+            "token_matched": {
+              "attribute_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.7333333333333333,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5666666666666667,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7666666666666667,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "multi_hop": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.26666666666666666,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.16666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7666666666666667,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "object_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "relation_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.2,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              }
+            }
+          },
+          "token_accounting": {
+            "natural:caption": {
+              "accuracy": 0.8916666666666667,
+              "accuracy_per_1000_input_tokens": 1.253676082906654,
+              "mean_evidence_tokens": 661.2416666666667,
+              "mean_input_tokens": 711.2416666666667,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "natural:image_only": {
+              "accuracy": 0.38333333333333336,
+              "accuracy_per_1000_input_tokens": 0.5943152454780363,
+              "mean_evidence_tokens": 595.0,
+              "mean_input_tokens": 645.0,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 0.0,
+              "n": 120
+            },
+            "natural:object_list": {
+              "accuracy": 0.375,
+              "accuracy_per_1000_input_tokens": 0.5582918749922459,
+              "mean_evidence_tokens": 621.6916666666667,
+              "mean_input_tokens": 671.6916666666667,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 15.0,
+              "n": 120
+            },
+            "natural:scene_graph": {
+              "accuracy": 0.8666666666666667,
+              "accuracy_per_1000_input_tokens": 1.2249561253695482,
+              "mean_evidence_tokens": 657.5083333333333,
+              "mean_input_tokens": 707.5083333333333,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "token_matched:caption": {
+              "accuracy": 0.9,
+              "accuracy_per_1000_input_tokens": 1.2630397155821678,
+              "mean_evidence_tokens": 662.5666666666667,
+              "mean_input_tokens": 712.5666666666667,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "token_matched:image_only": {
+              "accuracy": 0.38333333333333336,
+              "accuracy_per_1000_input_tokens": 0.5943152454780363,
+              "mean_evidence_tokens": 595.0,
+              "mean_input_tokens": 645.0,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 0.0,
+              "n": 120
+            },
+            "token_matched:object_list": {
+              "accuracy": 0.375,
+              "accuracy_per_1000_input_tokens": 0.5582918749922459,
+              "mean_evidence_tokens": 621.6916666666667,
+              "mean_input_tokens": 671.6916666666667,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 15.0,
+              "n": 120
+            },
+            "token_matched:scene_graph": {
+              "accuracy": 0.85,
+              "accuracy_per_1000_input_tokens": 1.1928429423459244,
+              "mean_evidence_tokens": 662.5833333333334,
+              "mean_input_tokens": 712.5833333333334,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            }
+          }
+        },
+        "seed": 20260821
+      },
+      {
+        "metrics": {
+          "ablations": {
+            "conditions": {
+              "graph_order_shuffled": {
+                "accuracy": 0.8666666666666667,
+                "n": 120
+              },
+              "graph_serialization_json": {
+                "accuracy": 0.8583333333333333,
+                "n": 120
+              },
+              "graph_serialization_triples": {
+                "accuracy": 0.8416666666666667,
+                "n": 120
+              },
+              "scene_graph": {
+                "accuracy": 0.8583333333333333,
+                "n": 120
+              },
+              "text_unordered": {
+                "accuracy": 0.6166666666666667,
+                "n": 120
+              }
+            },
+            "contrasts": {
+              "scene_graph_over_graph_order_shuffled": {
+                "ci95": [
+                  -0.025,
+                  0.0
+                ],
+                "estimate": -0.008333333333333333,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_order_shuffled",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.008333333333333333,
+                  "n": 120,
+                  "p_value": 0.8403302012272704,
+                  "statistic": -1.0,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_graph_serialization_json": {
+                "ci95": [
+                  -0.041666666666666664,
+                  0.041666666666666664
+                ],
+                "estimate": 0.0,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_serialization_json",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.0,
+                  "n": 120,
+                  "p_value": 0.5,
+                  "statistic": 0.0,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_graph_serialization_triples": {
+                "ci95": [
+                  -0.025,
+                  0.058333333333333334
+                ],
+                "estimate": 0.016666666666666666,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "graph_serialization_triples",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.016666666666666666,
+                  "n": 120,
+                  "p_value": 0.2082489063761639,
+                  "statistic": 0.8153554251206913,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              },
+              "scene_graph_over_text_unordered": {
+                "ci95": [
+                  0.15833333333333333,
+                  0.31666666666666665
+                ],
+                "estimate": 0.24166666666666667,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "text_unordered",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": 0.24166666666666667,
+                  "n": 120,
+                  "p_value": 1.7829537513058824e-08,
+                  "statistic": 5.895907294083223,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "conditions": {
+            "caption": {
+              "accuracy": 0.9,
+              "n": 120
+            },
+            "image_only": {
+              "accuracy": 0.375,
+              "n": 120
+            },
+            "object_list": {
+              "accuracy": 0.36666666666666664,
+              "n": 120
+            },
+            "scene_graph": {
+              "accuracy": 0.8583333333333333,
+              "n": 120
+            }
+          },
+          "contrasts": {
+            "contrasts": {
+              "graph_over_text": {
+                "ci95": [
+                  -0.1,
+                  0.016666666666666666
+                ],
+                "estimate": -0.041666666666666664,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.041666666666666664,
+                  "n": 120,
+                  "p_value": 0.9167649750504955,
+                  "statistic": -1.392160461005005,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "controlled_contrasts": {
+            "natural": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.1,
+                  0.016666666666666666
+                ],
+                "estimate": -0.041666666666666664,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.041666666666666664,
+                  "n": 120,
+                  "p_value": 0.9167649750504955,
+                  "statistic": -1.392160461005005,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            },
+            "token_matched": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.16687499999999816,
+                  -0.03333333333333333
+                ],
+                "estimate": -0.1,
+                "first": "scene_graph",
+                "n": 120,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 119,
+                  "mean_difference": -0.1,
+                  "n": 120,
+                  "p_value": 0.9966139848794098,
+                  "statistic": -2.7560378591106227,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "dataset_size": 120,
+          "error_taxonomy": {
+            "natural:caption": {
+              "counts": {
+                "compositional_error": 0,
+                "object_error": 12,
+                "relation_error": 0
+              },
+              "error_rate": 0.1,
+              "n": 120
+            },
+            "natural:image_only": {
+              "counts": {
+                "compositional_error": 20,
+                "object_error": 31,
+                "relation_error": 24
+              },
+              "error_rate": 0.625,
+              "n": 120
+            },
+            "natural:object_list": {
+              "counts": {
+                "compositional_error": 25,
+                "object_error": 21,
+                "relation_error": 30
+              },
+              "error_rate": 0.6333333333333333,
+              "n": 120
+            },
+            "natural:scene_graph": {
+              "counts": {
+                "compositional_error": 3,
+                "object_error": 14,
+                "relation_error": 0
+              },
+              "error_rate": 0.14166666666666666,
+              "n": 120
+            },
+            "token_matched:caption": {
+              "counts": {
+                "compositional_error": 0,
+                "object_error": 12,
+                "relation_error": 0
+              },
+              "error_rate": 0.1,
+              "n": 120
+            },
+            "token_matched:image_only": {
+              "counts": {
+                "compositional_error": 20,
+                "object_error": 31,
+                "relation_error": 24
+              },
+              "error_rate": 0.625,
+              "n": 120
+            },
+            "token_matched:object_list": {
+              "counts": {
+                "compositional_error": 25,
+                "object_error": 21,
+                "relation_error": 30
+              },
+              "error_rate": 0.6333333333333333,
+              "n": 120
+            },
+            "token_matched:scene_graph": {
+              "counts": {
+                "compositional_error": 10,
+                "object_error": 14,
+                "relation_error": 0
+              },
+              "error_rate": 0.2,
+              "n": 120
+            }
+          },
+          "experiment": "graph_vs_text",
+          "information_control": {
+            "incomplete_pair_count": 0,
+            "maximum_token_delta": 1,
+            "mean_token_delta": 0.625,
+            "pair_count": 240,
+            "passed": true,
+            "semantic_hash_mismatch_count": 0,
+            "token_matched_pair_count": 120
+          },
+          "integrity": {
+            "count": 120,
+            "hop_depth": {
+              "1": 90,
+              "2": 10,
+              "3": 10,
+              "4": 10
+            },
+            "leakage": null,
+            "question_types": {
+              "attribute_reasoning": 30,
+              "multi_hop": 30,
+              "object_reasoning": 30,
+              "relation_reasoning": 30
+            },
+            "relations": {
+              "above": 13,
+              "behind": 13,
+              "below": 13,
+              "contains": 7,
+              "far": 7,
+              "front": 13,
+              "holding": 7,
+              "inside": 7,
+              "left": 12,
+              "near": 8,
+              "right": 13,
+              "touching": 7
+            },
+            "valid": true
+          },
+          "model_backend": "llava_1_5_7b",
+          "ood_contrasts": {
+            "natural": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.175,
+                  0.025
+                ],
+                "estimate": -0.075,
+                "first": "scene_graph",
+                "n": 40,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 39,
+                  "mean_difference": -0.075,
+                  "n": 40,
+                  "p_value": 0.9084900192488001,
+                  "statistic": -1.3556165885229252,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            },
+            "token_matched": {
+              "graph_over_caption": {
+                "ci95": [
+                  -0.275,
+                  -0.025
+                ],
+                "estimate": -0.15,
+                "first": "scene_graph",
+                "n": 40,
+                "second": "caption",
+                "statistical_test": {
+                  "alternative": "greater",
+                  "degrees_of_freedom": 39,
+                  "mean_difference": -0.15,
+                  "n": 40,
+                  "p_value": 0.9839750955324369,
+                  "statistic": -2.223434723986964,
+                  "test": "paired_t_test",
+                  "zero_variance": false
+                }
+              }
+            }
+          },
+          "prediction_count": 1600,
+          "reasoning_depth": {
+            "natural": {
+              "1": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 90
+                  },
+                  "image_only": {
+                    "accuracy": 0.3888888888888889,
+                    "n": 90
+                  },
+                  "object_list": {
+                    "accuracy": 0.43333333333333335,
+                    "n": 90
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8444444444444444,
+                    "n": 90
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.08888888888888889,
+                    0.044444444444444446
+                  ],
+                  "estimate": -0.022222222222222223,
+                  "first": "scene_graph",
+                  "n": 90,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 89,
+                    "mean_difference": -0.022222222222222223,
+                    "n": 90,
+                    "p_value": 0.7349545048802367,
+                    "statistic": -0.6303343783829569,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "2": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              },
+              "3": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.6,
+                    0.0
+                  ],
+                  "estimate": -0.3,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.3,
+                    "n": 10,
+                    "p_value": 0.9594369055770798,
+                    "statistic": -1.9639610121239317,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "4": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.2,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              }
+            },
+            "token_matched": {
+              "1": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 90
+                  },
+                  "image_only": {
+                    "accuracy": 0.3888888888888889,
+                    "n": 90
+                  },
+                  "object_list": {
+                    "accuracy": 0.43333333333333335,
+                    "n": 90
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8444444444444444,
+                    "n": 90
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.08888888888888889,
+                    0.044444444444444446
+                  ],
+                  "estimate": -0.022222222222222223,
+                  "first": "scene_graph",
+                  "n": 90,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 89,
+                    "mean_difference": -0.022222222222222223,
+                    "n": 90,
+                    "p_value": 0.7349545048802367,
+                    "statistic": -0.6303343783829569,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "2": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.5,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    0.0,
+                    0.0
+                  ],
+                  "estimate": 0.0,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": 0.0,
+                    "n": 10,
+                    "p_value": 0.5,
+                    "statistic": 0.0,
+                    "test": "paired_t_test",
+                    "zero_variance": true
+                  }
+                }
+              },
+              "3": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.3,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.1,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -1.0,
+                    -0.7
+                  ],
+                  "estimate": -0.9,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.9,
+                    "n": 10,
+                    "p_value": 0.9999957309743884,
+                    "statistic": -9.0,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              },
+              "4": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 10
+                  },
+                  "image_only": {
+                    "accuracy": 0.2,
+                    "n": 10
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 10
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.9,
+                    "n": 10
+                  }
+                },
+                "graph_over_caption": {
+                  "ci95": [
+                    -0.3,
+                    0.0
+                  ],
+                  "estimate": -0.1,
+                  "first": "scene_graph",
+                  "n": 10,
+                  "second": "caption",
+                  "statistical_test": {
+                    "alternative": "greater",
+                    "degrees_of_freedom": 9,
+                    "mean_difference": -0.1,
+                    "n": 10,
+                    "p_value": 0.8282818019310425,
+                    "statistic": -1.0,
+                    "test": "paired_t_test",
+                    "zero_variance": false
+                  }
+                }
+              }
+            }
+          },
+          "seed": 20260822,
+          "task_accuracy": {
+            "natural": {
+              "attribute_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.7333333333333333,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5333333333333333,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6333333333333333,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7333333333333333,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "multi_hop": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.3333333333333333,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.16666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.9,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "object_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.43333333333333335,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "relation_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.2,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              }
+            },
+            "token_matched": {
+              "attribute_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.7333333333333333,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.5333333333333333,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6333333333333333,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.7333333333333333,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "multi_hop": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.3333333333333333,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.16666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.6666666666666666,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "object_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 0.8666666666666667,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.43333333333333335,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.6666666666666666,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 0.8,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              },
+              "relation_reasoning": {
+                "conditions": {
+                  "caption": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  },
+                  "image_only": {
+                    "accuracy": 0.2,
+                    "n": 30
+                  },
+                  "object_list": {
+                    "accuracy": 0.0,
+                    "n": 30
+                  },
+                  "scene_graph": {
+                    "accuracy": 1.0,
+                    "n": 30
+                  }
+                },
+                "n": 120
+              }
+            }
+          },
+          "token_accounting": {
+            "natural:caption": {
+              "accuracy": 0.9,
+              "accuracy_per_1000_input_tokens": 1.2655854504546733,
+              "mean_evidence_tokens": 661.0916666666667,
+              "mean_input_tokens": 711.1333333333333,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "natural:image_only": {
+              "accuracy": 0.375,
+              "accuracy_per_1000_input_tokens": 0.5813577934241975,
+              "mean_evidence_tokens": 595.0,
+              "mean_input_tokens": 645.0416666666666,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 0.0,
+              "n": 120
+            },
+            "natural:object_list": {
+              "accuracy": 0.36666666666666664,
+              "accuracy_per_1000_input_tokens": 0.5459192535794932,
+              "mean_evidence_tokens": 621.6083333333333,
+              "mean_input_tokens": 671.65,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 15.0,
+              "n": 120
+            },
+            "natural:scene_graph": {
+              "accuracy": 0.8583333333333333,
+              "accuracy_per_1000_input_tokens": 1.2133920787880215,
+              "mean_evidence_tokens": 657.3416666666667,
+              "mean_input_tokens": 707.3833333333333,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "token_matched:caption": {
+              "accuracy": 0.9,
+              "accuracy_per_1000_input_tokens": 1.2631431211330861,
+              "mean_evidence_tokens": 662.4666666666667,
+              "mean_input_tokens": 712.5083333333333,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            },
+            "token_matched:image_only": {
+              "accuracy": 0.375,
+              "accuracy_per_1000_input_tokens": 0.5813577934241975,
+              "mean_evidence_tokens": 595.0,
+              "mean_input_tokens": 645.0416666666666,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 0.0,
+              "n": 120
+            },
+            "token_matched:object_list": {
+              "accuracy": 0.36666666666666664,
+              "accuracy_per_1000_input_tokens": 0.5459192535794932,
+              "mean_evidence_tokens": 621.6083333333333,
+              "mean_input_tokens": 671.65,
+              "mean_relation_count": 0.0,
+              "mean_semantic_units": 15.0,
+              "n": 120
+            },
+            "token_matched:scene_graph": {
+              "accuracy": 0.8,
+              "accuracy_per_1000_input_tokens": 1.122675710443223,
+              "mean_evidence_tokens": 662.5416666666666,
+              "mean_input_tokens": 712.5833333333334,
+              "mean_relation_count": 1.5,
+              "mean_semantic_units": 16.5,
+              "n": 120
+            }
+          }
+        },
+        "seed": 20260822
+      }
+    ],
+    "reasoning_depth_summaries": {
+      "natural": {
+        "1": {
+          "caption": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.8577777777777778,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 0.8933333333333333
+            },
+            "mean": 0.8733333333333333,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 0.8733333333333333,
+              "n": 5,
+              "p_value": 5.80797906435393e-08,
+              "statistic": 84.75655973790256,
+              "test": "paired_t_test",
+              "zero_variance": false
+            },
+            "std": 0.023040490392586363,
+            "values": [
+              0.8777777777777778,
+              0.8555555555555555,
+              0.9111111111111111,
+              0.8555555555555555,
+              0.8666666666666667
+            ]
+          },
+          "scene_graph": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.8577777777777778,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 0.8866666666666667
+            },
+            "mean": 0.8733333333333333,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 0.8733333333333333,
+              "n": 5,
+              "p_value": 2.463455528456393e-08,
+              "statistic": 105.03366807158291,
+              "test": "paired_t_test",
+              "zero_variance": false
+            },
+            "std": 0.018592445034090545,
+            "values": [
+              0.8666666666666667,
+              0.8888888888888888,
+              0.8888888888888888,
+              0.8777777777777778,
+              0.8444444444444444
+            ]
+          }
+        },
+        "2": {
+          "caption": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 1.0,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 1.0
+            },
+            "mean": 1.0,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 1.0,
+              "n": 5,
+              "p_value": 0.0,
+              "statistic": null,
+              "test": "paired_t_test",
+              "zero_variance": true
+            },
+            "std": 0.0,
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "scene_graph": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 1.0,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 1.0
+            },
+            "mean": 1.0,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 1.0,
+              "n": 5,
+              "p_value": 0.0,
+              "statistic": null,
+              "test": "paired_t_test",
+              "zero_variance": true
+            },
+            "std": 0.0,
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        "3": {
+          "caption": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 1.0,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 1.0
+            },
+            "mean": 1.0,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 1.0,
+              "n": 5,
+              "p_value": 0.0,
+              "statistic": null,
+              "test": "paired_t_test",
+              "zero_variance": true
+            },
+            "std": 0.0,
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "scene_graph": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.4,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 0.6
+            },
+            "mean": 0.48,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 0.48,
+              "n": 5,
+              "p_value": 0.000593679650314427,
+              "statistic": 8.231932086840425,
+              "test": "paired_t_test",
+              "zero_variance": false
+            },
+            "std": 0.13038404810405294,
+            "values": [
+              0.4,
+              0.4,
+              0.4,
+              0.5,
+              0.7
+            ]
+          }
+        },
+        "4": {
+          "caption": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 1.0,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 1.0
+            },
+            "mean": 1.0,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 1.0,
+              "n": 5,
+              "p_value": 0.0,
+              "statistic": null,
+              "test": "paired_t_test",
+              "zero_variance": true
+            },
+            "std": 0.0,
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "scene_graph": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 1.0,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 1.0
+            },
+            "mean": 1.0,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 1.0,
+              "n": 5,
+              "p_value": 0.0,
+              "statistic": null,
+              "test": "paired_t_test",
+              "zero_variance": true
+            },
+            "std": 0.0,
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        }
+      },
+      "token_matched": {
+        "1": {
+          "caption": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.8666666666666668,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 0.9044444444444444
+            },
+            "mean": 0.8822222222222222,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 0.8822222222222222,
+              "n": 5,
+              "p_value": 6.949298336778043e-08,
+              "statistic": 81.0372856570768,
+              "test": "paired_t_test",
+              "zero_variance": false
+            },
+            "std": 0.024343224778007388,
+            "values": [
+              0.8888888888888888,
+              0.8666666666666667,
+              0.9222222222222223,
+              0.8666666666666667,
+              0.8666666666666667
+            ]
+          },
+          "scene_graph": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.8577777777777778,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 0.8911111111111112
+            },
+            "mean": 0.8755555555555556,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 0.8755555555555556,
+              "n": 5,
+              "p_value": 4.2573059411132874e-08,
+              "statistic": 91.60313933012962,
+              "test": "paired_t_test",
+              "zero_variance": false
+            },
+            "std": 0.0213726489574126,
+            "values": [
+              0.8666666666666667,
+              0.9,
+              0.8888888888888888,
+              0.8777777777777778,
+              0.8444444444444444
+            ]
+          }
+        },
+        "2": {
+          "caption": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 1.0,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 1.0
+            },
+            "mean": 1.0,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 1.0,
+              "n": 5,
+              "p_value": 0.0,
+              "statistic": null,
+              "test": "paired_t_test",
+              "zero_variance": true
+            },
+            "std": 0.0,
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "scene_graph": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 1.0,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 1.0
+            },
+            "mean": 1.0,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 1.0,
+              "n": 5,
+              "p_value": 0.0,
+              "statistic": null,
+              "test": "paired_t_test",
+              "zero_variance": true
+            },
+            "std": 0.0,
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        },
+        "3": {
+          "caption": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 1.0,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 1.0
+            },
+            "mean": 1.0,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 1.0,
+              "n": 5,
+              "p_value": 0.0,
+              "statistic": null,
+              "test": "paired_t_test",
+              "zero_variance": true
+            },
+            "std": 0.0,
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "scene_graph": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.1,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 0.32
+            },
+            "mean": 0.2,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 0.2,
+              "n": 5,
+              "p_value": 0.017054711583704862,
+              "statistic": 3.162277660168379,
+              "test": "paired_t_test",
+              "zero_variance": false
+            },
+            "std": 0.1414213562373095,
+            "values": [
+              0.4,
+              0.1,
+              0.1,
+              0.3,
+              0.1
+            ]
+          }
+        },
+        "4": {
+          "caption": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 1.0,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 1.0
+            },
+            "mean": 1.0,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 1.0,
+              "n": 5,
+              "p_value": 0.0,
+              "statistic": null,
+              "test": "paired_t_test",
+              "zero_variance": true
+            },
+            "std": 0.0,
+            "values": [
+              1.0,
+              1.0,
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          "scene_graph": {
+            "confidence_interval": {
+              "level": 0.95,
+              "lower": 0.86,
+              "method": "percentile_bootstrap",
+              "samples": 10000,
+              "upper": 0.9800000000000001
+            },
+            "mean": 0.9199999999999999,
+            "n_seeds": 5,
+            "positive_seed_fraction": 1.0,
+            "statistical_test": {
+              "alternative": "greater",
+              "degrees_of_freedom": 4,
+              "mean_difference": 0.9199999999999999,
+              "n": 5,
+              "p_value": 8.11805757816586e-06,
+              "statistic": 24.58803425594305,
+              "test": "paired_t_test",
+              "zero_variance": false
+            },
+            "std": 0.08366600265340754,
+            "values": [
+              0.9,
+              1.0,
+              0.8,
+              1.0,
+              0.9
+            ]
+          }
+        }
+      }
+    },
+    "token_efficiency_summaries": {
+      "caption": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 1.256216645871444,
+          "method": "percentile_bootstrap",
+          "samples": 10000,
+          "upper": 1.2935448630809123
+        },
+        "mean": 1.2726651185761741,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 1.2726651185761741,
+          "n": 5,
+          "p_value": 1.556566875393628e-08,
+          "statistic": 117.81110345327515,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.02415532691159123,
+        "values": [
+          1.2779627632134316,
+          1.2540728065446194,
+          1.312028489761492,
+          1.253676082906654,
+          1.2655854504546733
+        ]
+      },
+      "image_only": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.5917343776881181,
+          "method": "percentile_bootstrap",
+          "samples": 10000,
+          "upper": 0.6253755591706615
+        },
+        "mean": 0.6098467060674018,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 0.6098467060674018,
+          "n": 5,
+          "p_value": 1.7686200526334517e-07,
+          "statistic": 64.1498830992942,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.02125738387566987,
+        "values": [
+          0.6202832626899617,
+          0.6202431870162427,
+          0.6330340417285705,
+          0.5943152454780363,
+          0.5813577934241975
+        ]
+      },
+      "object_list": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 0.5582952082868577,
+          "method": "percentile_bootstrap",
+          "samples": 10000,
+          "upper": 0.593232886511126
+        },
+        "mean": 0.5757438306240623,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 0.5757438306240623,
+          "n": 5,
+          "p_value": 3.783533910617365e-07,
+          "statistic": 53.03330884955253,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.02427535393942124,
+        "values": [
+          0.6081970061812675,
+          0.5832568067310318,
+          0.5830542116362735,
+          0.5582918749922459,
+          0.5459192535794932
+        ]
+      },
+      "scene_graph": {
+        "confidence_interval": {
+          "level": 0.95,
+          "lower": 1.2088829762074993,
+          "method": "percentile_bootstrap",
+          "samples": 10000,
+          "upper": 1.2251091489885997
+        },
+        "mean": 1.218111409657698,
+        "n_seeds": 5,
+        "positive_seed_fraction": 1.0,
+        "statistical_test": {
+          "alternative": "greater",
+          "degrees_of_freedom": 4,
+          "mean_difference": 1.218111409657698,
+          "n": 5,
+          "p_value": 6.173563882327926e-10,
+          "statistic": 264.01946177096795,
+          "test": "paired_t_test",
+          "zero_variance": false
+        },
+        "std": 0.01031658764051847,
+        "values": [
+          1.2020222256266424,
+          1.2254468756996242,
+          1.224739742804654,
+          1.2249561253695482,
+          1.2133920787880215
+        ]
+      }
+    }
+  },
+  "model": "frozen-llava_1_5_7b",
+  "run_id": "exp001-20260820T134152.769731+0000",
+  "schema_version": 1,
+  "seed": [
+    20260818,
+    20260819,
+    20260820,
+    20260821,
+    20260822
+  ],
+  "statistical_test": {
+    "contrasts.contrasts.graph_over_text.estimate": {
+      "alternative": "greater",
+      "degrees_of_freedom": 4,
+      "mean_difference": -0.043333333333333335,
+      "n": 5,
+      "p_value": 0.9965063126673401,
+      "statistic": -5.099019513592785,
+      "test": "paired_t_test",
+      "zero_variance": false
+    },
+    "controlled_contrasts.token_matched.graph_over_caption.estimate": {
+      "alternative": "greater",
+      "degrees_of_freedom": 4,
+      "mean_difference": -0.07833333333333334,
+      "n": 5,
+      "p_value": 0.9979032872998019,
+      "statistic": -5.875,
+      "test": "paired_t_test",
+      "zero_variance": false
+    },
+    "ood_contrasts.token_matched.graph_over_caption.estimate": {
+      "alternative": "greater",
+      "degrees_of_freedom": 4,
+      "mean_difference": -0.11499999999999999,
+      "n": 5,
+      "p_value": 0.9987664784245228,
+      "statistic": -6.782329983125267,
+      "test": "paired_t_test",
+      "zero_variance": false
+    },
+    "reasoning_depth.token_matched.2.graph_over_caption.estimate": {
+      "alternative": "greater",
+      "degrees_of_freedom": 4,
+      "mean_difference": 0.0,
+      "n": 5,
+      "p_value": 0.5,
+      "statistic": 0.0,
+      "test": "paired_t_test",
+      "zero_variance": true
+    },
+    "reasoning_depth.token_matched.3.graph_over_caption.estimate": {
+      "alternative": "greater",
+      "degrees_of_freedom": 4,
+      "mean_difference": -0.8,
+      "n": 5,
+      "p_value": 0.9998875397677801,
+      "statistic": -12.649110640673516,
+      "test": "paired_t_test",
+      "zero_variance": false
+    }
+  },
+  "status": "complete",
+  "timestamp": "2026-08-20T13:41:52.769731+00:00"
+}

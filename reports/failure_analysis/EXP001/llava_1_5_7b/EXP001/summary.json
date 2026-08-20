@@ -1,0 +1,26 @@
+{
+  "artifacts": {
+    "errors": "errors.jsonl",
+    "summary": "summary.json"
+  },
+  "conditions": {
+    "caption": 138,
+    "graph_order_shuffled": 81,
+    "graph_serialization_json": 81,
+    "graph_serialization_triples": 91,
+    "image_only": 728,
+    "object_list": 736,
+    "scene_graph": 245,
+    "text_unordered": 214
+  },
+  "failure_count": 2314,
+  "failure_rate": 0.28925,
+  "failure_types": {
+    "multi_hop_failure": 516,
+    "object_failure": 1032,
+    "relation_failure": 615,
+    "structure_misuse": 151
+  },
+  "prediction_count": 8000,
+  "schema_version": 1
+}
