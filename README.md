@@ -19,7 +19,8 @@ and the frozen benchmark matrix are complete.
 
 ## Research boundary
 
-- Frozen benchmark and retrieval infrastructure remains available as a control.
+- Frozen benchmark and retrieval infrastructure remains available only as a capability-preservation
+  control; it is not the active scientific contribution.
 - Registered NO-GO mechanism studies are retained under [`archive/`](archive/).
 - The active line is explicit structured-reasoning sufficiency and interface diagnosis.
 - The default backend is a deterministic CPU reference backend for CI. LLaVA-1.5 is an optional
@@ -57,7 +58,7 @@ evaluation/                      unified JSON metrics
 runs/                            ignored, self-contained governed run bundles
 training/                        future trainer protocol only
 archive/                         registered NO-GO evidence and original Phase-3 code
-src/recoalign/                   stable OpenCLIP/retrieval benchmark infrastructure
+src/recoalign/                   VLM, governance, synthetic-world, and preservation infrastructure
 scripts/                         reproducible command wrappers
 results/                         generated lightweight metrics and predictions
 ```
@@ -115,8 +116,11 @@ run manifest.
 
 The original OpenCLIP benchmark pipeline remains available through the root `recoalign` CLI. It
 supports dataset manifests, checkpoint hashes, cache/no-cache verification, Winoground review, and
-schema-validated reportability. These retrieval metrics are controls for the structured-reasoning
-experiments, not the new scientific contribution.
+schema-validated reportability. These retrieval metrics are explicitly capability-preservation
+controls for the structured-reasoning experiments, not the new scientific contribution. The frozen
+identity and claim limits are documented in [`docs/research_identity.md`](docs/research_identity.md),
+[`docs/contribution_framework.md`](docs/contribution_framework.md), and
+[`docs/claim_boundary.md`](docs/claim_boundary.md).
 
 ```bash
 python -m recoalign validate-config configs/baseline/openclip_vit_b32_laion2b_winoground.yaml

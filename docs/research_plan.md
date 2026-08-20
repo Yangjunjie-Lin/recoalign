@@ -1,47 +1,63 @@
 # ReCoAlign research plan
 
+The active research identity is frozen in [`research_identity.md`](research_identity.md) and
+[`../research/frozen_hypothesis.yaml`](../research/frozen_hypothesis.yaml). This plan follows
+the questions and falsification gates in that freeze; it is not a retrieval-method roadmap.
+
 ## Problem statement
 
-Global image-text contrastive objectives can reward coarse semantic overlap while underweighting distinctions involving attributes, relations, counts, object roles, and word order. ReCoAlign will test whether typed hard negatives and local visual evidence improve these distinctions while preserving conventional retrieval performance.
+Vision-language models may preserve object, attribute, and relation semantics while failing to
+make those semantics accessible as a structured intermediate representation for language-side
+compositional reasoning. ReCoAlign studies this Structured Reasoning Interface Gap and tests
+whether a learned visual-to-structure interface improves reasoning and unseen-composition
+generalization.
 
-## Phase 1 — Baseline integrity
+## Phase 1 — Controlled mechanism validation
 
-1. Freeze the dataset splits and evaluation protocol.
-2. Reproduce zero-shot OpenCLIP ViT-B/32 retrieval.
-3. Validate bidirectional R@1, R@5, R@10, and mean recall.
-4. Add compositional benchmark adapters without training on benchmark test sets.
-5. Record runtime, peak memory, dependency versions, and random seeds.
+1. Freeze the synthetic world, factor splits, information-equivalence rules, and leakage checks.
+2. Run EXP001 to compare graph and information-matched text conditions.
+3. Run EXP002 to test structural necessity with partial, corrupted, randomized, and length-matched
+   controls.
+4. Run EXP003 on composition-disjoint OOD splits with reproducible manifests.
+5. Keep all decisions paired, seeded, and eligibility-aware; dry-runs and ReferenceVLM outputs
+   remain infrastructure-only.
 
-Exit criterion: independently repeatable baseline tables with no method contribution.
+Exit criterion: the registered structure effect survives controls and OOD evaluation, or the
+corresponding hypothesis is falsified and retained as a negative result.
 
-## Phase 2 — Compositional negatives
+## Phase 2 — Real-VLM diagnosis
 
-1. Define a perturbation taxonomy: object, attribute, relation, count, role, and order.
-2. Preserve the source caption and provenance for every generated negative.
-3. Filter malformed, semantically equivalent, and visually unsupported negatives.
-4. Compare training-time contrastive use against inference-time reranking.
-5. Audit performance separately for each perturbation type.
+1. Evaluate frozen VLM backbones through the unified `BaseVLM` interface.
+2. Run EXP004 to measure semantic availability (SAS), structured accessibility (StAS), and
+   reasoning execution (RES).
+3. Separate image-only, oracle-structure, corrupted-structure, graph reconstruction, and latent
+   probe results.
+4. Record missing APIs, checkpoints, and blocked cells rather than substituting a reference model.
 
-Exit criterion: gains cannot be explained only by templates or benchmark artifacts.
+Exit criterion: any Interface Gap claim requires high semantic availability, lower structured
+accessibility, positive oracle-structure gain, and a registered cross-model pattern.
 
-## Phase 3 — Region–phrase alignment
+## Phase 3 — Learnable ReCoAlign interface
 
-1. Establish a patch-token baseline before adding external grounding models.
-2. Align noun phrases and relation phrases with local visual evidence.
-3. Compare max, attention-weighted, and optimal-transport-style aggregation.
-4. Test whether local alignment complements rather than replaces global similarity.
-5. Produce qualitative maps and failure cases using fixed selection rules.
+1. Train visual-to-structure tokens with graph labels as training signal only.
+2. Align learned structure context with the reasoning path while keeping baseline backbones,
+   datasets, and decoding settings fair.
+3. Evaluate structure removal, random tokens, parameter-matched controls, supervision ablations,
+   and inference interventions.
+4. Never provide an oracle graph as an inference-time replacement for the learned interface.
 
-Exit criterion: statistically and qualitatively supported improvement over the hard-negative baseline.
+Exit criterion: improvement is attributable to learned structured access and survives OOD and
+capability-preservation controls.
 
-## Phase 4 — Journal-grade validation
+## Capability-preservation controls
 
-- multiple backbones and pretrained checkpoints;
-- multiple random seeds for trained variants;
-- standard retrieval and compositional benchmarks;
-- complete component and loss-weight ablations;
-- efficiency, memory, and parameter analysis;
-- robustness and transfer experiments;
-- honest negative results and limitations.
+The existing OpenCLIP/retrieval pipeline, Flickr30K/MS COCO/SugarCrepe/ARO/Winoground adapters,
+and provenance gates remain frozen controls. They answer whether a reasoning intervention damages
+ordinary vision-language capability; they are not evidence by themselves for the Structured
+Reasoning Interface Gap.
 
-The target venue should be selected after the contribution and evidence are known, not used to overstate preliminary work.
+## Scientific integrity
+
+The target venue is not an evidence criterion. Failed, blocked, and pending experiments remain
+visible, and the current submission decision stays `NO-GO` until claim-eligible real-VLM and method
+evidence is present.

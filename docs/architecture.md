@@ -1,5 +1,9 @@
 # Structured Reasoning Interface architecture
 
+This is the active architecture for the frozen ReCoAlign research identity:
+Structured Reasoning Interface Learning for Vision-Language Models. Retrieval and legacy
+alignment packages remain compatibility/control boundaries and are not the active method claim.
+
 ReCoAlign separates stable benchmark infrastructure from the mechanism-validation path.
 
 ```text
@@ -36,10 +40,10 @@ answer + confidence + provenance
 
 ## Stable infrastructure
 
-`src/recoalign/` is the authoritative package for benchmark records, retrieval metrics,
-dataset/checkpoint manifests, environment capture, Winoground reportability, and the controlled
-synthetic-world instrument. Root-level Phase-1 packages remain compatibility boundaries for existing
-registered runners.
+`src/recoalign/` is the authoritative package for VLM lifecycle contracts, controlled-world
+records, experiment governance, dataset/checkpoint manifests, environment capture, reportability,
+and capability-preservation benchmarks. Its retrieval metrics and adapters remain frozen controls;
+root-level Phase-1 packages remain compatibility boundaries for existing registered runners.
 
 ## Active Phase-1 path
 

@@ -1,0 +1,49 @@
+schema_version: 1
+freeze_name: structured_reasoning_interface_gap_v1
+status: frozen
+project: ReCoAlign
+full_name: Structured Reasoning Interface Learning for Vision-Language Models
+main_hypothesis: >-
+  Vision-language models can preserve useful visual semantics while lacking a sufficiently
+  accessible structured intermediate representation between visual perception and language
+  reasoning; learning that interface can improve compositional reasoning and unseen-composition
+  generalization.
+supporting_claims:
+  - id: C1
+    claim: Visual semantic information can be available before structured reasoning access is measured.
+    evidence: [EXP004]
+  - id: C2
+    claim: Correct structured relations can improve reasoning beyond information-matched text.
+    evidence: [EXP001, EXP002]
+  - id: C3
+    claim: Structured interfaces can support composition-disjoint generalization.
+    evidence: [EXP003]
+  - id: C4
+    claim: A learned interface can provide the missing access without oracle graph inference input.
+    evidence: [TRAIN001, TRAIN002, TRAIN003]
+falsification:
+  - Graph structure provides no advantage over information- and token-controlled text.
+  - Random, corrupted, or structure-removed controls perform as well as correct structure.
+  - Graph advantage disappears on composition-disjoint OOD splits.
+  - Semantic availability is low, or structured accessibility is already high while oracle structure does not help.
+  - Parameter-matched or random-token controls explain the method gain.
+  - Improvement requires oracle graph input at inference.
+research_questions:
+  - id: RQ1
+    question: Do VLMs preserve visual semantics?
+    experiment: EXP004
+  - id: RQ2
+    question: Do VLMs lack accessible structured intermediate representations?
+    experiment: EXP004
+  - id: RQ3
+    question: Can learning a structured interface improve compositional reasoning and OOD generalization?
+    experiment: EXP003
+status_policy:
+  dry_runs: infrastructure_only
+  reference_vlm: infrastructure_only
+  missing_real_vlm_evidence: pending
+  scientific_submission_decision: NO-GO
+freeze_policy: >-
+  Changes to the main hypothesis, supporting claims, falsification criteria, or claim boundary
+  require a new freeze_name and an explicit research registry decision. Documentation and code
+  may clarify the protocol but may not silently weaken a falsification gate.
