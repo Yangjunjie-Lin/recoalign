@@ -1,82 +1,90 @@
-# ReCoAlign research identity
+# ReCoAlign research identity — pivot version
 
 ## Project name
 
 ReCoAlign
 
-## Full research name
+## Working research name
 
-Structured Reasoning Interface Learning for Vision-Language Models
+Semantic–Structural Integration Diagnostics for Vision-Language Models
+
+## Identity decision
+
+The former identity, Structured Reasoning Interface Learning, is no longer active. Frozen
+LLaVA-1.5 evidence falsified graph superiority and the required high-semantic/low-structured-access
+diagnosis. The original freeze is retained in `research/frozen_hypothesis.yaml` with status
+`falsified` and documented in `research/rejected_hypothesis.md`.
 
 ## Core problem
 
-Modern vision-language models can preserve useful visual semantic information while
-still failing compositional questions. The failure may occur when visual semantics
-must be made available as a structured intermediate representation for language-side
-reasoning.
+Current VLM compositional errors cannot be explained as a graph-interface gap alone. The frozen
+evidence shows three distinct observations:
 
-This project therefore studies the interface between visual semantics and reasoning,
-not only the final benchmark score and not only image-text retrieval.
+1. fact-equivalent fluent captions outperform graph triples;
+2. correct externally supplied relations outperform corrupted relations;
+3. the registered visual semantic probe reports low availability.
 
-## Core hypothesis
+The unresolved problem is how visually grounded semantics, relational correctness, and evidence
+serialization jointly determine reasoning—not whether a graph is inherently the missing interface.
 
-The primary bottleneck is often insufficient structured reasoning accessibility rather
-than complete absence of visual semantics:
+## Candidate hypothesis
 
-```text
-visual semantic availability
-        ↓
-structured representation accessibility
-        ↓
-reasoning execution
-```
+The selected pivot candidate, PH001, is:
 
-The hypothesis is deliberately falsifiable. A graph or structure is not assumed to be
-useful, sufficient, or causally used; each claim requires a registered intervention,
-control, and decision rule.
+> On controlled compositional tasks, frozen VLM failure is produced by the joint limits of visually
+> grounded semantic availability and serialization-conditioned integration of correct relational
+> evidence. Correct relations help once supplied, but graph serialization is neither necessary nor
+> privileged.
+
+This is a candidate awaiting falsification, not a supported claim.
 
 ## Research questions
 
-### RQ1 — Visual semantic availability
+### RQ1 — Semantic availability and grounding
 
-Do VLM representations preserve object, attribute, relation, and compositional
-information needed by the task?
+Which object, attribute, relation, binding, and compositional variables are recoverable from frozen
+visual representations under scene-disjoint, capacity-controlled probes?
 
-### RQ2 — Structured accessibility
+### RQ2 — Relational evidence use
 
-Do VLMs expose that information to the reasoning path as a usable structured
-intermediate representation?
+Does correct relational evidence retain a causal effect after semantic correctness, fact coverage,
+token budget, and serialization are controlled?
 
-### RQ3 — Learnable interface
+### RQ3 — Integration and serialization
 
-Can a learned visual-to-structure interface improve compositional reasoning and
-composition-disjoint generalization without relying on oracle structure at inference?
+Do semantic correctness and relation correctness interact, and is the interaction conditioned by
+fluent-language versus canonical-triple serialization?
 
-## Evidence program
+### RQ4 — Bottleneck discrimination
 
-| Question | Registered evidence |
-|---|---|
-| Graph structure versus information-matched text | EXP001 |
-| Structural necessity and corruption controls | EXP002 |
-| Unseen composition generalization | EXP003 |
-| Semantic availability, structured accessibility, and execution diagnosis | EXP004 |
-| Learned interface training and ablations | TRAIN001–TRAIN003 and the registered ablation matrix |
+Can the observed failures be distinguished from relational grounding failure, a compositional
+representation bottleneck, or cross-modal reasoning alignment failure?
 
-EXP001–EXP004 are mechanism and diagnosis protocols. They do not become claim-eligible
-scientific evidence merely because a dry-run or ReferenceVLM run exists. The current
-repository explicitly keeps the real-VLM evidence gate pending.
+## Evidence status
+
+| Evidence | Decision | Pivot role |
+| --- | --- | --- |
+| EXP001 Graph vs Caption | NO-GO | Establishes caption-over-graph observation; mechanism unresolved |
+| EXP002 Structural Necessity | GO | Supports sensitivity to correct supplied relations |
+| EXP003 OOD | INCONCLUSIVE | Retained integrity failure; not promoted |
+| EXP004 Diagnosis | NO-GO | Rejects the high-SAS/low-StAS interface pattern |
+| PIVOT_EXP_A | Not registered | Required minimal factorial falsification |
 
 ## Scope and non-goals
 
-- The active scientific contribution is a structured reasoning interface for VLMs.
-- Retrieval benchmarks, OpenCLIP adapters, and legacy alignment code remain available as
-  capability-preservation controls and historical compatibility boundaries.
-- No retrieval metric is silently relabeled as reasoning evidence.
-- No oracle graph is an inference-time substitute for a learned interface.
-- No result is changed, deleted, or promoted by this identity migration.
+- No graph-interface claim is active.
+- Low SAS is not treated as proof that all semantic information is absent.
+- EXP002 is not evidence of an internal scene graph.
+- No ReCoAlign model, adapter, or loss is authorized during hypothesis revision.
+- Retrieval remains a capability-preservation control, not the scientific contribution.
+- Existing predictions, metrics, protocols, and failed runs remain immutable.
+- Paper writing remains blocked.
 
-## Freeze status
+## Sources of truth
 
-The machine-readable hypothesis freeze is [`research/frozen_hypothesis.yaml`](../research/frozen_hypothesis.yaml).
-Changes to the main hypothesis or claim boundary require a new research version and an
-explicit registry decision; ordinary implementation work must not silently rewrite them.
+- Old falsified freeze: `research/frozen_hypothesis.yaml`
+- Pivot candidate: `research/pivot_hypothesis.yaml`
+- Candidate registry and scores: `research/hypotheses/pivot_candidate_registry.yaml`
+- Claim audit: `research/evidence_audit.md`
+- Minimal experiments: `research/next_experiment_plan.md`
+- Pivot decision: `reports/research_pivot_decision.md`

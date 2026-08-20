@@ -1,63 +1,47 @@
-# Structured Reasoning Interface architecture
+# ReCoAlign diagnostic architecture after the research pivot
 
-This is the active architecture for the frozen ReCoAlign research identity:
-Structured Reasoning Interface Learning for Vision-Language Models. Retrieval and legacy
-alignment packages remain compatibility/control boundaries and are not the active method claim.
-
-ReCoAlign separates stable benchmark infrastructure from the mechanism-validation path.
+The codebase retains its graph and reasoning interfaces because they reproduce the frozen
+experiments. They are diagnostic instruments, not an asserted model architecture.
 
 ```text
-image / caption
-      │
-      ▼
-BaseVLM.encode_image / encode_text
-      │
-      ▼
-VisualRepresentation
-      │
-      ▼
-StructureEncoder → StructuredRepresentation (nodes + typed edges)
-      │
-      ▼
-ReasoningRequest → LLMReasoning / BaseVLM.reason
-      │
-      ▼
-answer + confidence + provenance
+frozen scene state
+   ├── image
+   ├── entity / attribute evidence
+   ├── relation evidence
+   └── fluent or triple serialization
+                ↓
+           frozen BaseVLM
+                ↓
+ representations + answer predictions
+                ↓
+ semantic / relation / binding probes
+                +
+ paired factorial effects and integrity gates
 ```
 
-## Design rules
+## Active design rules
 
-1. The visual encoder, structure encoder, and language reasoner are separate interfaces.
-2. Synthetic conditions are paired at the scene level so gains are evaluated with matched contrasts.
-3. Graph prompts must declare whether they are full, partial, or corrupted; an oracle graph is an
-   intervention, not evidence that a model autonomously builds the graph.
-4. No trainable loss is added until the interface gap is reproduced across seeds, backbones, and
-   controlled graph ablations.
-5. Every experiment uses YAML configuration, explicit seeds, JSON metrics, prediction rows, and a
-   run manifest.
-6. The root `recoalign` CLI is the only public experiment entry point; runner modules are library
-   implementation details.
+1. Keep the VLM frozen during hypothesis revision.
+2. Treat graphs, captions, corruptions, and oracle facts as interventions, not model claims.
+3. Separate semantic correctness, relation correctness, and serialization format.
+4. Match facts and token budgets where the registered estimand requires them.
+5. Use scene-disjoint probes with random-label and capacity controls.
+6. Do not implement a new loss or adapter before a replicated diagnostic GO.
+7. Preserve all EXP001–EXP004 artifacts and their original protocols.
 
 ## Stable infrastructure
 
-`src/recoalign/` is the authoritative package for VLM lifecycle contracts, controlled-world
-records, experiment governance, dataset/checkpoint manifests, environment capture, reportability,
-and capability-preservation benchmarks. Its retrieval metrics and adapters remain frozen controls;
-root-level Phase-1 packages remain compatibility boundaries for existing registered runners.
+`src/recoalign/` remains authoritative for VLM lifecycle, controlled-world records, experiment
+governance, checkpoint/dataset manifests, evaluation, provenance, and paper-evidence integrity.
+Retrieval remains a capability-preservation boundary.
 
-## Active Phase-1 path
+## Historical interfaces
 
-- `src/recoalign/synthetic_world/` generates world state before deriving images, graphs, captions,
-  and programmatic compositional questions.
-- `models/structure_encoder/` defines the visual-to-graph boundary.
-- `experiments/graph_vs_text/` compares image, object list, caption, and graph conditions.
-- `experiments/graph_ablation/` measures graph completeness and corruption.
-- `experiments/ood_composition/` evaluates compositions held out from the generator's train split.
-- `diagnosis/interface_gap_analysis/` reports sufficiency contrasts without overclaiming a unique
-  internal bottleneck.
+`models/structure_encoder/`, `models/reasoning_interface/`, and `models/recoalign/` remain available
+for reproduction and compatibility. Their presence is not evidence that a structured interface is
+the correct future intervention.
 
-## Future model boundary
+## Next architecture decision
 
-`models/reasoning_interface/` reserves the contracts needed for Structure Token Learning,
-ontology-guided representation, and graph-aware alignment. It intentionally contains interfaces and
-data contracts only; the repository does not present a speculative model as a result.
+None. The next authorized artifact is a preregistered PIVOT_EXP_A protocol. Model architecture is
+explicitly deferred.

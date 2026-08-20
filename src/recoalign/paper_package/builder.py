@@ -128,8 +128,8 @@ def _write_reproducibility(project: Path) -> None:
     )
     write_text(
         destination / "training_protocol.md",
-        "# Training protocol\n\nTRAIN001-TRAIN003 define the staged training contract. Graph supervision is a "
-        "training signal only; ReCoAlign inference must remain graph-free.",
+        "# Training protocol\n\nTRAIN001-TRAIN003 are retained historical/toy contracts. The research pivot "
+        "does not authorize real-model training until a replicated diagnosis receives GO.",
     )
     write_text(
         destination / "evaluation_protocol.md",
@@ -139,8 +139,8 @@ def _write_reproducibility(project: Path) -> None:
     )
     write_text(
         destination / "README.md",
-        "# Reproducibility package\n\nThis package records the environment and frozen protocols. It does not "
-        "claim that pending real-VLM experiments have been completed.",
+        "# Reproducibility package\n\nThis package records the environment, frozen protocols, real-VLM "
+        "NO-GO evidence, and research-pivot boundary. It does not claim a successful method.",
     )
 
 
@@ -209,6 +209,8 @@ def _write_submission_files(
         "- [x] Prompt and decoding protocol is versioned\n"
         "- [x] Environment capture is generated\n"
         "- [x] Missing/failed evidence remains visible\n"
+        "- [ ] PIVOT_EXP_A protocol and power analysis preregistered\n"
+        "- [ ] Pivot diagnosis replicated on an independent backbone\n"
         "- [ ] Complete real-VLM multi-seed benchmark matrix\n"
         "- [ ] Claim-eligible ReCoAlign checkpoints for all target backbones\n"
         "- [ ] Clean committed release snapshot\n",
@@ -234,8 +236,9 @@ def _write_submission_files(
     write_text(
         destination / "README.md",
         "# ReCoAlign anonymous research package\n\n"
-        "This is a submission-preparation artifact, not a claim that the pending experiments are complete. "
-        "See `reports/submission_readiness_report.md` and `docs/evidence_map.yaml`.",
+        "This is an evidence-audit artifact for a scientifically NO-GO direction, not a paper-ready "
+        "method package. See `reports/research_pivot_decision.md`, "
+        "`reports/submission_readiness_report.md`, and `docs/evidence_map.yaml`.",
     )
     del audit
 
@@ -254,12 +257,13 @@ def _readiness_markdown(readiness: dict[str, Any], integrity: dict[str, Any]) ->
             "",
             "## Scientific contribution",
             "",
-            "The repository implements a diagnosis-driven structured interface research program. "
-            "It does not yet support the final efficacy claim because the required real-VLM evidence is pending.",
+            "The frozen LLaVA evidence rejects the original Structured Reasoning Interface Gap. "
+            "The repository is now in hypothesis revision and does not support a method or efficacy claim.",
             "",
             "## Method summary",
             "",
-            "ReCoAlign exposes a learned visual-to-structure interface and keeps oracle graph information out of inference.",
+            "No active method is claimed. The next authorized work is preregistration of a "
+            "semantic × relation × serialization falsification experiment.",
             "",
             "## Experimental evidence",
             "",

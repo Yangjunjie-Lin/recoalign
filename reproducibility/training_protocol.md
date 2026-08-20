@@ -1,3 +1,3 @@
 # Training protocol
 
-TRAIN001-TRAIN003 define the staged training contract. Graph supervision is a training signal only; ReCoAlign inference must remain graph-free.
+TRAIN001-TRAIN003 are retained historical/toy contracts. The research pivot does not authorize real-model training until a replicated diagnosis receives GO.

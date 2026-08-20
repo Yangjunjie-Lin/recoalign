@@ -16,7 +16,7 @@ hypotheses:
       controlled text, if the advantage disappears after token matching, if it is confined to
       one-hop questions, or if it fails the preliminary composition-OOD transfer gate.
     required_experiment: EXP001
-    status: testing
+    status: falsified
 
   - id: H002
     title: Structural Necessity
@@ -33,7 +33,7 @@ hypotheses:
       Reject H002 if random or wrong graphs do not degrade performance, incomplete graphs match full
       graphs, or any apparent benefit is confined to one-hop tasks or graph-like formatting.
     required_experiment: EXP002
-    status: testing
+    status: supported
 
   - id: H003
     title: Compositional Generalization
@@ -52,7 +52,7 @@ hypotheses:
       graph retention, random graphs reproduce the gain, or performance follows held-out identities
       rather than abstract relation structure.
     required_experiment: EXP003
-    status: testing
+    status: retired
 
   - id: H004
     title: Three-Stage Interface Diagnosis
@@ -70,4 +70,4 @@ hypotheses:
       while reasoning remains low, oracle graphs do not improve reasoning, or the pattern is not
       replicated across eligible models.
     required_experiment: EXP004
-    status: testing
+    status: falsified

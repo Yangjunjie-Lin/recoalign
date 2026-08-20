@@ -1,30 +1,34 @@
 # Hypothesis tracking
 
-The hypothesis registry is the source of truth for the scientific claim graph. Each entry requires
-an ID, description, motivation, directional prediction, falsification statement, required experiment,
-and lifecycle status.
+The governed registry retains the original hypotheses because lifecycle transitions must not erase
+failed research. Pivot candidates remain in a separate candidate registry until complete protocols
+and configs exist; adding them prematurely would create orphan scientific registrations.
 
-## Initial Phase-1 hypotheses
+## Frozen hypothesis lifecycle
 
-| ID | Hypothesis | Required experiment | Falsifying observation | Status |
-|---|---|---|---|---|
-| H001 | Structured Reasoning Interface Gap | EXP001 Graph vs Text | Information-controlled graph fails any preregistered graph-over-text gate | testing |
-| H002 | Structural Necessity | EXP002 Full vs Partial vs Random Graph | Full graph fails either registered negative-control comparison | testing |
-| H003 | Compositional Generalization | EXP003 OOD Composition | OOD effect or split-integrity gate fails | testing |
+| ID | Hypothesis | Evidence | Lifecycle status | Interpretation |
+| --- | --- | --- | --- | --- |
+| H001 | Structured Reasoning Interface Gap | EXP001 NO-GO | **falsified** | Graph does not outperform controlled captions |
+| H002 | Structural Necessity | EXP002 GO | **supported** | Correct supplied relations matter in frozen scope |
+| H003 | Compositional Generalization | EXP003 INCONCLUSIVE | **retired** | Integrity gate failed and prerequisite graph advantage is absent |
+| H004 | Three-Stage Interface Diagnosis | EXP004 NO-GO | **falsified** | Required high-SAS/low-StAS pattern is absent |
 
-The registry uses these statuses:
+`supported` is bounded evidence, not universal proof. `falsified` records a valid NO-GO. `retired`
+records a claim no longer worth executing without pretending its incomplete evidence was negative.
 
-- `proposed`: scientifically stated but not yet bound to an executable protocol;
-- `testing`: registered protocol exists and evidence collection may proceed;
-- `supported`: the preregistered experiment received GO and independent review accepted provenance;
-- `falsified`: the preregistered experiment received NO-GO under valid provenance;
-- `retired`: superseded for a documented reason, never silently deleted.
+## Pivot candidates
 
-GO is evidence under a bounded protocol, not proof that the hypothesis is universally true. NO-GO
-must be retained because it constrains the research direction. A new experiment must reference an
-existing hypothesis; a genuinely different claim requires a new hypothesis ID.
+| ID | Candidate | Score | State |
+| --- | --- | ---: | --- |
+| PH001 | Serialization-Conditioned Semantic-Structural Integration Failure | 18/20 | selected, requires falsification |
+| PH002 | Relational Grounding Failure | 14/20 | alternative |
+| PH003 | Compositional Representation Bottleneck | 13/20 | alternative |
+| PH004 | Cross-Modal Reasoning Alignment Failure | 14/20 | alternative |
 
-Run `recoalign validate-research` after every registry edit. Validation rejects duplicate IDs,
-orphan experiments, broken bidirectional links, missing protocols/configs/manifests, configuration
-condition drift, unregistered dataset/model versions, insufficient seeds, enabled training, or a
-protocol missing any mandatory scientific section.
+The machine-readable candidate registry is
+`research/hypotheses/pivot_candidate_registry.yaml`. PH001 must not be added to the governed
+`hypothesis_registry.yaml` until PIVOT_EXP_A has a complete bidirectionally linked experiment
+registration, protocol, config, dataset binding, seed policy, and decision rule.
+
+Run `recoalign validate-research` after any governed registry edit. Existing H001–H004 and
+EXP001–EXP004 links remain valid despite lifecycle changes.

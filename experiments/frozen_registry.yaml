@@ -4,7 +4,7 @@ freeze_status: evidence_frozen_no_go
 protocol_changes_allowed: false
 results_may_only_be_appended_under_frozen_protocol: true
 git:
-  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  commit: 661c7708c2b7c1b6b6b71f207f0343337c53220d
   evidence_execution_commit: be69ca1fd2155a9339a0937ff327be9e4a5d3753
   dirty: true
   tag_created: false
@@ -17,7 +17,7 @@ experiments:
   kind: evaluation
   final_config: configs/graph_vs_text.yaml
   config_sha256: 5c004ddd897cff4d8f389eb09754ed2a6e364d555d111afd9452ad57e005aabb
-  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  commit: 661c7708c2b7c1b6b6b71f207f0343337c53220d
   checkpoint: manifests/checkpoints/llava_v1_5_7b.yaml
   checkpoint_sha256: 8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7
   checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
@@ -43,7 +43,7 @@ experiments:
   kind: evaluation
   final_config: configs/graph_ablation.yaml
   config_sha256: 6eabf257a6a0219473468af21f9b6a73f6f2087bfce3b4494e9ab37cbf09e948
-  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  commit: 661c7708c2b7c1b6b6b71f207f0343337c53220d
   checkpoint: manifests/checkpoints/llava_v1_5_7b.yaml
   checkpoint_sha256: 8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7
   checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
@@ -69,7 +69,7 @@ experiments:
   kind: evaluation
   final_config: configs/ood_composition.yaml
   config_sha256: e2ea7d4ac3ee66882f576f4a0f2cf1c2cb36a6945f3798fe06c9cb13b8d5ae3e
-  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  commit: 661c7708c2b7c1b6b6b71f207f0343337c53220d
   checkpoint: manifests/checkpoints/llava_v1_5_7b.yaml
   checkpoint_sha256: 8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7
   checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
@@ -95,7 +95,7 @@ experiments:
   kind: evaluation
   final_config: configs/diagnosis/interface_diagnosis.yaml
   config_sha256: c01a71b1a8bb5ecca8ece0b31af14e9b03ac4ce1bb84738a816c1d1b5e054c19
-  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  commit: 661c7708c2b7c1b6b6b71f207f0343337c53220d
   checkpoint: manifests/checkpoints/llava_v1_5_7b.yaml
   checkpoint_sha256: 8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7
   checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
@@ -121,7 +121,7 @@ experiments:
   kind: training
   final_config: configs/training/recoalign_stage1.yaml
   config_sha256: 252dfc9687734bf30756921d416a62731541229b74ae0a322dae77d2e9b07f7b
-  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  commit: 661c7708c2b7c1b6b6b71f207f0343337c53220d
   checkpoint: null
   checkpoint_sha256: null
   dataset_version: generator-v2
@@ -133,7 +133,7 @@ experiments:
   kind: training
   final_config: configs/training/recoalign_stage2.yaml
   config_sha256: 2e3f69be9e518f06656ca2e49d117ef750176304129d59bf91e42a89335d3f04
-  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  commit: 661c7708c2b7c1b6b6b71f207f0343337c53220d
   checkpoint: null
   checkpoint_sha256: null
   dataset_version: generator-v2
@@ -145,7 +145,7 @@ experiments:
   kind: training
   final_config: configs/training/recoalign_stage3.yaml
   config_sha256: 7e72afb3bf358677c255c1429dd5dd165fed449fde7066d2405f3fe731ee885f
-  commit: 4a69528d8cdddbf67c533cf36af62286200bf383
+  commit: 661c7708c2b7c1b6b6b71f207f0343337c53220d
   checkpoint: null
   checkpoint_sha256: null
   dataset_version: pending

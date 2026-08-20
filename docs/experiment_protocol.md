@@ -1,30 +1,43 @@
-# Experiment protocol index
+# Experiment protocol index after the research pivot
 
-The frozen research identity is tested through registered, question-driven experiments. The
-canonical contracts live in `research/experiments/experiment_registry.yaml` and
-`research/protocols/`; this page is the human-readable index.
+## Frozen historical experiments
 
-| ID | Scientific question | Protocol |
-|---|---|---|
-| EXP001 | Does correct graph structure improve reasoning beyond information-matched text? | [`research/protocols/EXP001_graph_vs_text.md`](../research/protocols/EXP001_graph_vs_text.md) |
-| EXP002 | Does the effect require correct and complete structure rather than extra tokens or graph-like formatting? | [`research/protocols/EXP002_graph_ablation.md`](../research/protocols/EXP002_graph_ablation.md) |
-| EXP003 | Does structured access support unseen composition generalization? | [`research/protocols/EXP003_ood_composition.md`](../research/protocols/EXP003_ood_composition.md) |
-| EXP004 | Where does a real VLM fail: semantic availability, structured accessibility, or execution? | [`research/protocols/EXP004_interface_diagnosis.md`](../research/protocols/EXP004_interface_diagnosis.md) |
-| TRAIN001–003 | Can a learned interface be trained, aligned, and transferred without oracle graph inference input? | [`research/experiments/training_registry.yaml`](../research/experiments/training_registry.yaml) |
+| ID | Scientific question | Decision | Lifecycle |
+| --- | --- | --- | --- |
+| EXP001 | Does graph structure outperform fact-controlled text? | NO-GO | H001 falsified |
+| EXP002 | Does performance require correct and complete relations? | GO | H002 supported in scope |
+| EXP003 | Does graph advantage persist under OOD composition? | INCONCLUSIVE | H003 retired |
+| EXP004 | Are semantics high while structured access is low? | NO-GO | H004 falsified |
 
-## Common controls
+The canonical historical contracts remain under `research/experiments/experiment_registry.yaml` and
+`research/protocols/`. They must not be edited to fit the pivot narrative.
 
-Every claim-bearing run must record the registered split, seed set, prompt/evaluator version,
-checkpoint or manifest identity, environment, predictions, metrics, and decision report. Random,
-corrupted, length-matched, parameter-matched, and no-structure controls are retained where the
-protocol requires them.
+## Planned pivot experiments
+
+| Planning ID | Candidate | Purpose | Registration state |
+| --- | --- | --- | --- |
+| PIVOT_EXP_A | PH001 | Semantic × relation × serialization factorial | not registered |
+| PIVOT_EXP_B | PH002 | Relation-selective grounding probe | not registered |
+| PIVOT_EXP_C | PH003 | Primitive versus composition decodability | not registered |
+| PIVOT_EXP_D | PH004 | Cross-modal reasoning equivalence | not registered |
+
+Planning IDs are deliberately absent from the governed registry until their protocols, configs,
+dataset bindings, seeds, integrity assertions, and decision rules are complete.
+
+## Common controls for future registration
+
+- frozen backbone and revision;
+- scene-disjoint splits;
+- semantic and relation corruption manifests;
+- fact and token equivalence;
+- paired scene-level statistics and seed replication;
+- explicit probe-capacity and random-label controls;
+- retained failures and no post-result threshold changes.
 
 ## Evidence states
 
-- `verified`: claim-eligible evidence satisfies the registered gate;
-- `infrastructure_only`: dry-run, fixture, toy, or ReferenceVLM validation;
-- `blocked` or `pending`: required data, checkpoint, API, or result is absent;
-- `failed`: an observed negative result, which remains part of the audit trail.
-
-Retrieval benchmarks are invoked through the separate capability-preservation protocol and must
-not be merged into the mechanism metrics.
+- `supported`: a bounded registered GO;
+- `falsified`: a valid registered NO-GO;
+- `retired`: a superseded claim retained without fabricating a decision;
+- `inconclusive`: missing, failed-integrity, or incomplete evidence;
+- `candidate`: a hypothesis that may not be reported as a result.

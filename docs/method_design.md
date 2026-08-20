@@ -1,13 +1,20 @@
 # ReCoAlign method design
 
+## Status: inactive historical design
+
+The frozen EXP001/EXP004 evidence rejected the diagnosis that motivated this design. This file is
+retained to document existing code and toy tests; it is not the active research direction and does
+not authorize real-model training. Any future intervention must be derived from a replicated pivot
+diagnosis and receive a new method freeze.
+
 ## Motivation
 
-EXP004 motivates a learnable interface between visual semantics and language
-reasoning.  The current ReferenceVLM result is an infrastructure sanity check,
-not evidence about a real VLM; real-model efficacy remains an open evaluation.
+The original design assumed that EXP004 would reveal high semantic availability and low structured
+access. The real LLaVA diagnosis instead reported low SAS and a NO-GO decision, so that motivation
+is falsified for the frozen scope.
 
-ReCoAlign therefore learns an intermediate representation from visual tokens.  It
-does not append an oracle scene graph to the prompt.
+The implementation below explores an intermediate representation from visual tokens and does not
+append an oracle scene graph to the prompt. It remains an engineering artifact only.
 
 ## Architecture
 

@@ -8,11 +8,11 @@
 
 ## Scientific contribution
 
-The repository implements a diagnosis-driven structured interface research program. It does not yet support the final efficacy claim because the required real-VLM evidence is pending.
+The frozen LLaVA evidence rejects the original Structured Reasoning Interface Gap. The repository is now in hypothesis revision and does not support a method or efficacy claim.
 
 ## Method summary
 
-ReCoAlign exposes a learned visual-to-structure interface and keeps oracle graph information out of inference.
+No active method is claimed. The next authorized work is preregistration of a semantic × relation × serialization falsification experiment.
 
 ## Experimental evidence
 

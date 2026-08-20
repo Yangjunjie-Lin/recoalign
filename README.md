@@ -1,15 +1,15 @@
-# ReCoAlign: Structured Reasoning Interface Learning for Vision-Language Models
+# ReCoAlign: Semantic–Structural Integration Diagnostics for Vision-Language Models
 
-ReCoAlign investigates why VLMs fail on compositional reasoning despite preserving visual semantics,
-and studies whether structured intermediate representations provide a missing reasoning interface.
-The working hypothesis is deliberately narrow:
+ReCoAlign is now in a research-pivot stage. Its first frozen LLaVA-1.5-7B evidence rejected the
+original claim that sufficient visual semantics are preserved but a graph interface is missing.
+The current candidate hypothesis is deliberately narrower:
 
-> A vision-language model may retain useful visual semantics, yet lack a sufficiently structured
-> intermediate interface between visual perception and language reasoning.
+> Compositional failure may reflect the joint limits of visually grounded semantic availability
+> and serialization-conditioned integration of correct relational evidence. Correct relations can
+> matter without graphs being a privileged reasoning interface.
 
-The repository is organized around measuring that interface gap before introducing any new loss,
-adapter, or trainable model. The current Phase-1 code supports controlled synthetic validation; it
-does not claim a finished ReCoAlign model.
+This candidate is not yet a result. The repository is organized around falsifying it with minimal
+diagnostic interventions before introducing any new loss, adapter, or trainable model.
 
 The Phase-6 paper-package tooling is documented in
 [`docs/paper_ready_package.md`](docs/paper_ready_package.md). It builds an auditable evidence map,
@@ -20,13 +20,19 @@ scientific submission decision remains `NO-GO`: EXP001 and EXP004 falsified thei
 EXP002 passed, and EXP003 is `INCONCLUSIVE`. Auditable metrics, decisions, figures, and compressed
 raw predictions are published under [`reports/paper_evidence/`](reports/paper_evidence/README.md).
 See [`reports/paper_readiness_report.md`](reports/paper_readiness_report.md) for the current decision.
+The claim-level pivot audit is in [`research/evidence_audit.md`](research/evidence_audit.md), the
+rejection record is in [`research/rejected_hypothesis.md`](research/rejected_hypothesis.md), and the
+next falsification plan is in [`research/next_experiment_plan.md`](research/next_experiment_plan.md).
 
 ## Research boundary
 
 - Frozen benchmark and retrieval infrastructure remains available only as a capability-preservation
   control; it is not the active scientific contribution.
-- Registered NO-GO mechanism studies are retained under [`archive/`](archive/).
-- The active line is explicit structured-reasoning sufficiency and interface diagnosis.
+- EXP001–EXP004 and all unfavorable evidence are retained as the immutable pivot basis.
+- The Structured Reasoning Interface Gap is rejected as the active claim; it must not be rescued by
+  post-hoc reinterpretation.
+- The active line is preregistration of a semantic × relation × serialization falsification study.
+- Paper writing and model design remain blocked.
 - The default backend is a deterministic CPU reference backend for CI. LLaVA-1.5 is an optional
   injected backend selected by configuration and never silently substituted.
 
@@ -38,9 +44,9 @@ research/                        hypotheses, experiments, protocols, and decisio
 datasets/                        JSON-compatible scene records
 models/
   vlm/                           BaseVLM, reference backend, LLaVA boundary
-  structure_encoder/             visual → graph representation boundary
-  reasoning_interface/           structured interface dataclasses/protocols
-  alignment/                     future alignment boundary (no loss yet)
+  structure_encoder/             retained graph intervention boundary
+  reasoning_interface/           retained diagnostic dataclasses/protocols
+  alignment/                     inactive legacy/future boundary (no current method claim)
 diagnosis/
   semantic_probe/                availability probes
   representation_analysis/       slice summaries
@@ -82,10 +88,11 @@ infrastructure-only and cannot produce a scientific GO decision. See
 `docs/synthetic_world_design.md` and `docs/synthetic_dataset_protocol.md` for the controlled-factor,
 information-equivalence, and leakage protocols.
 
-## Governed mechanism-validation experiments
+## Governed historical mechanism experiments
 
-The root `recoalign` CLI is the canonical public entry point. The reference backend requires only the
-base Python dependencies and is suitable for smoke tests:
+The root `recoalign` CLI remains the canonical public entry point for reproducing the frozen
+EXP001–EXP004 history. These commands do not constitute the new pivot experiment. The reference
+backend requires only the base Python dependencies and is suitable for smoke tests:
 
 ```bash
 python -m recoalign validate-research

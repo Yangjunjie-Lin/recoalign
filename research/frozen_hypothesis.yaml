@@ -1,6 +1,14 @@
 schema_version: 1
 freeze_name: structured_reasoning_interface_gap_v1
-status: frozen
+status: falsified
+decision: rejected_by_frozen_llava_evidence
+decision_date: 2026-08-21
+superseded_by: semantic_structural_integration_failure_candidate_v1
+rejection_evidence:
+  EXP001: NO-GO
+  EXP002: GO
+  EXP003: INCONCLUSIVE
+  EXP004: NO-GO
 project: ReCoAlign
 full_name: Structured Reasoning Interface Learning for Vision-Language Models
 main_hypothesis: >-
@@ -43,6 +51,7 @@ status_policy:
   reference_vlm: infrastructure_only
   missing_real_vlm_evidence: pending
   scientific_submission_decision: NO-GO
+  paper_writing_allowed: false
 freeze_policy: >-
   Changes to the main hypothesis, supporting claims, falsification criteria, or claim boundary
   require a new freeze_name and an explicit research registry decision. Documentation and code

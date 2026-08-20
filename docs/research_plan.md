@@ -1,63 +1,78 @@
-# ReCoAlign research plan
+# ReCoAlign research pivot plan
 
-The active research identity is frozen in [`research_identity.md`](research_identity.md) and
-[`../research/frozen_hypothesis.yaml`](../research/frozen_hypothesis.yaml). This plan follows
-the questions and falsification gates in that freeze; it is not a retrieval-method roadmap.
+## Current stage
 
-## Problem statement
+`Research Pivot / Hypothesis Revision`
 
-Vision-language models may preserve object, attribute, and relation semantics while failing to
-make those semantics accessible as a structured intermediate representation for language-side
-compositional reasoning. ReCoAlign studies this Structured Reasoning Interface Gap and tests
-whether a learned visual-to-structure interface improves reasoning and unseen-composition
-generalization.
+The former Structured Reasoning Interface Gap is falsified under the frozen LLaVA evidence. This
+plan does not continue the old method roadmap and does not authorize paper writing.
 
-## Phase 1 — Controlled mechanism validation
+## Phase P0 — Preserve the failed direction
 
-1. Freeze the synthetic world, factor splits, information-equivalence rules, and leakage checks.
-2. Run EXP001 to compare graph and information-matched text conditions.
-3. Run EXP002 to test structural necessity with partial, corrupted, randomized, and length-matched
-   controls.
-4. Run EXP003 on composition-disjoint OOD splits with reproducible manifests.
-5. Keep all decisions paired, seeded, and eligibility-aware; dry-runs and ReferenceVLM outputs
-   remain infrastructure-only.
+1. Retain EXP001–EXP004 protocols, configs, predictions, metrics, decisions, and manifests.
+2. Mark H001 and H004 `falsified`, H002 `supported`, and H003 `retired` because its evidence is
+   inconclusive and its prerequisite graph advantage failed.
+3. Keep `research/frozen_hypothesis.yaml` as the immutable record of the rejected claim.
+4. Prevent generated paper-package assets from silently returning the old claim to `pending` or
+   `testing`.
 
-Exit criterion: the registered structure effect survives controls and OOD evaluation, or the
-corresponding hypothesis is falsified and retained as a negative result.
+Exit criterion: claim lifecycle, evidence map, and narrative documents agree with the frozen
+outcomes.
 
-## Phase 2 — Real-VLM diagnosis
+## Phase P1 — Construct validity before mechanism claims
 
-1. Evaluate frozen VLM backbones through the unified `BaseVLM` interface.
-2. Run EXP004 to measure semantic availability (SAS), structured accessibility (StAS), and
-   reasoning execution (RES).
-3. Separate image-only, oracle-structure, corrupted-structure, graph reconstruction, and latent
-   probe results.
-4. Record missing APIs, checkpoints, and blocked cells rather than substituting a reference model.
+1. Audit SAS by layer, label family, probe capacity, chance normalization, and scene-disjoint split.
+2. Separate “not recovered by this probe” from “not represented by the model.”
+3. Validate semantic and relation corruptions without VLM inference.
+4. Confirm fact and token equivalence for fluent-sentence and canonical-triple serializers.
 
-Exit criterion: any Interface Gap claim requires high semantic availability, lower structured
-accessibility, positive oracle-structure gain, and a registered cross-model pattern.
+Exit criterion: the diagnostic instruments and factorial inputs pass leakage, balance, corruption,
+and sensitivity checks.
 
-## Phase 3 — Learnable ReCoAlign interface
+## Phase P2 — Minimal factorial falsification
 
-1. Train visual-to-structure tokens with graph labels as training signal only.
-2. Align learned structure context with the reasoning path while keeping baseline backbones,
-   datasets, and decoding settings fair.
-3. Evaluate structure removal, random tokens, parameter-matched controls, supervision ablations,
-   and inference interventions.
-4. Never provide an oracle graph as an inference-time replacement for the learned interface.
+Preregister PIVOT_EXP_A from `research/next_experiment_plan.md`:
 
-Exit criterion: improvement is attributable to learned structured access and survives OOD and
-capability-preservation controls.
+- semantic evidence: correct vs label-swapped;
+- relational evidence: correct vs relation-flipped;
+- serialization: fluent facts vs canonical triples;
+- image and question held fixed.
+
+Estimate semantic and relation correctness effects, their difference-in-differences, serialization
+effects, and hop-depth moderation. Numeric gates must be selected by power analysis before real-model
+outcomes are observed.
+
+Exit criterion: PH001 receives GO, NO-GO, or INCONCLUSIVE without post-result protocol changes.
+
+## Phase P3 — Discriminate surviving alternatives
+
+If PH001 fails, use the frozen discrimination plan rather than broadening it post hoc:
+
+- PIVOT_EXP_B: relation-selective grounding;
+- PIVOT_EXP_C: primitive versus composition decodability;
+- PIVOT_EXP_D: cross-modal reasoning equivalence.
+
+If PH001 passes, replicate the complete pattern on a second pinned eligible backbone before making
+a cross-model claim.
+
+Exit criterion: one diagnosis has replicated claim-eligible evidence and its nearest alternatives
+have failed their registered predictions.
+
+## Phase P4 — Method decision, not method assumption
+
+Only after Phase P3 may the project decide whether a learnable intervention is scientifically
+motivated. Any method must target the diagnosed bottleneck and receive a new freeze, training
+registry, parameter-matched controls, and graph-free inference boundary. Existing TRAIN001–003 toy
+assets do not satisfy this gate.
 
 ## Capability-preservation controls
 
-The existing OpenCLIP/retrieval pipeline, Flickr30K/MS COCO/SugarCrepe/ARO/Winoground adapters,
-and provenance gates remain frozen controls. They answer whether a reasoning intervention damages
-ordinary vision-language capability; they are not evidence by themselves for the Structured
-Reasoning Interface Gap.
+OpenCLIP/retrieval pipelines and external benchmarks remain frozen controls. They may measure
+collateral capability changes after a future intervention, but they are not evidence for PH001.
 
-## Scientific integrity
+## Decision policy
 
-The target venue is not an evidence criterion. Failed, blocked, and pending experiments remain
-visible, and the current submission decision stays `NO-GO` until claim-eligible real-VLM and method
-evidence is present.
+- GO now means GO to preregistration of PIVOT_EXP_A only.
+- NO-GO remains in force for model development, paper writing, and submission.
+- Failed and inconclusive evidence stays visible.
+- Venue targets never determine hypothesis or threshold choices.

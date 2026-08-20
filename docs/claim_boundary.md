@@ -1,30 +1,35 @@
-# Paper claim boundary
+# Research pivot claim boundary
 
-This document prevents the research identity from becoming broader than the evidence.
+## Claims supported by current evidence
 
-## Claims that may be made when the registered evidence passes
+- Within the frozen LLaVA-1.5 synthetic-world protocol, correct and complete externally supplied
+  relational evidence outperforms partial, random, wrong, and label-randomized evidence.
+- Within the frozen EXP001 protocol, fact-controlled captions outperform graph triples.
+- Within the registered EXP004 probe, semantic availability is low and the proposed interface-gap
+  pattern is absent.
 
-- Structured reasoning interfaces can improve compositional reasoning under the registered
-  controlled protocol.
-- Eligible VLMs can exhibit a gap between visual semantic availability and structured reasoning
-  accessibility.
-- A learned ReCoAlign interface can improve composition-disjoint generalization when the
-  inference runtime consumes learned structure context rather than an oracle graph.
-- Retrieval and general VLM capability controls can be reported separately from the mechanism
-  claim.
+## Candidate statements that are not yet claims
 
-## Claims that are not permitted
+- Semantic and relational correctness jointly determine compositional reasoning.
+- Their interaction depends on serialization format.
+- A semantic–structural integration failure explains the frozen results better than relational
+  grounding, compositional bottleneck, or cross-modal alignment alternatives.
 
-- Universal failure of all VLMs.
-- Human-like, general-purpose, or conscious reasoning.
-- A complete solution to multimodal reasoning.
-- Scientific efficacy from dry-runs, toy training, ReferenceVLM, or blocked cells.
-- Causal use of structure based only on an attention visualization.
-- A method gain attributed to ReCoAlign when oracle graph information is supplied at inference.
-- A retrieval improvement presented as proof of a structured reasoning interface.
+These statements require PIVOT_EXP_A and alternative-discrimination evidence.
+
+## Prohibited claims
+
+- VLMs preserve sufficient semantics but lack a graph interface.
+- Graph is the missing or optimal intermediate representation.
+- Low SAS proves that semantic information is absent from all representations.
+- EXP002 proves the model internally constructs or uses a scene graph.
+- The first-seed EXP003 result supports any OOD conclusion.
+- ReCoAlign learns, repairs, or improves the diagnosed bottleneck.
+- A result on LLaVA-1.5 generalizes to all modern VLMs.
+- Scientific efficacy from dry-runs, toy training, ReferenceVLM, or blocked matrix cells.
 
 ## Reporting rule
 
-Every paper table and figure must identify whether it is claim-eligible evidence,
-infrastructure validation, a capability-preservation control, or pending/blocked. Failed and
-negative experiments remain visible.
+Every claim must identify model, benchmark, intervention, evidence state, and decision. Negative and
+inconclusive results remain visible. The active decision is GO only for pivot preregistration and
+NO-GO for paper writing, method development, or submission.

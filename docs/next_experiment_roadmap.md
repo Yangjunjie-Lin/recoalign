@@ -1,39 +1,25 @@
-# Next experiment roadmap
+# Next experiment roadmap: research pivot
 
-## Experiment A — Graph vs Text
+The previous EXP001–EXP004 roadmap has completed as a scientific decision cycle: EXP001 and EXP004
+are NO-GO, EXP002 is GO, and EXP003 is INCONCLUSIVE. It must not be rerun merely to recover the old
+Structured Reasoning Interface Gap narrative.
 
-Run `configs/graph_vs_text.yaml` with at least three seeds and the real frozen VLM backend. Compare:
+## Next experiment
 
-- image only;
-- unordered object list;
-- generated caption;
-- explicit scene graph.
+The only promoted planning direction is PIVOT_EXP_A, a frozen-backbone 2 × 2 × 2 intervention over:
 
-Report paired accuracy, confidence intervals, relation slices, and exact prompt/provenance hashes.
+- semantic evidence correctness;
+- relational evidence correctness;
+- fluent-sentence versus canonical-triple serialization.
 
-## Experiment B — Graph completeness
+The image and question remain fixed. Semantic and relational corruptions must be token-matched,
+fact-audited, and frozen before inference. The primary test is the semantic × relation
+difference-in-differences, with serialization and hop depth as prespecified moderators.
 
-Run `configs/graph_ablation.yaml` with:
+## Current gate
 
-- full graph;
-- partial graph with one local edge removed;
-- corrupted graph with one typed relation replaced.
+PIVOT_EXP_A is not yet a governed experiment. The next task is preregistration and power analysis,
+not implementation or VLM execution.
 
-Add graph-size and edge-order controls before interpreting a gain as structure-specific.
-
-## Experiment C — OOD composition
-
-Run `configs/ood_composition.yaml` with disjoint train/test composition signatures. Report in-domain
-and unseen-composition performance for image, caption, and graph conditions, with per-seed paired
-statistics.
-
-## Required before any model contribution
-
-1. Replicate all three experiments across at least two frozen VLM backbones.
-2. Separate graph sufficiency from graph-construction ability using predicted, noisy, and oracle graphs.
-3. Add caption-length, token-order, and relation-frequency controls.
-4. Keep retrieval benchmarks as independent preservation controls.
-5. Only then define a minimal structure-token or ontology-guided alignment intervention.
-
-The current roadmap intentionally postpones new loss design until the interface gap survives these
-controls.
+Full candidate hypotheses, failure conditions, discrimination experiments, and execution order are
+in `research/next_experiment_plan.md`.
