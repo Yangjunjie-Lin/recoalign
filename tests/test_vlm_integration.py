@@ -67,6 +67,31 @@ build_parser()
     assert result.returncode == 0, result.stderr
 
 
+def test_synthetic_benchmark_config_validation_does_not_require_torch() -> None:
+    script = """
+import builtins
+import sys
+
+original_import = builtins.__import__
+
+def blocked_import(name, *args, **kwargs):
+    if name == "torch" or name.startswith("torch."):
+        raise ModuleNotFoundError("blocked for optional-dependency test")
+    return original_import(name, *args, **kwargs)
+
+builtins.__import__ = blocked_import
+from recoalign.cli import main
+raise SystemExit(main(["validate-config", "configs/synthetic_benchmark.yaml"]))
+"""
+    result = subprocess.run(
+        [sys.executable, "-c", script],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+
+
 def test_base_vlm_exposes_complete_unified_lifecycle() -> None:
     for method in ("load", "encode_image", "prepare_input", "generate", "evaluate"):
         assert hasattr(BaseVLM, method)

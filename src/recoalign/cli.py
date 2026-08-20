@@ -372,6 +372,9 @@ def main(argv: Sequence[str] | None = None) -> int:
 
                             validate_evaluation_matrix(raw)
                             config = raw
+                        elif {"benchmark", "model", "evaluation"}.issubset(raw):
+                            _validate_synthetic_benchmark_config(raw)
+                            config = raw
                         elif "stage" in raw:
                             from recoalign.training.trainer import load_training_config
 
@@ -1000,6 +1003,43 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"error: {exc}")
         return 2
     return 2
+
+
+def _validate_synthetic_benchmark_config(config: dict[str, object]) -> None:
+    """Validate the CPU/reference synthetic benchmark schema without importing Torch."""
+
+    required_sections = ("benchmark", "model", "evaluation")
+    for section in required_sections:
+        if not isinstance(config.get(section), dict):
+            raise ValueError(f"synthetic benchmark requires a {section} mapping")
+
+    benchmark = config["benchmark"]
+    assert isinstance(benchmark, dict)
+    for field in ("name", "version", "seed", "count", "output_dir"):
+        if field not in benchmark:
+            raise ValueError(f"synthetic benchmark.benchmark.{field} is required")
+    if any(
+        isinstance(benchmark[field], bool)
+        or not isinstance(benchmark[field], (int, str))
+        for field in ("seed", "count")
+    ):
+        raise ValueError("synthetic benchmark seed/count must be scalar values")
+    if int(benchmark["count"]) <= 0:
+        raise ValueError("synthetic benchmark count must be positive")
+
+    model = config["model"]
+    assert isinstance(model, dict)
+    if not str(model.get("backend", "")).strip():
+        raise ValueError("synthetic benchmark model.backend is required")
+
+    evaluation = config["evaluation"]
+    assert isinstance(evaluation, dict)
+    seeds = evaluation.get("seeds")
+    if not isinstance(seeds, list) or not seeds:
+        raise ValueError("synthetic benchmark evaluation.seeds must be non-empty")
+    minimum = 5 if bool(evaluation.get("critical", False)) else 3
+    if len(seeds) < minimum:
+        raise ValueError(f"synthetic benchmark requires at least {minimum} evaluation seeds")
 
 
 def _add_standard_preparation_arguments(parser: argparse.ArgumentParser) -> None:
