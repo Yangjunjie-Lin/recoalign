@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -39,6 +41,30 @@ class MockBackend:
 
     def encode_image(self, images) -> list[list[float]]:
         return [[1.0, 0.0] for _ in images]
+
+
+def test_cli_import_does_not_require_torch() -> None:
+    script = """
+import builtins
+
+original_import = builtins.__import__
+
+def blocked_import(name, *args, **kwargs):
+    if name == "torch" or name.startswith("torch."):
+        raise ModuleNotFoundError("blocked for optional-dependency test")
+    return original_import(name, *args, **kwargs)
+
+builtins.__import__ = blocked_import
+from recoalign.cli import build_parser
+build_parser()
+"""
+    result = subprocess.run(
+        [sys.executable, "-c", script],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
 
 
 def test_base_vlm_exposes_complete_unified_lifecycle() -> None:
