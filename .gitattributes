@@ -1,0 +1,2 @@
+# Manifest-hashed repository fixtures must have identical bytes on every platform.
+tests/fixtures/dataset/sample.txt text eol=lf
