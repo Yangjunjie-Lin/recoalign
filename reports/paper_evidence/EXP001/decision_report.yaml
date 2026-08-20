@@ -1,0 +1,131 @@
+schema_version: 1
+experiment_id: EXP001
+evidence:
+  hypothesis_id: H001
+  run_id: exp001-20260820T134152.769731+0000
+  result_status: complete
+  model: frozen-llava_1_5_7b
+  dataset: recoalign-synthetic-compositional-world@generator-v2
+  evidence_role: scientific_evidence
+statistical_result:
+- metric_path: contrasts.contrasts.graph_over_text.estimate
+  mean: -0.043333333333333335
+  minimum_gain: 0.05
+  confidence_interval:
+    lower: -0.058333333333333334
+    upper: -0.02833333333333333
+    excludes_zero_required: true
+  p_value: 0.9965063126673401
+  significance_level: 0.05
+  complete: true
+  passed: false
+- metric_path: controlled_contrasts.token_matched.graph_over_caption.estimate
+  mean: -0.07833333333333334
+  minimum_gain: 0.05
+  confidence_interval:
+    lower: -0.10166666666666666
+    upper: -0.05500000000000001
+    excludes_zero_required: true
+  p_value: 0.9979032872998019
+  significance_level: 0.05
+  complete: true
+  passed: false
+- metric_path: reasoning_depth.token_matched.2.graph_over_caption.estimate
+  mean: 0.0
+  minimum_gain: 0.01
+  confidence_interval:
+    lower: 0.0
+    upper: 0.0
+    excludes_zero_required: true
+  p_value: 0.5
+  significance_level: 0.05
+  complete: true
+  passed: false
+- metric_path: reasoning_depth.token_matched.3.graph_over_caption.estimate
+  mean: -0.8
+  minimum_gain: 0.01
+  confidence_interval:
+    lower: -0.9
+    upper: -0.6799999999999999
+    excludes_zero_required: true
+  p_value: 0.9998875397677801
+  significance_level: 0.05
+  complete: true
+  passed: false
+- metric_path: ood_contrasts.token_matched.graph_over_caption.estimate
+  mean: -0.11499999999999999
+  minimum_gain: 0.01
+  confidence_interval:
+    lower: -0.13999999999999999
+    upper: -0.08
+    excludes_zero_required: true
+  p_value: 0.9987664784245228
+  significance_level: 0.05
+  complete: true
+  passed: false
+robustness_check:
+  result_complete: true
+  registry_validated: true
+  model_matches_registration: true
+  dataset_matches_registration: true
+  model_scientific_decision_allowed: true
+  criteria:
+  - metric_path: contrasts.contrasts.graph_over_text.estimate
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 0.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: false
+  - metric_path: controlled_contrasts.token_matched.graph_over_caption.estimate
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 0.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: false
+  - metric_path: reasoning_depth.token_matched.2.graph_over_caption.estimate
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 0.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: false
+  - metric_path: reasoning_depth.token_matched.3.graph_over_caption.estimate
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 0.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: false
+  - metric_path: ood_contrasts.token_matched.graph_over_caption.estimate
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 0.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: false
+  manifest_assertions:
+  - assertion: generator
+    expected: recoalign.synthetic_world.v2
+    observed:
+    - recoalign.synthetic_world.v2
+    - recoalign.synthetic_world.v2
+    - recoalign.synthetic_world.v2
+    - recoalign.synthetic_world.v2
+    - recoalign.synthetic_world.v2
+    complete: true
+    passed: true
+  - assertion: caption_graph_equivalent
+    expected: true
+    observed:
+    - true
+    - true
+    - true
+    - true
+    - true
+    complete: true
+    passed: true
+  passed: false
+final_decision: NO-GO
+next_action: Record the falsifying result and revise or retire the hypothesis.

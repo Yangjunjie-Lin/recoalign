@@ -1,0 +1,187 @@
+schema_version: 1
+experiment_id: EXP002
+evidence:
+  hypothesis_id: H002
+  run_id: exp002-20260820T144451.434722+0000
+  result_status: complete
+  model: frozen-llava_1_5_7b
+  dataset: recoalign-synthetic-compositional-world@generator-v2
+  evidence_role: scientific_evidence
+statistical_result:
+- metric_path: structural_dependency.full_over_partial_25.estimate
+  mean: 0.29
+  minimum_gain: 0.01
+  confidence_interval:
+    lower: 0.27666666666666667
+    upper: 0.30333333333333334
+    excludes_zero_required: true
+  p_value: 9.999000099990002e-05
+  significance_level: 0.05
+  complete: true
+  passed: true
+- metric_path: structural_dependency.full_over_partial_50.estimate
+  mean: 0.30166666666666664
+  minimum_gain: 0.03
+  confidence_interval:
+    lower: 0.28500000000000003
+    upper: 0.31999999999999995
+    excludes_zero_required: true
+  p_value: 9.999000099990002e-05
+  significance_level: 0.05
+  complete: true
+  passed: true
+- metric_path: structural_dependency.full_over_partial_75.estimate
+  mean: 0.355
+  minimum_gain: 0.05
+  confidence_interval:
+    lower: 0.33666666666666667
+    upper: 0.37666666666666665
+    excludes_zero_required: true
+  p_value: 9.999000099990002e-05
+  significance_level: 0.05
+  complete: true
+  passed: true
+- metric_path: structural_dependency.full_over_random_graph.estimate
+  mean: 0.45166666666666666
+  minimum_gain: 0.05
+  confidence_interval:
+    lower: 0.44000000000000006
+    upper: 0.4616666666666666
+    excludes_zero_required: true
+  p_value: 9.999000099990002e-05
+  significance_level: 0.05
+  complete: true
+  passed: true
+- metric_path: structural_dependency.full_over_wrong_graph.estimate
+  mean: 0.18
+  minimum_gain: 0.05
+  confidence_interval:
+    lower: 0.15833333333333333
+    upper: 0.2033333333333333
+    excludes_zero_required: true
+  p_value: 9.999000099990002e-05
+  significance_level: 0.05
+  complete: true
+  passed: true
+- metric_path: structural_dependency.full_over_relation_label_randomized.estimate
+  mean: 0.3566666666666667
+  minimum_gain: 0.05
+  confidence_interval:
+    lower: 0.3416666666666667
+    upper: 0.38
+    excludes_zero_required: true
+  p_value: 9.999000099990002e-05
+  significance_level: 0.05
+  complete: true
+  passed: true
+- metric_path: depth_dependency.full_over_random_graph.slope
+  mean: 0.138
+  minimum_gain: 0.0
+  confidence_interval:
+    lower: 0.11200000000000002
+    upper: 0.16733333333333336
+    excludes_zero_required: true
+  p_value: 9.999000099990002e-05
+  significance_level: 0.05
+  complete: true
+  passed: true
+robustness_check:
+  result_complete: true
+  registry_validated: true
+  model_matches_registration: true
+  dataset_matches_registration: true
+  model_scientific_decision_allowed: true
+  criteria:
+  - metric_path: structural_dependency.full_over_partial_25.estimate
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 1.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: true
+  - metric_path: structural_dependency.full_over_partial_50.estimate
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 1.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: true
+  - metric_path: structural_dependency.full_over_partial_75.estimate
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 1.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: true
+  - metric_path: structural_dependency.full_over_random_graph.estimate
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 1.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: true
+  - metric_path: structural_dependency.full_over_wrong_graph.estimate
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 1.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: true
+  - metric_path: structural_dependency.full_over_relation_label_randomized.estimate
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 1.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: true
+  - metric_path: depth_dependency.full_over_random_graph.slope
+    observed_seeds: 5
+    minimum_seeds: 5
+    positive_seed_fraction: 1.0
+    minimum_positive_seed_fraction: 0.8
+    complete: true
+    passed: true
+  manifest_assertions:
+  - assertion: generator
+    expected: recoalign.synthetic_world.v2
+    observed:
+    - recoalign.synthetic_world.v2
+    - recoalign.synthetic_world.v2
+    - recoalign.synthetic_world.v2
+    - recoalign.synthetic_world.v2
+    - recoalign.synthetic_world.v2
+    complete: true
+    passed: true
+  - assertion: corruption_manifest_complete
+    expected: true
+    observed:
+    - true
+    - true
+    - true
+    - true
+    - true
+    complete: true
+    passed: true
+  - assertion: random_graph_length_matched
+    expected: true
+    observed:
+    - true
+    - true
+    - true
+    - true
+    - true
+    complete: true
+    passed: true
+  - assertion: original_graph_not_in_prompt_metadata
+    expected: true
+    observed:
+    - true
+    - true
+    - true
+    - true
+    - true
+    complete: true
+    passed: true
+  passed: true
+final_decision: GO
+next_action: Proceed to independent replication and reviewed evidence promotion.

@@ -222,9 +222,19 @@ def test_vlm_eval_dry_run_writes_required_bundle(tmp_path: Path) -> None:
     assert run["checkpoint"]["checkpoint_fingerprint"]
     assert run["checkpoint"]["revision"] == "4481d270cc22fd5c4d1bb5df129622006ccd9234"
     assert run["runtime"]["torch"]
-    assert run["dry_run_validation"]["weights_loaded"] is False
-    assert run["dry_run_validation"]["checkpoint_manifest_loaded"] is True
-    assert run["dry_run_validation"]["runtime_ready"] is False
+    validation = run["dry_run_validation"]
+    assert validation["weights_loaded"] is False
+    assert validation["checkpoint_manifest_loaded"] is True
+    expected_runtime_ready = (
+        validation["checkpoint_exists"]
+        and bool(validation["checkpoint_files"])
+        and validation["checkpoint_manifest_error"] is None
+        and all(validation["dependencies"].values())
+        and validation["hardware_ready"]
+        and validation["processor_ready"]
+        and validation["loader_compatible"]
+    )
+    assert validation["runtime_ready"] is expected_runtime_ready
 
 
 def test_vlm_eval_rejects_posthoc_split_changes(tmp_path: Path) -> None:

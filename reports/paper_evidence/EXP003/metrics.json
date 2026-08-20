@@ -1,0 +1,28 @@
+{
+  "confidence_interval": null,
+  "dataset": "recoalign-synthetic-compositional-world@generator-v2",
+  "decision": "INCONCLUSIVE",
+  "experiment_id": "EXP003",
+  "hypothesis": "H003",
+  "integrity": {
+    "per_seed": [],
+    "registry_validated": true
+  },
+  "metrics": {
+    "aggregate": {},
+    "per_seed": []
+  },
+  "model": "frozen-llava_1_5_7b",
+  "run_id": "exp003-failed-20260820T155940.441157+0000",
+  "schema_version": 1,
+  "seed": [
+    20260818,
+    20260819,
+    20260820,
+    20260821,
+    20260822
+  ],
+  "statistical_test": null,
+  "status": "failed",
+  "timestamp": "2026-08-20T15:59:40.441157+00:00"
+}

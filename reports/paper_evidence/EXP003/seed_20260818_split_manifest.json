@@ -1,0 +1,352 @@
+{
+  "allocation": "constructive-predeclared-v1",
+  "deterministic_from_seed": true,
+  "experiment_id": "EXP003",
+  "generator": "recoalign.synthetic_world.v2",
+  "manifest_assertions": {
+    "composition_overlap": false,
+    "hop_depth_overlap": false,
+    "primitive_coverage": true,
+    "relation_combination_overlap": false,
+    "sample_id_overlap": false
+  },
+  "schema_version": 1,
+  "seed": 20260818,
+  "splits": {
+    "composition_ood": {
+      "counts": {
+        "test": 60,
+        "train": 60
+      },
+      "path": "manifests/composition_ood.json",
+      "sha256": "c3334683290d6ff41f7b4a8ad8eaeb339a3fff1fcfd075178e903aef613ade40"
+    },
+    "hop_ood": {
+      "counts": {
+        "test": 60,
+        "train": 60
+      },
+      "path": "manifests/hop_ood.json",
+      "sha256": "ee520ffb2269aba043e32aa45eebdb6c498524d19a3e65d7a4fc02c758752324"
+    },
+    "iid": {
+      "counts": {
+        "test": 60,
+        "train": 60
+      },
+      "path": "manifests/iid.json",
+      "sha256": "55afbe30f1876074ebe38240c3ab59050cb2efd6b882682ac68caa2b5280413e"
+    },
+    "relation_ood": {
+      "counts": {
+        "test": 60,
+        "train": 60
+      },
+      "path": "manifests/relation_ood.json",
+      "sha256": "32d02f3d92eafa72b63d9c158cc63a7c6ffd8b3ddfc00403a9020fb7dc66bec3"
+    }
+  },
+  "test_information_used_for_allocation": false,
+  "validation": {
+    "assertions": {
+      "composition_overlap": false,
+      "hop_depth_overlap": false,
+      "primitive_coverage": true,
+      "relation_combination_overlap": false,
+      "sample_id_overlap": false
+    },
+    "splits": {
+      "composition_ood": {
+        "composition_overlap": [],
+        "counts": {
+          "test": 60,
+          "train": 60
+        },
+        "hop_depth_overlap": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "missing_primitives": {},
+        "primitive_coverage": true,
+        "relation_combination_overlap": [
+          "above",
+          "above+above+above",
+          "behind+behind",
+          "behind+behind+behind+behind",
+          "below+below",
+          "below+below+below+below",
+          "front",
+          "front+front+front",
+          "left",
+          "left+left+left",
+          "right+right",
+          "right+right+right+right"
+        ],
+        "sample_id_overlap": [],
+        "test_composition_count": 60,
+        "test_hop_depths": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "test_relation_combinations": [
+          "above",
+          "above+above+above",
+          "behind+behind",
+          "behind+behind+behind+behind",
+          "below+below",
+          "below+below+below+below",
+          "front",
+          "front+front+front",
+          "left",
+          "left+left+left",
+          "right+right",
+          "right+right+right+right"
+        ],
+        "train_composition_count": 60,
+        "train_hop_depths": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "train_relation_combinations": [
+          "above",
+          "above+above+above",
+          "behind+behind",
+          "behind+behind+behind+behind",
+          "below+below",
+          "below+below+below+below",
+          "front",
+          "front+front+front",
+          "left",
+          "left+left+left",
+          "right+right",
+          "right+right+right+right"
+        ],
+        "valid": true,
+        "violations": [],
+        "world_hash_overlap": []
+      },
+      "hop_ood": {
+        "composition_overlap": [],
+        "counts": {
+          "test": 60,
+          "train": 60
+        },
+        "hop_depth_overlap": [],
+        "missing_primitives": {},
+        "primitive_coverage": true,
+        "relation_combination_overlap": [],
+        "sample_id_overlap": [],
+        "test_composition_count": 30,
+        "test_hop_depths": [
+          3,
+          4
+        ],
+        "test_relation_combinations": [
+          "above+above+above",
+          "behind+behind+behind+behind",
+          "below+below+below+below",
+          "front+front+front",
+          "left+left+left",
+          "right+right+right+right"
+        ],
+        "train_composition_count": 30,
+        "train_hop_depths": [
+          1,
+          2
+        ],
+        "train_relation_combinations": [
+          "above",
+          "behind+behind",
+          "below+below",
+          "front",
+          "left",
+          "right+right"
+        ],
+        "valid": true,
+        "violations": [],
+        "world_hash_overlap": []
+      },
+      "iid": {
+        "composition_overlap": [
+          "blue:square|above+above+above|purple:sphere|3|multi_hop",
+          "blue:square|above|green:triangle|1|relation_reasoning",
+          "blue:square|behind+behind+behind+behind|red:circle|4|multi_hop",
+          "blue:square|behind+behind|yellow:cube|2|multi_hop",
+          "blue:square|below+below+below+below|red:circle|4|multi_hop",
+          "blue:square|below+below|yellow:cube|2|multi_hop",
+          "blue:square|front+front+front|purple:sphere|3|multi_hop",
+          "blue:square|front|green:triangle|1|relation_reasoning",
+          "blue:square|left+left+left|purple:sphere|3|multi_hop",
+          "blue:square|left|green:triangle|1|relation_reasoning",
+          "blue:square|right+right+right+right|red:circle|4|multi_hop",
+          "blue:square|right+right|yellow:cube|2|multi_hop",
+          "green:triangle|above+above+above|red:circle|3|multi_hop",
+          "green:triangle|above|yellow:cube|1|relation_reasoning",
+          "green:triangle|behind+behind+behind+behind|blue:square|4|multi_hop",
+          "green:triangle|behind+behind|purple:sphere|2|multi_hop",
+          "green:triangle|below+below+below+below|blue:square|4|multi_hop",
+          "green:triangle|below+below|purple:sphere|2|multi_hop",
+          "green:triangle|front+front+front|red:circle|3|multi_hop",
+          "green:triangle|front|yellow:cube|1|relation_reasoning",
+          "green:triangle|left+left+left|red:circle|3|multi_hop",
+          "green:triangle|left|yellow:cube|1|relation_reasoning",
+          "green:triangle|right+right+right+right|blue:square|4|multi_hop",
+          "green:triangle|right+right|purple:sphere|2|multi_hop",
+          "purple:sphere|above+above+above|green:triangle|3|multi_hop",
+          "purple:sphere|above|red:circle|1|relation_reasoning",
+          "purple:sphere|behind+behind+behind+behind|yellow:cube|4|multi_hop",
+          "purple:sphere|behind+behind|blue:square|2|multi_hop",
+          "purple:sphere|below+below+below+below|yellow:cube|4|multi_hop",
+          "purple:sphere|below+below|blue:square|2|multi_hop",
+          "purple:sphere|front+front+front|green:triangle|3|multi_hop",
+          "purple:sphere|front|red:circle|1|relation_reasoning",
+          "purple:sphere|left+left+left|green:triangle|3|multi_hop",
+          "purple:sphere|left|red:circle|1|relation_reasoning",
+          "purple:sphere|right+right+right+right|yellow:cube|4|multi_hop",
+          "purple:sphere|right+right|blue:square|2|multi_hop",
+          "red:circle|above+above+above|yellow:cube|3|multi_hop",
+          "red:circle|above|blue:square|1|relation_reasoning",
+          "red:circle|behind+behind+behind+behind|purple:sphere|4|multi_hop",
+          "red:circle|behind+behind|green:triangle|2|multi_hop",
+          "red:circle|below+below+below+below|purple:sphere|4|multi_hop",
+          "red:circle|below+below|green:triangle|2|multi_hop",
+          "red:circle|front+front+front|yellow:cube|3|multi_hop",
+          "red:circle|front|blue:square|1|relation_reasoning",
+          "red:circle|left+left+left|yellow:cube|3|multi_hop",
+          "red:circle|left|blue:square|1|relation_reasoning",
+          "red:circle|right+right+right+right|purple:sphere|4|multi_hop",
+          "red:circle|right+right|green:triangle|2|multi_hop",
+          "yellow:cube|above+above+above|blue:square|3|multi_hop",
+          "yellow:cube|above|purple:sphere|1|relation_reasoning",
+          "yellow:cube|behind+behind+behind+behind|green:triangle|4|multi_hop",
+          "yellow:cube|behind+behind|red:circle|2|multi_hop",
+          "yellow:cube|below+below+below+below|green:triangle|4|multi_hop",
+          "yellow:cube|below+below|red:circle|2|multi_hop",
+          "yellow:cube|front+front+front|blue:square|3|multi_hop",
+          "yellow:cube|front|purple:sphere|1|relation_reasoning",
+          "yellow:cube|left+left+left|blue:square|3|multi_hop",
+          "yellow:cube|left|purple:sphere|1|relation_reasoning",
+          "yellow:cube|right+right+right+right|green:triangle|4|multi_hop",
+          "yellow:cube|right+right|red:circle|2|multi_hop"
+        ],
+        "counts": {
+          "test": 60,
+          "train": 60
+        },
+        "hop_depth_overlap": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "missing_primitives": {},
+        "primitive_coverage": true,
+        "relation_combination_overlap": [
+          "above",
+          "above+above+above",
+          "behind+behind",
+          "behind+behind+behind+behind",
+          "below+below",
+          "below+below+below+below",
+          "front",
+          "front+front+front",
+          "left",
+          "left+left+left",
+          "right+right",
+          "right+right+right+right"
+        ],
+        "sample_id_overlap": [],
+        "test_composition_count": 60,
+        "test_hop_depths": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "test_relation_combinations": [
+          "above",
+          "above+above+above",
+          "behind+behind",
+          "behind+behind+behind+behind",
+          "below+below",
+          "below+below+below+below",
+          "front",
+          "front+front+front",
+          "left",
+          "left+left+left",
+          "right+right",
+          "right+right+right+right"
+        ],
+        "train_composition_count": 60,
+        "train_hop_depths": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "train_relation_combinations": [
+          "above",
+          "above+above+above",
+          "behind+behind",
+          "behind+behind+behind+behind",
+          "below+below",
+          "below+below+below+below",
+          "front",
+          "front+front+front",
+          "left",
+          "left+left+left",
+          "right+right",
+          "right+right+right+right"
+        ],
+        "valid": true,
+        "violations": [],
+        "world_hash_overlap": []
+      },
+      "relation_ood": {
+        "composition_overlap": [],
+        "counts": {
+          "test": 60,
+          "train": 60
+        },
+        "hop_depth_overlap": [
+          2
+        ],
+        "missing_primitives": {},
+        "primitive_coverage": true,
+        "relation_combination_overlap": [],
+        "sample_id_overlap": [],
+        "test_composition_count": 20,
+        "test_hop_depths": [
+          2
+        ],
+        "test_relation_combinations": [
+          "above+front",
+          "behind+left",
+          "front+above",
+          "left+behind"
+        ],
+        "train_composition_count": 20,
+        "train_hop_depths": [
+          2
+        ],
+        "train_relation_combinations": [
+          "above+left",
+          "behind+above",
+          "front+left",
+          "left+above"
+        ],
+        "valid": true,
+        "violations": [],
+        "world_hash_overlap": []
+      }
+    },
+    "valid": true,
+    "violations": []
+  }
+}
