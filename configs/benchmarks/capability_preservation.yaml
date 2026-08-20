@@ -1,0 +1,9 @@
+schema_version: 1
+methods: [original_vlm, recoalign]
+benchmarks:
+  general_qa: [gqa, mmvp]
+  retrieval: [flickr30k, mscoco]
+maximum_absolute_degradation: 0.02
+pair_by: [model, benchmark, seed, sample_id]
+report_all_models: true
+decision: preserve if paired degradation is at most the registered threshold

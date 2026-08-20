@@ -1,0 +1,15 @@
+schema_version: 1
+package_status: implementation_complete
+scientific_submission_decision: NO-GO
+scientific_submission_ready: false
+engineering_artifacts_ready: true
+claims_verified: 0
+claims_total: 7
+complete_matrix_cells: 0
+planned_matrix_cells: 432
+real_vlm_evidence: pending
+tag_created: false
+tag_blocker: Tag creation requires GO, clean worktree, and a committed frozen snapshot.
+blockers:
+- comprehensive benchmark matrix is incomplete (0/432 cells)
+- real-VLM mechanistic evidence is not GO

@@ -1,0 +1,46 @@
+schema_version: 1
+training_experiment: TRAIN001
+stage: structured_interface_pretraining
+model:
+  name: recoalign
+  vision_backbone: frozen_vlm_vision_encoder
+  llm_backbone: frozen_vlm_llm
+  dataset_family: recoalign-synthetic-compositional-world
+  visual_dim: 16
+  interface_dim: 32
+  llm_dim: 32
+  num_structure_tokens: 8
+  num_heads: 4
+  num_object_classes: 8
+  num_attribute_classes: 8
+  num_relation_classes: 8
+  num_composition_classes: 8
+  num_answer_classes: 4
+dataset:
+  name: recoalign-synthetic-compositional-world
+  version: generator-v2
+  split: train
+  manifest: manifests/datasets/synthetic_world_v2.yaml
+  supervision: [object_labels, attribute_labels, relation_labels, composition_labels]
+optimizer:
+  name: adamw
+  weight_decay: 0.01
+scheduler:
+  name: cosine
+  warmup_steps: 0
+learning_rate: 0.003
+batch_size: 100
+epochs: 10
+freeze_policy: interface_only
+loss_weights:
+  semantic: 1.0
+  structural: 1.0
+  reasoning: 0.0
+seed: 101
+gradient_clip_norm: 1.0
+validation_every: 1
+save_every: 1
+output_dir: runs/training
+inference_contract:
+  oracle_graph_allowed: false
+  accepted_inputs: [image, question]

@@ -1,42 +1,59 @@
-# Phase-0 architecture
+# Structured Reasoning Interface architecture
 
-ReCoAlign separates stable research infrastructure from hypothesis-specific code.
+ReCoAlign separates stable benchmark infrastructure from the mechanism-validation path.
 
 ```text
-configs/                    Committed experiment intent
-manifests/                  Dataset, checkpoint, and sweep provenance
-schemas/                    Runtime-enforced record contracts
-src/recoalign/data/         Dataset-neutral records and manifest verification
-src/recoalign/benchmarks/   Unified benchmark adapter contract
-src/recoalign/models/       Encoder abstractions and OpenCLIP integration
-src/recoalign/methods/      ReCoAlign method variants, added after diagnosis
-src/recoalign/generation/   Hard-positive and hard-negative generation
-src/recoalign/training/     Training loops, losses, optimization, checkpointing
-src/recoalign/evaluation/   Metrics and prediction serialization
-src/recoalign/experiments/  Run lifecycle, promotion gates, and provenance
-src/recoalign/analysis/     Tables, statistics, visualizations, failure taxonomy
-environments/               Versioned bootstrap profiles
-results/                    Lightweight reviewed summaries only
-paper/                      Manuscript-controlled figures and tables
+image / caption
+      │
+      ▼
+BaseVLM.encode_image / encode_text
+      │
+      ▼
+VisualRepresentation
+      │
+      ▼
+StructureEncoder → StructuredRepresentation (nodes + typed edges)
+      │
+      ▼
+ReasoningRequest → LLMReasoning / BaseVLM.reason
+      │
+      ▼
+answer + confidence + provenance
 ```
 
-## Dependency direction
+## Design rules
 
-Core configuration, schema validation, manifests, experiment records, and metrics remain importable
-without PyTorch or OpenCLIP. Benchmark and model integrations may depend on optional ML packages.
-This keeps CI fast and prevents ML environment failures from corrupting provenance records.
+1. The visual encoder, structure encoder, and language reasoner are separate interfaces.
+2. Synthetic conditions are paired at the scene level so gains are evaluated with matched contrasts.
+3. Graph prompts must declare whether they are full, partial, or corrupted; an oracle graph is an
+   intervention, not evidence that a model autonomously builds the graph.
+4. No trainable loss is added until the interface gap is reproduced across seeds, backbones, and
+   controlled graph ablations.
+5. Every experiment uses YAML configuration, explicit seeds, JSON metrics, prediction rows, and a
+   run manifest.
+6. The root `recoalign` CLI is the only public experiment entry point; runner modules are library
+   implementation details.
 
-## Experiment lifecycle
+## Stable infrastructure
 
-1. Validate a committed YAML configuration.
-2. Bind dataset/checkpoint manifests and capture their digests.
-3. Create a run directory with resolved config, manifest snapshots, verification, and environment.
-4. Execute evaluation or training and write predictions to ignored artifact storage.
-5. Finalize with finite metrics and a non-reportable status.
-6. Promote only a clean, verified, reviewed run to `reportable`.
-7. Build manuscript tables from schema-valid reportable records.
+`src/recoalign/` is the authoritative package for benchmark records, retrieval metrics,
+dataset/checkpoint manifests, environment capture, Winoground reportability, and the controlled
+synthetic-world instrument. Root-level Phase-1 packages remain compatibility boundaries for existing
+registered runners.
 
-## Research boundary
+## Active Phase-1 path
 
-Phase 0 deliberately does not claim a ReCoAlign method. Modules under `methods`, `generation`, and
-`training` remain minimal until baseline diagnostics justify a specific hypothesis.
+- `src/recoalign/synthetic_world/` generates world state before deriving images, graphs, captions,
+  and programmatic compositional questions.
+- `models/structure_encoder/` defines the visual-to-graph boundary.
+- `experiments/graph_vs_text/` compares image, object list, caption, and graph conditions.
+- `experiments/graph_ablation/` measures graph completeness and corruption.
+- `experiments/ood_composition/` evaluates compositions held out from the generator's train split.
+- `diagnosis/interface_gap_analysis/` reports sufficiency contrasts without overclaiming a unique
+  internal bottleneck.
+
+## Future model boundary
+
+`models/reasoning_interface/` reserves the contracts needed for Structure Token Learning,
+ontology-guided representation, and graph-aware alignment. It intentionally contains interfaces and
+data contracts only; the repository does not present a speculative model as a result.

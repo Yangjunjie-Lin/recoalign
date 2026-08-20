@@ -1,0 +1,8 @@
+schema_version: 1
+framework: transformers_llava_next
+model: LLaVA-NeXT-7B
+identifier: llava-hf/llava-v1.6-mistral-7b-hf
+source: https://huggingface.co/llava-hf/llava-v1.6-mistral-7b-hf
+license: upstream-model-license-and-terms
+files: []
+notes: Adapter-ready only. Pin revision and local file hashes before scientific execution.

@@ -1,0 +1,19 @@
+schema_version: 1
+phase: Phase 3.2
+decision:
+  training_framework: GO
+  toy_sanity: GO
+  real_vlm_training: PENDING
+  scientific_efficacy: INCONCLUSIVE
+checks:
+  100_sample_loss_decrease: true
+  random_label_decline_observed: true
+  no_structure_logged: true
+  checkpoint_save_load: true
+  resume_training: true
+  ablation_execution: true
+  config_validation: true
+  oracle_graph_at_inference: false
+interpretation: >-
+  The framework shows that the structured interface can be optimized and audited
+  under controlled supervision. It does not yet establish improvement on a real VLM.

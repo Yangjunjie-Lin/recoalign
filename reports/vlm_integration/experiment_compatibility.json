@@ -1,0 +1,344 @@
+{
+  "benchmark_modified": false,
+  "experiments": [
+    "EXP001",
+    "EXP002",
+    "EXP003"
+  ],
+  "models": {
+    "internvl": {
+      "adapter": "internvl",
+      "checkpoint_revision": "UNPINNED",
+      "experiments": {
+        "EXP001": {
+          "compatible": true,
+          "status": "adapter_ready"
+        },
+        "EXP002": {
+          "compatible": true,
+          "status": "adapter_ready"
+        },
+        "EXP003": {
+          "compatible": true,
+          "status": "adapter_ready"
+        }
+      },
+      "runtime": {
+        "adapter": "internvl",
+        "adapter_ready": true,
+        "checkpoint_configured": true,
+        "checkpoint_exists": false,
+        "dependencies": {
+          "accelerate": true,
+          "torch": true,
+          "transformers": true
+        },
+        "provenance": {
+          "answer_evaluator": "answer-evaluator-v1",
+          "batch_size": 1,
+          "cache_enabled": true,
+          "device_map": "auto",
+          "dtype": "bfloat16",
+          "generation": {
+            "do_sample": false,
+            "max_new_tokens": 32,
+            "num_beams": 1,
+            "temperature": 0.0
+          },
+          "loaded": false,
+          "model_id": "internvl",
+          "model_path": "outputs/models/internvl2-8b",
+          "prompt": {
+            "answer_template": "Answer with exactly one option: {choices}.",
+            "generation": {
+              "do_sample": false,
+              "max_new_tokens": 32,
+              "temperature": 0.0
+            },
+            "instruction": "",
+            "protocol_id": "reasoning-default-v1",
+            "question_template": "Question: {question}",
+            "separator": "\n",
+            "sha256": "1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492",
+            "source": "D:/UoM_CS/GitHub/recoalign/configs/prompts/reasoning_default.yaml"
+          }
+        },
+        "runtime_ready": false,
+        "weights_loaded": false
+      },
+      "scientific_evidence": false
+    },
+    "llava_1_5_7b": {
+      "adapter": "llava_1_5_7b",
+      "checkpoint_revision": "4481d270cc22fd5c4d1bb5df129622006ccd9234",
+      "experiments": {
+        "EXP001": {
+          "compatible": true,
+          "status": "runtime_ready"
+        },
+        "EXP002": {
+          "compatible": true,
+          "status": "runtime_ready"
+        },
+        "EXP003": {
+          "compatible": true,
+          "status": "runtime_ready"
+        }
+      },
+      "runtime": {
+        "adapter": "llava_1_5_7b",
+        "architectures": [
+          "LlavaLlamaForCausalLM"
+        ],
+        "checkpoint_exists": true,
+        "checkpoint_files": [
+          "mm_projector.bin",
+          "pytorch_model-00001-of-00002.bin",
+          "pytorch_model-00002-of-00002.bin"
+        ],
+        "checkpoint_format": "legacy_llava",
+        "dependencies": {
+          "accelerate": true,
+          "bitsandbytes": true,
+          "sentencepiece": true,
+          "torch": true,
+          "transformers": true
+        },
+        "hardware": {
+          "cuda_available": true,
+          "cuda_device_count": 1,
+          "cuda_required": true,
+          "devices": [
+            {
+              "index": 0,
+              "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+              "total_memory_bytes": 6441926656
+            }
+          ]
+        },
+        "hardware_ready": true,
+        "loader": "legacy_transformers",
+        "loader_compatible": true,
+        "model_type": "llava",
+        "processor_classes": {
+          "image_processor": "CLIPImageProcessor",
+          "processor": "LlavaProcessor",
+          "tokenizer": "LlamaTokenizer"
+        },
+        "processor_error": null,
+        "processor_ready": true,
+        "provenance": {
+          "answer_evaluator": "answer-evaluator-v1",
+          "batch_size": 1,
+          "cache_enabled": true,
+          "device_map": "auto",
+          "dtype": "float16",
+          "evidence_role": "scientific_evidence",
+          "generation": {
+            "do_sample": false,
+            "max_new_tokens": 32,
+            "num_beams": 1,
+            "temperature": 0.0
+          },
+          "loaded": false,
+          "loader": "legacy_transformers",
+          "local_files_only": true,
+          "model_id": "llava_1_5_7b",
+          "model_path": "outputs/models/llava-v1.5-7b",
+          "prompt": {
+            "answer_template": "Answer with exactly one option: {choices}.",
+            "generation": {
+              "do_sample": false,
+              "max_new_tokens": 32,
+              "temperature": 0.0
+            },
+            "instruction": "",
+            "protocol_id": "reasoning-default-v1",
+            "question_template": "Question: {question}",
+            "separator": "\n",
+            "sha256": "1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492",
+            "source": "D:/UoM_CS/GitHub/recoalign/configs/prompts/reasoning_default.yaml"
+          },
+          "quantization": "nf4"
+        },
+        "runtime_ready": true,
+        "weights_loaded": false
+      },
+      "scientific_evidence": true
+    },
+    "llava_next": {
+      "adapter": "llava_next",
+      "checkpoint_revision": "UNPINNED",
+      "experiments": {
+        "EXP001": {
+          "compatible": true,
+          "status": "adapter_ready"
+        },
+        "EXP002": {
+          "compatible": true,
+          "status": "adapter_ready"
+        },
+        "EXP003": {
+          "compatible": true,
+          "status": "adapter_ready"
+        }
+      },
+      "runtime": {
+        "adapter": "llava_next",
+        "adapter_ready": true,
+        "checkpoint_configured": true,
+        "checkpoint_exists": false,
+        "dependencies": {
+          "accelerate": true,
+          "torch": true,
+          "transformers": true
+        },
+        "provenance": {
+          "answer_evaluator": "answer-evaluator-v1",
+          "batch_size": 1,
+          "cache_enabled": true,
+          "device_map": "auto",
+          "dtype": "bfloat16",
+          "generation": {
+            "do_sample": false,
+            "max_new_tokens": 32,
+            "num_beams": 1,
+            "temperature": 0.0
+          },
+          "loaded": false,
+          "model_id": "llava_next",
+          "model_path": "outputs/models/llava-next-7b",
+          "prompt": {
+            "answer_template": "Answer with exactly one option: {choices}.",
+            "generation": {
+              "do_sample": false,
+              "max_new_tokens": 32,
+              "temperature": 0.0
+            },
+            "instruction": "",
+            "protocol_id": "reasoning-default-v1",
+            "question_template": "Question: {question}",
+            "separator": "\n",
+            "sha256": "1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492",
+            "source": "D:/UoM_CS/GitHub/recoalign/configs/prompts/reasoning_default.yaml"
+          }
+        },
+        "runtime_ready": false,
+        "weights_loaded": false
+      },
+      "scientific_evidence": false
+    },
+    "qwen_vl": {
+      "adapter": "qwen_vl",
+      "checkpoint_revision": "UNPINNED",
+      "experiments": {
+        "EXP001": {
+          "compatible": true,
+          "status": "adapter_ready"
+        },
+        "EXP002": {
+          "compatible": true,
+          "status": "adapter_ready"
+        },
+        "EXP003": {
+          "compatible": true,
+          "status": "adapter_ready"
+        }
+      },
+      "runtime": {
+        "adapter": "qwen_vl",
+        "adapter_ready": true,
+        "checkpoint_configured": true,
+        "checkpoint_exists": false,
+        "dependencies": {
+          "accelerate": true,
+          "torch": true,
+          "transformers": true
+        },
+        "provenance": {
+          "answer_evaluator": "answer-evaluator-v1",
+          "batch_size": 1,
+          "cache_enabled": true,
+          "device_map": "auto",
+          "dtype": "bfloat16",
+          "generation": {
+            "do_sample": false,
+            "max_new_tokens": 32,
+            "num_beams": 1,
+            "temperature": 0.0
+          },
+          "loaded": false,
+          "model_id": "qwen_vl",
+          "model_path": "outputs/models/qwen2-vl-7b-instruct",
+          "prompt": {
+            "answer_template": "Answer with exactly one option: {choices}.",
+            "generation": {
+              "do_sample": false,
+              "max_new_tokens": 32,
+              "temperature": 0.0
+            },
+            "instruction": "",
+            "protocol_id": "reasoning-default-v1",
+            "question_template": "Question: {question}",
+            "separator": "\n",
+            "sha256": "1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492",
+            "source": "D:/UoM_CS/GitHub/recoalign/configs/prompts/reasoning_default.yaml"
+          }
+        },
+        "runtime_ready": false,
+        "weights_loaded": false
+      },
+      "scientific_evidence": false
+    },
+    "reference": {
+      "adapter": "reference",
+      "checkpoint_revision": null,
+      "experiments": {
+        "EXP001": {
+          "compatible": true,
+          "status": "runtime_ready"
+        },
+        "EXP002": {
+          "compatible": true,
+          "status": "runtime_ready"
+        },
+        "EXP003": {
+          "compatible": true,
+          "status": "runtime_ready"
+        }
+      },
+      "runtime": {
+        "adapter": "reference",
+        "adapter_ready": true,
+        "provenance": {
+          "answer_evaluator": "answer-evaluator-v1",
+          "batch_size": 16,
+          "cache_enabled": false,
+          "evidence_role": "infrastructure_validation",
+          "loaded": false,
+          "model_id": "reference",
+          "prompt": {
+            "answer_template": "Answer with exactly one option: {choices}.",
+            "generation": {
+              "do_sample": false,
+              "max_new_tokens": 32,
+              "temperature": 0.0
+            },
+            "instruction": "",
+            "protocol_id": "reasoning-default-v1",
+            "question_template": "Question: {question}",
+            "separator": "\n",
+            "sha256": "1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492",
+            "source": "D:/UoM_CS/GitHub/recoalign/configs/prompts/reasoning_default.yaml"
+          },
+          "seed": 7
+        },
+        "runtime_ready": true,
+        "weights_loaded": false
+      },
+      "scientific_evidence": false
+    }
+  },
+  "prompt_protocol": "configs/prompts/reasoning_default.yaml",
+  "schema_version": 1
+}

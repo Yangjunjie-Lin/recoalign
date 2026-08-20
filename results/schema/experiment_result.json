@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "run_id": "example-run",
+  "experiment_id": "EXP001",
+  "hypothesis": "H001",
+  "model": "frozen-reference",
+  "dataset": "recoalign-synthetic-compositional@generator-v1",
+  "seed": [20260818, 20260819, 20260820, 20260821, 20260822],
+  "metrics": {},
+  "confidence_interval": null,
+  "statistical_test": null,
+  "decision": "INCONCLUSIVE",
+  "timestamp": "2026-08-19T00:00:00+00:00",
+  "integrity": {},
+  "status": "dry-run"
+}

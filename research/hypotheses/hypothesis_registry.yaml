@@ -1,0 +1,73 @@
+schema_version: 1
+hypotheses:
+  - id: H001
+    title: Structured Reasoning Interface Gap
+    description: >-
+      Modern VLMs preserve visual semantics but lack structured intermediate representations
+      required for compositional reasoning.
+    motivation: >-
+      A controlled comparison between information-equivalent graph and textual interfaces can
+      separate representational structure from the amount of semantic information supplied.
+    prediction: >-
+      Providing structured representations should improve compositional reasoning beyond
+      information-equivalent textual descriptions.
+    falsification: >-
+      The hypothesis is rejected if graph representation provides no significant advantage over
+      controlled text, if the advantage disappears after token matching, if it is confined to
+      one-hop questions, or if it fails the preliminary composition-OOD transfer gate.
+    required_experiment: EXP001
+    status: testing
+
+  - id: H002
+    title: Structural Necessity
+    description: >-
+      The benefit attributed to a structured interface depends on correct and sufficiently complete
+      relational structure, rather than merely on additional tokens or a graph-like format.
+    motivation: >-
+      Partial and randomized structure provide negative controls for relational completeness and
+      correctness while retaining the same interface family.
+    prediction: >-
+      Removing or corrupting relational structure should predictably degrade reasoning, with larger
+      structural dependency at greater hop depth.
+    falsification: >-
+      Reject H002 if random or wrong graphs do not degrade performance, incomplete graphs match full
+      graphs, or any apparent benefit is confined to one-hop tasks or graph-like formatting.
+    required_experiment: EXP002
+    status: testing
+
+  - id: H003
+    title: Compositional Generalization
+    description: >-
+      A correct structured interface supports reasoning over novel combinations of known visual
+      primitives rather than only memorized in-distribution compositions.
+    motivation: >-
+      Composition-disjoint evaluation tests whether any graph advantage transfers beyond the
+      combinations represented in the development split.
+    prediction: >-
+      Structured representations retain a larger fraction of IID performance on unseen object
+      bindings, unseen relation combinations, and longer reasoning chains; their advantage over
+      captions increases with depth and is not reproduced by random graphs.
+    falsification: >-
+      Reject H003 if graph advantage disappears under OOD compositions, caption retention matches
+      graph retention, random graphs reproduce the gain, or performance follows held-out identities
+      rather than abstract relation structure.
+    required_experiment: EXP003
+    status: testing
+
+  - id: H004
+    title: Three-Stage Interface Diagnosis
+    description: >-
+      A real VLM can preserve visual semantics while failing to make relational structure accessible
+      to the reasoning execution path.
+    motivation: >-
+      Separating semantic availability, structured accessibility, and reasoning execution prevents
+      ordinary reasoning weakness from being mislabeled as an interface gap.
+    prediction: >-
+      Eligible models will show high SAS, lower StAS, and a positive oracle-graph reasoning gain;
+      the pattern will be consistent across model families.
+    falsification: >-
+      The diagnosis is not supported if semantic probes are low, structured accessibility is high
+      while reasoning remains low, oracle graphs do not improve reasoning, or the pattern is not
+      replicated across eligible models.
+    required_experiment: EXP004
+    status: testing

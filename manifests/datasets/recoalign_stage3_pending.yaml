@@ -1,0 +1,9 @@
+schema_version: 1
+name: recoalign-stage3-real-task
+version: pending-selection
+status: blocked_until_preregistered
+allowed_datasets: [GQA, MMVP, compositional_benchmarks]
+files: []
+scientific_use: >-
+  Placeholder only. TRAIN003 must replace this manifest with a hashed, licensed,
+  preregistered real-task manifest before any scientific training run.

@@ -1,0 +1,6 @@
+schema_version: 1
+ablation: no_reasoning_loss
+base_config: configs/training/recoalign_stage2.yaml
+overrides:
+  training_experiment: TRAIN002_NO_REASONING
+  epochs: 3

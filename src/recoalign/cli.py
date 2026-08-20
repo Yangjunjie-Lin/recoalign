@@ -3,9 +3,14 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import shlex
+import sys
 from collections.abc import Sequence
 from pathlib import Path
+
+import yaml
 
 from recoalign.analysis.results import collect_runs, render_markdown_table
 from recoalign.config import ConfigError, config_digest, load_config
@@ -25,6 +30,7 @@ from recoalign.experiments.records import (
     promote_run,
 )
 from recoalign.reproducibility import atomic_write_json, collect_environment
+from recoalign.research_registry import RegistryError
 from recoalign.schema_validation import SchemaValidationError
 
 
@@ -34,6 +40,173 @@ def build_parser() -> argparse.ArgumentParser:
 
     validate = subparsers.add_parser("validate-config", help="validate an experiment YAML file")
     validate.add_argument("config")
+
+    subparsers.add_parser(
+        "validate-research", help="validate hypothesis/experiment registries and bindings"
+    )
+    subparsers.add_parser("list-experiments", help="list registered scientific experiments")
+
+    governed_run = subparsers.add_parser(
+        "run-experiment", help="run a registered experiment through the governance lifecycle"
+    )
+    governed_run.add_argument("experiment_id", nargs="?")
+    governed_run.add_argument("--experiment", dest="experiment_option")
+    governed_run.add_argument("--model")
+    governed_run.add_argument("--split")
+    governed_run.add_argument("--batch-size", type=int)
+    governed_run.add_argument("--no-cache", action="store_true")
+    governed_run.add_argument("--config")
+    governed_run.add_argument("--output-root", default="runs")
+    governed_run.add_argument("--run-id")
+    governed_run.add_argument("--seed", dest="seeds", type=int, action="append")
+    governed_run.add_argument("--dry-run", action="store_true")
+
+    vlm_evaluation = subparsers.add_parser(
+        "run-vlm-eval", help="run one registered model x experiment evaluation cell"
+    )
+    vlm_evaluation.add_argument("--model", required=True)
+    vlm_evaluation.add_argument("--experiment", required=True)
+    vlm_evaluation.add_argument("--split")
+    vlm_evaluation.add_argument("--seed", dest="seeds", type=int, action="append")
+    vlm_evaluation.add_argument("--output")
+    vlm_evaluation.add_argument("--batch-size", type=int)
+    vlm_evaluation.add_argument("--no-cache", action="store_true")
+    vlm_evaluation.add_argument("--dry-run", action="store_true")
+
+    subparsers.add_parser("list-vlm-models", help="list registered Phase-2.1 VLM backbones")
+
+    diagnosis = subparsers.add_parser(
+        "run-interface-diagnosis",
+        help="run EXP004 three-stage structured-interface diagnosis",
+    )
+    diagnosis.add_argument("--model", default="reference")
+    diagnosis.add_argument("--config", default="configs/diagnosis/interface_diagnosis.yaml")
+    diagnosis.add_argument("--output")
+    diagnosis.add_argument("--seed", dest="seeds", type=int, action="append")
+    diagnosis.add_argument("--dry-run", action="store_true")
+
+    recoalign_toy = subparsers.add_parser(
+        "train-recoalign-toy",
+        help="run the CPU-friendly ReCoAlign interface training sanity check",
+    )
+    recoalign_toy.add_argument("--config", default="configs/models/recoalign.yaml")
+    recoalign_toy.add_argument("--output", default="outputs/recoalign_toy")
+    recoalign_toy.add_argument("--steps", type=int)
+    recoalign_toy.add_argument("--seed", type=int, default=0)
+    recoalign_toy.add_argument("--overfit-check", action="store_true")
+
+    recoalign_training = subparsers.add_parser(
+        "train-recoalign",
+        help="run one audited ReCoAlign training stage on the configured data boundary",
+    )
+    recoalign_training.add_argument("--config", required=True)
+    recoalign_training.add_argument("--output")
+    recoalign_training.add_argument("--resume")
+    recoalign_training.add_argument("--stop-after-epoch", type=int)
+    recoalign_training.add_argument("--toy-data", action="store_true")
+    recoalign_training.add_argument("--no-environment", action="store_true")
+
+    recoalign_ablation = subparsers.add_parser(
+        "run-recoalign-ablation", help="execute one config-driven ReCoAlign toy ablation"
+    )
+    recoalign_ablation.add_argument("--config", required=True)
+    recoalign_ablation.add_argument("--output", required=True)
+
+    baseline_fairness = subparsers.add_parser(
+        "validate-training-fairness", help="validate controlled ReCoAlign baseline fields"
+    )
+    baseline_fairness.add_argument("--config", default="configs/training/baseline_matrix.yaml")
+
+    training_sanity = subparsers.add_parser(
+        "run-training-sanity", help="run controlled 100-sample training sanity checks"
+    )
+    training_sanity.add_argument("--config", default="configs/training/recoalign_stage1.yaml")
+    training_sanity.add_argument("--output", default="outputs/TRAIN001_sanity")
+    training_sanity.add_argument("--capture-environment", action="store_true")
+
+    subparsers.add_parser(
+        "validate-training-registry", help="validate TRAIN001-TRAIN003 and no-oracle contracts"
+    )
+
+    benchmark_validate = subparsers.add_parser(
+        "validate-benchmark-matrix", help="validate the complete Phase-4 evaluation matrix"
+    )
+    benchmark_validate.add_argument(
+        "--config", default="configs/benchmarks/comprehensive_matrix.yaml"
+    )
+    ablation_validate = subparsers.add_parser(
+        "validate-benchmark-ablations", help="validate architecture/training/data ablation matrix"
+    )
+    ablation_validate.add_argument("--config", default="configs/benchmarks/ablation_matrix.yaml")
+    benchmark_materialize = subparsers.add_parser(
+        "materialize-benchmark-matrix", help="write every frozen Phase-4 cell config"
+    )
+    benchmark_materialize.add_argument(
+        "--config", default="configs/benchmarks/comprehensive_matrix.yaml"
+    )
+    benchmark_materialize.add_argument("--output", required=True)
+    benchmark_run = subparsers.add_parser(
+        "run-vlm-benchmark", help="run or dry-run one unified BaseVLM benchmark cell"
+    )
+    benchmark_run.add_argument("--config", required=True)
+    benchmark_run.add_argument("--output")
+    benchmark_run.add_argument("--dry-run", action="store_true")
+    benchmark_run.add_argument("--no-environment", action="store_true")
+    benchmark_report = subparsers.add_parser(
+        "build-comprehensive-report", help="build complete tables, figures, and decision report"
+    )
+    benchmark_report.add_argument(
+        "--matrix-config", default="configs/benchmarks/comprehensive_matrix.yaml"
+    )
+    benchmark_report.add_argument("--results-root", default="outputs/comprehensive")
+    benchmark_report.add_argument("--output-root", default="reports")
+
+    mechanistic_registry = subparsers.add_parser(
+        "validate-mechanistic-registry", help="validate registered Phase-5 ablations"
+    )
+    mechanistic_registry.add_argument(
+        "--config", default="configs/ablations/mechanistic_registry.yaml"
+    )
+    mechanistic_run = subparsers.add_parser(
+        "run-mechanistic-toy", help="run causal/intervention/representation toy analysis"
+    )
+    mechanistic_run.add_argument("--output", default="reports/mechanistic")
+    mechanistic_run.add_argument("--seed", dest="seeds", type=int, action="append")
+    mechanistic_report = subparsers.add_parser(
+        "build-mechanistic-report", help="build ablation/mechanism/visualization/LaTeX outputs"
+    )
+    mechanistic_report.add_argument("--suite", default="reports/mechanistic/mechanistic_suite.json")
+    mechanistic_report.add_argument("--output-root", default="reports")
+
+    paper_package = subparsers.add_parser(
+        "build-paper-package",
+        help="audit and build conservative submission-preparation artifacts",
+    )
+    paper_package.add_argument("--root")
+    paper_validate = subparsers.add_parser(
+        "validate-paper-package",
+        help="validate paper artifacts without requiring scientific GO",
+    )
+    paper_validate.add_argument("--root")
+    paper_freeze = subparsers.add_parser(
+        "freeze-paper-registry",
+        help="write immutable protocol/config/checkpoint inventory without tagging",
+    )
+    paper_freeze.add_argument("--root")
+    paper_tag = subparsers.add_parser(
+        "create-paper-tag",
+        help="create v2.0-paper-ready only after all scientific and Git gates pass",
+    )
+    paper_tag.add_argument("--root")
+    paper_tag.add_argument("--tag", default="v2.0-paper-ready")
+    paper_tag.add_argument("--create", action="store_true")
+
+    decide = subparsers.add_parser(
+        "decide-experiment",
+        help="record a GO/NO-GO/INCONCLUSIVE YAML report from a result JSON",
+    )
+    decide.add_argument("result")
+    decide.add_argument("--output")
 
     environment = subparsers.add_parser("capture-environment", help="write environment metadata")
     environment.add_argument("--output", default="environment.json")
@@ -51,6 +224,44 @@ def build_parser() -> argparse.ArgumentParser:
     baseline.add_argument("--output-root")
     baseline.add_argument("--run-id")
     baseline.add_argument("--no-cache", action="store_true")
+
+    graph_vs_text = subparsers.add_parser(
+        "run-graph-vs-text", help="run the complete multi-seed EXP001 controlled validation"
+    )
+    graph_vs_text.add_argument("--config", default="configs/graph_vs_text.yaml")
+    graph_vs_text.add_argument("--output")
+
+    graph_ablation = subparsers.add_parser(
+        "run-graph-ablation", help="run Experiment B graph completeness/corruption ablations"
+    )
+    graph_ablation.add_argument("--config", default="configs/graph_ablation.yaml")
+    graph_ablation.add_argument("--output")
+
+    ood_composition = subparsers.add_parser(
+        "run-ood-composition", help="run Experiment C on unseen compositions"
+    )
+    ood_composition.add_argument("--config", default="configs/ood_composition.yaml")
+
+    benchmark = subparsers.add_parser(
+        "run-structured-benchmark", help="run the complete Phase-1 mechanism suite"
+    )
+    benchmark.add_argument("--config-dir", default="configs")
+
+    synthetic_evaluation = subparsers.add_parser(
+        "evaluate-synthetic",
+        help="evaluate the controlled synthetic world with multi-seed statistics",
+    )
+    synthetic_evaluation.add_argument("--config", default="configs/synthetic_benchmark.yaml")
+    synthetic_evaluation.add_argument("--output")
+
+    synthetic_generation = subparsers.add_parser(
+        "generate-synthetic",
+        help="materialize and validate a reconstructable synthetic dataset",
+    )
+    synthetic_generation.add_argument("--config", default="configs/synthetic_benchmark.yaml")
+    synthetic_generation.add_argument("--count", type=int, default=1000)
+    synthetic_generation.add_argument("--output", default="outputs/synthetic_world_example")
+    synthetic_generation.add_argument("--seed", type=int)
 
     flickr = subparsers.add_parser(
         "prepare-flickr30k", help="normalize the Karpathy Flickr30K split"
@@ -83,9 +294,7 @@ def build_parser() -> argparse.ArgumentParser:
     winoground.add_argument("--exporter-version")
     winoground.add_argument("--downloaded-at")
 
-    bivlc = subparsers.add_parser(
-        "prepare-bivlc", help="normalize a path-based BiVLC export"
-    )
+    bivlc = subparsers.add_parser("prepare-bivlc", help="normalize a path-based BiVLC export")
     _add_standard_preparation_arguments(bivlc)
     bivlc.add_argument("--source-jsonl", required=True)
 
@@ -129,12 +338,424 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    args = build_parser().parse_args(argv)
+    arguments = list(argv) if argv is not None else sys.argv[1:]
+    args = build_parser().parse_args(arguments)
+    command_line = shlex.join(["recoalign", *arguments])
     try:
         if args.command == "validate-config":
-            config = load_config(args.config)
+            structured = False
+            method_config = False
+            try:
+                config = load_config(args.config)
+            except ConfigError as baseline_error:
+                try:
+                    from experiments.runtime import load_config as load_structured_config
+
+                    config = load_structured_config(args.config)
+                    structured = True
+                except (FileNotFoundError, OSError, TypeError, ValueError):
+                    try:
+                        raw = yaml.safe_load(Path(args.config).read_text(encoding="utf-8"))
+                        if not isinstance(raw, dict):
+                            raise ValueError("configuration root must be a mapping")
+                        if "benchmark" in raw and "generation" in raw:
+                            from recoalign.evaluation.vlm_benchmark.runner import (
+                                validate_benchmark_config,
+                            )
+
+                            validate_benchmark_config(raw)
+                            config = raw
+                        elif "benchmarks" in raw and "models" in raw:
+                            from recoalign.evaluation.vlm_benchmark.matrix import (
+                                validate_evaluation_matrix,
+                            )
+
+                            validate_evaluation_matrix(raw)
+                            config = raw
+                        elif "stage" in raw:
+                            from recoalign.training.trainer import load_training_config
+
+                            config = load_training_config(args.config).raw
+                        elif "ablation" in raw:
+                            from recoalign.training.ablations import load_ablation_config
+                            from recoalign.training.trainer import TrainingConfig
+
+                            config = load_ablation_config(args.config)
+                            TrainingConfig.from_mapping(config)
+                        else:
+                            from recoalign.training.recoalign_toy import load_recoalign_config
+
+                            config = load_recoalign_config(args.config).to_dict()
+                        method_config = True
+                    except (FileNotFoundError, OSError, TypeError, ValueError) as method_error:
+                        raise baseline_error from method_error
             print(f"valid: {args.config}")
-            print(f"sha256: {config_digest(config)}")
+            if structured or method_config:
+                canonical = json.dumps(config, sort_keys=True, separators=(",", ":"))
+                digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+            else:
+                digest = config_digest(config)
+            print(f"sha256: {digest}")
+            return 0
+
+        if args.command == "validate-research":
+            from recoalign.research_registry import validate_research_registries
+
+            print(json.dumps(validate_research_registries(), indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "list-experiments":
+            from recoalign.research_registry import load_experiment_registry
+
+            for experiment in load_experiment_registry()["experiments"]:
+                print(
+                    f"{experiment['experiment_id']}\t{experiment['hypothesis_id']}\t"
+                    f"{experiment['title']}\t{experiment['status']}"
+                )
+            return 0
+
+        if args.command == "run-experiment":
+            experiment_id = args.experiment_option or args.experiment_id
+            if not experiment_id:
+                raise ValueError("run-experiment requires EXPxxx or --experiment EXPxxx")
+            if experiment_id == "EXP004":
+                if args.config and args.model:
+                    raise ValueError(
+                        "EXP004 uses the registered diagnosis config; use run-interface-diagnosis "
+                        "for a custom diagnostic config"
+                    )
+                from diagnosis.interface_diagnosis.runner import run_interface_diagnosis
+
+                run_dir = run_interface_diagnosis(
+                    model_name=args.model or "reference",
+                    seeds=args.seeds,
+                    dry_run=args.dry_run,
+                )
+            elif args.model:
+                if args.config:
+                    raise ValueError(
+                        "model-matrix runs use the registered experiment config; "
+                        "--config is not allowed"
+                    )
+                from recoalign.vlm_evaluation import run_vlm_evaluation
+
+                run_dir = run_vlm_evaluation(
+                    model_name=args.model,
+                    experiment_id=experiment_id,
+                    split=args.split,
+                    seeds=args.seeds,
+                    dry_run=args.dry_run,
+                    cache_enabled=not args.no_cache,
+                    batch_size=args.batch_size,
+                )
+            else:
+                from recoalign.governance import run_registered_experiment
+
+                run_dir = run_registered_experiment(
+                    experiment_id,
+                    config_path=args.config,
+                    output_root=args.output_root,
+                    run_id=args.run_id,
+                    dry_run=args.dry_run,
+                    seeds=args.seeds,
+                    command=command_line,
+                )
+            print(run_dir)
+            return 0
+
+        if args.command == "run-vlm-eval":
+            from recoalign.vlm_evaluation import run_vlm_evaluation
+
+            output = run_vlm_evaluation(
+                model_name=args.model,
+                experiment_id=args.experiment,
+                split=args.split,
+                seeds=args.seeds,
+                output_dir=args.output,
+                dry_run=args.dry_run,
+                cache_enabled=not args.no_cache,
+                batch_size=args.batch_size,
+            )
+            print(output)
+            return 0
+
+        if args.command == "list-vlm-models":
+            from recoalign.models.vlm.registry import get_model_registry
+
+            registry = get_model_registry()
+            for name in registry.names():
+                definition = registry.definition(name)
+                print(
+                    f"{name}\tadapter={definition.payload['adapter']}\t"
+                    f"scientific_evidence={str(definition.scientific_evidence).lower()}"
+                )
+            return 0
+
+        if args.command == "run-interface-diagnosis":
+            from diagnosis.interface_diagnosis.runner import run_interface_diagnosis
+
+            output = run_interface_diagnosis(
+                model_name=args.model,
+                config_path=args.config,
+                output_dir=args.output,
+                seeds=args.seeds,
+                dry_run=args.dry_run,
+            )
+            print(output)
+            return 0
+
+        if args.command == "train-recoalign-toy":
+            from recoalign.training.recoalign_toy import (
+                load_recoalign_config,
+                overfit_sanity_test,
+                run_toy_training,
+            )
+
+            config = load_recoalign_config(args.config)
+            output_dir = Path(args.output)
+            output_dir.mkdir(parents=True, exist_ok=True)
+            checkpoint = output_dir / "checkpoint.pt"
+            result = run_toy_training(
+                config,
+                steps=args.steps or 30,
+                seed=args.seed,
+                checkpoint_path=checkpoint,
+            )
+            payload = {
+                "method": "recoalign",
+                "config": config.to_dict(),
+                "steps": result["steps"],
+                "seed": result["seed"],
+                "initial_loss": result["initial_loss"],
+                "final_loss": result["final_loss"],
+                "loss_decreased": result["loss_decreased"],
+                "loss_history": result["loss_history"],
+                "checkpoint": result["checkpoint"],
+            }
+            if args.overfit_check:
+                payload["overfit_sanity"] = overfit_sanity_test(config, seed=args.seed)
+            atomic_write_json(output_dir / "metrics.json", payload)
+            (output_dir / "config.resolved.yaml").write_text(
+                yaml.safe_dump(config.to_dict(), sort_keys=False), encoding="utf-8"
+            )
+            print(output_dir)
+            return 0
+
+        if args.command == "train-recoalign":
+            if not args.toy_data:
+                raise ValueError(
+                    "this repository build exposes only the audited --toy-data loader; "
+                    "real dataset loaders must be registered before training"
+                )
+            from recoalign.training.recoalign_toy import make_toy_batch
+            from recoalign.training.trainer import ReCoAlignTrainer, load_training_config
+
+            training_config = load_training_config(args.config)
+            trainer = ReCoAlignTrainer.from_config(
+                training_config,
+                run_dir=args.output,
+                capture_environment_metadata=not args.no_environment,
+            )
+            train_batch = make_toy_batch(
+                batch_size=training_config.batch_size,
+                config=trainer.model.config,
+                seed=training_config.seed + 1,
+            ).as_dict()
+            validation_batch = make_toy_batch(
+                batch_size=training_config.batch_size,
+                config=trainer.model.config,
+                seed=training_config.seed + 2,
+            ).as_dict()
+            result = trainer.fit(
+                [train_batch],
+                [validation_batch],
+                resume_from=args.resume,
+                stop_after_epoch=args.stop_after_epoch,
+            )
+            print(trainer.run_dir)
+            print(f"loss_decreased={str(result['loss_decreased']).lower()}")
+            return 0
+
+        if args.command == "run-recoalign-ablation":
+            from recoalign.training.ablations import load_ablation_config, run_toy_ablation
+
+            result = run_toy_ablation(
+                load_ablation_config(args.config),
+                run_dir=args.output,
+            )
+            print(args.output)
+            print(f"loss_decreased={str(result['loss_decreased']).lower()}")
+            return 0
+
+        if args.command == "validate-training-fairness":
+            from recoalign.training.fairness import validate_baseline_fairness
+
+            payload = yaml.safe_load(Path(args.config).read_text(encoding="utf-8"))
+            if not isinstance(payload, dict) or not isinstance(payload.get("baselines"), dict):
+                raise ValueError("baseline fairness config requires a baselines mapping")
+            print(
+                json.dumps(
+                    validate_baseline_fairness(payload["baselines"]),
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "run-training-sanity":
+            from recoalign.training.sanity import run_training_sanity_suite
+            from recoalign.training.trainer import load_training_config
+
+            config = load_training_config(args.config)
+            result = run_training_sanity_suite(
+                config.raw,
+                output_dir=args.output,
+                capture_environment_metadata=args.capture_environment,
+            )
+            print(args.output)
+            print(json.dumps(result, indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "validate-training-registry":
+            from recoalign.training.registry import validate_training_registry
+
+            print(json.dumps(validate_training_registry(), indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "validate-benchmark-matrix":
+            from recoalign.evaluation.vlm_benchmark.matrix import (
+                load_matrix_config,
+                validate_evaluation_matrix,
+            )
+
+            print(
+                json.dumps(
+                    validate_evaluation_matrix(load_matrix_config(args.config)),
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "validate-benchmark-ablations":
+            from recoalign.evaluation.vlm_benchmark.matrix import (
+                load_ablation_matrix,
+                validate_evaluation_matrix,
+            )
+
+            resolved = load_ablation_matrix(args.config)
+            print(
+                json.dumps(
+                    {
+                        "valid": True,
+                        "architecture": resolved["definition"]["architecture"],
+                        "training": resolved["definition"]["training"],
+                        "data": resolved["definition"]["data"],
+                        "matrix": validate_evaluation_matrix(resolved["resolved_matrix"]),
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "materialize-benchmark-matrix":
+            from recoalign.evaluation.vlm_benchmark.matrix import (
+                load_matrix_config,
+                materialize_matrix_configs,
+            )
+
+            manifest = materialize_matrix_configs(load_matrix_config(args.config), args.output)
+            print(json.dumps(manifest, indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "run-vlm-benchmark":
+            from recoalign.evaluation.vlm_benchmark.runner import run_benchmark_cell
+
+            output = run_benchmark_cell(
+                args.config,
+                output_dir=args.output,
+                dry_run=args.dry_run,
+                capture_environment_metadata=not args.no_environment,
+            )
+            print(output)
+            return 0
+
+        if args.command == "build-comprehensive-report":
+            from recoalign.evaluation.vlm_benchmark.reporting import generate_comprehensive_reports
+
+            report = generate_comprehensive_reports(
+                matrix_config=args.matrix_config,
+                results_root=args.results_root,
+                output_root=args.output_root,
+            )
+            print(json.dumps(report, indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "validate-mechanistic-registry":
+            from recoalign.analysis.mechanistic.registry import validate_mechanistic_registry
+
+            print(json.dumps(validate_mechanistic_registry(args.config), indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "run-mechanistic-toy":
+            from recoalign.analysis.mechanistic.runner import run_toy_mechanistic_suite
+
+            seeds = tuple(args.seeds) if args.seeds else (101, 202, 303)
+            result = run_toy_mechanistic_suite(output_dir=args.output, seeds=seeds)
+            print(args.output)
+            print(
+                json.dumps(
+                    {
+                        "scientific_status": result["scientific_status"],
+                        "registered_ablation_count": result["registered_ablation_count"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "build-mechanistic-report":
+            from recoalign.analysis.mechanistic.reporting import generate_mechanistic_reports
+
+            report = generate_mechanistic_reports(args.suite, output_root=args.output_root)
+            print(json.dumps(report, indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "build-paper-package":
+            from recoalign.paper_package import build_paper_package
+
+            result = build_paper_package(args.root)
+            print(json.dumps(result, indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "validate-paper-package":
+            from recoalign.paper_package import validate_paper_package
+
+            result = validate_paper_package(args.root)
+            print(json.dumps(result, indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "freeze-paper-registry":
+            from recoalign.paper_package.freeze import build_frozen_registry
+
+            result = build_frozen_registry(args.root)
+            print(json.dumps(result, indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "create-paper-tag":
+            from recoalign.paper_package import create_paper_tag
+
+            result = create_paper_tag(args.root, tag=args.tag, create=args.create)
+            print(json.dumps(result, indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "decide-experiment":
+            from recoalign.governance import decide_existing_result
+
+            report = decide_existing_result(args.result, output=args.output)
+            print(json.dumps(report, indent=2, sort_keys=True))
             return 0
 
         if args.command == "capture-environment":
@@ -179,6 +800,81 @@ def main(argv: Sequence[str] | None = None) -> int:
                 fail_run(run_dir, exc, notes="zero-shot baseline evaluation failed")
                 raise
             print(run_dir)
+            return 0
+
+        if args.command == "run-graph-vs-text":
+            from experiments.graph_vs_text.runner import run
+
+            result = run(args.config, output_dir=args.output)
+            print(args.output or "outputs/EXP001")
+            print(f"decision={result['decision']}")
+            return 0
+
+        if args.command == "run-graph-ablation":
+            from experiments.graph_ablation.runner import run
+
+            result = run(args.config, output_dir=args.output)
+            print(args.output or "outputs/EXP002")
+            print(f"decision={result['decision']}")
+            return 0
+
+        if args.command == "run-ood-composition":
+            from recoalign.governance import run_registered_experiment
+
+            print(
+                run_registered_experiment("EXP003", config_path=args.config, command=command_line)
+            )
+            return 0
+
+        if args.command == "run-structured-benchmark":
+            from recoalign.governance import run_registered_experiment
+
+            config_dir = Path(args.config_dir)
+            paths = [
+                run_registered_experiment(
+                    "EXP001",
+                    config_path=config_dir / "graph_vs_text.yaml",
+                    command=command_line,
+                ),
+                run_registered_experiment(
+                    "EXP002",
+                    config_path=config_dir / "graph_ablation.yaml",
+                    command=command_line,
+                ),
+                run_registered_experiment(
+                    "EXP003",
+                    config_path=config_dir / "ood_composition.yaml",
+                    command=command_line,
+                ),
+            ]
+            print(json.dumps([str(path) for path in paths], indent=2))
+            return 0
+
+        if args.command == "evaluate-synthetic":
+            from recoalign.synthetic_world.evaluation import evaluate_synthetic
+
+            metrics = evaluate_synthetic(args.config, output_dir=args.output)
+            destination = Path(
+                args.output
+                or yaml.safe_load(Path(args.config).read_text(encoding="utf-8"))["benchmark"][
+                    "output_dir"
+                ]
+            )
+            print(destination)
+            print(json.dumps(metrics["conditions"], indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "generate-synthetic":
+            from recoalign.synthetic_world.evaluation import generate_example_dataset
+
+            report = generate_example_dataset(
+                args.config,
+                count=args.count,
+                output_dir=args.output,
+                seed=args.seed,
+            )
+            print(args.output)
+            print(json.dumps(report, indent=2, sort_keys=True))
             return 0
 
         if args.command == "prepare-flickr30k":
@@ -291,6 +987,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
     except (
         ConfigError,
+        RegistryError,
         ManifestError,
         SchemaValidationError,
         FileNotFoundError,

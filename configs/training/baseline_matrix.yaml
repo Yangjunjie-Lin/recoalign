@@ -1,0 +1,21 @@
+schema_version: 1
+controlled_fields: [vision_backbone, llm_backbone, dataset, split, seed]
+baselines:
+  original_vlm: &controlled
+    vision_backbone: registered_vlm_vision_encoder
+    llm_backbone: registered_vlm_llm
+    dataset: recoalign-synthetic-compositional-world
+    split: frozen_evaluation
+    seed: 101
+    oracle_graph_at_inference: false
+  caption_adapter:
+    <<: *controlled
+    oracle_graph_at_inference: false
+  oracle_graph_prompt:
+    <<: *controlled
+    oracle_graph_at_inference: true
+    evidence_role: upper_bound_only
+  recoalign:
+    <<: *controlled
+    oracle_graph_at_inference: false
+    graph_supervision_role: training_signal_only

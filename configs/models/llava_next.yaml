@@ -1,0 +1,25 @@
+schema_version: 1
+name: llava_next
+adapter: llava_next
+scientific_evidence: false
+checkpoint_manifest: manifests/checkpoints/llava_next.yaml
+prompt_protocol: configs/prompts/reasoning_default.yaml
+model:
+  model_id: llava-hf/llava-v1.6-mistral-7b-hf
+  revision: UNPINNED
+  model_path: outputs/models/llava-next-7b
+  dtype: bfloat16
+  device_map: auto
+  local_files_only: true
+  auto_load: false
+generation:
+  temperature: 0.0
+  do_sample: false
+  max_new_tokens: 32
+  num_beams: 1
+runtime:
+  lazy_load: true
+  batch_size: 1
+  cache_enabled: true
+  cache_dir: outputs/cache/vlm/llava_next
+compatibility: [EXP001, EXP002, EXP003]

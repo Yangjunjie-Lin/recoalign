@@ -1,0 +1,7 @@
+schema_version: 1
+ablation: weak_structural_supervision
+family: supervision
+base_config: configs/training/recoalign_stage1.yaml
+supervision_level: weak
+overrides:
+  training_experiment: TRAIN001_WEAK_STRUCTURAL_SUPERVISION

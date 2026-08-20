@@ -1,0 +1,5 @@
+schema_version: 1
+protocol_id: graph-condition-v1
+inherits: reasoning_default.yaml
+condition: scene_graph
+model_specific_override_allowed: false

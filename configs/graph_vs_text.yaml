@@ -1,0 +1,56 @@
+experiment:
+  id: EXP001
+  hypothesis_id: H001
+  name: graph_vs_text
+  protocol: graph_vs_text
+  seed: 20260818
+  seeds: [20260818, 20260819, 20260820, 20260821, 20260822]
+  output_dir: outputs/EXP001
+
+synthetic:
+  count: 120
+  image_size: 192
+  write_images: true
+  style: flat
+  min_hops: 1
+  max_hops: 4
+
+ood:
+  enabled: true
+  train_count: 40
+  test_count: 40
+
+model:
+  backend: reference
+  seed: 20260818
+  checkpoint_manifest: manifests/checkpoints/synthetic_ci.yaml
+  condition_accuracy:
+    image_only: 0.65
+    object_list: 0.55
+    caption: 0.70
+    scene_graph: 0.85
+
+data:
+  dataset: recoalign-synthetic-compositional-world
+  version: generator-v2
+  manifest: manifests/datasets/synthetic_world_v2.yaml
+  split: test
+
+evaluation:
+  critical: true
+  confidence_level: 0.95
+  bootstrap_samples: 10000
+  significance_test: paired_t_test
+  alternative: greater
+  statistics_seed: 20260819
+  conditions: [image_only, object_list, caption, scene_graph]
+  settings: [natural, token_matched]
+  token_match_tolerance: 1
+  ablations:
+    - graph_order_shuffled
+    - text_unordered
+    - graph_serialization_triples
+    - graph_serialization_json
+
+training:
+  enabled: false

@@ -1,0 +1,64 @@
+experiment:
+  id: EXP002
+  hypothesis_id: H002
+  name: graph_completeness_structural_necessity
+  protocol: graph_ablation
+  seed: 20260818
+  seeds: [20260818, 20260819, 20260820, 20260821, 20260822]
+  output_dir: outputs/EXP002
+
+synthetic:
+  count: 120
+  image_size: 192
+  write_images: true
+  style: flat
+  min_hops: 1
+  max_hops: 4
+  relation_order: [left, right, above, below, front, behind, inside, contains]
+
+corruption:
+  partial_ratios: [0.25, 0.50, 0.75]
+  wrong_graph_ratio: 1.0
+  operations: [relation_flip, entity_swap, random_graph]
+
+anti_shortcut:
+  format_randomization: true
+  relation_label_randomization: true
+  graph_length_matching: true
+
+model:
+  backend: reference
+  seed: 20260818
+  checkpoint_manifest: manifests/checkpoints/synthetic_ci.yaml
+  condition_accuracy:
+    image_only: 0.65
+    scene_graph: 0.85
+    partial_graph: 0.63
+    corrupted_graph: 0.40
+    partial_graph_25: 0.78
+    partial_graph_50: 0.66
+    partial_graph_75: 0.52
+    relation_flip: 0.48
+    object_swap: 0.46
+    random_graph: 0.40
+    graph_order_randomized: 0.84
+    relation_label_randomized: 0.45
+
+data:
+  dataset: recoalign-synthetic-compositional-world
+  version: generator-v2
+  manifest: manifests/datasets/synthetic_world_v2.yaml
+  split: test
+
+evaluation:
+  critical: true
+  confidence_level: 0.95
+  bootstrap_samples: 10000
+  significance_test: paired_bootstrap
+  alternative: greater
+  statistics_seed: 20260819
+  conditions: [image_only, scene_graph, partial_graph, corrupted_graph]
+  relation_breakdown: [left, right, above, below, front, behind, inside, contains]
+
+training:
+  enabled: false

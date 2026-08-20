@@ -11,3 +11,15 @@ metric_name, metric_value
 ```
 
 Use explicit status values such as `pilot`, `partial`, `failed`, `complete`, and `reportable`. Only `reportable` runs should be copied into manuscript tables.
+
+Structured-reasoning smoke runs use the same lightweight layout:
+
+```text
+results/<experiment>/
+├── dataset/          # generated metadata; images remain local artifacts
+├── metrics.json      # condition accuracy and paired interface contrasts
+├── predictions.jsonl
+└── run.json          # seed, backend, Git commit, and config digest
+```
+
+Reference-backend outputs are pipeline validation artifacts, not model claims.

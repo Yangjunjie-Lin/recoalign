@@ -1,0 +1,101 @@
+schema_version: 1
+phase: 5
+ablations:
+  - id: A1_FULL_RECOALIGN
+    family: architecture
+    hypothesis: The complete interface improves reasoning.
+    variable_changed: learned structure-token encoder enabled
+    expected_outcome: reference method defines the comparison anchor.
+    interpretation: Use only as the paired full-model reference; it is not an ablation.
+    required_seeds: 3
+  - id: A2_NO_STRUCTURE_INTERFACE
+    family: architecture
+    hypothesis: Structure tokens are necessary.
+    variable_changed: remove structure-token module with matched training budget
+    expected_outcome: accuracy decreases.
+    interpretation: A drop attributes gains to the interface rather than generic training.
+    required_seeds: 3
+  - id: A3_RANDOM_STRUCTURE_TOKENS
+    family: architecture
+    hypothesis: Learned structure is necessary.
+    variable_changed: replace inferred tokens by seeded random tokens
+    expected_outcome: accuracy and probes decrease.
+    interpretation: A drop rejects the extra-token-capacity explanation.
+    required_seeds: 3
+  - id: A4_FIXED_GRAPH_ENCODER
+    family: architecture
+    hypothesis: A learned interface differs from fixed graph injection.
+    variable_changed: replace learned slots with a fixed graph encoder
+    expected_outcome: performance/mechanism differs.
+    interpretation: Separates latent interface learning from handcrafted graph knowledge.
+    required_seeds: 3
+  - id: L1_NO_SEMANTIC_PRESERVATION
+    family: loss
+    hypothesis: Semantic preservation retains visual capability.
+    variable_changed: semantic loss weight set to zero
+    expected_outcome: semantic probes or capability may decline.
+    interpretation: Attributes preservation to the semantic objective.
+    required_seeds: 3
+  - id: L2_NO_STRUCTURAL_CONSISTENCY
+    family: loss
+    hypothesis: Structural supervision organizes relation tokens.
+    variable_changed: structural loss weight set to zero
+    expected_outcome: structure probes and OOD may decline.
+    interpretation: Measures graph labels as training signal only.
+    required_seeds: 3
+  - id: L3_NO_REASONING_ALIGNMENT
+    family: loss
+    hypothesis: Reasoning alignment connects tokens to answers.
+    variable_changed: reasoning loss weight set to zero
+    expected_outcome: QA accuracy declines.
+    interpretation: Attributes downstream use to reasoning alignment.
+    required_seeds: 3
+  - id: S1_FULL_GRAPH_SUPERVISION
+    family: supervision
+    hypothesis: Full graph labels teach the interface.
+    variable_changed: object/attribute/relation/composition labels
+    expected_outcome: reference supervision condition.
+    interpretation: Anchor for weaker supervision controls.
+    required_seeds: 3
+  - id: S2_WEAK_STRUCTURAL_SUPERVISION
+    family: supervision
+    hypothesis: The interface does not require complete graphs.
+    variable_changed: relation-only or partial structural labels
+    expected_outcome: smaller but nonzero structure signal.
+    interpretation: Tests whether the method copies a full graph annotation.
+    required_seeds: 3
+  - id: S3_NO_GRAPH_SUPERVISION
+    family: supervision
+    hypothesis: Reasoning signal can learn usable structure.
+    variable_changed: remove graph labels; retain QA supervision
+    expected_outcome: probe may weaken but inference remains graph-free.
+    interpretation: Tests whether graph supervision is necessary rather than helpful.
+    required_seeds: 5
+  - id: P1_PARAMETER_MATCHED
+    family: capacity
+    hypothesis: Extra random capacity cannot reproduce the gain.
+    variable_changed: add equal parameter count without structure computation
+    expected_outcome: ReCoAlign remains better.
+    interpretation: Rejects parameter-count attribution.
+    required_seeds: 5
+  - id: I1_REMOVE_TOKENS
+    family: causal
+    hypothesis: Structure tokens have a causal effect.
+    variable_changed: zero structure tokens at inference
+    expected_outcome: accuracy decreases.
+    interpretation: Necessary-token intervention.
+    required_seeds: 5
+  - id: I2_SHUFFLE_TOKENS
+    family: causal
+    hypothesis: Slot organization matters.
+    variable_changed: permute tokens within each sample
+    expected_outcome: accuracy decreases or predictions change.
+    interpretation: Tests slot-specific causal use.
+    required_seeds: 5
+  - id: I3_REPLACE_TOKENS
+    family: causal
+    hypothesis: Tokens carry sample-specific evidence.
+    variable_changed: replace tokens with another sample's tokens
+    expected_outcome: cross-sample errors increase.
+    interpretation: Tests causal content rather than token presence.
+    required_seeds: 5

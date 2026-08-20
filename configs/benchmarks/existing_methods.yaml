@@ -1,0 +1,11 @@
+schema_version: 1
+status: pending_literature_and_license_review
+selection_protocol:
+  categories: [graph_augmentation, compositional_alignment, grounding]
+  inclusion_rule: official implementation with compatible frozen split and reproducible checkpoint
+  exclusion_rule: requires benchmark-specific test tuning or changes the evaluation protocol
+  report_excluded_methods: true
+methods: []
+notes: >-
+  No existing method result is fabricated or copied without a pinned implementation,
+  license review, checkpoint hash, and protocol-equivalence audit.

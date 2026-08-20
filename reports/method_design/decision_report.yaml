@@ -1,0 +1,20 @@
+schema_version: 1
+experiment: PROMPT8_METHOD_DESIGN
+decision: GO_IMPLEMENTATION
+scientific_efficacy: INCONCLUSIVE
+scope:
+  implementation: passed
+  toy_training: passed
+  overfit_sanity: passed
+  checkpoint_roundtrip: passed
+  real_vlm_training: pending
+  benchmark_evaluation: pending
+evidence:
+  full_pytest: "353 passed"
+  ruff: passed
+  toy_loss_decreased: true
+  oracle_graph_inference_input: false
+no_go_triggers_not_assessed:
+  - real VLM comparison is not run by the CPU toy command
+  - EXP001-EXP003 efficacy is not claimed from toy/reference outputs
+recommendation: Run preregistered real-backbone training and frozen-benchmark evaluation before claiming method gains.

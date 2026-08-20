@@ -1,0 +1,22 @@
+experiment:
+  name: llava15_structured_reasoning
+  seed: 7
+  output_dir: results/llava15_structured_reasoning
+
+synthetic:
+  count: 5000
+  image_size: 336
+  write_images: true
+
+model:
+  backend: llava
+  model_id: liuhaotian/llava-v1.5-7b
+  model_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  model_dir: outputs/models/llava-v1.5-7b
+  checkpoint_manifest: manifests/checkpoints/llava_v1_5_7b.yaml
+  quantization: nf4
+  seed: 7
+
+evaluation:
+  bootstrap_samples: 5000
+  conditions: [image_only, object_list, caption, scene_graph]

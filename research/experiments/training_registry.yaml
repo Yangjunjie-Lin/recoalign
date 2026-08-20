@@ -1,0 +1,32 @@
+schema_version: 1
+registry_scope: training_only
+scientific_evaluation_registry: research/experiments/experiment_registry.yaml
+experiments:
+  - id: TRAIN001
+    stage: structured_interface_pretraining
+    hypothesis: Visual features can be mapped to reusable latent structure tokens.
+    goal: Learn visual-to-structure alignment using synthetic graph labels as training targets only.
+    config: configs/training/recoalign_stage1.yaml
+    decision_criteria:
+      - training loss decreases on the 100-sample overfit test
+      - object, attribute, relation, and composition probes are logged
+      - clean structural supervision outperforms randomized structural supervision
+      - oracle graph is absent from model inference inputs
+  - id: TRAIN002
+    stage: reasoning_alignment
+    hypothesis: Learned structure tokens can be accessed by the reasoning path.
+    goal: Align interface context with QA answers while supporting frozen-backbone policies.
+    config: configs/training/recoalign_stage2.yaml
+    decision_criteria:
+      - reasoning loss and accuracy are logged each epoch
+      - resume preserves optimizer and scheduler state
+      - same backbone, dataset, and seed are used across baselines
+  - id: TRAIN003
+    stage: instruction_adaptation
+    hypothesis: The learned interface transfers without oracle graph inference input.
+    goal: Adapt to a preregistered real task after a real VLM checkpoint is selected.
+    config: configs/training/recoalign_stage3.yaml
+    decision_criteria:
+      - real dataset manifest and checkpoint hash are recorded
+      - frozen test protocol is reused without tuning
+      - real-model scientific efficacy is evaluated separately

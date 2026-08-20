@@ -1,0 +1,38 @@
+benchmark:
+  name: recoalign-synthetic-compositional-world
+  version: generator-v2
+  seed: 20260819
+  count: 120
+  output_dir: outputs/synthetic_benchmark
+  split_strategy: composition
+  resolution: 192
+  style: flat
+  write_images: true
+  min_hops: 1
+  max_hops: 4
+
+model:
+  backend: reference
+  checkpoint_manifest: manifests/checkpoints/synthetic_ci.yaml
+  condition_accuracy:
+    image_only: 0.65
+    object_list: 0.55
+    caption: 0.70
+    scene_graph: 0.85
+    partial_graph: 0.63
+    random_graph: 0.40
+    corrupted_graph: 0.40
+
+evaluation:
+  # Infrastructure runs require three independent seeds; preregistered critical claims require five.
+  critical: false
+  seeds: [20260819, 20260820, 20260821]
+  confidence_level: 0.95
+  splits: [test]
+  conditions: [image_only, object_list, caption, scene_graph]
+
+registry:
+  compatible_experiments: [EXP001, EXP002, EXP003]
+
+training:
+  enabled: false

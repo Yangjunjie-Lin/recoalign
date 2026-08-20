@@ -1,0 +1,6 @@
+schema_version: 1
+ablation: no_semantic_loss
+base_config: configs/training/recoalign_stage1.yaml
+overrides:
+  training_experiment: TRAIN001_NO_SEMANTIC
+  epochs: 3

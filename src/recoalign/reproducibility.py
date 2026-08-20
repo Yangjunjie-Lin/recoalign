@@ -167,7 +167,14 @@ def atomic_write_json(path: str | Path, payload: Any) -> None:
         dir=destination.parent,
         delete=False,
     ) as handle:
-        json.dump(payload, handle, indent=2, sort_keys=True, ensure_ascii=False)
+        json.dump(
+            payload,
+            handle,
+            indent=2,
+            sort_keys=True,
+            ensure_ascii=False,
+            allow_nan=False,
+        )
         handle.write("\n")
         temporary_path = Path(handle.name)
     temporary_path.replace(destination)

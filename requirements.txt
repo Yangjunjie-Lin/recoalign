@@ -1,0 +1,11 @@
+numpy>=1.24
+Pillow>=9.0
+PyYAML>=6.0
+jsonschema>=4.21
+tqdm>=4.65
+
+# Optional LLaVA-1.5 runtime; pin these in a hardware-specific environment before a real run.
+# torch
+# transformers
+# accelerate
+# bitsandbytes

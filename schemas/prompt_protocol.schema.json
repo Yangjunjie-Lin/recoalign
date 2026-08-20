@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReCoAlign shared VLM prompt protocol",
+  "type": "object",
+  "required": ["schema_version", "protocol_id"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "protocol_id": {"type": "string", "minLength": 1},
+    "inherits": {"type": "string", "minLength": 1},
+    "instruction": {"type": "string"},
+    "question_template": {"type": "string", "minLength": 1},
+    "answer_template": {"type": "string", "minLength": 1},
+    "separator": {"type": "string"},
+    "condition": {"enum": ["caption", "scene_graph"]},
+    "model_specific_override_allowed": {"const": false},
+    "generation": {"type": "object"}
+  },
+  "additionalProperties": false
+}

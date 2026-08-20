@@ -1,0 +1,40 @@
+schema_version: 1
+name: recoalign
+method: ReCoAlign
+model:
+  visual_dim: 16
+  interface_dim: 32
+  llm_dim: 32
+  num_structure_tokens: 8
+  num_heads: 4
+  num_relation_classes: 8
+  num_object_classes: 8
+  num_attribute_classes: 8
+  num_composition_classes: 8
+  num_answer_classes: 4
+  dropout: 0.0
+  semantic_loss_weight: 1.0
+  structural_loss_weight: 1.0
+  reasoning_loss_weight: 1.0
+  include_visual_tokens: true
+  typed_structure_tokens: true
+  use_structure_tokens: true
+  random_structure_tokens: false
+training:
+  stages:
+    - interface_pretraining
+    - instruction_adaptation
+    - optional_task_finetuning
+  learning_rate: 0.003
+  toy_steps: 30
+  seeds: [101, 202, 303]
+baselines:
+  - original_vlm
+  - graph_prompting_oracle
+  - caption_reasoning
+  - recoalign
+ablations:
+  - no_structure_token
+  - random_structure_token
+  - fixed_graph_encoder
+  - no_structural_loss

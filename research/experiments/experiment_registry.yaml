@@ -1,0 +1,280 @@
+schema_version: 1
+defaults:
+  confidence_level: 0.95
+  seeds: 3
+  critical_experiment_seeds: 5
+  significance_level: 0.05
+  bootstrap_samples: 10000
+experiments:
+  - experiment_id: EXP001
+    hypothesis_id: H001
+    title: Graph vs Text
+    objective: >-
+      Test whether relational structure improves reasoning beyond an information-controlled textual
+      description, without changing model parameters or the underlying scene facts.
+    conditions:
+      - graph
+      - text
+    input_conditions:
+      - image_only
+      - object_list
+      - caption
+      - scene_graph
+    dataset:
+      name: recoalign-synthetic-compositional-world
+      version: generator-v2
+      manifest: manifests/datasets/synthetic_world_v2.yaml
+      split: test
+    model:
+      state: frozen
+      configured_backend: reference
+      allowed_backends: [reference, llava, llava_1_5_7b, llava_next, qwen_vl, internvl]
+      scientific_backends: [llava, llava_1_5_7b]
+      training_allowed: false
+      evidence_role: infrastructure_validation
+      scientific_decision_allowed: false
+    metrics:
+      primary: contrasts.contrasts.graph_over_text.estimate
+      secondary:
+        - controlled_contrasts.token_matched.graph_over_caption.estimate
+        - reasoning_depth.token_matched.2.graph_over_caption.estimate
+        - reasoning_depth.token_matched.3.graph_over_caption.estimate
+        - ood_contrasts.token_matched.graph_over_caption.estimate
+        - conditions.caption.accuracy
+        - conditions.scene_graph.accuracy
+      rationale: >-
+        Paired accuracy difference directly estimates the intervention effect on identical scenes;
+        per-condition accuracy remains interpretable for failure analysis.
+    expected_result: >-
+      Scene-graph accuracy exceeds information-controlled caption accuracy across five seeds.
+    decision_rule:
+      alternative: greater
+      criteria:
+        - metric_path: contrasts.contrasts.graph_over_text.estimate
+          minimum_gain: 0.05
+        - metric_path: controlled_contrasts.token_matched.graph_over_caption.estimate
+          minimum_gain: 0.05
+        - metric_path: reasoning_depth.token_matched.2.graph_over_caption.estimate
+          minimum_gain: 0.01
+        - metric_path: reasoning_depth.token_matched.3.graph_over_caption.estimate
+          minimum_gain: 0.01
+        - metric_path: ood_contrasts.token_matched.graph_over_caption.estimate
+          minimum_gain: 0.01
+      statistical_significance: 0.05
+      confidence_interval_excludes_zero: true
+      robustness:
+        minimum_seeds: 5
+        minimum_positive_seed_fraction: 0.8
+      required_manifest_assertions:
+        generator: recoalign.synthetic_world.v2
+        caption_graph_equivalent: true
+    protocol: research/protocols/EXP001_graph_vs_text.md
+    config: configs/graph_vs_text.yaml
+    status: registered
+
+  - experiment_id: EXP002
+    hypothesis_id: H002
+    title: Graph Completeness and Structural Necessity
+    objective: >-
+      Test whether graph gains causally require correct and sufficiently complete relations rather
+      than graph-like appearance, prompt order, opaque labels, or additional token length.
+    conditions:
+      - image only
+      - full graph
+      - partial graph
+      - corrupted graph
+    input_conditions:
+      - image_only
+      - scene_graph
+      - partial_graph
+      - corrupted_graph
+    dataset:
+      name: recoalign-synthetic-compositional-world
+      version: generator-v2
+      manifest: manifests/datasets/synthetic_world_v2.yaml
+      split: test
+    model:
+      state: frozen
+      configured_backend: reference
+      allowed_backends: [reference, llava, llava_1_5_7b, llava_next, qwen_vl, internvl]
+      scientific_backends: [llava, llava_1_5_7b]
+      training_allowed: false
+      evidence_role: infrastructure_validation
+      scientific_decision_allowed: false
+    metrics:
+      primary: structural_dependency.full_over_random_graph.estimate
+      secondary:
+        - structural_dependency.full_over_partial_25.estimate
+        - structural_dependency.full_over_partial_50.estimate
+        - structural_dependency.full_over_partial_75.estimate
+        - structural_dependency.full_over_wrong_graph.estimate
+        - structural_dependency.full_over_relation_label_randomized.estimate
+        - depth_dependency.full_over_random_graph.slope
+        - conditions.scene_graph.accuracy
+      rationale: >-
+        Paired structural dependency scores isolate completeness, correctness, relation semantics,
+        and depth effects on identical scenes; exact Full/Random token matching removes length.
+    expected_result: >-
+      Full graphs outperform every partial ratio, random and wrong graphs; opaque relation labels
+      degrade performance; structural dependency increases with hop depth across five seeds.
+    decision_rule:
+      alternative: greater
+      criteria:
+        - metric_path: structural_dependency.full_over_partial_25.estimate
+          minimum_gain: 0.01
+        - metric_path: structural_dependency.full_over_partial_50.estimate
+          minimum_gain: 0.03
+        - metric_path: structural_dependency.full_over_partial_75.estimate
+          minimum_gain: 0.05
+        - metric_path: structural_dependency.full_over_random_graph.estimate
+          minimum_gain: 0.05
+        - metric_path: structural_dependency.full_over_wrong_graph.estimate
+          minimum_gain: 0.05
+        - metric_path: structural_dependency.full_over_relation_label_randomized.estimate
+          minimum_gain: 0.05
+        - metric_path: depth_dependency.full_over_random_graph.slope
+          minimum_gain: 0.0
+      statistical_significance: 0.05
+      confidence_interval_excludes_zero: true
+      robustness:
+        minimum_seeds: 5
+        minimum_positive_seed_fraction: 0.8
+      required_manifest_assertions:
+        generator: recoalign.synthetic_world.v2
+        corruption_manifest_complete: true
+        random_graph_length_matched: true
+        original_graph_not_in_prompt_metadata: true
+    protocol: research/protocols/EXP002_graph_ablation.md
+    config: configs/graph_ablation.yaml
+    status: registered
+
+  - experiment_id: EXP003
+    hypothesis_id: H003
+    title: OOD Composition
+    objective: >-
+      Test whether the structured-interface effect persists on compositions disjoint from the
+      development split while holding known primitives and evaluation procedure fixed.
+    conditions:
+      - seen composition
+      - unseen composition
+    input_conditions:
+      - image_only
+      - caption
+      - scene_graph
+      - random_graph
+    dataset:
+      name: recoalign-synthetic-compositional-world
+      version: generator-v2
+      manifest: manifests/datasets/synthetic_world_v2.yaml
+      split: controlled_ood_suite
+    model:
+      state: frozen
+      configured_backend: reference
+      allowed_backends: [reference, llava, llava_1_5_7b, llava_next, qwen_vl, internvl]
+      scientific_backends: [llava, llava_1_5_7b]
+      training_allowed: false
+      evidence_role: infrastructure_validation
+      scientific_decision_allowed: false
+    metrics:
+      primary: ood.graph_over_caption.estimate
+      secondary:
+        - generalization.retention_advantage.graph_over_caption
+        - reasoning_depth.graph_advantage_slope
+        - ood.graph_over_random_graph.estimate
+      rationale: >-
+        The paired graph-over-caption effect measures interface benefit on identical unseen
+        compositions; the split manifest separately verifies zero composition overlap.
+    expected_result: >-
+      Scene graphs outperform information-controlled captions on composition-disjoint test scenes
+      across five seeds, with verified zero train/test composition overlap.
+    decision_rule:
+      alternative: greater
+      criteria:
+        - metric_path: ood.graph_over_caption.estimate
+          minimum_gain: 0.05
+        - metric_path: generalization.retention_advantage.graph_over_caption
+          minimum_gain: 0.02
+        - metric_path: reasoning_depth.graph_advantage_slope
+          minimum_gain: 0.0
+        - metric_path: ood.graph_over_random_graph.estimate
+          minimum_gain: 0.05
+      statistical_significance: 0.05
+      confidence_interval_excludes_zero: true
+      robustness:
+        minimum_seeds: 5
+        minimum_positive_seed_fraction: 0.8
+      required_manifest_assertions:
+        generator: recoalign.synthetic_world.v2
+        composition_overlap: false
+        relation_combination_overlap: false
+        hop_depth_overlap: false
+        primitive_coverage: true
+        sample_id_overlap: false
+        random_graph_not_equivalent: true
+        random_graph_length_matched: true
+        test_information_leakage: false
+    protocol: research/protocols/EXP003_ood_composition.md
+    config: configs/ood_composition.yaml
+    status: registered
+
+  - experiment_id: EXP004
+    hypothesis_id: H004
+    title: Structured Interface Diagnosis
+    objective: >-
+      Locate frozen VLM compositional failure among visual semantic availability, structured
+      representation accessibility, and reasoning execution.
+    conditions:
+      - image only
+      - oracle scene graph
+      - corrupted graph
+    input_conditions:
+      - image_only
+      - scene_graph
+      - corrupted_graph
+    dataset:
+      name: recoalign-synthetic-compositional-world
+      version: generator-v2
+      manifest: manifests/datasets/synthetic_world_v2.yaml
+      split: diagnosis
+    model:
+      state: frozen
+      configured_backend: reference
+      allowed_backends: [reference, llava_1_5_7b, llava_next, qwen_vl, internvl]
+      scientific_backends: [llava_1_5_7b, llava_next, qwen_vl, internvl]
+      training_allowed: false
+      evidence_role: infrastructure_validation
+      scientific_decision_allowed: false
+    metrics:
+      primary: diagnosis.interface_gap.estimate
+      secondary:
+        - diagnosis.sas.estimate
+        - diagnosis.stas.estimate
+        - diagnosis.res.estimate
+        - diagnosis.oracle_graph_gain.estimate
+      rationale: >-
+        SAS, StAS, and RES separate semantic availability from structured accessibility and final
+        execution; oracle gain is the preregistered causal sanity check for interface diagnosis.
+    expected_result: >-
+      Eligible models show high semantic availability, lower structured accessibility, and positive
+      oracle-graph gain with the same ordering across model families.
+    decision_rule:
+      alternative: greater
+      criteria:
+        - metric_path: diagnosis.interface_gap
+          minimum_gain: 0.10
+        - metric_path: diagnosis.sas
+          minimum_gain: 0.75
+        - metric_path: diagnosis.oracle_graph_gain
+          minimum_gain: 0.05
+      statistical_significance: 0.05
+      confidence_interval_excludes_zero: true
+      robustness:
+        minimum_seeds: 5
+        minimum_positive_seed_fraction: 0.8
+      required_manifest_assertions:
+        semantic_probe_scene_disjoint: true
+        training_enabled: false
+        oracle_graph_is_external: true
+    protocol: research/protocols/EXP004_interface_diagnosis.md
+    config: configs/diagnosis/interface_diagnosis.yaml
+    status: registered

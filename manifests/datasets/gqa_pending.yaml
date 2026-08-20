@@ -1,0 +1,6 @@
+schema_version: 1
+name: gqa
+version: pending-selection
+status: blocked_until_preregistered
+files: []
+notes: Placeholder; use licensed official GQA images and annotations only.

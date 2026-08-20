@@ -1,0 +1,26 @@
+schema_version: 1
+name: reference
+adapter: reference
+scientific_evidence: false
+checkpoint_manifest: manifests/checkpoints/synthetic_ci.yaml
+prompt_protocol: configs/prompts/reasoning_default.yaml
+model:
+  model_id: deterministic-reference-v1
+  condition_accuracy:
+    image_only: 0.65
+    object_list: 0.55
+    caption: 0.70
+    scene_graph: 0.85
+    partial_graph: 0.63
+    corrupted_graph: 0.40
+    random_graph: 0.40
+generation:
+  temperature: 0.0
+  do_sample: false
+  max_new_tokens: 32
+runtime:
+  lazy_load: true
+  batch_size: 16
+  cache_enabled: false
+  cache_dir: outputs/cache/vlm/reference
+compatibility: [EXP001, EXP002, EXP003]

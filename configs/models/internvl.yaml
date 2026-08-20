@@ -1,0 +1,26 @@
+schema_version: 1
+name: internvl
+adapter: internvl
+scientific_evidence: false
+checkpoint_manifest: manifests/checkpoints/internvl.yaml
+prompt_protocol: configs/prompts/reasoning_default.yaml
+model:
+  model_id: OpenGVLab/InternVL2-8B
+  revision: UNPINNED
+  model_path: outputs/models/internvl2-8b
+  dtype: bfloat16
+  device_map: auto
+  local_files_only: true
+  trust_remote_code: false
+  auto_load: false
+generation:
+  temperature: 0.0
+  do_sample: false
+  max_new_tokens: 32
+  num_beams: 1
+runtime:
+  lazy_load: true
+  batch_size: 1
+  cache_enabled: true
+  cache_dir: outputs/cache/vlm/internvl
+compatibility: [EXP001, EXP002, EXP003]

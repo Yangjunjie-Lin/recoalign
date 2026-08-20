@@ -1,0 +1,24 @@
+schema_version: 1
+name: recoalign-synthetic-compositional-world
+version: generator-v2
+source: recoalign.synthetic_world.generator.SyntheticWorldGenerator
+license: Apache-2.0
+splits:
+  train: null
+  validation: null
+  test: null
+files: []
+processing:
+  generator: recoalign.synthetic_world.v2
+  renderer: recoalign.synthetic_renderer.v2
+  deterministic_from_seed: true
+  maximum_hop_depth: 4
+  caption_graph_fact_equivalence_required: true
+  image_checksum_required: true
+  answer_source: symbolic_scene_graph
+  supported_split_strategies:
+    [iid, composition, relation, attribute, composition_ood, relation_ood, hop_ood]
+notes: >-
+  Runtime-generated scientific instrument. Every sample is derived world-first and stores an oracle
+  graph, deterministic caption, object inventory, programmatic QA rationale, reconstruction metadata,
+  and information-equivalence hashes. It is not generated or labelled by an LLM.

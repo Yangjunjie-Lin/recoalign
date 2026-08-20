@@ -1,0 +1,9 @@
+schema_version: 1
+ablation: parameter_matched
+family: capacity
+base_config: configs/training/recoalign_stage2.yaml
+control:
+  extra_parameters: equal_to_full_recoalign
+  computation: matched_budget_required
+overrides:
+  training_experiment: TRAIN002_PARAMETER_MATCHED

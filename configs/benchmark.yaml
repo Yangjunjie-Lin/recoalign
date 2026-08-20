@@ -1,0 +1,17 @@
+experiment:
+  name: structured_reasoning_benchmark
+  seed: 20260818
+  output_dir: results/benchmark
+
+synthetic:
+  count: 60
+  image_size: 128
+  write_images: true
+
+model:
+  backend: reference
+  seed: 20260818
+  checkpoint_manifest: manifests/checkpoints/synthetic_ci.yaml
+
+evaluation:
+  bootstrap_samples: 500

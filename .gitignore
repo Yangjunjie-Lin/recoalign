@@ -38,9 +38,38 @@ data/winoground/
 data/bivlc/
 artifacts/
 checkpoints/
+!manifests/checkpoints/
+!manifests/checkpoints/**
 outputs/
+results/*/
+!results/schema/
+!results/schema/**
 wandb/
-runs/
+runs/*
+!runs/README.md
+.local_artifacts/
+
+# Generated validation/smoke reports (authoritative reports remain tracked)
+reports/comprehensive_check/
+reports/comprehensive_check2/
+reports/mechanistic_check/
+reports/mechanism/
+reports/cell_reports.json
+reports/matrix_plan.json
+reports/failure_analysis/**/errors.jsonl
+
+# Machine-local capture; portable environment specifications remain tracked
+reproducibility/environment.json
+
+# Historical exploratory phases; keep locally, do not publish as active results
+archive/
+archive/**/data/images/
+archive/**/features/*.npy
+archive/**/features/*_progress.json
+experiments/**/data/images/
+experiments/**/features/*.npy
+recoalign_phase0B_validation/features/*.npy
+recoalign_phase0B_validation/features/*_progress.json
 *.ckpt
 *.pth
 *.pt
