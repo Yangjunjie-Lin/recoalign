@@ -21,15 +21,22 @@ ROOT = Path(__file__).resolve().parents[1]
 def preserve_committed_frozen_registry() -> Iterator[None]:
     """Keep package-generation tests from dirtying the checked-out repository."""
 
-    path = ROOT / "experiments/frozen_registry.yaml"
-    original = path.read_bytes() if path.is_file() else None
+    paths = (
+        ROOT / "experiments/frozen_registry.yaml",
+        ROOT / "reports/final_repository_audit.md",
+    )
+    originals = {
+        path: path.read_bytes() if path.is_file() else None
+        for path in paths
+    }
     try:
         yield
     finally:
-        if original is None:
-            path.unlink(missing_ok=True)
-        else:
-            path.write_bytes(original)
+        for path, original in originals.items():
+            if original is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_bytes(original)
 
 
 def test_evidence_map_never_promotes_infrastructure_results() -> None:
