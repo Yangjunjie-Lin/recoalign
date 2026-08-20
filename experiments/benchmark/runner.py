@@ -16,4 +16,3 @@ def run(config_dir: str | Path = "configs") -> dict[str, object]:
         "graph_ablation": run_ablation(root / "graph_ablation.yaml"),
         "ood_composition": run_ood(root / "ood_composition.yaml"),
     }
-
