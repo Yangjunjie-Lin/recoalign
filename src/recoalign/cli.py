@@ -56,6 +56,40 @@ def build_parser() -> argparse.ArgumentParser:
     pivot_run.add_argument("--config", default="research/pivot_validation/config.yaml")
     pivot_run.add_argument("--stage", choices=("pilot", "final"), required=True)
 
+    causal_preregister = subparsers.add_parser(
+        "preregister-causal-separation",
+        help="freeze PIVOT_EXP_A2 hypotheses and pre-inference power analysis",
+    )
+    causal_preregister.add_argument("--study", choices=("PIVOT_EXP_A2",), required=True)
+    causal_preregister.add_argument(
+        "--config", default="research/causal_separation/PIVOT_EXP_A2/config.yaml"
+    )
+    causal_validate = subparsers.add_parser(
+        "validate-causal-separation",
+        help="validate and freeze the PIVOT_EXP_A2 design without loading weights",
+    )
+    causal_validate.add_argument("--study", choices=("PIVOT_EXP_A2",), required=True)
+    causal_validate.add_argument(
+        "--config", default="research/causal_separation/PIVOT_EXP_A2/config.yaml"
+    )
+    causal_validate.add_argument("--preflight-only", action="store_true")
+    causal_run = subparsers.add_parser(
+        "run-causal-separation", help="run the frozen PIVOT_EXP_A2 LLaVA experiment"
+    )
+    causal_run.add_argument("--study", choices=("PIVOT_EXP_A2",), required=True)
+    causal_run.add_argument("--model", choices=("llava_1_5_7b",), required=True)
+    causal_run.add_argument(
+        "--config", default="research/causal_separation/PIVOT_EXP_A2/config.yaml"
+    )
+    causal_adjudicate = subparsers.add_parser(
+        "adjudicate-causal-separation",
+        help="apply the frozen PIVOT_EXP_A2 decision policy",
+    )
+    causal_adjudicate.add_argument("--study", choices=("PIVOT_EXP_A2",), required=True)
+    causal_adjudicate.add_argument(
+        "--config", default="research/causal_separation/PIVOT_EXP_A2/config.yaml"
+    )
+
     governed_run = subparsers.add_parser(
         "run-experiment", help="run a registered experiment through the governance lifecycle"
     )
@@ -441,6 +475,79 @@ def main(argv: Sequence[str] | None = None) -> int:
                         "decision": report["metrics"]["mechanism"]["decision"],
                         "classification": report["metrics"]["mechanism"]["classification"],
                         "prediction_count": report["metrics"]["prediction_count"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "preregister-causal-separation":
+            from recoalign.causal_separation import preregister_causal_separation
+
+            report = preregister_causal_separation(args.config)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "power": report["power"]["status"],
+                        "weights_loaded": report["weights_loaded"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "validate-causal-separation":
+            from recoalign.causal_separation import validate_causal_separation
+
+            report = validate_causal_separation(
+                args.config, preflight_only=bool(args.preflight_only)
+            )
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "weights_loaded": report["weights_loaded"],
+                        "inference_started": report["inference_started"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "run-causal-separation":
+            from recoalign.causal_separation import run_causal_separation
+
+            report = run_causal_separation(args.config, model_name=args.model)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "prediction_count": report["prediction_count"],
+                        "adjudication_pending": report["adjudication_pending"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "adjudicate-causal-separation":
+            from recoalign.causal_separation import adjudicate_causal_separation
+
+            report = adjudicate_causal_separation(args.config)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "outcome": report["decision"]["outcome"],
+                        "authorization": report["decision"]["authorization"],
                     },
                     indent=2,
                     sort_keys=True,

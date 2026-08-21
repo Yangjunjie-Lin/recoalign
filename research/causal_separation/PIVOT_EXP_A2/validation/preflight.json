@@ -1,0 +1,385 @@
+{
+  "freeze": {
+    "assertions": {
+      "all_seed_designs_pass": true,
+      "five_seeds": true,
+      "model_identifier_matches": true,
+      "model_revision_matches": true,
+      "parent_freeze_passed": true,
+      "power_passed": true,
+      "predictions_per_seed": true,
+      "preregistration_passed": true,
+      "runtime_ready_without_weights": true,
+      "training_disabled": true
+    },
+    "created_at": "2026-08-21",
+    "design": {
+      "main_predictions": 3600,
+      "manipulation_predictions": 800,
+      "primary_scenes": 450,
+      "reference_predictions": 900,
+      "seeds": [
+        20260818,
+        20260819,
+        20260820,
+        20260821,
+        20260822
+      ],
+      "total_predictions": 5300
+    },
+    "design_sha256_by_seed": {
+      "20260818": "75c98aaeae73c9d1a66775a6304a898b64625ae5e4db92388aeb82d39a4d32e6",
+      "20260819": "2d53a869afb086967d2fd02c22036dcc20b69acb33c2ea498503b4a4e814ccdf",
+      "20260820": "91bba733fd6094e1936b4a6a840f4500fd6884f165af5adbd0966165f5ea1f30",
+      "20260821": "d423f3b44aeb3ed6d78cc5a47ab0a58b4cec1cccce2d0324801d5974beaa7873",
+      "20260822": "9fd6804e1006001a8d891ccf3a6a17112014ba3e375b3453eedd41b9f6d63af3"
+    },
+    "freeze_name": "pivot_exp_a2_v1",
+    "inference_started": false,
+    "locked_files": {
+      "research/causal_separation/PIVOT_EXP_A2/config.yaml": "33d342430e9aee899a759d3fcee4ce589ec6f656da49cfa9d3ae0ff5075ad339",
+      "research/causal_separation/PIVOT_EXP_A2/decision_policy.yaml": "02c84e06be9c4e79ec690e530fc1462d84a4b48e597487f84998307ff0a60efd",
+      "research/causal_separation/PIVOT_EXP_A2/hypothesis_registry.yaml": "073d3e0d8fe6966dfbe749c8f3c640284790abc2d1fca509fe22d64b69174336",
+      "research/causal_separation/PIVOT_EXP_A2/power_analysis.yaml": "51d757a4cec717ffa40209fa4c23ae261563837f7ad01fb0a3d27c3c59f9df60",
+      "research/causal_separation/PIVOT_EXP_A2/preregistration.md": "47862e2760da4bf8a9f046beb6c4313773f5c8fbd42cdb1a6ebbb5345b689f18",
+      "research/causal_separation/PIVOT_EXP_A2/protocols/factorial_protocol.md": "b885975bae691803eb20f4a0f175f06ca73bdbed54b2b14abb01dc35b4d5b746",
+      "research/causal_separation/PIVOT_EXP_A2/protocols/manipulation_check.md": "091170c75cbf2a6bd3731067eb9ee48189013ddd5378d1d1af56520f8937aedc",
+      "research/causal_separation/PIVOT_EXP_A2/serializers/README.md": "48e44ef6c4bfb0993f0561acffdfdb1cc8406040f6a749b43810f241216c32e4",
+      "src/recoalign/causal_separation/decision.py": "fdacbb70fc5bbebe51997cf1d05415bc01764d7bd52197c7cf470b3f6e54927a",
+      "src/recoalign/causal_separation/factorial_builder.py": "e86953bd4b20215963572f75f430b9ccea332c13416e577645bdb5710a5f0598",
+      "src/recoalign/causal_separation/integrity.py": "c450736a51462539a14a62f60667d3ddbd04920a96f492fe2e9b8368efa46a74",
+      "src/recoalign/causal_separation/power.py": "17cb385031007fea8ab1295cc7eda02a8ce6bf1d9584bb93ef45372fd92d4737",
+      "src/recoalign/causal_separation/relation_intervention.py": "ed53286679be40ffa1068e94b6134823a88afdc6c8832826bba2c01e26679237",
+      "src/recoalign/causal_separation/runner.py": "897ded3f418857787e2df2145a4d79272df55a160a0552a983f2460d54ed436d",
+      "src/recoalign/causal_separation/semantic_scaffold.py": "c49811d43c8d15563a882afdcd034a7f41472927a7adbba9bf8153301ef83144",
+      "src/recoalign/causal_separation/serializers.py": "00184461eef51b3f7f9ee0bac32a544fd6452b7a939c03d0b124437392f998b9",
+      "src/recoalign/causal_separation/statistics.py": "ec4b90464591be79821e55bda823cf7f87e5a9c2f06a06bad064438840218452"
+    },
+    "model": {
+      "checkpoint_manifest_sha256": "8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7",
+      "config_sha256": "1c002ccffa56a876b8f857144e3d3697fcfb5ec72e9756f413849a5b9a076138",
+      "identifier": "liuhaotian/llava-v1.5-7b",
+      "prompt_protocol_sha256": "1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492",
+      "revision": "4481d270cc22fd5c4d1bb5df129622006ccd9234"
+    },
+    "parent_freeze": {
+      "assertions": {
+        "all_parent_assets_match_frozen_commit": true,
+        "decision_no_go": true,
+        "freeze_sha256": true,
+        "prediction_lines_2000": true,
+        "predictions_sha256": true
+      },
+      "asset_commit_sha": "a51c089f3ab87775615c73754567c09ace29e63f",
+      "blob_match": {
+        "research/pivot_validation/config.yaml": true,
+        "research/pivot_validation/protocols/A1_primitive_semantics.md": true,
+        "research/pivot_validation/protocols/A2_evidence_factorization.md": true,
+        "research/pivot_validation/protocols/A3_format_invariance.md": true,
+        "research/pivot_validation/results/artifact_manifest.yaml": true,
+        "research/pivot_validation/results/metrics.json": true,
+        "research/pivot_validation/results/pivot_decision.yaml": true,
+        "research/pivot_validation/results/predictions.jsonl.gz": true
+      },
+      "freeze_record_sha256": "148932fd74cdcfd1a0de265808d67ed51be9f5f880ea06615257a51565c616f4",
+      "passed": true
+    },
+    "passed": true,
+    "power_analysis_sha256": "51d757a4cec717ffa40209fa4c23ae261563837f7ad01fb0a3d27c3c59f9df60",
+    "protocol_changes_allowed_after_inference": false,
+    "schema_version": 1,
+    "source_datasets": {
+      "outputs/paper_evidence/EXP001/seeds/20260818/dataset/dataset.jsonl": "bfa6268593756c8b45bce0648333df53b570d593766beea9e4cc20900a1d4034",
+      "outputs/paper_evidence/EXP001/seeds/20260819/dataset/dataset.jsonl": "1862e567f5e546b2c7e42b3b4e613e7452096015904ac8b0dad5719c1a4ef97d",
+      "outputs/paper_evidence/EXP001/seeds/20260820/dataset/dataset.jsonl": "bc776bce55943898e4236f31afb4eeb87cf7a9503d3016f80229b952406b0db3",
+      "outputs/paper_evidence/EXP001/seeds/20260821/dataset/dataset.jsonl": "9ae5952ff7221021401865f8652329d2577217e6691179f24cf437b10c677d81",
+      "outputs/paper_evidence/EXP001/seeds/20260822/dataset/dataset.jsonl": "c38c3dee0eb0580fa27cf19d0319559c650a0b19f45de4291f483b3a0adb6841"
+    },
+    "status": "preregistered",
+    "study_id": "PIVOT_EXP_A2"
+  },
+  "inference_started": false,
+  "model_dry_run": {
+    "adapter": "llava_1_5_7b",
+    "architectures": [
+      "LlavaLlamaForCausalLM"
+    ],
+    "checkpoint_exists": true,
+    "checkpoint_files": [
+      "mm_projector.bin",
+      "pytorch_model-00001-of-00002.bin",
+      "pytorch_model-00002-of-00002.bin"
+    ],
+    "checkpoint_files_declared": [
+      "config.json",
+      "generation_config.json",
+      "mm_projector.bin",
+      "pytorch_model-00001-of-00002.bin",
+      "pytorch_model-00002-of-00002.bin",
+      "pytorch_model.bin.index.json",
+      "special_tokens_map.json",
+      "tokenizer_config.json",
+      "tokenizer.model"
+    ],
+    "checkpoint_format": "legacy_llava",
+    "checkpoint_format_source": "local_index",
+    "checkpoint_manifest": "D:/UoM_CS/GitHub/recoalign/manifests/checkpoints/llava_v1_5_7b.yaml",
+    "checkpoint_manifest_error": null,
+    "checkpoint_manifest_exists": true,
+    "checkpoint_manifest_loaded": true,
+    "dependencies": {
+      "accelerate": true,
+      "bitsandbytes": true,
+      "sentencepiece": true,
+      "torch": true,
+      "transformers": true
+    },
+    "hardware": {
+      "cuda_available": true,
+      "cuda_device_count": 1,
+      "cuda_required": true,
+      "devices": [
+        {
+          "index": 0,
+          "name": "NVIDIA GeForce RTX 3060 Laptop GPU",
+          "total_memory_bytes": 6441926656
+        }
+      ]
+    },
+    "hardware_ready": true,
+    "loader": "legacy_transformers",
+    "loader_compatible": true,
+    "model_type": "llava",
+    "processor_classes": {
+      "image_processor": "CLIPImageProcessor",
+      "processor": "LlavaProcessor",
+      "tokenizer": "LlamaTokenizer"
+    },
+    "processor_contract_ready": true,
+    "processor_error": null,
+    "processor_ready": true,
+    "provenance": {
+      "answer_evaluator": "answer-evaluator-v1",
+      "batch_size": 1,
+      "cache_enabled": true,
+      "checkpoint_manifest": "D:/UoM_CS/GitHub/recoalign/manifests/checkpoints/llava_v1_5_7b.yaml",
+      "device_map": "auto",
+      "dtype": "float16",
+      "evidence_role": "scientific_evidence",
+      "generation": {
+        "do_sample": false,
+        "max_new_tokens": 32,
+        "num_beams": 1,
+        "temperature": 0.0
+      },
+      "loaded": false,
+      "loader": "legacy_transformers",
+      "local_files_only": true,
+      "model_id": "llava_1_5_7b",
+      "model_path": "outputs/models/llava-v1.5-7b",
+      "prompt": {
+        "answer_template": "Answer with exactly one option: {choices}.",
+        "generation": {
+          "do_sample": false,
+          "max_new_tokens": 32,
+          "temperature": 0.0
+        },
+        "instruction": "",
+        "protocol_id": "reasoning-default-v1",
+        "question_template": "Question: {question}",
+        "separator": "\n",
+        "sha256": "1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492",
+        "source": "D:/UoM_CS/GitHub/recoalign/configs/prompts/reasoning_default.yaml"
+      },
+      "quantization": "nf4"
+    },
+    "runtime_ready": true,
+    "weights_loaded": false
+  },
+  "schema_version": 1,
+  "seed_reports": [
+    {
+      "assertions": {
+        "all_images_exist": true,
+        "all_relation_corruptions_false": true,
+        "all_semantic_corruptions_false": true,
+        "complete_eight_cell_matrix": true,
+        "generation_protocol_identical": true,
+        "json_triples_fact_identical": true,
+        "main_count": true,
+        "main_token_matched": true,
+        "manipulation_contains_no_relation": true,
+        "manipulation_count": true,
+        "manipulation_pairs_complete": true,
+        "manipulation_token_matched": true,
+        "prediction_design_count": true,
+        "reference_count": true,
+        "semantic_scaffold_has_no_explicit_answer": true,
+        "semantic_scaffold_has_no_query_role": true,
+        "semantic_scaffold_has_no_relation": true,
+        "unique_trial_keys": true
+      },
+      "counts": {
+        "all": 1060,
+        "main": 720,
+        "manipulation_check": 160,
+        "reference": 180
+      },
+      "passed": true,
+      "primary_hop_depth": {
+        "1": 60,
+        "2": 10,
+        "3": 10,
+        "4": 10
+      },
+      "seed": 20260818
+    },
+    {
+      "assertions": {
+        "all_images_exist": true,
+        "all_relation_corruptions_false": true,
+        "all_semantic_corruptions_false": true,
+        "complete_eight_cell_matrix": true,
+        "generation_protocol_identical": true,
+        "json_triples_fact_identical": true,
+        "main_count": true,
+        "main_token_matched": true,
+        "manipulation_contains_no_relation": true,
+        "manipulation_count": true,
+        "manipulation_pairs_complete": true,
+        "manipulation_token_matched": true,
+        "prediction_design_count": true,
+        "reference_count": true,
+        "semantic_scaffold_has_no_explicit_answer": true,
+        "semantic_scaffold_has_no_query_role": true,
+        "semantic_scaffold_has_no_relation": true,
+        "unique_trial_keys": true
+      },
+      "counts": {
+        "all": 1060,
+        "main": 720,
+        "manipulation_check": 160,
+        "reference": 180
+      },
+      "passed": true,
+      "primary_hop_depth": {
+        "1": 60,
+        "2": 10,
+        "3": 10,
+        "4": 10
+      },
+      "seed": 20260819
+    },
+    {
+      "assertions": {
+        "all_images_exist": true,
+        "all_relation_corruptions_false": true,
+        "all_semantic_corruptions_false": true,
+        "complete_eight_cell_matrix": true,
+        "generation_protocol_identical": true,
+        "json_triples_fact_identical": true,
+        "main_count": true,
+        "main_token_matched": true,
+        "manipulation_contains_no_relation": true,
+        "manipulation_count": true,
+        "manipulation_pairs_complete": true,
+        "manipulation_token_matched": true,
+        "prediction_design_count": true,
+        "reference_count": true,
+        "semantic_scaffold_has_no_explicit_answer": true,
+        "semantic_scaffold_has_no_query_role": true,
+        "semantic_scaffold_has_no_relation": true,
+        "unique_trial_keys": true
+      },
+      "counts": {
+        "all": 1060,
+        "main": 720,
+        "manipulation_check": 160,
+        "reference": 180
+      },
+      "passed": true,
+      "primary_hop_depth": {
+        "1": 60,
+        "2": 10,
+        "3": 10,
+        "4": 10
+      },
+      "seed": 20260820
+    },
+    {
+      "assertions": {
+        "all_images_exist": true,
+        "all_relation_corruptions_false": true,
+        "all_semantic_corruptions_false": true,
+        "complete_eight_cell_matrix": true,
+        "generation_protocol_identical": true,
+        "json_triples_fact_identical": true,
+        "main_count": true,
+        "main_token_matched": true,
+        "manipulation_contains_no_relation": true,
+        "manipulation_count": true,
+        "manipulation_pairs_complete": true,
+        "manipulation_token_matched": true,
+        "prediction_design_count": true,
+        "reference_count": true,
+        "semantic_scaffold_has_no_explicit_answer": true,
+        "semantic_scaffold_has_no_query_role": true,
+        "semantic_scaffold_has_no_relation": true,
+        "unique_trial_keys": true
+      },
+      "counts": {
+        "all": 1060,
+        "main": 720,
+        "manipulation_check": 160,
+        "reference": 180
+      },
+      "passed": true,
+      "primary_hop_depth": {
+        "1": 60,
+        "2": 10,
+        "3": 10,
+        "4": 10
+      },
+      "seed": 20260821
+    },
+    {
+      "assertions": {
+        "all_images_exist": true,
+        "all_relation_corruptions_false": true,
+        "all_semantic_corruptions_false": true,
+        "complete_eight_cell_matrix": true,
+        "generation_protocol_identical": true,
+        "json_triples_fact_identical": true,
+        "main_count": true,
+        "main_token_matched": true,
+        "manipulation_contains_no_relation": true,
+        "manipulation_count": true,
+        "manipulation_pairs_complete": true,
+        "manipulation_token_matched": true,
+        "prediction_design_count": true,
+        "reference_count": true,
+        "semantic_scaffold_has_no_explicit_answer": true,
+        "semantic_scaffold_has_no_query_role": true,
+        "semantic_scaffold_has_no_relation": true,
+        "unique_trial_keys": true
+      },
+      "counts": {
+        "all": 1060,
+        "main": 720,
+        "manipulation_check": 160,
+        "reference": 180
+      },
+      "passed": true,
+      "primary_hop_depth": {
+        "1": 60,
+        "2": 10,
+        "3": 10,
+        "4": 10
+      },
+      "seed": 20260822
+    }
+  ],
+  "status": "PASS",
+  "study_id": "PIVOT_EXP_A2",
+  "weights_loaded": false
+}

@@ -1,0 +1,92 @@
+schema_version: 1
+study:
+  id: PIVOT_EXP_A2
+  title: Conditional Semantic Rescue x Relational Integration Study
+  parent_freeze: research/pivot_validation/results/pivot_exp_a_final_freeze.yaml
+  seeds: [20260818, 20260819, 20260820, 20260821, 20260822]
+  source_dataset_template: outputs/paper_evidence/EXP001/seeds/{seed}/dataset/dataset.jsonl
+  primary_question_types: [object_reasoning, attribute_reasoning, multi_hop]
+  excluded_primary_question_types: [relation_reasoning]
+  primary_scenes_per_seed: 90
+  manipulation_scenes_per_seed: 20
+  main_cells_per_scene: 8
+  reference_cells_per_scene: 2
+  manipulation_tasks: [object_identity, shape, color, entity_attribute_binding]
+  manipulation_conditions: [oracle_semantics, corrupted_semantics]
+  predictions_per_seed: 1060
+  output_root: outputs/causal_separation/PIVOT_EXP_A2
+  promoted_results: research/causal_separation/PIVOT_EXP_A2/results
+
+model:
+  registry_name: llava_1_5_7b
+  identifier: liuhaotian/llava-v1.5-7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  config: configs/models/llava_1_5_7b.yaml
+  checkpoint_manifest: manifests/checkpoints/llava_v1_5_7b.yaml
+  prompt_protocol: configs/prompts/reasoning_default.yaml
+  deterministic: true
+  training_enabled: false
+
+factorial_design:
+  semantic_correctness: [oracle_semantics, corrupted_semantics]
+  relation_correctness: [correct_relation, corrupted_relation]
+  primary_serialization: [canonical_json, canonical_triples]
+  secondary_serialization: natural_language
+  native_anchor: image_only
+  within_scene_complete: true
+  randomization_unit: scene
+  alias_randomization_salt: pivot-exp-a2-alias-v1
+  corruption_randomization_salt: pivot-exp-a2-corruption-v1
+  primary_analysis_conditions: 8
+  token_match_tolerance: 1
+  padding_unit: " ."
+
+semantic_scaffold:
+  allowed_fields: [entity_reference, shape, color]
+  forbidden_fields: [target_relation, reasoning_chain, final_answer, query_role]
+  corruption: entity_attribute_derangement
+  require_all_entity_assignments_false: true
+
+relation_intervention:
+  source: registered_query_supporting_edges
+  corruption_order: [inverse_relation, ordered_entity_swap, relation_flip]
+  preserve_entity_references: true
+  preserve_relation_count: true
+  reject_true_corruption: true
+  reject_direct_relation_answer_trials: true
+
+manipulation_check:
+  oracle_minimum_mean_accuracy: 0.90
+  oracle_minimum_ci_lower: 0.85
+  minimum_oracle_minus_corrupted: 0.10
+  require_ci_lower_above_zero: true
+  independent_of_primary_outcome: true
+
+statistics:
+  superiority_sesoi: 0.10
+  equivalence_margin: 0.10
+  alpha: 0.05
+  target_power: 0.80
+  confidence_level: 0.95
+  bootstrap_samples: 10000
+  bootstrap_seed: 20260824
+  primary_multiple_comparison: holm
+  primary_holm_family: [E2, E3]
+  semantic_rescue_gate: E1
+  equivalence_test: TOST
+  seed_replication_minimum_fraction: 0.80
+  required_hop_depths: [2, 3]
+  hop_replication_minimum_fraction: 0.80
+
+prohibitions:
+  behavioral_outcome_selection: true
+  posthoc_serialization_selection: true
+  posthoc_sesoi_change: true
+  model_design: true
+  model_training: true
+  adapter: true
+  new_loss: true
+  benchmark_expansion: true
+  failed_trial_deletion: true
+  paper_writing: true
+

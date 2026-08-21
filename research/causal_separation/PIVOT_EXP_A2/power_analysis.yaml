@@ -1,0 +1,76 @@
+schema_version: 1
+study_id: PIVOT_EXP_A2
+status: PASS
+computed_before_inference: true
+planned_primary_scenes: 450
+superiority_sesoi: 0.1
+equivalence_margin: 0.1
+alpha: 0.05
+target_power: 0.8
+multiplicity:
+  E1: gated at alpha=0.05
+  E2_E3: Holm family; worst-case planning alpha=0.025
+rationale: A 0.10 absolute-accuracy threshold was fixed before inference because PIVOT_EXP_A
+  effects were 0.185-0.415 and only residual effects large enough to motivate an independent-backbone
+  replication are mechanism-defining.
+hop_policy: Power is for the pooled 450-scene primary estimands. Depth-2 and depth-3
+  analyses are preregistered direction/seed replication gates, not separately powered
+  tests.
+estimands:
+  E1_semantic_rescue:
+    frozen_analog:
+      experiment: A2
+      left: complete_evidence
+      right: image_only
+      n: 200
+      paired_counts:
+        '00': 24
+        '01': 7
+        '10': 90
+        '11': 79
+      effect: 0.415
+      discordance: 0.485
+    planned_n_scenes: 450
+    test_alpha: 0.05
+    superiority_power_at_sesoi: 0.8682105610169464
+    tost_power_if_true_effect_zero: 0.8388412020261504
+    superiority_power_passed: true
+    equivalence_power_passed: true
+  E2_relation_under_oracle:
+    frozen_analog:
+      experiment: A2
+      left: relation_evidence
+      right: image_only
+      n: 200
+      paired_counts:
+        '00': 66
+        '01': 11
+        '10': 48
+        '11': 75
+      effect: 0.185
+      discordance: 0.295
+    planned_n_scenes: 450
+    test_alpha: 0.025
+    superiority_power_at_sesoi: 0.9583805173470343
+    tost_power_if_true_effect_zero: 0.9762292042704486
+    superiority_power_passed: true
+    equivalence_power_passed: true
+  E3_json_minus_triples:
+    frozen_analog:
+      experiment: A3
+      left: json
+      right: triples
+      n: 200
+      paired_counts:
+        '00': 54
+        '01': 1
+        '10': 38
+        '11': 107
+      effect: 0.185
+      discordance: 0.195
+    planned_n_scenes: 450
+    test_alpha: 0.025
+    superiority_power_at_sesoi: 0.9964334633355183
+    tost_power_if_true_effect_zero: 0.9984168361369918
+    superiority_power_passed: true
+    equivalence_power_passed: true

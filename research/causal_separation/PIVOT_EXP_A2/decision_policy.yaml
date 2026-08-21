@@ -1,0 +1,67 @@
+schema_version: 1
+study_id: PIVOT_EXP_A2
+allowed_outcomes:
+  - SEMANTIC_PRIMARY_GO
+  - INTEGRATION_INDEPENDENT_GO
+  - JOINT_CAUSAL_GO
+  - NO-GO_ALTERNATIVE_MECHANISM
+  - INCONCLUSIVE
+global_gates:
+  - frozen_parent_unchanged
+  - freeze_manifest_valid
+  - five_complete_seeds
+  - complete_eight_cell_matrix
+  - all_corruptions_false
+  - token_control_passed
+  - manipulation_check_passed
+  - power_analysis_passed
+  - artifact_hashes_valid
+definitions:
+  meaningful_positive_effect: mean >= superiority_sesoi and ci_lower > 0
+  equivalent_to_zero: TOST passes at alpha and 90_percent_ci_within_equivalence_margin
+  replicated: positive_or_registered_direction_in_at_least_four_of_five_seeds
+  hop_replicated: registered_direction_in_at_least_four_of_five_seeds_at_2_hop_and_3_hop
+outcomes:
+  SEMANTIC_PRIMARY_GO:
+    requires:
+      - E1_meaningful_positive
+      - E2_equivalent_to_zero_under_oracle
+      - E3_equivalent_to_zero_under_oracle_correct_relation
+      - seed_replication_passed
+      - hop_replication_passed
+    authorization: independent_backbone_replication_only
+  INTEGRATION_INDEPENDENT_GO:
+    requires:
+      - oracle_semantic_sufficiency
+      - E2_or_E3_meaningful_after_oracle
+      - holm_corrected_ci_excludes_zero
+      - seed_replication_passed
+      - hop_replication_passed
+      - no_reproducible_semantic_interaction
+    authorization: independent_backbone_replication_only
+  JOINT_CAUSAL_GO:
+    requires:
+      - E1_meaningful_positive
+      - E2_or_E3_meaningful_after_oracle
+      - E4_or_E5_reproducible_interaction
+      - seed_replication_passed
+      - hop_replication_passed
+    authorization: independent_backbone_replication_and_construct_validity_analysis
+  NO-GO_ALTERNATIVE_MECHANISM:
+    requires:
+      - global_gates_passed
+      - no_go_classification_matches
+    authorization: hypothesis_reaudit_only
+  INCONCLUSIVE:
+    triggers:
+      - any_global_gate_failed
+      - manipulation_check_failed
+      - power_insufficient
+      - unstable_across_seeds
+      - incomplete_artifacts
+    authorization: none
+next_stage_defaults:
+  independent_replication_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false
+

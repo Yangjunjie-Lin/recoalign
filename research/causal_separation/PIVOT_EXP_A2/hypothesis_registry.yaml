@@ -1,0 +1,41 @@
+schema_version: 1
+study_id: PIVOT_EXP_A2
+parent_study: PIVOT_EXP_A
+status: preregistration_pending_validation
+hypotheses:
+  - id: H-S
+    title: Semantic-Primary Mechanism
+    statement: >-
+      Primitive visual-semantic insufficiency is upstream: an externally randomized correct
+      semantic scaffold improves compositional decisions and reduces controlled relation and
+      serialization effects to the registered equivalence region.
+    required_estimands: [E1, E2, E3]
+    allowed_outcome: SEMANTIC_PRIMARY_GO
+  - id: H-I
+    title: Integration-Independent Mechanism
+    statement: >-
+      Relation correctness or representation format retains an independent causal effect after
+      the oracle semantic scaffold passes its sufficiency gate.
+    required_estimands: [E2, E3]
+    allowed_outcome: INTEGRATION_INDEPENDENT_GO
+  - id: H-J
+    title: Joint Causal Mechanism
+    statement: >-
+      Semantic rescue has a meaningful positive effect and relation correctness or format retains
+      a meaningful controlled effect, with a reproducible semantic-by-relation or
+      semantic-by-format interaction.
+    required_estimands: [E1, E2, E3, E4, E5]
+    allowed_outcome: JOINT_CAUSAL_GO
+  - id: H-N
+    title: Null, Alternative, or Unresolved
+    statement: >-
+      The manipulation is ineffective, integrity or power gates fail, effects are unstable, or
+      the observed pattern does not satisfy a preregistered mechanism class.
+    required_estimands: [E1, E2, E3, E4, E5, E6]
+    allowed_outcomes: [NO-GO_ALTERNATIVE_MECHANISM, INCONCLUSIVE]
+claim_boundary:
+  backbone: liuhaotian/llava-v1.5-7b
+  general_vlm_claim_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false
+

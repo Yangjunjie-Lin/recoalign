@@ -1,0 +1,114 @@
+{
+  "inference_started": false,
+  "parent_freeze": {
+    "assertions": {
+      "all_parent_assets_match_frozen_commit": true,
+      "decision_no_go": true,
+      "freeze_sha256": true,
+      "prediction_lines_2000": true,
+      "predictions_sha256": true
+    },
+    "asset_commit_sha": "a51c089f3ab87775615c73754567c09ace29e63f",
+    "blob_match": {
+      "research/pivot_validation/config.yaml": true,
+      "research/pivot_validation/protocols/A1_primitive_semantics.md": true,
+      "research/pivot_validation/protocols/A2_evidence_factorization.md": true,
+      "research/pivot_validation/protocols/A3_format_invariance.md": true,
+      "research/pivot_validation/results/artifact_manifest.yaml": true,
+      "research/pivot_validation/results/metrics.json": true,
+      "research/pivot_validation/results/pivot_decision.yaml": true,
+      "research/pivot_validation/results/predictions.jsonl.gz": true
+    },
+    "freeze_record_sha256": "148932fd74cdcfd1a0de265808d67ed51be9f5f880ea06615257a51565c616f4",
+    "passed": true
+  },
+  "power": {
+    "alpha": 0.05,
+    "computed_before_inference": true,
+    "equivalence_margin": 0.1,
+    "estimands": {
+      "E1_semantic_rescue": {
+        "equivalence_power_passed": true,
+        "frozen_analog": {
+          "discordance": 0.485,
+          "effect": 0.415,
+          "experiment": "A2",
+          "left": "complete_evidence",
+          "n": 200,
+          "paired_counts": {
+            "00": 24,
+            "01": 7,
+            "10": 90,
+            "11": 79
+          },
+          "right": "image_only"
+        },
+        "planned_n_scenes": 450,
+        "superiority_power_at_sesoi": 0.8682105610169464,
+        "superiority_power_passed": true,
+        "test_alpha": 0.05,
+        "tost_power_if_true_effect_zero": 0.8388412020261504
+      },
+      "E2_relation_under_oracle": {
+        "equivalence_power_passed": true,
+        "frozen_analog": {
+          "discordance": 0.295,
+          "effect": 0.185,
+          "experiment": "A2",
+          "left": "relation_evidence",
+          "n": 200,
+          "paired_counts": {
+            "00": 66,
+            "01": 11,
+            "10": 48,
+            "11": 75
+          },
+          "right": "image_only"
+        },
+        "planned_n_scenes": 450,
+        "superiority_power_at_sesoi": 0.9583805173470343,
+        "superiority_power_passed": true,
+        "test_alpha": 0.025,
+        "tost_power_if_true_effect_zero": 0.9762292042704486
+      },
+      "E3_json_minus_triples": {
+        "equivalence_power_passed": true,
+        "frozen_analog": {
+          "discordance": 0.195,
+          "effect": 0.185,
+          "experiment": "A3",
+          "left": "json",
+          "n": 200,
+          "paired_counts": {
+            "00": 54,
+            "01": 1,
+            "10": 38,
+            "11": 107
+          },
+          "right": "triples"
+        },
+        "planned_n_scenes": 450,
+        "superiority_power_at_sesoi": 0.9964334633355183,
+        "superiority_power_passed": true,
+        "test_alpha": 0.025,
+        "tost_power_if_true_effect_zero": 0.9984168361369918
+      }
+    },
+    "hop_policy": "Power is for the pooled 450-scene primary estimands. Depth-2 and depth-3 analyses are preregistered direction/seed replication gates, not separately powered tests.",
+    "multiplicity": {
+      "E1": "gated at alpha=0.05",
+      "E2_E3": "Holm family; worst-case planning alpha=0.025"
+    },
+    "planned_primary_scenes": 450,
+    "rationale": "A 0.10 absolute-accuracy threshold was fixed before inference because PIVOT_EXP_A effects were 0.185-0.415 and only residual effects large enough to motivate an independent-backbone replication are mechanism-defining.",
+    "schema_version": 1,
+    "status": "PASS",
+    "study_id": "PIVOT_EXP_A2",
+    "superiority_sesoi": 0.1,
+    "target_power": 0.8
+  },
+  "schema_version": 1,
+  "status": "PASS",
+  "study_id": "PIVOT_EXP_A2",
+  "weights_loaded": false
+}
