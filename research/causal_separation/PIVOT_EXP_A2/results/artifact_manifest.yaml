@@ -1,0 +1,45 @@
+schema_version: 1
+study_id: PIVOT_EXP_A2
+outcome: INCONCLUSIVE
+prediction_lines: 5300
+freeze_sha256: a85a99ca98b302b7f2aac841ea0371a328fb1c481e3276472bae1b3729a4a858
+artifacts:
+  metrics.json:
+    bytes: 22628
+    sha256: bc798cb836d20647cf0d293b1091968b38545aaa8bd41a7774ffa80b39822a68
+  predictions.jsonl.gz:
+    bytes: 666065
+    sha256: 5d31a46bb6bad7630d5dfd4095195aae3fe6b6b69972eadccbd95c1c846d886c
+  manipulation_check.yaml:
+    bytes: 1728
+    sha256: 90040cfe56ef8658438649ca85f4c9f1e85f88d2ea00de8b5e3d05b42e9acb57
+  primary_estimands.yaml:
+    bytes: 4038
+    sha256: da67c8bf1ef7785a881b557d256cb2d4f9ec2c180cb31a5e7784661a83bbf07a
+  statistical_tests.yaml:
+    bytes: 393
+    sha256: 28a9cc8dcce19beca0137e79322d58c56d087982083842cd0e9af92f45338936
+  decision_report.yaml:
+    bytes: 1080
+    sha256: 99bfa89d043e278cb5c221e4046fdcf6b591577dd60b042636aee3f53a9a9172
+  decision_report.md:
+    bytes: 1670
+    sha256: 61bafdcc6ba9b4b16f4850a4fb8275280ab544c434ab697ae93a1cfc042454cd
+  provenance.yaml:
+    bytes: 2878
+    sha256: aed821e2c5ea3d8c2a6f9b031787ee9b09a27f75f32acba822630de22c59423e
+  figures/semantic_rescue_manipulation.png:
+    bytes: 24347
+    sha256: be9912e608c0bb63693e593c78754a1cc833ebb8d7f315393aa1bb066f5ae1a8
+  figures/relation_effect_by_semantics.png:
+    bytes: 32790
+    sha256: 74cc5c407ba214c5c181a1c15240cdb3752bcfe06a01358b1bafb3ff0aed53dd
+  figures/format_effect_under_oracle.png:
+    bytes: 30990
+    sha256: 145fad45ce40382bc5305de369569760959d7c60b970fdbc8892ea2ba351fef2
+  figures/semantic_relation_interaction.png:
+    bytes: 23818
+    sha256: 1dd0c5482ab11fa36710e943137a24b4b16792bfb56acac372041236e4b314a4
+  figures/effect_by_hop_depth.png:
+    bytes: 60351
+    sha256: f037b66bde823eb47007049dc0dafcb9e93121e82b836ff2381e1d6b169294e2

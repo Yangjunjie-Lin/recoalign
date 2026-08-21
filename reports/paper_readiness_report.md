@@ -1,4 +1,4 @@
-# Paper Readiness Report After Claim-Evidence Execution
+# Paper Readiness Report After PIVOT_EXP_A2
 
 ## Decision
 
@@ -16,9 +16,28 @@ ReCoAlign solves a Structured Reasoning Interface Gap.
 | ReCoAlign learns the missing interface | no real trained-interface result in this execution | missing |
 | Improvement generalizes | EXP003 rejected by token-length integrity gate | missing |
 | Pattern holds across VLMs | only LLaVA-1.5-7B executed | missing |
+| Conditional mechanism is identified | PIVOT_EXP_A2 INCONCLUSIVE | unsupported |
 
-The repository has moved from “no real-model evidence” to “real-model evidence with a negative
-scientific decision.” That is meaningful progress, but it is not paper readiness.
+The repository now contains a complete five-seed conditional-intervention asset with 5,300 real
+LLaVA-1.5-7B predictions. PIVOT_EXP_A2 nevertheless remains `INCONCLUSIVE`: the oracle semantic
+scaffold did not reach the preregistered sufficiency gate, and 137 manipulation-check responses
+failed the frozen answer parser. This is a valid stopping result, not paper readiness.
+
+## PIVOT_EXP_A2 adjudication
+
+- Prediction inventory: 5,300/5,300; five seeds each contain 720 main, 180 reference, and 160
+  manipulation-check cells.
+- Matrix, token matching, corruption validity, freeze hashes, and artifact manifest: passed.
+- Parser integrity: failed; 137/5,300 outputs were unparsed, all in manipulation checks.
+- Semantic sufficiency: failed; oracle accuracy 0.7275, 95% CI [0.6725, 0.7800], below mean 0.90
+  and CI-lower 0.85 thresholds.
+- Formal outcome: `INCONCLUSIVE`.
+- Authorization: independent replication false; model development false; paper writing false.
+
+The observed E2 relation contrast (0.3156, 95% CI [0.2744, 0.3567]) and E3 JSON-minus-triples
+contrast (0.0778, 95% CI [0.0333, 0.1289]) are retained as descriptive diagnostics only. They
+cannot establish semantic-primary, integration-independent, or joint causality because the
+upstream manipulation and integrity gates failed.
 
 ## Why EXP002 does not rescue the claim
 
@@ -51,14 +70,17 @@ semantics but lacks a structured interface.”
 
 ## Required next action
 
-The frozen hypothesis has been tested and did not pass. The next step is a scientific review, not
-automatic benchmark expansion or method training:
+The conditional study has been tested and did not pass its identification gates. The only
+scientifically authorized next step is a new construct-validity review and preregistration, not
+automatic replication, benchmark expansion, method training, or paper writing:
 
-1. audit whether the EXP004 probe task and 24-sample design validly measure semantic availability;
-2. separately audit the EXP003 graph/random-graph token mismatch without changing the retained
-   failed run;
-3. decide whether to revise or retire the high-SAS/low-StAS hypothesis before any new execution;
-4. if a revised hypothesis is preregistered, replicate on at least one additional VLM;
-5. do not train or promote ReCoAlign until the diagnosis supports the claimed mechanism.
+1. audit why entity-binding oracle scaffolds fail the fixed-answer contract without reclassifying
+   the retained 137 responses;
+2. design a behavior-independent semantic manipulation that can actually satisfy the registered
+   sufficiency threshold without leaking relations or answers;
+3. preregister its evaluator and parsing contract before any new inference;
+4. retain PIVOT_EXP_A2 unchanged as an inconclusive construct-validity result;
+5. do not replicate across backbones, train, or promote ReCoAlign until a future manipulation passes
+   its frozen sufficiency and integrity gates.
 
 All current positive and negative evidence is retained under `reports/paper_evidence/`.

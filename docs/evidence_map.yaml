@@ -4,10 +4,10 @@ policy:
   toy_or_reference_results_are_not_claim_eligible: true
   failed_and_pending_evidence_remains_visible: true
 summary:
-  total_claims: 7
+  total_claims: 8
   verified: 1
   falsified: 2
-  inconclusive: 1
+  inconclusive: 2
   infrastructure_only: 1
   pending: 2
 claims:
@@ -208,3 +208,31 @@ claims:
   artifact_inventory_complete: true
   current_decision: INCONCLUSIVE
   real_vlm_evidence: PENDING
+- id: C008
+  claim: >-
+    Conditional semantic rescue separates semantic insufficiency from relation and serialization
+    integration in LLaVA-1.5-7B.
+  evidence:
+  - randomized oracle/corrupted semantic scaffolds
+  - relation correctness intervention
+  - JSON/triples serialization intervention
+  - five-seed paired factorial statistics
+  experiments:
+  - PIVOT_EXP_A2
+  artifacts:
+  - research/causal_separation/PIVOT_EXP_A2/preregistration.md
+  - research/causal_separation/PIVOT_EXP_A2/power_analysis.yaml
+  - research/causal_separation/PIVOT_EXP_A2/results/metrics.json
+  - research/causal_separation/PIVOT_EXP_A2/results/decision_report.yaml
+  - research/causal_separation/PIVOT_EXP_A2/results/artifact_manifest.yaml
+  status: inconclusive
+  blocker: >-
+    Oracle semantic accuracy was 0.7275 with 95% CI [0.6725, 0.7800], below the registered
+    0.90/0.85 sufficiency gate; 137 manipulation-check outputs also failed the frozen parser.
+  evidence_role: scientific_evidence
+  registered_decision: INCONCLUSIVE
+  evidence_scope: frozen LLaVA-1.5-7B conditional intervention
+  artifact_inventory_complete: true
+  independent_replication_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false

@@ -25,6 +25,18 @@ candidates:
       q1_potential: 4
       total: 18
     selected: true
+    validation:
+      latest_study: PIVOT_EXP_A2
+      outcome: INCONCLUSIVE
+      status: unresolved
+      reason: >-
+        The five-seed conditional semantic-rescue study completed 5,300 predictions, but the
+        preregistered semantic-sufficiency manipulation gate failed and 137 manipulation-check
+        outputs failed the frozen answer parser. Conditional relation and format estimands are
+        descriptive only and cannot select a mechanism class.
+      independent_replication_allowed: false
+      model_development_allowed: false
+      paper_writing_allowed: false
 
   - id: PH002
     title: Relational Grounding Failure

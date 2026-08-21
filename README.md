@@ -8,8 +8,11 @@ The current candidate hypothesis is deliberately narrower:
 > and serialization-conditioned integration of correct relational evidence. Correct relations can
 > matter without graphs being a privileged reasoning interface.
 
-This candidate is not yet a result. The repository is organized around falsifying it with minimal
-diagnostic interventions before introducing any new loss, adapter, or trainable model.
+This candidate is not yet a result. PIVOT_EXP_A2 completed its frozen five-seed conditional
+semantic-rescue study with 5,300 real LLaVA-1.5-7B predictions, but received `INCONCLUSIVE`:
+the oracle semantic scaffold reached 0.7275 accuracy (95% CI 0.6725--0.7800), below the
+preregistered sufficiency gate, and 137 manipulation-check responses failed the frozen parser.
+No causal mechanism class was selected.
 
 The Phase-6 paper-package tooling is documented in
 [`docs/paper_ready_package.md`](docs/paper_ready_package.md). It builds an auditable evidence map,
@@ -23,6 +26,8 @@ See [`reports/paper_readiness_report.md`](reports/paper_readiness_report.md) for
 The claim-level pivot audit is in [`research/evidence_audit.md`](research/evidence_audit.md), the
 rejection record is in [`research/rejected_hypothesis.md`](research/rejected_hypothesis.md), and the
 next falsification plan is in [`research/next_experiment_plan.md`](research/next_experiment_plan.md).
+The conditional study assets and formal decision are under
+[`research/causal_separation/PIVOT_EXP_A2/`](research/causal_separation/PIVOT_EXP_A2/).
 
 ## Research boundary
 
@@ -31,7 +36,11 @@ next falsification plan is in [`research/next_experiment_plan.md`](research/next
 - EXP001–EXP004 and all unfavorable evidence are retained as the immutable pivot basis.
 - The Structured Reasoning Interface Gap is rejected as the active claim; it must not be rescued by
   post-hoc reinterpretation.
-- The active line is preregistration of a semantic × relation × serialization falsification study.
+- The semantic × relation × serialization study is complete but inconclusive; its controlled
+  effects are descriptive only because the semantic-sufficiency and parsing-integrity gates failed.
+- Independent-backbone replication is not authorized. Any continuation requires a new,
+  behavior-independent construct-validity preregistration for the semantic manipulation and answer
+  contract.
 - Paper writing and model design remain blocked.
 - The default backend is a deterministic CPU reference backend for CI. LLaVA-1.5 is an optional
   injected backend selected by configuration and never silently substituted.

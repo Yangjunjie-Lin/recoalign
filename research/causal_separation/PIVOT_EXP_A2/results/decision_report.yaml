@@ -1,0 +1,35 @@
+schema_version: 1
+study_id: PIVOT_EXP_A2
+outcome: INCONCLUSIVE
+reason: At least one preregistered global or manipulation gate failed.
+reason_code: MANIPULATION_SUFFICIENCY_AND_PARSING_INTEGRITY_FAILED
+evidence: []
+global_gates:
+  integrity: false
+  power: true
+  five_seeds: true
+  manipulation_check: false
+authorization:
+  independent_replication_allowed: false
+  construct_validity_analysis_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false
+failure_details:
+  oracle_semantic_accuracy: 0.7275
+  oracle_semantic_ci_95: [0.6725, 0.7800]
+  registered_oracle_mean_minimum: 0.90
+  registered_oracle_ci_lower_minimum: 0.85
+  parsed_predictions: 5163
+  unparsed_predictions: 137
+  unparsed_scope: manipulation_check_only
+interpretation_boundary: >-
+  E1--E6 are retained as descriptive diagnostics only. They cannot identify a semantic-primary,
+  integration-independent, or joint causal mechanism because the upstream manipulation and
+  integrity gates failed.
+freeze_name: pivot_exp_a2_v1
+seeds:
+- 20260818
+- 20260819
+- 20260820
+- 20260821
+- 20260822

@@ -1,0 +1,41 @@
+schema_version: 1
+experiment_id: PIVOT_EXP_A2
+hypothesis_id: PH001
+title: Conditional Semantic Rescue x Relational Integration Study
+objective: >-
+  Test whether relation correctness and serialization retain controlled effects after an
+  externally randomized semantic scaffold raises primitive semantic availability.
+status: completed_inconclusive
+model:
+  identifier: liuhaotian/llava-v1.5-7b
+  registry_name: llava_1_5_7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  training_allowed: false
+design:
+  seeds: [20260818, 20260819, 20260820, 20260821, 20260822]
+  predictions: 5300
+  primary_cells: 3600
+  reference_cells: 900
+  manipulation_cells: 800
+  within_scene_factorial: 2x2x2
+estimands:
+  primary: [E1_semantic_rescue, E2_relation_under_oracle, E3_json_minus_triples]
+  secondary: [E4_semantic_x_relation, E5_semantic_x_format, E6_three_way]
+assets:
+  preregistration: research/causal_separation/PIVOT_EXP_A2/preregistration.md
+  power_analysis: research/causal_separation/PIVOT_EXP_A2/power_analysis.yaml
+  config: research/causal_separation/PIVOT_EXP_A2/config.yaml
+  freeze: research/causal_separation/PIVOT_EXP_A2/freeze_manifest.yaml
+  decision: research/causal_separation/PIVOT_EXP_A2/results/decision_report.yaml
+  artifact_manifest: research/causal_separation/PIVOT_EXP_A2/results/artifact_manifest.yaml
+completion:
+  outcome: INCONCLUSIVE
+  reason_code: MANIPULATION_SUFFICIENCY_AND_PARSING_INTEGRITY_FAILED
+  oracle_semantic_accuracy: 0.7275
+  oracle_semantic_ci_95: [0.6725, 0.7800]
+  parsed_predictions: 5163
+  unparsed_predictions: 137
+authorization:
+  independent_replication_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false

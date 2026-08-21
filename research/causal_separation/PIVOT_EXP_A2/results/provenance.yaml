@@ -1,0 +1,98 @@
+schema_version: 1
+study_id: PIVOT_EXP_A2
+status: inference_complete_integrity_failed
+prediction_count: 5300
+new_predictions: 4704
+elapsed_seconds: 53870
+freeze_name: pivot_exp_a2_v1
+freeze_sha256: a85a99ca98b302b7f2aac841ea0371a328fb1c481e3276472bae1b3729a4a858
+git:
+  branch: codex/claim-evidence-execution
+  commit: 4f30f98d5b43734c4d17fee3ede179d03f5a1819
+  dirty: false
+runtime:
+  platform: win32
+  python: 3.12.6
+  torch: 2.7.1+cu126
+  cuda:
+    available: true
+    runtime: '12.6'
+    cudnn: 90701
+  devices:
+  - index: 0
+    name: NVIDIA GeForce RTX 3060 Laptop GPU
+    total_memory: 6441926656
+    capability:
+    - 8
+    - 6
+model_provenance:
+  model_id: llava_1_5_7b
+  model_identifier: liuhaotian/llava-v1.5-7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  model_path: outputs/models/llava-v1.5-7b
+  checkpoint_manifest: D:/UoM_CS/GitHub/recoalign/manifests/checkpoints/llava_v1_5_7b.yaml
+  loader: legacy_transformers
+  loaded: true
+  local_files_only: true
+  device_map: auto
+  dtype: float16
+  quantization: nf4
+  batch_size: 1
+  answer_evaluator: answer-evaluator-v1
+  prompt_protocol_sha256: 1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492
+  generation:
+    do_sample: false
+    max_new_tokens: 32
+    num_beams: 1
+    temperature: 0.0
+integrity:
+  passed: false
+  assertions:
+    prediction_count: true
+    unique_trial_keys: true
+    five_complete_seeds: true
+    complete_eight_cell_matrix: true
+    all_rows_frozen: true
+    token_matched: true
+    corruption_validity: true
+    no_empty_predictions: true
+    all_predictions_parsed: false
+  expected: 5300
+  by_seed:
+    '20260818': 1060
+    '20260819': 1060
+    '20260820': 1060
+    '20260821': 1060
+    '20260822': 1060
+  parsed_predictions: 5163
+  unparsed_predictions: 137
+  unparsed_by_family:
+    manipulation_check: 137
+  unparsed_by_task:
+    color: 18
+    entity_attribute_binding: 118
+    shape: 1
+execution_recovery:
+  completed_predictions_present_before_monitored_attempt: 596
+  monitored_attempt:
+    attempt: 1
+    start_count: 596
+    end_count: 5300
+    watchdog_restart: false
+    runner_exit_code: 2
+    elapsed_seconds: 53870
+    stdout: outputs/causal_separation/PIVOT_EXP_A2/watchdog-attempt-1.stdout.log
+    stderr: outputs/causal_separation/PIVOT_EXP_A2/watchdog-attempt-1.stderr.log
+  prior_manual_resumption: true
+  prior_attempt_count_not_machine_recorded: true
+  allocator_environment: PYTORCH_CUDA_ALLOC_CONF=max_split_size_mb:64,garbage_collection_threshold:0.70
+  completed_predictions_deleted_or_overwritten: false
+  scientific_conditions_changed: false
+  final_runner_error: post-inference integrity failed because all_predictions_parsed
+    was false
+adjudication_pending: false
+adjudication_outcome: INCONCLUSIVE
+next_stage_authorization:
+  independent_replication_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false
