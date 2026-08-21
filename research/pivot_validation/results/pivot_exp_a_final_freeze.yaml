@@ -1,0 +1,34 @@
+schema_version: 1
+study_id: PIVOT_EXP_A
+freeze_name: pivot_exp_a_final_v1
+asset_commit_sha: a51c089f3ab87775615c73754567c09ace29e63f
+asset_remote_ref: origin/codex/claim-evidence-execution
+freeze_sha256: 7d03edce03fd0240e86443891371c5a7c57b7a3772e76ac66f32063ae1f21bc8
+predictions_sha256: c46a7c1ba3de77dd1949023f04c43573f9903e4969c88b437bdafc050716add6
+prediction_lines: 2000
+decision: NO-GO
+mechanism_classification: MULTIPLE_SUPPORTED_MECHANISMS_CAUSAL_PRIMACY_UNRESOLVED
+tag: pivot-exp-a-v1
+frozen_at: 2026-08-21
+validation:
+  git_diff_check: passed
+  ruff_check_all: passed
+  pytest:
+    passed: 404
+    failed: 0
+  research_registry: valid
+immutability:
+  config: research/pivot_validation/config.yaml
+  protocols:
+    - research/pivot_validation/protocols/A1_primitive_semantics.md
+    - research/pivot_validation/protocols/A2_evidence_factorization.md
+    - research/pivot_validation/protocols/A3_format_invariance.md
+  metrics: research/pivot_validation/results/metrics.json
+  predictions: research/pivot_validation/results/predictions.jsonl.gz
+  decision: research/pivot_validation/results/pivot_decision.yaml
+  artifact_manifest: research/pivot_validation/results/artifact_manifest.yaml
+  mutation_allowed: false
+next_stage_boundary:
+  conditional_causal_preregistration_allowed: true
+  model_development_allowed: false
+  paper_writing_allowed: false
