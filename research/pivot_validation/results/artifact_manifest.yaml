@@ -1,0 +1,27 @@
+schema_version: 1
+study_id: PIVOT_EXP_A
+decision: NO-GO
+mechanism_classification: MULTIPLE_SUPPORTED_MECHANISMS_CAUSAL_PRIMACY_UNRESOLVED
+automated_decision: GO
+automated_mechanism_classification: PRIMITIVE_SEMANTIC_REPRESENTATION_LIMITATION
+prediction_lines: 2000
+freeze_sha256: 7d03edce03fd0240e86443891371c5a7c57b7a3772e76ac66f32063ae1f21bc8
+artifacts:
+  metrics.json:
+    bytes: 33803
+    sha256: 2177372ff3b805abe560a869d91bdbefbf2c6a185cd5c2d9863e3f2b052482a2
+  pivot_decision.yaml:
+    bytes: 1925
+    sha256: 029d8d7f96770c52112410756337165c191d74693f20e1c20e2e50a636016c01
+  provenance.yaml:
+    bytes: 2551
+    sha256: 547d39639aaa3699372f8abd779cb0f6c5972c3a00ea73b49a3980326a606998
+  predictions.jsonl.gz:
+    bytes: 231003
+    sha256: c46a7c1ba3de77dd1949023f04c43573f9903e4969c88b437bdafc050716add6
+  PH001_validation_report.md:
+    bytes: 3015
+    sha256: 238b4e8f3e7cbdf2c140b1e4b18284e4797ee0a4350d0a59088845e12e4c79db
+  scientific_adjudication.md:
+    bytes: 1294
+    sha256: 25520adae74a132fd0cfd9bc7ed076634a7fc4547ace1c32b613213f2cb3d332

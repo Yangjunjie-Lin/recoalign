@@ -1,0 +1,73 @@
+schema_version: 1
+freeze_name: pivot_exp_a_v1
+status: preregistered
+created_at: '2026-08-21'
+protocol_changes_allowed_after_inference: false
+git:
+  commit: 6e232e94fb4028cfaf61f6580b0e530e67fd3889
+  branch: codex/claim-evidence-execution
+  dirty: true
+  diff_sha256: db6e4e7a87f1d583cb61d9a6b8dc52f405df263eb572f76e708ed454531b3790
+  untracked_files:
+  - research/pivot_validation/README.md
+  - research/pivot_validation/config.yaml
+  - research/pivot_validation/experiment_registry.yaml
+  - research/pivot_validation/hypothesis_registry.yaml
+  - research/pivot_validation/protocols/A1_primitive_semantics.md
+  - research/pivot_validation/protocols/A2_evidence_factorization.md
+  - research/pivot_validation/protocols/A3_format_invariance.md
+  - src/recoalign/pivot_validation/__init__.py
+  - src/recoalign/pivot_validation/__main__.py
+  - src/recoalign/pivot_validation/analysis.py
+  - src/recoalign/pivot_validation/design.py
+  - src/recoalign/pivot_validation/runner.py
+  - tests/test_pivot_validation.py
+model:
+  identifier: liuhaotian/llava-v1.5-7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  config: configs/models/llava_1_5_7b.yaml
+  config_sha256: 1c002ccffa56a876b8f857144e3d3697fcfb5ec72e9756f413849a5b9a076138
+  checkpoint_manifest: manifests/checkpoints/llava_v1_5_7b.yaml
+  checkpoint_manifest_sha256: 8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7
+  prompt_protocol: configs/prompts/reasoning_default.yaml
+  prompt_protocol_sha256: 1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492
+locked_files:
+  research/pivot_validation/config.yaml: a0b9713ea506b7738a99d9de8204009509d4d2fc59a86148894c52603536fb14
+  research/pivot_validation/hypothesis_registry.yaml: 457ec80ab264cf43cd367c9501a70c51292d9bcade5301b5ed27af9cdab96486
+  research/pivot_validation/experiment_registry.yaml: b5f978c3c5d7848e56056dadf926dd477ed6b661482bd27aca594bdf963180bb
+  research/pivot_validation/protocols/A1_primitive_semantics.md: 55a551da60f62a4cdc3646ff6f15e81fc385560bd3a19bedd8ff4a94cda9536d
+  research/pivot_validation/protocols/A2_evidence_factorization.md: 19f9e299f42e84793715ca5ce5da4657c4e060077532b915e3c372af31a1326a
+  research/pivot_validation/protocols/A3_format_invariance.md: f5093608991e3275632572f6218441f7e82cf209f44b0a44a574035af89f75f7
+  src/recoalign/pivot_validation/design.py: 73a5023e6c11b5e0542645634f09f27efd6b4aae0b3b0df281b425ef573b1d28
+  src/recoalign/pivot_validation/analysis.py: c18b164dbe3beb0dd89e5b982d44a40ccd5b67c07ba83274fc8d4f7e332e78bf
+  src/recoalign/pivot_validation/runner.py: 72cd702a082396584b8dd1633811f9d8ab78024534a6f929384b81622985159e
+source_datasets:
+  outputs/paper_evidence/EXP001/seeds/20260818/dataset/dataset.jsonl: bfa6268593756c8b45bce0648333df53b570d593766beea9e4cc20900a1d4034
+  outputs/paper_evidence/EXP001/seeds/20260819/dataset/dataset.jsonl: 1862e567f5e546b2c7e42b3b4e613e7452096015904ac8b0dad5719c1a4ef97d
+  outputs/paper_evidence/EXP001/seeds/20260820/dataset/dataset.jsonl: bc776bce55943898e4236f31afb4eeb87cf7a9503d3016f80229b952406b0db3
+  outputs/paper_evidence/EXP001/seeds/20260821/dataset/dataset.jsonl: 9ae5952ff7221021401865f8652329d2577217e6691179f24cf437b10c677d81
+  outputs/paper_evidence/EXP001/seeds/20260822/dataset/dataset.jsonl: c38c3dee0eb0580fa27cf19d0319559c650a0b19f45de4291f483b3a0adb6841
+design:
+  seeds:
+  - 20260818
+  - 20260819
+  - 20260820
+  - 20260821
+  - 20260822
+  pilot_seeds:
+  - 20260818
+  - 20260819
+  - 20260820
+  samples_per_seed: 40
+  predictions_per_seed: 400
+assertions:
+  all_seed_designs_pass: true
+  pilot_is_first_three_final_seeds: true
+  five_final_seeds: true
+  minimum_three_pilot_seeds: true
+  training_disabled: true
+  model_identifier_matches: true
+  model_revision_matches: true
+  checkpoint_manifest_matches: true
+  runtime_ready_without_loading_weights: true
+passed: true

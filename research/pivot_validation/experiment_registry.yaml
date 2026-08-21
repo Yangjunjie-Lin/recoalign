@@ -1,0 +1,40 @@
+schema_version: 1
+study_id: PIVOT_EXP_A
+experiments:
+  - id: A1
+    hypothesis: H-A
+    title: Primitive Semantic Availability
+    protocol: research/pivot_validation/protocols/A1_primitive_semantics.md
+    conditions: [image_only]
+    tasks: [object_shape, attribute_color, direct_relation]
+    primary_metrics: [accuracy, chance_normalized_accuracy, semantic_score]
+    training_allowed: false
+
+  - id: A2
+    hypothesis: H-B
+    title: Evidence Factorization
+    protocol: research/pivot_validation/protocols/A2_evidence_factorization.md
+    conditions: [image_only, object_evidence, relation_evidence, complete_evidence]
+    primary_metrics:
+      - object_contribution
+      - relation_contribution
+      - complete_contribution
+      - integration_surplus
+      - additive_synergy
+    training_allowed: false
+
+  - id: A3
+    hypothesis: H-B
+    title: Representation Format Invariance
+    protocol: research/pivot_validation/protocols/A3_format_invariance.md
+    conditions: [natural_language, triples, json]
+    primary_metrics: [accuracy, pairwise_format_effect, equivalence_margin]
+    training_allowed: false
+
+shared:
+  model: liuhaotian/llava-v1.5-7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  dataset: recoalign-synthetic-compositional-world@generator-v2
+  prompt_protocol: reasoning-default-v1
+  deterministic_decoding: true
+  reference_vlm_claim_eligible: false

@@ -1,0 +1,85 @@
+decision: GO
+elapsed_seconds: 1780.0309554999694
+freeze_name: pivot_exp_a_v1
+freeze_sha256: 7d03edce03fd0240e86443891371c5a7c57b7a3772e76ac66f32063ae1f21bc8
+git:
+  branch: codex/claim-evidence-execution
+  commit: 6e232e94fb4028cfaf61f6580b0e530e67fd3889
+  diff_sha256: db6e4e7a87f1d583cb61d9a6b8dc52f405df263eb572f76e708ed454531b3790
+  dirty: true
+  untracked_files:
+  - research/pivot_validation/README.md
+  - research/pivot_validation/config.yaml
+  - research/pivot_validation/experiment_registry.yaml
+  - research/pivot_validation/freeze_manifest.yaml
+  - research/pivot_validation/hypothesis_registry.yaml
+  - research/pivot_validation/protocols/A1_primitive_semantics.md
+  - research/pivot_validation/protocols/A2_evidence_factorization.md
+  - research/pivot_validation/protocols/A3_format_invariance.md
+  - src/recoalign/pivot_validation/__init__.py
+  - src/recoalign/pivot_validation/__main__.py
+  - src/recoalign/pivot_validation/analysis.py
+  - src/recoalign/pivot_validation/design.py
+  - src/recoalign/pivot_validation/runner.py
+  - tests/test_pivot_validation.py
+model_provenance:
+  answer_evaluator: answer-evaluator-v1
+  batch_size: 1
+  cache_enabled: true
+  checkpoint_manifest: D:/UoM_CS/GitHub/recoalign/manifests/checkpoints/llava_v1_5_7b.yaml
+  device_map: auto
+  dtype: float16
+  evidence_role: scientific_evidence
+  generation:
+    do_sample: false
+    max_new_tokens: 32
+    num_beams: 1
+    temperature: 0.0
+  loaded: true
+  loader: legacy_transformers
+  local_files_only: true
+  model_id: llava_1_5_7b
+  model_path: outputs/models/llava-v1.5-7b
+  prompt:
+    answer_template: 'Answer with exactly one option: {choices}.'
+    generation:
+      do_sample: false
+      max_new_tokens: 32
+      temperature: 0.0
+    instruction: ''
+    protocol_id: reasoning-default-v1
+    question_template: 'Question: {question}'
+    separator: '
+
+      '
+    sha256: 1499f80e3c10d9cf2aaa2acdff143c0f77a9e76d18501cfa0a4e0b5aec4d7492
+    source: D:/UoM_CS/GitHub/recoalign/configs/prompts/reasoning_default.yaml
+  quantization: nf4
+new_predictions: 800
+prediction_count: 2000
+runtime:
+  cuda:
+    available: true
+    cudnn: 90701
+    runtime: '12.6'
+  devices:
+  - capability:
+    - 8
+    - 6
+    index: 0
+    name: NVIDIA GeForce RTX 3060 Laptop GPU
+    total_memory: 6441926656
+  platform: win32
+  python: 3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit
+    (AMD64)]
+  torch: 2.7.1+cu126
+schema_version: 1
+seeds:
+- 20260818
+- 20260819
+- 20260820
+- 20260821
+- 20260822
+stage: final
+status: complete
+study_id: PIVOT_EXP_A

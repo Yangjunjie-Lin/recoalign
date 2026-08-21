@@ -46,6 +46,16 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers.add_parser("list-experiments", help="list registered scientific experiments")
 
+    pivot_validate = subparsers.add_parser(
+        "validate-pivot", help="preflight and freeze the PH001 A1/A2/A3 behavioral validation"
+    )
+    pivot_validate.add_argument("--config", default="research/pivot_validation/config.yaml")
+    pivot_run = subparsers.add_parser(
+        "run-pivot-validation", help="run the preregistered PH001 pilot or five-seed final"
+    )
+    pivot_run.add_argument("--config", default="research/pivot_validation/config.yaml")
+    pivot_run.add_argument("--stage", choices=("pilot", "final"), required=True)
+
     governed_run = subparsers.add_parser(
         "run-experiment", help="run a registered experiment through the governance lifecycle"
     )
@@ -405,6 +415,37 @@ def main(argv: Sequence[str] | None = None) -> int:
             from recoalign.research_registry import validate_research_registries
 
             print(json.dumps(validate_research_registries(), indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "validate-pivot":
+            from recoalign.pivot_validation import preflight_pivot_validation
+
+            report = preflight_pivot_validation(args.config)
+            print(
+                json.dumps(
+                    {"status": report["status"], "weights_loaded": report["weights_loaded"]},
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "run-pivot-validation":
+            from recoalign.pivot_validation import run_pivot_validation
+
+            report = run_pivot_validation(args.config, stage=args.stage)
+            print(
+                json.dumps(
+                    {
+                        "stage": args.stage,
+                        "decision": report["metrics"]["mechanism"]["decision"],
+                        "classification": report["metrics"]["mechanism"]["classification"],
+                        "prediction_count": report["metrics"]["prediction_count"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
             return 0
 
         if args.command == "list-experiments":
