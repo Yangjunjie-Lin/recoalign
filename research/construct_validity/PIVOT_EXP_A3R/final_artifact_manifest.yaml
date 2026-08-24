@@ -1,0 +1,126 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3R
+outcome: SECONDARY_CONTRACT_RUNTIME_FAILURE
+instrument_status: RETIRED_BEFORE_VALIDATION
+hash_algorithm: sha256
+source_remote_ref: origin/codex/claim-evidence-execution
+source_remote_commit: 64451ee6cabbd6cdc1cc8d3b36bd53f98ce6decc
+validation_inference_started: false
+scientific_metrics_computed: false
+formal_adjudication_run: false
+artifact_count: 27
+required_roles:
+  preregistration:
+    path: preregistration.md
+    sha256: 8dd5265d874e6b631552ad9b4a3bc4a5bad4aa664c2789adc4235ecfc7fc0531
+  amendment_rationale:
+    path: amendment_rationale.md
+    sha256: 327d56cd1c2056d266d67329a166eb49b90e832e5ab10dcd18daa6f157f86080
+  answer_contract:
+    path: answer_contract/answer-contract-v3-continuation.yaml
+    sha256: 98e39f328b333d87dcadc4c0fa2c97917f60cb2d603c130f1e019813e8f949cd
+  development_smoke:
+    path: validation/development_runtime_smoke_report.yaml
+    sha256: b834962ca1b9776aa491cdac6cead536f1e9c8cec17d94c34e2bee72003f007e
+  primary_immutability:
+    path: validation/primary_immutability_report.yaml
+    sha256: ca81e7f3f04f6fd0f2be16663416f82ef5433b23d741353c496d8d7d876e3801
+  execution_stop:
+    path: validation/execution_stop_record.yaml
+    sha256: 27dfda2aba548292dff3291419e1d899309c008a793bec007bc3938da798e947
+  next_stage_authorization:
+    path: validation/next_stage_authorization.yaml
+    sha256: 57c8a596f1d508b0a66284b7ac0f076d24c55b02e1dad25f7c575d4f5b4723d1
+  trial_inventory:
+    path: validation/trial_inventory.jsonl.gz
+    sha256: 1828b89963702c7240c6140086a16b1d921c47c725bdb3c839df7e7e8194208a
+  secondary_prompt_hashes:
+    path: validation/secondary_prompt_rehash_report.yaml
+    sha256: 85a420e682d299ac6f7f0315d82d313dd34055d974883587003bcfa6e4060057
+  instrument_retirement:
+    path: final_instrument_retirement_record.yaml
+    sha256: 1771ff999b792ca80d0cfdcceb9ecebe8e7ebf498589e4a8b9fe5ce1d8e86786
+artifacts:
+  amendment_rationale.md:
+    bytes: 1858
+    sha256: 327d56cd1c2056d266d67329a166eb49b90e832e5ab10dcd18daa6f157f86080
+  answer_contract/answer-contract-v3-continuation.yaml:
+    bytes: 1709
+    sha256: 98e39f328b333d87dcadc4c0fa2c97917f60cb2d603c130f1e019813e8f949cd
+  answer_contract/tokenizer_contract.yaml:
+    bytes: 1451
+    sha256: f656e73dbaddae65fd6c744e3d3d5319cabc05f755c473d48dc9545997e84e88
+  config.yaml:
+    bytes: 7240
+    sha256: c6725058ac145ff1b5f34c930085c37de64668221a3cd46cb9b41d5fffb15e8b
+  decision_policy.yaml:
+    bytes: 3737
+    sha256: d1c118b02c9172a9ed6373fbe98fdd3423ca081da867d04d9cda4f183e95c210
+  final_instrument_retirement_record.yaml:
+    bytes: 1178
+    sha256: 1771ff999b792ca80d0cfdcceb9ecebe8e7ebf498589e4a8b9fe5ce1d8e86786
+  freeze_manifest.yaml:
+    bytes: 5574
+    sha256: e001f8d261ba0680e8d152d2e465b065ab57313009c2dbad4ab4cc06c553f491
+  hypothesis_registry.yaml:
+    bytes: 1703
+    sha256: 38d2e2f0729e4fc5aea088fe1802b87e7d6e980385a99f2c0caf2078bac0f631
+  power_analysis.yaml:
+    bytes: 3482
+    sha256: 685bd14f2a08f265dcda111281947b6b0c6a6fe00ccdbd7668a43622665e2008
+  preregistration.md:
+    bytes: 4316
+    sha256: 8dd5265d874e6b631552ad9b4a3bc4a5bad4aa664c2789adc4235ecfc7fc0531
+  protocols/answer_contract_protocol.md:
+    bytes: 1160
+    sha256: 016e8d4b69bc102dfa1c47531606cb254a340a9ed491d11bd182db1afe1fffe6
+  protocols/sampling_and_trial_protocol.md:
+    bytes: 1451
+    sha256: 51d3620462d0657a13c8de7630a1104e9f995e8931d36a17757cdfcf88266e7f
+  protocols/statistical_protocol.md:
+    bytes: 1362
+    sha256: 67bef51a1cb5cfeb453e2c47ad685cdfe637e94dd3e612ae99885778bff888d7
+  results/README.md:
+    bytes: 264
+    sha256: 92afb096d89fcfe97bf3a2afc98158d0ac41dc198319476f7256d5a13f3b8ecc
+  validation/answer_contract_preflight.yaml:
+    bytes: 9398
+    sha256: debf95a86a0a5ca1251932db5a81378367150976fa9b1670d7d8b130136334d9
+  validation/development_runtime_smoke_report.yaml:
+    bytes: 93348
+    sha256: b834962ca1b9776aa491cdac6cead536f1e9c8cec17d94c34e2bee72003f007e
+  validation/execution_stop_record.yaml:
+    bytes: 1121
+    sha256: 27dfda2aba548292dff3291419e1d899309c008a793bec007bc3938da798e947
+  validation/inventory_manifest.yaml:
+    bytes: 696
+    sha256: 684fa7c120b8ab9c16394fccd36a65e560111907e26d428d6a926ba9b544bb49
+  validation/next_stage_authorization.yaml:
+    bytes: 312
+    sha256: 57c8a596f1d508b0a66284b7ac0f076d24c55b02e1dad25f7c575d4f5b4723d1
+  validation/post_smoke_administrative_integrity_record.yaml:
+    bytes: 1006
+    sha256: 4bceab0aa1c3af7dceecb30d8b0033f3b85b54eb11296da9e0c10c1bfddf6668
+  validation/preflight_report.yaml:
+    bytes: 112245
+    sha256: c07a922b1c848b83485c7d909b2e7461c83f7d8872522c725ff95f83a5dc0fcb
+  validation/preregistration_report.yaml:
+    bytes: 258
+    sha256: 8339459c2587a38233329e5565e97463b1bd1a9949970bb711fd32aa9f683850
+  validation/primary_immutability_report.yaml:
+    bytes: 636
+    sha256: ca81e7f3f04f6fd0f2be16663416f82ef5433b23d741353c496d8d7d876e3801
+  validation/runtime_readiness.yaml:
+    bytes: 1526
+    sha256: a9fe17ff010e2a8d8889d920301ce7f5fe999ec639dcd60ee8aca29b1d49bb02
+  validation/secondary_prompt_rehash_report.yaml:
+    bytes: 535
+    sha256: 85a420e682d299ac6f7f0315d82d313dd34055d974883587003bcfa6e4060057
+  validation/trial_inventory.jsonl.gz:
+    bytes: 3662233
+    sha256: 1828b89963702c7240c6140086a16b1d921c47c725bdb3c839df7e7e8194208a
+  validation/visual_asset_manifest.jsonl:
+    bytes: 1654288
+    sha256: 0cd5b399fbf41c17355253cf3b5914c7fde4ef9aedab5fa32be0879502bb6c03
+manifest_self_hash_policy: excluded_to_avoid_circular_digest
+immutable: true

@@ -1,0 +1,179 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3P
+status: PASS
+passed: true
+development_seed: 20260830
+development_scenes: 8
+planned_trials: 432
+completed_trials: 432
+four_score_rate: 1.0
+finite_score_rate: 1.0
+registered_prediction_rate: 1.0
+deterministic_repeat_rate: 1.0
+cache_roundtrip_rate: 1.0
+parent_primary_score_anchors_exact: true
+parent_primary_score_anchor_comparison:
+  PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M0:oracle:neutral_image:forced_choice:shape:
+    expected:
+      '1': -10.173910140991211
+      '2': -11.857503890991211
+      '3': -12.482503890991211
+      '4': -11.709066390991211
+    observed:
+      '1': -10.173910140991211
+      '2': -11.857503890991211
+      '3': -12.482503890991211
+      '4': -11.709066390991211
+    exact: true
+  PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M1:oracle:neutral_image:forced_choice:color:
+    expected:
+      '1': -11.334854125976562
+      '2': -12.553604125976562
+      '3': -14.037979125976562
+      '4': -13.862197875976562
+    observed:
+      '1': -11.334854125976562
+      '2': -12.553604125976562
+      '3': -14.037979125976562
+      '4': -13.862197875976562
+    exact: true
+  PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M2:oracle:neutral_image:forced_choice:object_identity:
+    expected:
+      '1': -11.304520606994629
+      '2': -12.409989356994629
+      '3': -12.554520606994629
+      '4': -12.019364356994629
+    observed:
+      '1': -11.304520606994629
+      '2': -12.409989356994629
+      '3': -12.554520606994629
+      '4': -12.019364356994629
+    exact: true
+CUDA_available: true
+NF4_loaded: true
+CPU_fallback: false
+OOM: false
+development_accuracy_computed: false
+candidate_superiority_computed: false
+oracle_corrupted_contrast_computed: false
+task_performance_computed: false
+validation_inference_started: false
+score_evidence_sha256: a24ffcc0980e2f97c385cac551ab01ae5cd1c1c87c6d26363f950b79f68517f4
+runtime:
+  model_load:
+    weights_loaded: true
+    vision_tower_loaded: true
+    projector_loaded: true
+    backend: _LegacyLlavaBackend
+    quantization: nf4
+    dtype: float16
+    device_map: auto
+    local_files_only: true
+    is_loaded_in_4bit: true
+    four_bit_module_count: 224
+    language_parameter_devices:
+    - cuda:0
+    vision_parameter_devices:
+    - cuda:0
+    projector_parameter_devices:
+    - cuda:0
+    no_cpu_fallback: true
+    nf4_loaded: true
+  staged_runtime:
+    strategy: staged_gpu_vision_feature_cache_then_nf4_language_forward_v1
+    image_count: 41
+    computed_features: 0
+    reused_features: 41
+    feature_shapes:
+    - - 1
+      - 576
+      - 4096
+    vision_execution_devices:
+    - cuda:0
+    projector_execution_devices:
+    - cuda:0
+    language_execution_devices:
+    - cuda:0
+    reloaded_vision_devices_before_release:
+    - cuda:0
+    reloaded_projector_devices_before_release:
+    - cuda:0
+    vision_modules_released_before_language_scoring: true
+    cpu_model_parameter_execution: false
+    no_cpu_fallback: true
+    elapsed_seconds: 25.11369780008681
+    cuda_memory_allocated_bytes: 4184465920
+    cuda_memory_reserved_bytes: 4427087872
+    cuda_max_memory_allocated_bytes: 4866186752
+  tokenizer_contract:
+    completion_prefix: FINAL_CHOICE=
+    choice_ids:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    options:
+    - choice_id: '1'
+      standalone_token_ids:
+      - 29896
+      prefix_context_token_ids:
+      - 29896
+      single_token: true
+      prefix_boundary_stable: true
+      passed: true
+    - choice_id: '2'
+      standalone_token_ids:
+      - 29906
+      prefix_context_token_ids:
+      - 29906
+      single_token: true
+      prefix_boundary_stable: true
+      passed: true
+    - choice_id: '3'
+      standalone_token_ids:
+      - 29941
+      prefix_context_token_ids:
+      - 29941
+      single_token: true
+      prefix_boundary_stable: true
+      passed: true
+    - choice_id: '4'
+      standalone_token_ids:
+      - 29946
+      prefix_context_token_ids:
+      - 29946
+      single_token: true
+      prefix_boundary_stable: true
+      passed: true
+    unique_token_ids: true
+    add_prefix_space: false
+    passed: true
+  tokenizer_runtime:
+    configured: true
+    already_configured: false
+    transformers_version: 4.52.4
+    tokenizer_path: D:\UoM_CS\GitHub\recoalign\outputs\models\llava-v1.5-7b
+    add_prefix_space: false
+  environment:
+    python: 3.12.6
+    torch: 2.7.1+cu126
+    torch_cuda: '12.6'
+    transformers: 4.52.4
+    bitsandbytes: 0.48.2
+    cuda_available: true
+    gpu: NVIDIA GeForce RTX 3060 Laptop GPU
+    model:
+      registry_name: llava_1_5_7b
+      model_id: liuhaotian/llava-v1.5-7b
+      revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+      loader: legacy_transformers
+      dtype: float16
+      device_map: auto
+      quantization: nf4
+      local_files_only: true
+      model_config_sha256: 1c002ccffa56a876b8f857144e3d3697fcfb5ec72e9756f413849a5b9a076138
+      checkpoint_manifest_sha256: 8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7
+      runtime_strategy: staged_gpu_vision_feature_cache_then_nf4_language_forward_v1
+    primary_method: conditional_log_likelihood_single_token_argmax_v1
+  environment_sha256: 3e5a9f1d949d45fb1fb133b44b5c44c7650de0ddfeaeb9277989d67b4049e682
+elapsed_seconds: 646.8994676000439

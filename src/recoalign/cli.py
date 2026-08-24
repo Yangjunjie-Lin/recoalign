@@ -132,6 +132,27 @@ def build_parser() -> argparse.ArgumentParser:
     )
     construct_adjudicate.add_argument("--config")
 
+    primary_construct_prepare = subparsers.add_parser(
+        "prepare-primary-construct-validity",
+        help="freeze the primary-only PIVOT_EXP_A3P study before held-out inference",
+    )
+    primary_construct_prepare.add_argument("--study", choices=("PIVOT_EXP_A3P",), required=True)
+    primary_construct_prepare.add_argument("--config")
+    primary_construct_prepare.add_argument("--no-smoke", action="store_true")
+    primary_construct_run = subparsers.add_parser(
+        "run-primary-construct-validity",
+        help="run the frozen 27,000-row PIVOT_EXP_A3P primary measurement",
+    )
+    primary_construct_run.add_argument("--study", choices=("PIVOT_EXP_A3P",), required=True)
+    primary_construct_run.add_argument("--model", choices=("llava_1_5_7b",), required=True)
+    primary_construct_run.add_argument("--config")
+    primary_construct_adjudicate = subparsers.add_parser(
+        "adjudicate-primary-construct-validity",
+        help="apply frozen PIVOT_EXP_A3P task-specific primary-only gates",
+    )
+    primary_construct_adjudicate.add_argument("--study", choices=("PIVOT_EXP_A3P",), required=True)
+    primary_construct_adjudicate.add_argument("--config")
+
     governed_run = subparsers.add_parser(
         "run-experiment", help="run a registered experiment through the governance lifecycle"
     )
@@ -734,6 +755,79 @@ def main(argv: Sequence[str] | None = None) -> int:
                         "study": args.study,
                         "outcome": report["decision"]["outcome"],
                         "authorization": report["decision"]["authorization"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "prepare-primary-construct-validity":
+            from recoalign.construct_validity_primary.runner import (
+                DEFAULT_CONFIG as PRIMARY_DEFAULT_CONFIG,
+            )
+            from recoalign.construct_validity_primary.runner import (
+                prepare_primary_construct_validity,
+            )
+
+            report = prepare_primary_construct_validity(
+                args.config or PRIMARY_DEFAULT_CONFIG,
+                run_smoke=not args.no_smoke,
+            )
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["freeze"]["status"],
+                        "passed": report["preflight"]["passed"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "run-primary-construct-validity":
+            from recoalign.construct_validity_primary.runner import (
+                DEFAULT_CONFIG as PRIMARY_DEFAULT_CONFIG,
+            )
+            from recoalign.construct_validity_primary.runner import (
+                run_primary_construct_validity,
+            )
+
+            report = run_primary_construct_validity(
+                args.config or PRIMARY_DEFAULT_CONFIG,
+                model_name=args.model,
+            )
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "prediction_count": report["prediction_count"],
+                        "adjudication_pending": report["adjudication_pending"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "adjudicate-primary-construct-validity":
+            from recoalign.construct_validity_primary.runner import (
+                DEFAULT_CONFIG as PRIMARY_DEFAULT_CONFIG,
+            )
+            from recoalign.construct_validity_primary.runner import (
+                adjudicate_primary_construct_validity,
+            )
+
+            report = adjudicate_primary_construct_validity(args.config or PRIMARY_DEFAULT_CONFIG)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "outcome": report["outcome"],
+                        "authorization": report["authorization"],
                     },
                     indent=2,
                     sort_keys=True,
