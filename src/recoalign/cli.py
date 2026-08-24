@@ -428,6 +428,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(arguments)
     command_line = shlex.join(["recoalign", *arguments])
     try:
+        if args.command in {
+            "preregister-construct-validity",
+            "validate-answer-contract",
+            "validate-construct-validity",
+            "run-construct-validity",
+            "adjudicate-construct-validity",
+        }:
+            from recoalign.construct_validity.runtime import configure_frozen_tokenizer_runtime
+
+            configure_frozen_tokenizer_runtime()
         if args.command == "validate-config":
             structured = False
             method_config = False
