@@ -1,0 +1,58 @@
+adapter: llava_1_5_7b
+checkpoint_exists: true
+checkpoint_files:
+- mm_projector.bin
+- pytorch_model-00001-of-00002.bin
+- pytorch_model-00002-of-00002.bin
+checkpoint_files_declared:
+- config.json
+- generation_config.json
+- mm_projector.bin
+- pytorch_model-00001-of-00002.bin
+- pytorch_model-00002-of-00002.bin
+- pytorch_model.bin.index.json
+- special_tokens_map.json
+- tokenizer_config.json
+- tokenizer.model
+checkpoint_manifest: D:/UoM_CS/GitHub/recoalign/manifests/checkpoints/llava_v1_5_7b.yaml
+checkpoint_manifest_exists: true
+checkpoint_manifest_loaded: true
+checkpoint_manifest_error: null
+model_type: llava
+architectures:
+- LlavaLlamaForCausalLM
+checkpoint_format: legacy_llava
+checkpoint_format_source: local_index
+loader: legacy_transformers
+loader_compatible: true
+dependencies:
+  torch: true
+  transformers: true
+  accelerate: true
+  sentencepiece: true
+  bitsandbytes: true
+hardware:
+  cuda_required: true
+  cuda_available: true
+  cuda_device_count: 1
+  devices:
+  - index: 0
+    name: NVIDIA GeForce RTX 3060 Laptop GPU
+    total_memory_bytes: 6441926656
+hardware_ready: true
+processor_ready: true
+processor_contract_ready: true
+processor_classes:
+  processor: LlavaProcessor
+  tokenizer: LlamaTokenizer
+  image_processor: CLIPImageProcessor
+processor_error: null
+runtime_ready: true
+weights_loaded: false
+historical_runtime_exact: true
+python_version: 3.12.6
+torch_version: 2.7.1+cu126
+torch_built_cuda: '12.6'
+transformers_version: 4.52.4
+bitsandbytes_version: 0.48.2
+gpu_name: NVIDIA GeForce RTX 3060 Laptop GPU

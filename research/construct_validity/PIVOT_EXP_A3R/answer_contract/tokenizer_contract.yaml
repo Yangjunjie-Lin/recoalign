@@ -1,0 +1,65 @@
+choice_ids:
+- '1'
+- '2'
+- '3'
+- '4'
+completion_prefix: FINAL_CHOICE=
+completion_prefix_has_trailing_space: false
+leading_space_policy: Primary likelihood candidates are appended directly after ASCII
+  '='. Leading-space encodings are measured and excluded, never substituted after
+  inference.
+unique_token_ids: true
+passed: true
+options:
+- choice_id: '1'
+  standalone_token_ids:
+  - 29896
+  leading_space_token_ids:
+  - 29871
+  - 29896
+  prefix_context_token_ids:
+  - 29896
+  single_token: true
+  prefix_boundary_stable: true
+  leading_space_sensitive: true
+  primary_method_uses_leading_space: false
+  passed: true
+- choice_id: '2'
+  standalone_token_ids:
+  - 29906
+  leading_space_token_ids:
+  - 29871
+  - 29906
+  prefix_context_token_ids:
+  - 29906
+  single_token: true
+  prefix_boundary_stable: true
+  leading_space_sensitive: true
+  primary_method_uses_leading_space: false
+  passed: true
+- choice_id: '3'
+  standalone_token_ids:
+  - 29941
+  leading_space_token_ids:
+  - 29871
+  - 29941
+  prefix_context_token_ids:
+  - 29941
+  single_token: true
+  prefix_boundary_stable: true
+  leading_space_sensitive: true
+  primary_method_uses_leading_space: false
+  passed: true
+- choice_id: '4'
+  standalone_token_ids:
+  - 29946
+  leading_space_token_ids:
+  - 29871
+  - 29946
+  prefix_context_token_ids:
+  - 29946
+  single_token: true
+  prefix_boundary_stable: true
+  leading_space_sensitive: true
+  primary_method_uses_leading_space: false
+  passed: true

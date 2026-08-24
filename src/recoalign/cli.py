@@ -92,45 +92,45 @@ def build_parser() -> argparse.ArgumentParser:
 
     construct_preregister = subparsers.add_parser(
         "preregister-construct-validity",
-        help="freeze PIVOT_EXP_A3 construct hypotheses, contracts, and power analysis",
+        help="freeze a registered construct-validity study before inference",
     )
-    construct_preregister.add_argument("--study", choices=("PIVOT_EXP_A3",), required=True)
     construct_preregister.add_argument(
-        "--config", default="research/construct_validity/PIVOT_EXP_A3/config.yaml"
+        "--study", choices=("PIVOT_EXP_A3", "PIVOT_EXP_A3R"), required=True
     )
+    construct_preregister.add_argument("--config")
     construct_contract = subparsers.add_parser(
         "validate-answer-contract",
-        help="validate the frozen PIVOT_EXP_A3 parser and tokenizer contract without weights",
+        help="validate a frozen construct-validity parser and tokenizer contract without weights",
     )
-    construct_contract.add_argument("--study", choices=("PIVOT_EXP_A3",), required=True)
     construct_contract.add_argument(
-        "--config", default="research/construct_validity/PIVOT_EXP_A3/config.yaml"
+        "--study", choices=("PIVOT_EXP_A3", "PIVOT_EXP_A3R"), required=True
     )
+    construct_contract.add_argument("--config")
     construct_validate = subparsers.add_parser(
         "validate-construct-validity",
-        help="materialize and freeze PIVOT_EXP_A3 validation trials without VLM inference",
+        help="materialize and freeze construct-validity trials before validation inference",
     )
-    construct_validate.add_argument("--study", choices=("PIVOT_EXP_A3",), required=True)
     construct_validate.add_argument(
-        "--config", default="research/construct_validity/PIVOT_EXP_A3/config.yaml"
+        "--study", choices=("PIVOT_EXP_A3", "PIVOT_EXP_A3R"), required=True
     )
+    construct_validate.add_argument("--config")
     construct_validate.add_argument("--preflight-only", action="store_true")
     construct_run = subparsers.add_parser(
-        "run-construct-validity", help="run the frozen PIVOT_EXP_A3 LLaVA measurement"
+        "run-construct-validity", help="run a frozen construct-validity LLaVA measurement"
     )
-    construct_run.add_argument("--study", choices=("PIVOT_EXP_A3",), required=True)
-    construct_run.add_argument("--model", choices=("llava_1_5_7b",), required=True)
     construct_run.add_argument(
-        "--config", default="research/construct_validity/PIVOT_EXP_A3/config.yaml"
+        "--study", choices=("PIVOT_EXP_A3", "PIVOT_EXP_A3R"), required=True
     )
+    construct_run.add_argument("--model", choices=("llava_1_5_7b",), required=True)
+    construct_run.add_argument("--config")
     construct_adjudicate = subparsers.add_parser(
         "adjudicate-construct-validity",
-        help="apply the frozen PIVOT_EXP_A3 task-specific decision policy",
+        help="apply a frozen construct-validity task-specific decision policy",
     )
-    construct_adjudicate.add_argument("--study", choices=("PIVOT_EXP_A3",), required=True)
     construct_adjudicate.add_argument(
-        "--config", default="research/construct_validity/PIVOT_EXP_A3/config.yaml"
+        "--study", choices=("PIVOT_EXP_A3", "PIVOT_EXP_A3R"), required=True
     )
+    construct_adjudicate.add_argument("--config")
 
     governed_run = subparsers.add_parser(
         "run-experiment", help="run a registered experiment through the governance lifecycle"
@@ -608,9 +608,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         if args.command == "preregister-construct-validity":
-            from recoalign.construct_validity import preregister_construct_validity
+            if args.study == "PIVOT_EXP_A3R":
+                from recoalign.construct_validity.a3r import (
+                    DEFAULT_CONFIG,
+                    preregister_construct_validity,
+                )
+            else:
+                from recoalign.construct_validity import preregister_construct_validity
+                from recoalign.construct_validity.runner import DEFAULT_CONFIG
 
-            report = preregister_construct_validity(args.config)
+            report = preregister_construct_validity(args.config or DEFAULT_CONFIG)
             print(
                 json.dumps(
                     {
@@ -627,9 +634,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         if args.command == "validate-answer-contract":
-            from recoalign.construct_validity import validate_answer_contract
+            if args.study == "PIVOT_EXP_A3R":
+                from recoalign.construct_validity.a3r import (
+                    DEFAULT_CONFIG,
+                    validate_answer_contract,
+                )
+            else:
+                from recoalign.construct_validity import validate_answer_contract
+                from recoalign.construct_validity.runner import DEFAULT_CONFIG
 
-            report = validate_answer_contract(args.config)
+            report = validate_answer_contract(args.config or DEFAULT_CONFIG)
             print(
                 json.dumps(
                     {
@@ -646,10 +660,17 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         if args.command == "validate-construct-validity":
-            from recoalign.construct_validity import validate_construct_validity
+            if args.study == "PIVOT_EXP_A3R":
+                from recoalign.construct_validity.a3r import (
+                    DEFAULT_CONFIG,
+                    validate_construct_validity,
+                )
+            else:
+                from recoalign.construct_validity import validate_construct_validity
+                from recoalign.construct_validity.runner import DEFAULT_CONFIG
 
             report = validate_construct_validity(
-                args.config, preflight_only=bool(args.preflight_only)
+                args.config or DEFAULT_CONFIG, preflight_only=bool(args.preflight_only)
             )
             print(
                 json.dumps(
@@ -657,7 +678,10 @@ def main(argv: Sequence[str] | None = None) -> int:
                         "study": args.study,
                         "status": report["status"],
                         "passed": report["passed"],
-                        "weights_loaded": report["weights_loaded"],
+                        "weights_loaded": report.get(
+                            "weights_loaded",
+                            report.get("weights_loaded_for_development_smoke", False),
+                        ),
                         "inference_started": report["inference_started"],
                     },
                     indent=2,
@@ -667,9 +691,18 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         if args.command == "run-construct-validity":
-            from recoalign.construct_validity import run_construct_validity
+            if args.study == "PIVOT_EXP_A3R":
+                from recoalign.construct_validity.a3r import (
+                    DEFAULT_CONFIG,
+                    run_construct_validity,
+                )
+            else:
+                from recoalign.construct_validity import run_construct_validity
+                from recoalign.construct_validity.runner import DEFAULT_CONFIG
 
-            report = run_construct_validity(args.config, model_name=args.model)
+            report = run_construct_validity(
+                args.config or DEFAULT_CONFIG, model_name=args.model
+            )
             print(
                 json.dumps(
                     {
@@ -685,9 +718,16 @@ def main(argv: Sequence[str] | None = None) -> int:
             return 0
 
         if args.command == "adjudicate-construct-validity":
-            from recoalign.construct_validity import adjudicate_construct_validity_run
+            if args.study == "PIVOT_EXP_A3R":
+                from recoalign.construct_validity.a3r import (
+                    DEFAULT_CONFIG,
+                    adjudicate_construct_validity_run,
+                )
+            else:
+                from recoalign.construct_validity import adjudicate_construct_validity_run
+                from recoalign.construct_validity.runner import DEFAULT_CONFIG
 
-            report = adjudicate_construct_validity_run(args.config)
+            report = adjudicate_construct_validity_run(args.config or DEFAULT_CONFIG)
             print(
                 json.dumps(
                     {

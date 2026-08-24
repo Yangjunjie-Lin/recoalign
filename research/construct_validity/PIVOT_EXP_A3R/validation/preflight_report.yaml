@@ -1,0 +1,2791 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3R
+status: secondary_contract_runtime_failure
+frozen_state_label: null
+passed: false
+design_preflight_passed: true
+validation_inventory_frozen: true
+execution_runtime_ready: true
+development_contract_smoke_passed: false
+preflight_only: true
+weights_loaded_for_development_smoke: true
+inference_started: false
+validation_inference_started: false
+scientific_metrics_computed: false
+parent_v1:
+  passed: true
+  manifest_sha256: 885489bc1b46c9e561df3633015325d786f72219b7c3cd251bf074af9814ee00
+  artifact_count: 11
+  artifact_mismatches: []
+  outcome: RUNTIME_BLOCKED_PREINFERENCE
+  validation_inference_started: false
+  scientific_metrics_computed: false
+  parent_prediction_file_exists: false
+answer_contract:
+  schema_version: 1
+  study_id: PIVOT_EXP_A3R
+  contract_version: answer-contract-v3-continuation
+  weights_loaded: false
+  inference_started: false
+  parser:
+    contract_version: answer-contract-v3-continuation
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation_grammar: ^\s*([1-4])\s*$
+    reconstructed_contract_grammar: ^\s*FINAL_CHOICE\s*=\s*([1-4])\s*$
+    unicode_normalization: false
+    word_number_conversion: false
+    substring_matching: false
+    alias_matching: false
+    multiple_option_acceptance: false
+    reasoning_trace_extraction: false
+    cases:
+    - id: valid_1
+      expected_valid: true
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: '1'
+        reconstructed_contract_output: FINAL_CHOICE=1
+        raw_valid: true
+        reconstructed_valid: true
+        choice_ids_match: true
+        valid: true
+        choice_id: '1'
+        failure_reason: null
+      passed: true
+    - id: valid_2
+      expected_valid: true
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: '2'
+        reconstructed_contract_output: FINAL_CHOICE=2
+        raw_valid: true
+        reconstructed_valid: true
+        choice_ids_match: true
+        valid: true
+        choice_id: '2'
+        failure_reason: null
+      passed: true
+    - id: valid_3
+      expected_valid: true
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: '3'
+        reconstructed_contract_output: FINAL_CHOICE=3
+        raw_valid: true
+        reconstructed_valid: true
+        choice_ids_match: true
+        valid: true
+        choice_id: '3'
+        failure_reason: null
+      passed: true
+    - id: valid_4
+      expected_valid: true
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: '4'
+        reconstructed_contract_output: FINAL_CHOICE=4
+        raw_valid: true
+        reconstructed_valid: true
+        choice_ids_match: true
+        valid: true
+        choice_id: '4'
+        failure_reason: null
+      passed: true
+    - id: valid_5
+      expected_valid: true
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: ' 2 '
+        reconstructed_contract_output: 'FINAL_CHOICE= 2 '
+        raw_valid: true
+        reconstructed_valid: true
+        choice_ids_match: true
+        valid: true
+        choice_id: '2'
+        failure_reason: null
+      passed: true
+    - id: valid_6
+      expected_valid: true
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: '2
+
+          '
+        reconstructed_contract_output: 'FINAL_CHOICE=2
+
+          '
+        raw_valid: true
+        reconstructed_valid: true
+        choice_ids_match: true
+        valid: true
+        choice_id: '2'
+        failure_reason: null
+      passed: true
+    - id: invalid_1
+      expected_valid: false
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: FINAL_CHOICE=2
+        reconstructed_contract_output: FINAL_CHOICE=FINAL_CHOICE=2
+        raw_valid: false
+        reconstructed_valid: false
+        choice_ids_match: false
+        valid: false
+        choice_id: null
+        failure_reason: unexpected_content
+      passed: true
+    - id: invalid_2
+      expected_valid: false
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: Option 2
+        reconstructed_contract_output: FINAL_CHOICE=Option 2
+        raw_valid: false
+        reconstructed_valid: false
+        choice_ids_match: false
+        valid: false
+        choice_id: null
+        failure_reason: unexpected_content
+      passed: true
+    - id: invalid_3
+      expected_valid: false
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: The answer is 2
+        reconstructed_contract_output: FINAL_CHOICE=The answer is 2
+        raw_valid: false
+        reconstructed_valid: false
+        choice_ids_match: false
+        valid: false
+        choice_id: null
+        failure_reason: unexpected_content
+      passed: true
+    - id: invalid_4
+      expected_valid: false
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: 2 or 3
+        reconstructed_contract_output: FINAL_CHOICE=2 or 3
+        raw_valid: false
+        reconstructed_valid: false
+        choice_ids_match: false
+        valid: false
+        choice_id: null
+        failure_reason: multiple_or_multidigit_option
+      passed: true
+    - id: invalid_5
+      expected_valid: false
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: '22'
+        reconstructed_contract_output: FINAL_CHOICE=22
+        raw_valid: false
+        reconstructed_valid: false
+        choice_ids_match: false
+        valid: false
+        choice_id: null
+        failure_reason: multiple_or_multidigit_option
+      passed: true
+    - id: invalid_6
+      expected_valid: false
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: E2
+        reconstructed_contract_output: FINAL_CHOICE=E2
+        raw_valid: false
+        reconstructed_valid: false
+        choice_ids_match: false
+        valid: false
+        choice_id: null
+        failure_reason: unexpected_content
+      passed: true
+    - id: invalid_7
+      expected_valid: false
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: ２
+        reconstructed_contract_output: FINAL_CHOICE=２
+        raw_valid: false
+        reconstructed_valid: false
+        choice_ids_match: false
+        valid: false
+        choice_id: null
+        failure_reason: non_ascii
+      passed: true
+    - id: invalid_8
+      expected_valid: false
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: two
+        reconstructed_contract_output: FINAL_CHOICE=two
+        raw_valid: false
+        reconstructed_valid: false
+        choice_ids_match: false
+        valid: false
+        choice_id: null
+        failure_reason: unexpected_content
+      passed: true
+    - id: invalid_9
+      expected_valid: false
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: ''
+        reconstructed_contract_output: FINAL_CHOICE=
+        raw_valid: false
+        reconstructed_valid: false
+        choice_ids_match: false
+        valid: false
+        choice_id: null
+        failure_reason: empty
+      passed: true
+    - id: invalid_10
+      expected_valid: false
+      observed:
+        contract_version: answer-contract-v3-continuation
+        prompt_completion_prefix: FINAL_CHOICE=
+        raw_continuation: reasoning trace + 2
+        reconstructed_contract_output: FINAL_CHOICE=reasoning trace + 2
+        raw_valid: false
+        reconstructed_valid: false
+        choice_ids_match: false
+        valid: false
+        choice_id: null
+        failure_reason: unexpected_content
+      passed: true
+    reconstructed_cases:
+    - output: FINAL_CHOICE=1
+      expected_choice_id: '1'
+      observed_choice_id: '1'
+      passed: true
+    - output: FINAL_CHOICE=2
+      expected_choice_id: '2'
+      observed_choice_id: '2'
+      passed: true
+    - output: FINAL_CHOICE=3
+      expected_choice_id: '3'
+      observed_choice_id: '3'
+      passed: true
+    - output: FINAL_CHOICE=4
+      expected_choice_id: '4'
+      observed_choice_id: '4'
+      passed: true
+    passed: true
+  tokenizer:
+    choice_ids:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    completion_prefix: FINAL_CHOICE=
+    completion_prefix_has_trailing_space: false
+    leading_space_policy: Primary likelihood candidates are appended directly after
+      ASCII '='. Leading-space encodings are measured and excluded, never substituted
+      after inference.
+    unique_token_ids: true
+    passed: true
+    options:
+    - choice_id: '1'
+      standalone_token_ids:
+      - 29896
+      leading_space_token_ids:
+      - 29871
+      - 29896
+      prefix_context_token_ids:
+      - 29896
+      single_token: true
+      prefix_boundary_stable: true
+      leading_space_sensitive: true
+      primary_method_uses_leading_space: false
+      passed: true
+    - choice_id: '2'
+      standalone_token_ids:
+      - 29906
+      leading_space_token_ids:
+      - 29871
+      - 29906
+      prefix_context_token_ids:
+      - 29906
+      single_token: true
+      prefix_boundary_stable: true
+      leading_space_sensitive: true
+      primary_method_uses_leading_space: false
+      passed: true
+    - choice_id: '3'
+      standalone_token_ids:
+      - 29941
+      leading_space_token_ids:
+      - 29871
+      - 29941
+      prefix_context_token_ids:
+      - 29941
+      single_token: true
+      prefix_boundary_stable: true
+      leading_space_sensitive: true
+      primary_method_uses_leading_space: false
+      passed: true
+    - choice_id: '4'
+      standalone_token_ids:
+      - 29946
+      leading_space_token_ids:
+      - 29871
+      - 29946
+      prefix_context_token_ids:
+      - 29946
+      single_token: true
+      prefix_boundary_stable: true
+      leading_space_sensitive: true
+      primary_method_uses_leading_space: false
+      passed: true
+  passed: true
+primary_immutability:
+  schema_version: 1
+  study_id: PIVOT_EXP_A3R
+  parent_study_id: PIVOT_EXP_A3
+  comparison_scope: protected_scientific_and_execution_fields
+  administrative_study_id_amended: true
+  expected_count: 27000
+  compared_count: 27000
+  exact_match_count: 27000
+  exact_match_requirement: 27000 / 27000
+  protected_fields:
+  - trial_key
+  - prompt
+  - prompt_sha256
+  - image
+  - choices
+  - correct_choice_id
+  - scene_truth_choice_id
+  - declared_choice_id
+  prompt_sha_unchanged: true
+  image_path_unchanged: true
+  image_sha_verified: true
+  choice_mapping_unchanged: true
+  correct_choice_unchanged: true
+  trial_key_unchanged: true
+  unique_image_count: 2501
+  mismatches: []
+  passed: true
+secondary_prompt_rehash:
+  schema_version: 1
+  study_id: PIVOT_EXP_A3R
+  parent_study_id: PIVOT_EXP_A3
+  response_contract: answer-contract-v3-continuation
+  expected_count: 9000
+  rehash_count: 9000
+  all_prompts_rehashed: true
+  all_prompts_end_exact_prefix: true
+  all_images_unchanged: true
+  all_choices_unchanged: true
+  all_correct_choices_unchanged: true
+  all_keys_versioned: true
+  parent_inventory_sha256: bcd2e86e7a97bcd879d161b59eada31bbac73dac10d0d77f40db4a55e065d27d
+  amended_inventory_sha256: 1828b89963702c7240c6140086a16b1d921c47c725bdb3c839df7e7e8194208a
+  passed: true
+trial_integrity:
+  passed: true
+  trial_count: 36000
+  by_method:
+    forced_choice: 27000
+    free_generation: 9000
+  by_seed:
+    '20260901': 7200
+    '20260902': 7200
+    '20260903': 7200
+    '20260904': 7200
+    '20260905': 7200
+  unique_trial_keys: true
+  all_prompts_end_exact_prefix: true
+runtime_readiness:
+  adapter: llava_1_5_7b
+  checkpoint_exists: true
+  checkpoint_files:
+  - mm_projector.bin
+  - pytorch_model-00001-of-00002.bin
+  - pytorch_model-00002-of-00002.bin
+  checkpoint_files_declared:
+  - config.json
+  - generation_config.json
+  - mm_projector.bin
+  - pytorch_model-00001-of-00002.bin
+  - pytorch_model-00002-of-00002.bin
+  - pytorch_model.bin.index.json
+  - special_tokens_map.json
+  - tokenizer_config.json
+  - tokenizer.model
+  checkpoint_manifest: D:/UoM_CS/GitHub/recoalign/manifests/checkpoints/llava_v1_5_7b.yaml
+  checkpoint_manifest_exists: true
+  checkpoint_manifest_loaded: true
+  checkpoint_manifest_error: null
+  model_type: llava
+  architectures:
+  - LlavaLlamaForCausalLM
+  checkpoint_format: legacy_llava
+  checkpoint_format_source: local_index
+  loader: legacy_transformers
+  loader_compatible: true
+  dependencies:
+    torch: true
+    transformers: true
+    accelerate: true
+    sentencepiece: true
+    bitsandbytes: true
+  hardware:
+    cuda_required: true
+    cuda_available: true
+    cuda_device_count: 1
+    devices:
+    - index: 0
+      name: NVIDIA GeForce RTX 3060 Laptop GPU
+      total_memory_bytes: 6441926656
+  hardware_ready: true
+  processor_ready: true
+  processor_contract_ready: true
+  processor_classes:
+    processor: LlavaProcessor
+    tokenizer: LlamaTokenizer
+    image_processor: CLIPImageProcessor
+  processor_error: null
+  runtime_ready: true
+  weights_loaded: false
+  historical_runtime_exact: true
+  python_version: 3.12.6
+  torch_version: 2.7.1+cu126
+  torch_built_cuda: '12.6'
+  transformers_version: 4.52.4
+  bitsandbytes_version: 0.48.2
+  gpu_name: NVIDIA GeForce RTX 3060 Laptop GPU
+development_smoke:
+  schema_version: 1
+  study_id: PIVOT_EXP_A3R
+  status: SECONDARY_CONTRACT_RUNTIME_FAILURE
+  outcome: SECONDARY_CONTRACT_RUNTIME_FAILURE
+  passed: false
+  development_seed: 20260830
+  development_scene_count: 8
+  planned_trial_count: 160
+  completed_trial_count: 160
+  raw_continuation_parse_rate: 0.79375
+  reconstructed_output_parse_rate: 0.79375
+  deterministic_repeat_rate: 1.0
+  unparsed_count: 33
+  CUDA_available: true
+  NF4_loaded: true
+  CPU_fallback: false
+  OOM: false
+  weights_loaded: true
+  runtime:
+    python_executable: D:\UoM_CS\GitHub\recoalign\.venv\Scripts\python.exe
+    python_version: 3.12.6
+    torch_version: 2.7.1+cu126
+    torch_built_cuda: '12.6'
+    transformers_version: 4.52.4
+    bitsandbytes_version: 0.48.2
+    gpu_name: NVIDIA GeForce RTX 3060 Laptop GPU
+    allocator_environment: max_split_size_mb:64,garbage_collection_threshold:0.70
+    model_load:
+      weights_loaded: true
+      vision_tower_loaded: true
+      projector_loaded: true
+      backend: _LegacyLlavaBackend
+      quantization: nf4
+      dtype: float16
+      device_map: auto
+      local_files_only: true
+      is_loaded_in_4bit: true
+      four_bit_module_count: 224
+      language_parameter_devices:
+      - cuda:0
+      vision_parameter_devices:
+      - cuda:0
+      projector_parameter_devices:
+      - cuda:0
+      no_cpu_fallback: true
+      nf4_loaded: true
+  checks:
+    all_8_development_scenes: true
+    all_registered_secondary_cells: true
+    raw_continuation_parse_rate: false
+    reconstructed_output_parse_rate: false
+    deterministic_repeat_rate: true
+    unparsed_count_zero: false
+    cuda_available: true
+    historical_runtime_exact: true
+    nf4_loaded: true
+    cpu_fallback: false
+    no_cpu_fallback: true
+    oom: false
+    no_oom: true
+    validation_predictions_read: false
+    development_accuracy_computed: false
+    scientific_metrics_computed: false
+  error: null
+  trials:
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV1:M1:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV1:M1:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV1:M2:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV1:M2:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M1:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M1:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M1:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M1:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M2:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M2:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M2:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E4
+    reconstructed_contract_output: FINAL_CHOICE=E4
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M2:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV3:M1:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV3:M1:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV3:M1:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV3:M1:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV3:M2:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV3:M2:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV3:M2:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E4
+    reconstructed_contract_output: FINAL_CHOICE=E4
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV3:M2:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000004
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV1:M1:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV1:M1:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV1:M2:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV1:M2:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV2:M1:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV2:M1:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV2:M1:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV2:M1:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV2:M2:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV2:M2:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV2:M2:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E4
+    reconstructed_contract_output: FINAL_CHOICE=E4
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV2:M2:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV3:M1:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV3:M1:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV3:M1:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV3:M1:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV3:M2:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV3:M2:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV3:M2:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E4
+    reconstructed_contract_output: FINAL_CHOICE=E4
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000016:CV3:M2:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000016
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV1:M1:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV1:M1:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV1:M2:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV1:M2:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV2:M1:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV2:M1:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV2:M1:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV2:M1:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV2:M2:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV2:M2:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV2:M2:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV2:M2:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV3:M1:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV3:M1:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV3:M1:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV3:M1:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV3:M2:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV3:M2:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV3:M2:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000028:CV3:M2:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000028
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV1:M1:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV1:M1:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV1:M2:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV1:M2:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV2:M1:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV2:M1:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV2:M1:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV2:M1:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV2:M2:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV2:M2:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV2:M2:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E1
+    reconstructed_contract_output: FINAL_CHOICE=E1
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV2:M2:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV3:M1:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV3:M1:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV3:M1:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV3:M1:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV3:M2:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV3:M2:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV3:M2:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E1
+    reconstructed_contract_output: FINAL_CHOICE=E1
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000040:CV3:M2:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000040
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV1:M1:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV1:M1:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV1:M2:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV1:M2:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV2:M1:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV2:M1:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV2:M1:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV2:M1:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV2:M2:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV2:M2:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV2:M2:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E4
+    reconstructed_contract_output: FINAL_CHOICE=E4
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV2:M2:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV3:M1:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV3:M1:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV3:M1:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV3:M1:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV3:M2:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV3:M2:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV3:M2:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E4
+    reconstructed_contract_output: FINAL_CHOICE=E4
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000052:CV3:M2:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000052
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV1:M1:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV1:M1:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV1:M2:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV1:M2:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV2:M1:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV2:M1:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV2:M1:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV2:M1:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV2:M2:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV2:M2:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV2:M2:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV2:M2:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV3:M1:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV3:M1:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV3:M1:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV3:M1:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV3:M2:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV3:M2:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV3:M2:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000064:CV3:M2:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000064
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV1:M1:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV1:M1:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV1:M2:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV1:M2:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV2:M1:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV2:M1:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV2:M1:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV2:M1:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV2:M2:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV2:M2:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV2:M2:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV2:M2:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV3:M1:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV3:M1:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV3:M1:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV3:M1:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV3:M2:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV3:M2:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV3:M2:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000076:CV3:M2:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000076
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV1:M1:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV1:M1:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV1:M2:oracle:neutral_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV1:M2:oracle:original_scene_image:free_generation:answer_contract_comprehension:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV1
+    task: answer_contract_comprehension
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV2:M1:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV2:M1:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV2:M1:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV2:M1:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M1
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV2:M2:oracle:neutral_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '2'
+    reconstructed_contract_output: FINAL_CHOICE=2
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV2:M2:oracle:neutral_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV2:M2:oracle:neutral_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV2:M2:oracle:neutral_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M2
+    image_context: neutral_image
+    construct: CV2
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV3:M1:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV3:M1:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV3:M1:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV3:M1:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M1
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV3:M2:oracle:original_scene_image:free_generation:color:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: color
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '3'
+    reconstructed_contract_output: FINAL_CHOICE=3
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV3:M2:oracle:original_scene_image:free_generation:entity_attribute_binding:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: entity_attribute_binding
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '4'
+    reconstructed_contract_output: FINAL_CHOICE=4
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV3:M2:oracle:original_scene_image:free_generation:object_identity:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: object_identity
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: E2
+    reconstructed_contract_output: FINAL_CHOICE=E2
+    raw_continuation_parsed: false
+    reconstructed_output_parsed: false
+    choice_ids_match: false
+    parse_failure_reason: unexpected_content
+    deterministic_repeat_stable: true
+  - trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000088:CV3:M2:oracle:original_scene_image:free_generation:shape:response_contract=answer-contract-v3-continuation
+    scene_id: sw_20260830_000088
+    manipulation: M2
+    image_context: original_scene_image
+    construct: CV3
+    task: shape
+    prompt_completion_prefix: FINAL_CHOICE=
+    raw_continuation: '1'
+    reconstructed_contract_output: FINAL_CHOICE=1
+    raw_continuation_parsed: true
+    reconstructed_output_parsed: true
+    choice_ids_match: true
+    parse_failure_reason: null
+    deterministic_repeat_stable: true
+  reporting_prohibitions:
+    development_accuracy_computed: false
+    candidate_superiority_computed: false
+    semantic_sufficiency_computed: false
+    M1_vs_M2_performance_computed: false
+  elapsed_seconds: 5891.7790043998975
+  extension:
+    source_completed_trial_count: 144
+    added_original_image_CV1_trials: 16
+    existing_trials_regenerated: false
+    development_accuracy_computed: false
+    validation_predictions_read: false
+trial_inventory_sha256: 1828b89963702c7240c6140086a16b1d921c47c725bdb3c839df7e7e8194208a
+visual_asset_manifest_sha256: 0cd5b399fbf41c17355253cf3b5914c7fde4ef9aedab5fa32be0879502bb6c03

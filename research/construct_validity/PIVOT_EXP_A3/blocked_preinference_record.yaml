@@ -1,0 +1,21 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+version: v1
+outcome: RUNTIME_BLOCKED_PREINFERENCE
+failure_code: DEVELOPMENT_FREE_GENERATION_CONTRACT_SMOKE_FAILED
+design_preflight_passed: true
+gpu_runtime_passed: true
+primary_forced_choice_passed: true
+secondary_observed_output: "2"
+secondary_expected_output: "FINAL_CHOICE=2"
+validation_inference_started: false
+scientific_metrics_computed: false
+recorded_at: '2026-08-24'
+source_runtime_smoke_report: validation/runtime_smoke_report.yaml
+source_runtime_recovery_attempt: validation/runtime_recovery_attempt.yaml
+immutability:
+  v1_predictions_reinterpreted: false
+  v1_parser_relaxed: false
+  v1_prompt_modified: false
+  v1_validation_predictions_created: false
+

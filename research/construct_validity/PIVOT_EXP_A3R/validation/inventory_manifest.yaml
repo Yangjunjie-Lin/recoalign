@@ -1,0 +1,19 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3R
+passed: true
+derivation: frozen_PIVOT_EXP_A3_inventory_secondary_surface_amendment
+parent_inventory:
+  bytes: 3612941
+  sha256: bcd2e86e7a97bcd879d161b59eada31bbac73dac10d0d77f40db4a55e065d27d
+trial_inventory:
+  bytes: 3662233
+  sha256: 1828b89963702c7240c6140086a16b1d921c47c725bdb3c839df7e7e8194208a
+parent_visual_asset_manifest:
+  bytes: 1654288
+  sha256: 0cd5b399fbf41c17355253cf3b5914c7fde4ef9aedab5fa32be0879502bb6c03
+visual_asset_manifest:
+  bytes: 1654288
+  sha256: 0cd5b399fbf41c17355253cf3b5914c7fde4ef9aedab5fa32be0879502bb6c03
+visual_asset_manifest_bytes_identical: true
+validation_outcomes_observed: false
+scientific_metrics_computed: false
