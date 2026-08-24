@@ -1,0 +1,84 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+registered_before_inference: true
+allowed_outcomes:
+  - CONSTRUCT_VALIDITY_GO_TEXT
+  - CONSTRUCT_VALIDITY_GO_VISUAL_LEGEND
+  - ANSWER_CONTRACT_FAILURE
+  - SEMANTIC_MANIPULATION_FAILURE
+  - IMAGE_INTERFERENCE_DIAGNOSIS
+  - NO-GO_CONSTRUCT
+  - INCONCLUSIVE
+candidate_order: [M1, M2]
+historical_anchor_excluded_from_selection: M0
+global_integrity_requirements:
+  - A2_frozen_assets_match
+  - five_complete_validation_seeds
+  - validation_inventory_hashes_match
+  - trial_keys_unique
+  - exact_choice_balance
+  - no_failed_trial_deletion
+  - parser_and_tokenizer_implementation_hashes_match
+  - visual_legend_integrity
+  - no_answer_leakage
+  - seed_level_replication
+answer_contract_gate_A:
+  forced_choice_valid_measurement_rate: 1.0
+  CV1_oracle_mean_minimum: 0.95
+  CV1_oracle_ci_lower_minimum: 0.90
+  CV1_corrupted_declared_fact_mean_minimum: 0.95
+  CV1_corrupted_declared_fact_ci_lower_minimum: 0.90
+selection_rule:
+  - if: M1_passes_all_A_through_F
+    outcome: CONSTRUCT_VALIDITY_GO_TEXT
+    selected_manipulation: M1
+  - if: M1_fails_and_M2_passes_all_A_through_F
+    outcome: CONSTRUCT_VALIDITY_GO_VISUAL_LEGEND
+    selected_manipulation: M2
+  - if: M1_and_M2_both_pass
+    outcome: CONSTRUCT_VALIDITY_GO_TEXT
+    selected_manipulation: M1
+    rationale: minimum_intervention_principle
+  - if: M1_and_M2_both_fail
+    forbidden: [combine_M1_M2, add_M3, posthoc_prompt_change]
+failure_precedence:
+  - condition: execution_or_sample_integrity_failure
+    outcome: INCONCLUSIVE
+  - condition: complete_data_but_gate_A_or_gate_B_fails
+    outcome: ANSWER_CONTRACT_FAILURE
+  - condition: neutral_comprehension_passes_but_original_image_D_or_F_stably_fails
+    outcome: IMAGE_INTERFERENCE_DIAGNOSIS
+  - condition: answer_contract_passes_but_M1_and_M2_fail_primitive_sufficiency
+    outcome: SEMANTIC_MANIPULATION_FAILURE
+  - condition: answer_contract_passes_but_failure_pattern_matches_no_single_registered_diagnosis
+    outcome: NO-GO_CONSTRUCT
+integrity_vs_contract_boundary: >-
+  A missing/corrupt prediction file, hash drift, incomplete seed, tokenizer drift, or parser code
+  drift is INCONCLUSIVE. With a complete hash-valid run, an observed failure of the registered
+  answer-contract rate is ANSWER_CONTRACT_FAILURE.
+task_specificity:
+  all_required_tasks: [shape, color, object_identity, entity_attribute_binding]
+  aggregate_override_allowed: false
+  each_task_must_pass_C_D_E_F: true
+seed_replication:
+  completed_seeds_required: 5
+  minimum_directionally_passing_seeds: 4
+  per_task_gate_D_point_accuracy_minimum: 0.90
+  per_task_gate_E_difference_minimum: 0.50
+  pooled_confidence_and_Holm_gates_still_required: true
+authorization:
+  CONSTRUCT_VALIDITY_GO_TEXT: &go_authorization
+    PIVOT_EXP_A4_preregistration_allowed: true
+    independent_backbone_replication_allowed: false
+    model_development_allowed: false
+    paper_writing_allowed: false
+  CONSTRUCT_VALIDITY_GO_VISUAL_LEGEND: *go_authorization
+  ANSWER_CONTRACT_FAILURE: &no_authorization
+    PIVOT_EXP_A4_preregistration_allowed: false
+    independent_backbone_replication_allowed: false
+    model_development_allowed: false
+    paper_writing_allowed: false
+  SEMANTIC_MANIPULATION_FAILURE: *no_authorization
+  IMAGE_INTERFERENCE_DIAGNOSIS: *no_authorization
+  NO-GO_CONSTRUCT: *no_authorization
+  INCONCLUSIVE: *no_authorization

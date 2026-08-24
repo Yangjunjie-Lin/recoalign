@@ -1,0 +1,90 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+status: preflight_blocked_runtime
+registered_at: '2026-08-23'
+inference_started: false
+weights_loaded: false
+protocol_changes_allowed_after_inference: false
+parent_boundary:
+  frozen_commit: 765d502dfdbdabd143945a08591b067cddbf8b3e
+  passed: true
+  assets:
+    research/causal_separation/PIVOT_EXP_A2/preregistration.md:
+      expected_sha256: 47862e2760da4bf8a9f046beb6c4313773f5c8fbd42cdb1a6ebbb5345b689f18
+      actual_sha256: 47862e2760da4bf8a9f046beb6c4313773f5c8fbd42cdb1a6ebbb5345b689f18
+      matches: true
+    research/causal_separation/PIVOT_EXP_A2/config.yaml:
+      expected_sha256: 33d342430e9aee899a759d3fcee4ce589ec6f656da49cfa9d3ae0ff5075ad339
+      actual_sha256: 33d342430e9aee899a759d3fcee4ce589ec6f656da49cfa9d3ae0ff5075ad339
+      matches: true
+    research/causal_separation/PIVOT_EXP_A2/freeze_manifest.yaml:
+      expected_sha256: a85a99ca98b302b7f2aac841ea0371a328fb1c481e3276472bae1b3729a4a858
+      actual_sha256: a85a99ca98b302b7f2aac841ea0371a328fb1c481e3276472bae1b3729a4a858
+      matches: true
+    research/causal_separation/PIVOT_EXP_A2/results/metrics.json:
+      expected_sha256: bc798cb836d20647cf0d293b1091968b38545aaa8bd41a7774ffa80b39822a68
+      actual_sha256: bc798cb836d20647cf0d293b1091968b38545aaa8bd41a7774ffa80b39822a68
+      matches: true
+    research/causal_separation/PIVOT_EXP_A2/results/predictions.jsonl.gz:
+      expected_sha256: 5d31a46bb6bad7630d5dfd4095195aae3fe6b6b69972eadccbd95c1c846d886c
+      actual_sha256: 5d31a46bb6bad7630d5dfd4095195aae3fe6b6b69972eadccbd95c1c846d886c
+      matches: true
+    research/causal_separation/PIVOT_EXP_A2/results/decision_report.yaml:
+      expected_sha256: 99bfa89d043e278cb5c221e4046fdcf6b591577dd60b042636aee3f53a9a9172
+      actual_sha256: 99bfa89d043e278cb5c221e4046fdcf6b591577dd60b042636aee3f53a9a9172
+      matches: true
+    research/causal_separation/PIVOT_EXP_A2/results/artifact_manifest.yaml:
+      expected_sha256: e934955088b23dc39307bb6a494b060e3d4d139b89f97e2216b07c3509a2447c
+      actual_sha256: e934955088b23dc39307bb6a494b060e3d4d139b89f97e2216b07c3509a2447c
+      matches: true
+legacy_audit:
+  selected_count: 137
+  rescored: false
+  source_sha256: 5d31a46bb6bad7630d5dfd4095195aae3fe6b6b69972eadccbd95c1c846d886c
+power:
+  status: PASS
+  sha256: f419f426040fc4062abcfac34ec01c711afe8693b9256664d3e1d96e00dea642
+answer_contract:
+  passed: true
+  parser_passed: true
+  tokenizer_passed: true
+locked_protocol_files:
+  research/decisions/PIVOT_EXP_A2_continuation_scope.yaml: b60896dbb713a2e4d26025dd587afc50f348c26fa5966b55a050fa94c4268e3a
+  research/construct_validity/PIVOT_EXP_A3/research_question.md: e6a6f5d70dd21a0807545c6d53ae835799ea8fdc3e95adad77c8d1779d751d31
+  research/construct_validity/PIVOT_EXP_A3/hypothesis_registry.yaml: 89430e5b1ee7c2680ea10380852b080ca53b968c22d2b9f8ace80ada217cf657
+  research/construct_validity/PIVOT_EXP_A3/preregistration.md: 88a3fa321e4939a048016624e73e5174d90beed209af7e95f4050904c054e61b
+  research/construct_validity/PIVOT_EXP_A3/power_analysis.yaml: f419f426040fc4062abcfac34ec01c711afe8693b9256664d3e1d96e00dea642
+  research/construct_validity/PIVOT_EXP_A3/config.yaml: e3d463b3379cea2d481631006399d65abaf69dab7f4a03ca22614e2d85a315f4
+  research/construct_validity/PIVOT_EXP_A3/decision_policy.yaml: 2cf0d03b796c9522d7e6837d55022aa811e9050d3f8f091ebdfd44335313c740
+  research/construct_validity/PIVOT_EXP_A3/answer_contract/answer-contract-v2.yaml: 9c185fc8ba01e7721f505c3a55195357dc5ebe91c3824680bbb507b6f924ae93
+  research/construct_validity/PIVOT_EXP_A3/answer_contract/tokenizer_contract.yaml: f656e73dbaddae65fd6c744e3d3d5319cabc05f755c473d48dc9545997e84e88
+  research/construct_validity/PIVOT_EXP_A3/semantic_manipulations/M0_historical_anchor.md: c963d68a4c812fc9faa517884722aaf3499ae9a001653b4c60304733254f320a
+  research/construct_validity/PIVOT_EXP_A3/semantic_manipulations/M1_canonical_entity_table.md: 4e823b021d75daa90a3b826b44ba7c72200eef2c080b0d0c203a530e053993a0
+  research/construct_validity/PIVOT_EXP_A3/semantic_manipulations/M2_visual_object_legend.md: 5a87dfe1e89eda3bbe7d9450737c3e4433ae34431568bc6ce8a4f7b5cf89dc15
+  research/construct_validity/PIVOT_EXP_A3/protocols/answer_contract_protocol.md: c476f7b365dff70e11b94f8e96e69e3b611ce228290b40efa695c1888f68c80a
+  research/construct_validity/PIVOT_EXP_A3/protocols/sampling_and_trial_protocol.md: 33d425e1193e2c8ce88f8f36d1c53702ccd633bb7841ec1ed2e97cc7782baef3
+  research/construct_validity/PIVOT_EXP_A3/protocols/statistical_protocol.md: 875da5e081530bfdcc15c5e9000b79c6c33c565eaf9a8042d7350d7e0abae7ee
+  research/construct_validity/PIVOT_EXP_A3/validation/answer_contract_preflight.yaml: 569d5e8153653bd6462a3d77e7da97df6b99b9f384787bc6c12e17d5036f1fa7
+  research/construct_validity/PIVOT_EXP_A3/validation/legacy_parse_failure_inventory.jsonl: e5b5b01af349462eb3ef5979c1acd547dc662c4629cad06d43cbc2a2505f1eb6
+  research/construct_validity/PIVOT_EXP_A3/validation/legacy_parse_failure_summary.yaml: c8f87091df5c83418998226a67bc344d3a208a1093ef22c62f57ceac09a1aacd
+  research/construct_validity/PIVOT_EXP_A3/validation/legacy_parse_failure_audit.md: 89cd3f4f7c21ee69653bddb2ecae6b48275e94d35efd1e7d9de41d7543576fc3
+  src/recoalign/construct_validity/answer_contract.py: f6d471bdb770740fa4a212c17af7d8143118daa445e3ee87ed4fdb6e6af670c1
+  src/recoalign/construct_validity/choice_scoring.py: deb479163a04ffb67c66b8c653d5d2f9344e3f93a2cb06dc368ebaba7121a34f
+  src/recoalign/construct_validity/scaffold_comprehension.py: 2fb629063a8d99d2132cdb2c4ffe789670e106bf6824fa93e5d7288a871569fe
+  src/recoalign/construct_validity/visual_legend.py: ab737cd2ca6b8516de0459b3246d5a76ef72da9f25ec75357d1552ed63d06860
+  src/recoalign/construct_validity/trial_builder.py: da2e445994c4cdfa544038179c51efa26e7a076853041283943372ce5cf5aff2
+  src/recoalign/construct_validity/statistics.py: 384e67a9d269c77eff49e98e285b62ae9a87106ce0e58bc249e50040c80b7499
+  src/recoalign/construct_validity/decision.py: 9a801baf1f65d0aa96fd71d65d9bfaead3c2dd9209c7765b643927b0618606e7
+  src/recoalign/construct_validity/integrity.py: 3a13415e7a26e68fcfd569927ae8ebcfeb263ce0d28d713fd10fc69dfc4d32dd
+  src/recoalign/construct_validity/runner.py: 92a0666d442950d743a704f5fd14cab58ba6d3c9fc2f0f48cab98a782565ee07
+  research/construct_validity/PIVOT_EXP_A3/semantic_manipulations/neutral.png: 73bc9ccad5e58177ab7836809e0aa3b3b937fd651025ce794158ed392834c90c
+preflight:
+  passed: false
+  design_preflight_passed: true
+  validation_inventory_frozen: true
+  execution_runtime_ready: false
+  report_sha256: ca3e83c0c9708c52d7a7b562c9e3feffe79557f6bc6710ff7dc3f8368ca89e39
+  inventory_manifest_sha256: b5d598c6bf6b4d5410240c135798fd38586331cb6858b6125b2f9b1718cbc5c7
+  trial_inventory_sha256: bcd2e86e7a97bcd879d161b59eada31bbac73dac10d0d77f40db4a55e065d27d
+  trial_count: 36000
+  visual_asset_count: 5080

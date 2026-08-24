@@ -90,6 +90,48 @@ def build_parser() -> argparse.ArgumentParser:
         "--config", default="research/causal_separation/PIVOT_EXP_A2/config.yaml"
     )
 
+    construct_preregister = subparsers.add_parser(
+        "preregister-construct-validity",
+        help="freeze PIVOT_EXP_A3 construct hypotheses, contracts, and power analysis",
+    )
+    construct_preregister.add_argument("--study", choices=("PIVOT_EXP_A3",), required=True)
+    construct_preregister.add_argument(
+        "--config", default="research/construct_validity/PIVOT_EXP_A3/config.yaml"
+    )
+    construct_contract = subparsers.add_parser(
+        "validate-answer-contract",
+        help="validate the frozen PIVOT_EXP_A3 parser and tokenizer contract without weights",
+    )
+    construct_contract.add_argument("--study", choices=("PIVOT_EXP_A3",), required=True)
+    construct_contract.add_argument(
+        "--config", default="research/construct_validity/PIVOT_EXP_A3/config.yaml"
+    )
+    construct_validate = subparsers.add_parser(
+        "validate-construct-validity",
+        help="materialize and freeze PIVOT_EXP_A3 validation trials without VLM inference",
+    )
+    construct_validate.add_argument("--study", choices=("PIVOT_EXP_A3",), required=True)
+    construct_validate.add_argument(
+        "--config", default="research/construct_validity/PIVOT_EXP_A3/config.yaml"
+    )
+    construct_validate.add_argument("--preflight-only", action="store_true")
+    construct_run = subparsers.add_parser(
+        "run-construct-validity", help="run the frozen PIVOT_EXP_A3 LLaVA measurement"
+    )
+    construct_run.add_argument("--study", choices=("PIVOT_EXP_A3",), required=True)
+    construct_run.add_argument("--model", choices=("llava_1_5_7b",), required=True)
+    construct_run.add_argument(
+        "--config", default="research/construct_validity/PIVOT_EXP_A3/config.yaml"
+    )
+    construct_adjudicate = subparsers.add_parser(
+        "adjudicate-construct-validity",
+        help="apply the frozen PIVOT_EXP_A3 task-specific decision policy",
+    )
+    construct_adjudicate.add_argument("--study", choices=("PIVOT_EXP_A3",), required=True)
+    construct_adjudicate.add_argument(
+        "--config", default="research/construct_validity/PIVOT_EXP_A3/config.yaml"
+    )
+
     governed_run = subparsers.add_parser(
         "run-experiment", help="run a registered experiment through the governance lifecycle"
     )
@@ -542,6 +584,100 @@ def main(argv: Sequence[str] | None = None) -> int:
             from recoalign.causal_separation import adjudicate_causal_separation
 
             report = adjudicate_causal_separation(args.config)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "outcome": report["decision"]["outcome"],
+                        "authorization": report["decision"]["authorization"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "preregister-construct-validity":
+            from recoalign.construct_validity import preregister_construct_validity
+
+            report = preregister_construct_validity(args.config)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "power": report["power"]["status"],
+                        "weights_loaded": report["weights_loaded"],
+                        "inference_started": report["inference_started"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "validate-answer-contract":
+            from recoalign.construct_validity import validate_answer_contract
+
+            report = validate_answer_contract(args.config)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "passed": report["passed"],
+                        "parser": report["parser"]["passed"],
+                        "tokenizer": report["tokenizer"]["passed"],
+                        "weights_loaded": report["weights_loaded"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "validate-construct-validity":
+            from recoalign.construct_validity import validate_construct_validity
+
+            report = validate_construct_validity(
+                args.config, preflight_only=bool(args.preflight_only)
+            )
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "passed": report["passed"],
+                        "weights_loaded": report["weights_loaded"],
+                        "inference_started": report["inference_started"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "run-construct-validity":
+            from recoalign.construct_validity import run_construct_validity
+
+            report = run_construct_validity(args.config, model_name=args.model)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "prediction_count": report["prediction_count"],
+                        "adjudication_pending": report["adjudication_pending"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "adjudicate-construct-validity":
+            from recoalign.construct_validity import adjudicate_construct_validity_run
+
+            report = adjudicate_construct_validity_run(args.config)
             print(
                 json.dumps(
                     {

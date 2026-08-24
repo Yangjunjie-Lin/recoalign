@@ -1,0 +1,89 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+source_study_id: PIVOT_EXP_A2
+audit_scope: format_description_only
+source_predictions: research/causal_separation/PIVOT_EXP_A2/results/predictions.jsonl.gz
+source_predictions_sha256: 5d31a46bb6bad7630d5dfd4095195aae3fe6b6b69972eadccbd95c1c846d886c
+source_prediction_count: 5300
+selection:
+  family: manipulation_check
+  evaluation.evaluation_method: no_match
+  selected_count: 137
+frozen_boundary_passed: true
+counts:
+  by_manipulation_task:
+    color: 18
+    entity_attribute_binding: 118
+    shape: 1
+  by_condition:
+    corrupted_semantics: 73
+    oracle_semantics: 64
+  by_seed:
+    20260818: 27
+    20260819: 29
+    20260820: 30
+    20260821: 30
+    20260822: 21
+  by_raw_output_pattern:
+    hallucinated_choice: 19
+    multiple_choices: 118
+  by_task_condition_pattern:
+  - task: color
+    condition: corrupted_semantics
+    pattern: hallucinated_choice
+    count: 18
+  - task: entity_attribute_binding
+    condition: corrupted_semantics
+    pattern: multiple_choices
+    count: 54
+  - task: entity_attribute_binding
+    condition: oracle_semantics
+    pattern: multiple_choices
+    count: 64
+  - task: shape
+    condition: corrupted_semantics
+    pattern: hallucinated_choice
+    count: 1
+  by_seed_pattern:
+  - seed: 20260818
+    pattern: hallucinated_choice
+    count: 6
+  - seed: 20260818
+    pattern: multiple_choices
+    count: 21
+  - seed: 20260819
+    pattern: hallucinated_choice
+    count: 4
+  - seed: 20260819
+    pattern: multiple_choices
+    count: 25
+  - seed: 20260820
+    pattern: hallucinated_choice
+    count: 3
+  - seed: 20260820
+    pattern: multiple_choices
+    count: 27
+  - seed: 20260821
+    pattern: hallucinated_choice
+    count: 5
+  - seed: 20260821
+    pattern: multiple_choices
+    count: 25
+  - seed: 20260822
+    pattern: hallucinated_choice
+    count: 1
+  - seed: 20260822
+    pattern: multiple_choices
+    count: 20
+flags:
+  allowed_choice_string_appears: 118
+  multiple_choices_appear: 118
+  alias_variants_appear: 0
+  semantically_correct_description_but_violates_grammar: 105
+  genuinely_off_task: 0
+research_integrity:
+  PIVOT_EXP_A2_metrics_modified: false
+  PIVOT_EXP_A2_predictions_modified: false
+  PIVOT_EXP_A2_predictions_rescored: false
+  PIVOT_EXP_A2_unparsed_outputs_deleted: false
+  audit_may_support_PIVOT_EXP_A2_accuracy_recalculation: false

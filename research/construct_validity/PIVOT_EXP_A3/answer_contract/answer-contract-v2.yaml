@@ -1,0 +1,33 @@
+schema_version: 2
+contract_id: answer-contract-v2
+registered_before_inference: true
+option_ids: ['1', '2', '3', '4']
+entity_ids_are_not_option_ids: true
+primary:
+  method: conditional_log_likelihood_single_token_argmax_v1
+  completion_prefix: FINAL_CHOICE=
+  prefix_trailing_space: false
+  selection: argmax
+  tie_break: registered_numeric_order
+  unparsed_state_allowed: false
+  ground_truth_available_to_scorer: false
+  model_parameter_updates: false
+  constrained_decoding_fallback: false
+secondary:
+  method: frozen_free_generation
+  required_output: FINAL_CHOICE=<1|2|3|4>
+  regex: '^\s*FINAL_CHOICE\s*=\s*([1-4])\s*$'
+  case_sensitive: true
+  ascii_delimiter_and_digits_only: true
+  unicode_normalization: false
+  reasoning_trace: reject_entire_output
+  multiple_fields: reject
+  synonyms_or_aliases: reject
+post_inference_parser_changes_allowed: false
+primary_gate:
+  valid_measurement_rate: 1.0
+  CV1_per_condition_mean_minimum: 0.95
+  CV1_per_condition_confidence_interval_lower_minimum: 0.90
+secondary_gate:
+  parse_rate_minimum: 0.99
+  confidence_interval_lower_minimum: 0.98

@@ -1,0 +1,231 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+weights_loaded: false
+inference_started: false
+parser:
+  contract_version: answer-contract-v2
+  grammar: ^\s*FINAL_CHOICE\s*=\s*([1-4])\s*$
+  case_sensitive: true
+  unicode_normalization: false
+  reasoning_trace_policy: reject_entire_output
+  passed: true
+  cases:
+  - id: exact_valid
+    expected_valid: true
+    expected_choice: '1'
+    observed:
+      raw_output: FINAL_CHOICE=1
+      valid: true
+      choice_id: '1'
+      failure_reason: null
+      contract_version: answer-contract-v2
+    passed: true
+  - id: leading_trailing_whitespace
+    expected_valid: true
+    expected_choice: '2'
+    observed:
+      raw_output: " \tFINAL_CHOICE = 2\r\n"
+      valid: true
+      choice_id: '2'
+      failure_reason: null
+      contract_version: answer-contract-v2
+    passed: true
+  - id: uppercase_contract
+    expected_valid: true
+    expected_choice: '3'
+    observed:
+      raw_output: FINAL_CHOICE=3
+      valid: true
+      choice_id: '3'
+      failure_reason: null
+      contract_version: answer-contract-v2
+    passed: true
+  - id: lowercase_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: final_choice=3
+      valid: false
+      choice_id: null
+      failure_reason: unexpected_prefix_or_reasoning_trace
+      contract_version: answer-contract-v2
+    passed: true
+  - id: full_sentence_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: The answer is FINAL_CHOICE=1.
+      valid: false
+      choice_id: null
+      failure_reason: unexpected_prefix_or_reasoning_trace
+      contract_version: answer-contract-v2
+    passed: true
+  - id: multiple_option_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: FINAL_CHOICE=1 or FINAL_CHOICE=2
+      valid: false
+      choice_id: null
+      failure_reason: duplicate_final_field
+      contract_version: answer-contract-v2
+    passed: true
+  - id: invalid_option_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: FINAL_CHOICE=5
+      valid: false
+      choice_id: null
+      failure_reason: invalid_option
+      contract_version: answer-contract-v2
+    passed: true
+  - id: alias_collision_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: FINAL_CHOICE=E1
+      valid: false
+      choice_id: null
+      failure_reason: invalid_option
+      contract_version: answer-contract-v2
+    passed: true
+  - id: reasoning_trace_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: Because E2 is blue, FINAL_CHOICE=2
+      valid: false
+      choice_id: null
+      failure_reason: unexpected_prefix_or_reasoning_trace
+      contract_version: answer-contract-v2
+    passed: true
+  - id: truncated_output_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: FINAL_CHOICE=
+      valid: false
+      choice_id: null
+      failure_reason: truncated_missing_option
+      contract_version: answer-contract-v2
+    passed: true
+  - id: unicode_equals_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: FINAL_CHOICE＝1
+      valid: false
+      choice_id: null
+      failure_reason: invalid_ascii_delimiter
+      contract_version: answer-contract-v2
+    passed: true
+  - id: unicode_digit_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: FINAL_CHOICE=１
+      valid: false
+      choice_id: null
+      failure_reason: invalid_option
+      contract_version: answer-contract-v2
+    passed: true
+  - id: duplicate_final_field_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: 'FINAL_CHOICE=1
+
+        FINAL_CHOICE=1'
+      valid: false
+      choice_id: null
+      failure_reason: duplicate_final_field
+      contract_version: answer-contract-v2
+    passed: true
+  - id: option_substring_false_positive_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: FINAL_CHOICE=14
+      valid: false
+      choice_id: null
+      failure_reason: trailing_or_multiple_content
+      contract_version: answer-contract-v2
+    passed: true
+  - id: entity_alias_only_rejected
+    expected_valid: false
+    expected_choice: null
+    observed:
+      raw_output: E2
+      valid: false
+      choice_id: null
+      failure_reason: unexpected_prefix_or_reasoning_trace
+      contract_version: answer-contract-v2
+    passed: true
+tokenizer:
+  choice_ids:
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  completion_prefix: FINAL_CHOICE=
+  completion_prefix_has_trailing_space: false
+  leading_space_policy: Primary likelihood candidates are appended directly after
+    ASCII '='. Leading-space encodings are measured and excluded, never substituted
+    after inference.
+  unique_token_ids: true
+  passed: true
+  options:
+  - choice_id: '1'
+    standalone_token_ids:
+    - 29896
+    leading_space_token_ids:
+    - 29871
+    - 29896
+    prefix_context_token_ids:
+    - 29896
+    single_token: true
+    prefix_boundary_stable: true
+    leading_space_sensitive: true
+    primary_method_uses_leading_space: false
+    passed: true
+  - choice_id: '2'
+    standalone_token_ids:
+    - 29906
+    leading_space_token_ids:
+    - 29871
+    - 29906
+    prefix_context_token_ids:
+    - 29906
+    single_token: true
+    prefix_boundary_stable: true
+    leading_space_sensitive: true
+    primary_method_uses_leading_space: false
+    passed: true
+  - choice_id: '3'
+    standalone_token_ids:
+    - 29941
+    leading_space_token_ids:
+    - 29871
+    - 29941
+    prefix_context_token_ids:
+    - 29941
+    single_token: true
+    prefix_boundary_stable: true
+    leading_space_sensitive: true
+    primary_method_uses_leading_space: false
+    passed: true
+  - choice_id: '4'
+    standalone_token_ids:
+    - 29946
+    leading_space_token_ids:
+    - 29871
+    - 29946
+    prefix_context_token_ids:
+    - 29946
+    single_token: true
+    prefix_boundary_stable: true
+    leading_space_sensitive: true
+    primary_method_uses_leading_space: false
+    passed: true
+passed: true
