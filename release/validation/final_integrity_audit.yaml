@@ -41,4 +41,15 @@ main_integration:
   frozen_commit_is_ancestor: true
   merge_strategy: merge_commit
   history_rewritten: false
-release_closure_status: pending_release_tag_archive_and_fresh_clone_validation
+fresh_clone_candidate_validation:
+  commit: 0a7b546ccd88e1bbac075023b65a7adb7832c68f
+  pytest_passed: 462
+  pytest_skipped_unpublished_asset_tests: 20
+  pytest_failed: 0
+  ruff_passed: true
+  research_validators_passed: true
+  release_verifier_passed: true
+  inference_run: false
+  model_weights_loaded: false
+  restricted_dataset_downloaded: false
+release_closure_status: pending_finalization_pr_ci_release_tag_and_github_release

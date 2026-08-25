@@ -9,7 +9,7 @@ Inventory date: 2026-08-25
 | `origin/main` | `5377eba6607575b47cb8a57b87537c7e748615c6` | Closeout and release content integrated by PR #15. |
 | `origin/codex/claim-evidence-execution` | `a80882071a6cf17c275453319d78d879c1546e3a` | Frozen closeout source; retain until release verification. |
 | `origin/release/recoalign-closeout` | `0bea0cf8ff6d815e549aade2323d3c0ca98428b1` | Temporary merged release branch. |
-| `release/recoalign-closeout-finalize` | based on `5377eba6607575b47cb8a57b87537c7e748615c6` | Temporary metadata and release-closure branch. |
+| `release/recoalign-closeout-finalize` | `0a7b546ccd88e1bbac075023b65a7adb7832c68f` plus fresh-clone report | Temporary metadata and release-closure branch. |
 | `recoalign-evidence-freeze-2026-08-25` | tag object `3fd776cab8bfd50e1d211c863d8fa91a651a9de7`; commit `a80882071a6cf17c275453319d78d879c1546e3a` | Retain permanently. |
 | `recoalign-negative-evidence-v1` | pending | Create only after validation; retain permanently. |
 
