@@ -40,6 +40,15 @@ from recoalign.models.vlm.base import PreparedInput
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_ROOT = ROOT / "src/recoalign/construct_validity_primary"
+LOCAL_PARENT_DATASET = (
+    ROOT
+    / "outputs/construct_validity/PIVOT_EXP_A3/inventory/validation/20260901/dataset.jsonl"
+)
+
+
+def _require_unpublished_parent_assets() -> None:
+    if not LOCAL_PARENT_DATASET.is_file():
+        pytest.skip("requires unpublished local A3 parent scene and rendered-image assets")
 
 
 class _Backend:
@@ -95,6 +104,7 @@ def _integrity(*, passed: bool = True, measurement_failure: bool = False) -> dic
 
 
 def test_a3_v1_and_a3r_frozen_hashes_match() -> None:
+    _require_unpublished_parent_assets()
     report = verify_parent_freezes()
     assert report["passed"] is True
     assert report["a3_v1_hash_mismatches"] == []
@@ -145,6 +155,7 @@ def test_inherited_inventory_has_exactly_27000_primary_rows() -> None:
 
 
 def test_all_protected_fields_match_parent_rows_exactly() -> None:
+    _require_unpublished_parent_assets()
     report = materialize_inherited_primary_inventory(allow_create=False)
     assert report["exact_protected_field_matches"] == EXPECTED_PRIMARY_ROWS
     assert report["mismatch_count"] == 0
@@ -153,6 +164,7 @@ def test_all_protected_fields_match_parent_rows_exactly() -> None:
 
 
 def test_trial_keys_prompts_images_choices_and_mappings_are_unchanged() -> None:
+    _require_unpublished_parent_assets()
     report = materialize_inherited_primary_inventory(allow_create=False)
     assert report["trial_keys_changed"] is False
     assert report["image_asset_verification"]["verified_count"] == 2501
@@ -358,6 +370,7 @@ def test_preinference_freeze_is_self_consistent_once_frozen() -> None:
         )
     )
     if freeze["status"] == "FROZEN_PREINFERENCE":
+        _require_unpublished_parent_assets()
         assert verify_freeze()["passed"] is True
         assert freeze["validation_inference_started"] is False
 

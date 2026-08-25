@@ -35,4 +35,10 @@ frozen_artifact_manifests:
     - research/construct_validity/PIVOT_EXP_A3/v1_artifact_manifest.yaml
     - research/construct_validity/PIVOT_EXP_A3R/final_artifact_manifest.yaml
     - research/construct_validity/PIVOT_EXP_A3P/results/artifact_manifest.yaml
-release_closure_status: pending_main_integration_archive_and_fresh_clone_validation
+main_integration:
+  pull_request: 15
+  merge_commit: 5377eba6607575b47cb8a57b87537c7e748615c6
+  frozen_commit_is_ancestor: true
+  merge_strategy: merge_commit
+  history_rewritten: false
+release_closure_status: pending_release_tag_archive_and_fresh_clone_validation

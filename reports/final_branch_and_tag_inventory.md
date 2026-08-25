@@ -6,9 +6,10 @@ Inventory date: 2026-08-25
 
 | Ref | Exact SHA | Status / recommendation |
 | --- | --- | --- |
-| `origin/main` | `fe3b37f1cffc58329a4823ec3af20b3ade7ca6d3` | Pre-closeout main; integration pending. |
+| `origin/main` | `5377eba6607575b47cb8a57b87537c7e748615c6` | Closeout and release content integrated by PR #15. |
 | `origin/codex/claim-evidence-execution` | `a80882071a6cf17c275453319d78d879c1546e3a` | Frozen closeout source; retain until release verification. |
-| `release/recoalign-closeout` | `3fa9ccd793ebbcaecae3bc283281fc1a44f1268f` plus uncommitted release metadata | Temporary release integration branch. |
+| `origin/release/recoalign-closeout` | `0bea0cf8ff6d815e549aade2323d3c0ca98428b1` | Temporary merged release branch. |
+| `release/recoalign-closeout-finalize` | based on `5377eba6607575b47cb8a57b87537c7e748615c6` | Temporary metadata and release-closure branch. |
 | `recoalign-evidence-freeze-2026-08-25` | tag object `3fd776cab8bfd50e1d211c863d8fa91a651a9de7`; commit `a80882071a6cf17c275453319d78d879c1546e3a` | Retain permanently. |
 | `recoalign-negative-evidence-v1` | pending | Create only after validation; retain permanently. |
 
