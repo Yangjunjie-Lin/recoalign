@@ -1,0 +1,27 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3P
+preinference_commit: ef5ac366510e851aedddb80cc4b4349cfbfcfc6e
+freeze_sha256: 66ca304cdf4e07e32cc9918fc6e8c26538855175fd6fcac5a87f8e6ca8d55f35
+environment_sha256: 3e5a9f1d949d45fb1fb133b44b5c44c7650de0ddfeaeb9277989d67b4049e682
+inventory_sha256: 7b81e65ddb6ec72b692b8ab09ec05d6d9dbcd587a2b40a6e5b77572f43416ca2
+predictions_sha256: 1706f470e6ca2b690163855a6159924248c49285317040ab68d4a8886cd6e016
+model_provenance:
+  checkpoint_manifest_sha256: 8f6ef275d87bc1051c8b38c5e1cee2c0ac7357103f4186588082f849e81c54d7
+  device_map: auto
+  dtype: float16
+  loader: legacy_transformers
+  local_files_only: true
+  model_config_sha256: 1c002ccffa56a876b8f857144e3d3697fcfb5ec72e9756f413849a5b9a076138
+  model_id: liuhaotian/llava-v1.5-7b
+  quantization: nf4
+  registry_name: llava_1_5_7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  runtime_strategy: staged_gpu_vision_feature_cache_then_nf4_language_forward_v1
+prediction_count: 27000
+validation_seeds:
+- 20260901
+- 20260902
+- 20260903
+- 20260904
+- 20260905
+model_parameter_update: false

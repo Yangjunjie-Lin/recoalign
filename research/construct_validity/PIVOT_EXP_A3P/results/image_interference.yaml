@@ -1,0 +1,226 @@
+M1:
+  passed: false
+  holm_family:
+    color: &id002
+      raw_p: 0.024297570242975703
+      adjusted_p: 0.09719028097190281
+      threshold: 0.0125
+      reject: false
+      rank: 1
+    entity_attribute_binding: &id004
+      raw_p: 0.1785821417858214
+      adjusted_p: 0.5357464253574642
+      threshold: 0.016666666666666666
+      reject: false
+      rank: 2
+    object_identity: &id003
+      raw_p: 0.281971802819718
+      adjusted_p: 0.563943605639436
+      threshold: 0.025
+      reject: false
+      rank: 3
+    shape: &id001
+      raw_p: 0.8619138086191381
+      adjusted_p: 0.8619138086191381
+      threshold: 0.05
+      reject: false
+      rank: 4
+  by_task:
+    shape:
+      mean: 0.066
+      margin:
+      - -0.05
+      - 0.05
+      alpha: 0.05
+      p_lower: 9.999000099990002e-05
+      p_upper: 0.8619138086191381
+      p_max: 0.8619138086191381
+      equivalence_interval:
+        lower: 0.04
+        upper: 0.092
+        level: 0.9
+      equivalent_unadjusted: false
+      method: hierarchical_seed_scene_percentile_bootstrap_TOST
+      bootstrap_samples: 10000
+      bootstrap_seed: 20261226
+      n_pairs: 500
+      n_seeds: 5
+      holm: *id001
+      passed: false
+    color:
+      mean: 0.01
+      margin:
+      - -0.05
+      - 0.05
+      alpha: 0.05
+      p_lower: 0.0013998600139986002
+      p_upper: 0.024297570242975703
+      p_max: 0.024297570242975703
+      equivalence_interval:
+        lower: -0.022
+        upper: 0.042
+        level: 0.9
+      equivalent_unadjusted: true
+      method: hierarchical_seed_scene_percentile_bootstrap_TOST
+      bootstrap_samples: 10000
+      bootstrap_seed: 20261227
+      n_pairs: 500
+      n_seeds: 5
+      holm: *id002
+      passed: false
+    object_identity:
+      mean: 0.042
+      margin:
+      - -0.05
+      - 0.05
+      alpha: 0.05
+      p_lower: 9.999000099990002e-05
+      p_upper: 0.281971802819718
+      p_max: 0.281971802819718
+      equivalence_interval:
+        lower: 0.022
+        upper: 0.062
+        level: 0.9
+      equivalent_unadjusted: false
+      method: hierarchical_seed_scene_percentile_bootstrap_TOST
+      bootstrap_samples: 10000
+      bootstrap_seed: 20261228
+      n_pairs: 500
+      n_seeds: 5
+      holm: *id003
+      passed: false
+    entity_attribute_binding:
+      mean: -0.026
+      margin:
+      - -0.05
+      - 0.05
+      alpha: 0.05
+      p_lower: 0.1785821417858214
+      p_upper: 0.004999500049995001
+      p_max: 0.1785821417858214
+      equivalence_interval:
+        lower: -0.072
+        upper: 0.016
+        level: 0.9
+      equivalent_unadjusted: false
+      method: hierarchical_seed_scene_percentile_bootstrap_TOST
+      bootstrap_samples: 10000
+      bootstrap_seed: 20261229
+      n_pairs: 500
+      n_seeds: 5
+      holm: *id004
+      passed: false
+  non_significance_is_equivalence: false
+M2:
+  passed: true
+  holm_family:
+    color: &id006
+      raw_p: 9.999000099990002e-05
+      adjusted_p: 0.00039996000399960006
+      threshold: 0.0125
+      reject: true
+      rank: 1
+    object_identity: &id007
+      raw_p: 9.999000099990002e-05
+      adjusted_p: 0.00039996000399960006
+      threshold: 0.016666666666666666
+      reject: true
+      rank: 2
+    shape: &id005
+      raw_p: 9.999000099990002e-05
+      adjusted_p: 0.00039996000399960006
+      threshold: 0.025
+      reject: true
+      rank: 3
+    entity_attribute_binding: &id008
+      raw_p: 0.0016998300169983002
+      adjusted_p: 0.0016998300169983002
+      threshold: 0.05
+      reject: true
+      rank: 4
+  by_task:
+    shape:
+      mean: -0.008
+      margin:
+      - -0.05
+      - 0.05
+      alpha: 0.05
+      p_lower: 9.999000099990002e-05
+      p_upper: 9.999000099990002e-05
+      p_max: 9.999000099990002e-05
+      equivalence_interval:
+        lower: -0.024
+        upper: 0.008
+        level: 0.9
+      equivalent_unadjusted: true
+      method: hierarchical_seed_scene_percentile_bootstrap_TOST
+      bootstrap_samples: 10000
+      bootstrap_seed: 20261266
+      n_pairs: 500
+      n_seeds: 5
+      holm: *id005
+      passed: true
+    color:
+      mean: -0.008
+      margin:
+      - -0.05
+      - 0.05
+      alpha: 0.05
+      p_lower: 9.999000099990002e-05
+      p_upper: 9.999000099990002e-05
+      p_max: 9.999000099990002e-05
+      equivalence_interval:
+        lower: -0.022
+        upper: 0.006
+        level: 0.9
+      equivalent_unadjusted: true
+      method: hierarchical_seed_scene_percentile_bootstrap_TOST
+      bootstrap_samples: 10000
+      bootstrap_seed: 20261267
+      n_pairs: 500
+      n_seeds: 5
+      holm: *id006
+      passed: true
+    object_identity:
+      mean: -0.004
+      margin:
+      - -0.05
+      - 0.05
+      alpha: 0.05
+      p_lower: 9.999000099990002e-05
+      p_upper: 9.999000099990002e-05
+      p_max: 9.999000099990002e-05
+      equivalence_interval:
+        lower: -0.01
+        upper: 0.0
+        level: 0.9
+      equivalent_unadjusted: true
+      method: hierarchical_seed_scene_percentile_bootstrap_TOST
+      bootstrap_samples: 10000
+      bootstrap_seed: 20261268
+      n_pairs: 500
+      n_seeds: 5
+      holm: *id007
+      passed: true
+    entity_attribute_binding:
+      mean: -0.008
+      margin:
+      - -0.05
+      - 0.05
+      alpha: 0.05
+      p_lower: 0.0016998300169983002
+      p_upper: 9.999000099990002e-05
+      p_max: 0.0016998300169983002
+      equivalence_interval:
+        lower: -0.028
+        upper: 0.014
+        level: 0.9
+      equivalent_unadjusted: true
+      method: hierarchical_seed_scene_percentile_bootstrap_TOST
+      bootstrap_samples: 10000
+      bootstrap_seed: 20261269
+      n_pairs: 500
+      n_seeds: 5
+      holm: *id008
+      passed: true
+  non_significance_is_equivalence: false

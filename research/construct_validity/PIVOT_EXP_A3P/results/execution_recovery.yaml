@@ -1,0 +1,16 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3P
+atomic_append: true
+trial_key_resume: true
+existing_predictions_at_start: 25656
+new_predictions: 1344
+cache_hits: 0
+duplicates: 0
+overwrites: 0
+per_seed_checkpoints:
+- 20260901
+- 20260902
+- 20260903
+- 20260904
+- 20260905
+complete: true

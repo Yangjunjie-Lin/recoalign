@@ -1,0 +1,131 @@
+bootstrap:
+  confidence_level: 0.95
+  alpha: 0.05
+  target_power: 0.8
+  bootstrap_method: hierarchical_seed_scene_percentile
+  bootstrap_samples: 10000
+  bootstrap_seed: 20260826
+  power_simulation_seed: 20260825
+  power_simulation_replicates: 200000
+  scene_level_paired: true
+  multiple_comparison: Holm
+  holm_families:
+    gate_E:
+    - shape
+    - color
+    - object_identity
+    - entity_attribute_binding
+    gate_F:
+    - shape
+    - color
+    - object_identity
+    - entity_attribute_binding
+  seed_replication:
+    minimum_passing_seeds: 4
+    denominator: 5
+  no_seed_deletion: true
+  no_failed_trial_deletion: true
+  no_posthoc_threshold_change: true
+gate_E_holm:
+  M1:
+    color:
+      raw_p: 9.999000099990002e-05
+      adjusted_p: 0.00039996000399960006
+      threshold: 0.0125
+      reject: true
+      rank: 1
+    entity_attribute_binding:
+      raw_p: 9.999000099990002e-05
+      adjusted_p: 0.00039996000399960006
+      threshold: 0.016666666666666666
+      reject: true
+      rank: 2
+    object_identity:
+      raw_p: 9.999000099990002e-05
+      adjusted_p: 0.00039996000399960006
+      threshold: 0.025
+      reject: true
+      rank: 3
+    shape:
+      raw_p: 9.999000099990002e-05
+      adjusted_p: 0.00039996000399960006
+      threshold: 0.05
+      reject: true
+      rank: 4
+  M2:
+    color:
+      raw_p: 0.012098790120987902
+      adjusted_p: 0.04839516048395161
+      threshold: 0.0125
+      reject: true
+      rank: 1
+    shape:
+      raw_p: 0.030396960303969604
+      adjusted_p: 0.09119088091190881
+      threshold: 0.016666666666666666
+      reject: false
+      rank: 2
+    object_identity:
+      raw_p: 0.20357964203579643
+      adjusted_p: 0.40715928407159285
+      threshold: 0.025
+      reject: false
+      rank: 3
+    entity_attribute_binding:
+      raw_p: 0.21027897210278973
+      adjusted_p: 0.40715928407159285
+      threshold: 0.05
+      reject: false
+      rank: 4
+gate_F_holm:
+  M1:
+    color:
+      raw_p: 0.024297570242975703
+      adjusted_p: 0.09719028097190281
+      threshold: 0.0125
+      reject: false
+      rank: 1
+    entity_attribute_binding:
+      raw_p: 0.1785821417858214
+      adjusted_p: 0.5357464253574642
+      threshold: 0.016666666666666666
+      reject: false
+      rank: 2
+    object_identity:
+      raw_p: 0.281971802819718
+      adjusted_p: 0.563943605639436
+      threshold: 0.025
+      reject: false
+      rank: 3
+    shape:
+      raw_p: 0.8619138086191381
+      adjusted_p: 0.8619138086191381
+      threshold: 0.05
+      reject: false
+      rank: 4
+  M2:
+    color:
+      raw_p: 9.999000099990002e-05
+      adjusted_p: 0.00039996000399960006
+      threshold: 0.0125
+      reject: true
+      rank: 1
+    object_identity:
+      raw_p: 9.999000099990002e-05
+      adjusted_p: 0.00039996000399960006
+      threshold: 0.016666666666666666
+      reject: true
+      rank: 2
+    shape:
+      raw_p: 9.999000099990002e-05
+      adjusted_p: 0.00039996000399960006
+      threshold: 0.025
+      reject: true
+      rank: 3
+    entity_attribute_binding:
+      raw_p: 0.0016998300169983002
+      adjusted_p: 0.0016998300169983002
+      threshold: 0.05
+      reject: true
+      rank: 4
+aggregate_override_allowed: false
