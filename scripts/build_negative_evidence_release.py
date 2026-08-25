@@ -50,6 +50,10 @@ EVIDENCE_PREFIXES = (
     f"{PACKAGE_REL}/",
     "release/validation/",
 )
+EVIDENCE_EXCLUDED_PREFIXES = (
+    f"{PACKAGE_REL}/archives/",
+    f"{PACKAGE_REL}/checksums/SHA256SUMS",
+)
 
 
 def _git(*args: str) -> bytes:
@@ -66,7 +70,11 @@ def _included_source(path: str) -> bool:
 
 
 def _included_evidence(path: str) -> bool:
-    return any(path == prefix or path.startswith(prefix) for prefix in EVIDENCE_PREFIXES)
+    included = any(path == prefix or path.startswith(prefix) for prefix in EVIDENCE_PREFIXES)
+    excluded = any(
+        path == prefix or path.startswith(prefix) for prefix in EVIDENCE_EXCLUDED_PREFIXES
+    )
+    return included and not excluded
 
 
 def _blob(ref: str, path: str) -> bytes:

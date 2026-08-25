@@ -66,7 +66,7 @@ pythonpath = ["src", "."]
 [tool.ruff]
 target-version = "py310"
 line-length = 100
-exclude = ["archive"]
+exclude = ["archive", ".venv-release-check"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
