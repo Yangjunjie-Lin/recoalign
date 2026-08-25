@@ -15,10 +15,10 @@ The research infrastructure and frozen LLaVA evidence are auditable, but the rep
 
 ## Code and release hygiene
 
-- Tracked Python files: 253
+- Tracked Python files: 296
 - Duplicate-content groups requiring review: 0
 - Temporary/validation output candidates retained: 12
-- Tracked local-path findings: 0
+- Tracked local-path findings: 10
 - Potential secret findings: 0
 - Dirty worktree: True
 

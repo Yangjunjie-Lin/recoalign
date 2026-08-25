@@ -29,35 +29,44 @@ def build_paper_package(root: str | Path | None = None) -> dict[str, Any]:
     write_text(
         project / "docs/limitations.md",
         "# Limitations\n\n"
-        "- The frozen LLaVA-1.5-7B evidence does not support the main interface-gap claim.\n"
-        "- Stage-1 structural labels come from a synthetic world; real-task transfer remains unverified.\n"
-        "- LLaVA-NeXT, Qwen-VL, and InternVL are adapter-ready but lack complete claim-eligible runs.\n"
-        "- The comprehensive benchmark and mechanistic matrices are incomplete.\n"
-        "- ReCoAlign itself has no claim-eligible trained real-VLM checkpoint.\n",
+        "- The original interface-gap claim is falsified.\n"
+        "- The supported relation-evidence finding is bounded to frozen LLaVA-1.5-7B.\n"
+        "- No valid OOD, cross-model, semantic-rescue, or method claim exists.\n"
+        "- Historical training, benchmark-matrix, and ablation modules are inactive, not pending.\n"
+        "- The package is a negative-evidence resource, not a claim-bearing paper package.\n",
     )
     integrity = build_integrity_report(project)
-    decision = "GO" if integrity["scientific_submission_ready"] else "NO-GO"
-    evidence_check = integrity["checks"].get("claim_evidence", {})
-    evidence_decision = str(evidence_check.get("scientific_decision", "pending")).lower()
-    real_vlm_evidence = (
-        f"completed_{evidence_decision.replace('-', '_')}"
-        if evidence_check.get("passed") is True
-        else "pending_or_invalid"
-    )
     readiness = {
-        "schema_version": 1,
-        "package_status": "implementation_complete",
-        "scientific_submission_decision": decision,
-        "scientific_submission_ready": integrity["scientific_submission_ready"],
+        "schema_version": 2,
+        "as_of_experiment": "PIVOT_EXP_A3P",
+        "package_status": "governance_complete_research_line_closed",
+        "program_decision": "TERMINATE_CURRENT_PROGRAM",
+        "scientific_submission_decision": "NO-GO",
+        "scientific_submission_ready": False,
+        "claim_bearing_paper_allowed": False,
+        "non_claim_technical_report_allowed": True,
         "engineering_artifacts_ready": integrity["engineering_artifacts_ready"],
-        "claims_verified": evidence["summary"]["verified"],
-        "claims_total": evidence["summary"]["total_claims"],
-        "complete_matrix_cells": exports["complete_matrix_cells"],
-        "planned_matrix_cells": exports["planned_matrix_cells"],
-        "real_vlm_evidence": real_vlm_evidence,
+        "evidence_map": evidence["summary"],
+        "inactive_historical_plans": {
+            "recoalign_training": True,
+            "comprehensive_432_cell_matrix": True,
+            "mechanistic_method_evaluation": True,
+        },
+        "final_pivot_gate": {
+            "selected_candidate": "STOP",
+            "passing_candidates": [],
+            "novelty_status": "VERIFIED_NO_CANDIDATE_PASSES",
+        },
+        "authorization": frozen["authorization"],
         "tag_created": False,
-        "tag_blocker": "Tag creation requires GO, clean worktree, and a committed frozen snapshot.",
-        "blockers": integrity["blockers"],
+        "tag_blocker": "Claim-bearing paper and submission are not authorized.",
+        "blockers": [
+            "original Structured Reasoning Interface Gap is falsified",
+            "no conditional causal mechanism was identified",
+            "M1 and M2 semantic manipulations were falsified",
+            "no candidate passed every final selection and novelty gate",
+            "no valid method, cross-model replication, or OOD claim exists",
+        ],
     }
     write_yaml(project / "reports/submission_readiness.yaml", readiness)
     write_text(
@@ -71,7 +80,7 @@ def build_paper_package(root: str | Path | None = None) -> dict[str, Any]:
         "frozen_registry_status": frozen["freeze_status"],
         "exports": exports,
         "integrity": integrity,
-        "decision": decision,
+        "decision": "NO-GO",
     }
 
 
@@ -128,19 +137,19 @@ def _write_reproducibility(project: Path) -> None:
     )
     write_text(
         destination / "training_protocol.md",
-        "# Training protocol\n\nTRAIN001-TRAIN003 are retained historical/toy contracts. The research pivot "
-        "does not authorize real-model training until a replicated diagnosis receives GO.",
+        "# Training protocol\n\nTRAIN001-TRAIN003 are inactive historical/toy contracts retained for provenance. "
+        "The closed program does not authorize real-model training.",
     )
     write_text(
         destination / "evaluation_protocol.md",
         "# Evaluation protocol\n\nAll models use the BaseVLM interface, shared prompts, deterministic decoding, "
-        "registered seeds, and paired statistics. Missing cells are reported as pending rather than "
-        "imputed.",
+        "registered seeds, and paired statistics. Historical unexecuted cells are inactive rather "
+        "than pending or imputed.",
     )
     write_text(
         destination / "README.md",
         "# Reproducibility package\n\nThis package records the environment, frozen protocols, real-VLM "
-        "NO-GO evidence, and research-pivot boundary. It does not claim a successful method.",
+        "NO-GO evidence, and closed research-line boundary. It does not claim a successful method.",
     )
 
 
@@ -200,7 +209,7 @@ def _write_submission_files(
         "- `research/`: hypothesis, experiment, and training registries\n"
         "- `manifests/`: dataset and checkpoint identities\n"
         "- `reports/`: generated evidence and readiness artifacts\n\n"
-        "The current worktree is a candidate package; the release tag is intentionally not created while the scientific decision is NO-GO.",
+        "The method line is closed; release is authorized only as a negative-evidence resource.",
     )
     write_text(
         destination / "reproducibility_checklist.md",
@@ -209,36 +218,35 @@ def _write_submission_files(
         "- [x] Prompt and decoding protocol is versioned\n"
         "- [x] Environment capture is generated\n"
         "- [x] Missing/failed evidence remains visible\n"
-        "- [ ] PIVOT_EXP_A protocol and power analysis preregistered\n"
-        "- [ ] Pivot diagnosis replicated on an independent backbone\n"
-        "- [ ] Complete real-VLM multi-seed benchmark matrix\n"
-        "- [ ] Claim-eligible ReCoAlign checkpoints for all target backbones\n"
-        "- [ ] Clean committed release snapshot\n",
+        "- [x] PIVOT_EXP_A through A3P failures retained\n"
+        "- [x] Cross-backbone replication marked unauthorized\n"
+        "- [x] Comprehensive matrix marked inactive\n"
+        "- [x] ReCoAlign training and method claims retired\n"
+        "- [x] Claim-bearing paper writing blocked\n",
     )
     write_text(
         destination / "artifact_description.md",
         "# Artifact description\n\n"
-        "The package contains executable governance, synthetic benchmark generation, VLM adapters, "
-        "training/ablation controls, reporting utilities, and conservative claim mapping. Toy and "
-        "ReferenceVLM outputs are labeled infrastructure evidence only.\n\n"
+        "The package contains executable governance, frozen negative evidence, synthetic benchmark "
+        "provenance, and conservative claim mapping. Historical training and ablation assets are "
+        "inactive.\n\n"
         f"Claims mapped: {evidence['summary']['total_claims']}; verified: {evidence['summary']['verified']}.\n"
         f"Frozen registry status: {frozen['freeze_status']}.\n",
     )
     write_text(
         destination / "limitations.md",
         "# Limitations\n\n"
-        "- Real VLM inference is compute- and memory-intensive.\n"
-        "- The LLaVA diagnosis accesses visual hidden representations but does not support the registered interface-gap pattern.\n"
-        "- Stage-1 structural supervision is synthetic; transfer must be measured rather than assumed.\n"
-        "- Backbone adapters for LLaVA-NeXT, Qwen-VL, and InternVL are interface boundaries until executed.\n"
-        "- The complete 432-cell benchmark matrix is not yet populated.\n",
+        "- The interface-gap claim is falsified.\n"
+        "- The positive relation-evidence result is limited to frozen LLaVA-1.5-7B.\n"
+        "- No valid OOD, cross-model, semantic-rescue, or method claim exists.\n"
+        "- Historical adapters and matrices are inactive and not authorized for execution.\n",
     )
     write_text(
         destination / "README.md",
         "# ReCoAlign anonymous research package\n\n"
-        "This is an evidence-audit artifact for a scientifically NO-GO direction, not a paper-ready "
-        "method package. See `reports/research_pivot_decision.md`, "
-        "`reports/submission_readiness_report.md`, and `docs/evidence_map.yaml`.",
+        "This is a closed-line negative-evidence artifact, not a paper-ready method package. See "
+        "`reports/final_research_line_adjudication.md`, `reports/submission_readiness_report.md`, "
+        "and `docs/evidence_map.yaml`.",
     )
     del audit
 
@@ -252,23 +260,23 @@ def _readiness_markdown(readiness: dict[str, Any], integrity: dict[str, Any]) ->
             f"- Package implementation: **{readiness['package_status']}**",
             f"- Engineering artifact status: **{'GO' if readiness['engineering_artifacts_ready'] else 'INCONCLUSIVE'}**",
             f"- Scientific submission decision: **{readiness['scientific_submission_decision']}**",
-            f"- Verified claims: **{readiness['claims_verified']}/{readiness['claims_total']}**",
-            f"- Comprehensive cells: **{readiness['complete_matrix_cells']}/{readiness['planned_matrix_cells']}**",
+            f"- Verified claims: **{readiness['evidence_map']['verified']}/{readiness['evidence_map']['total_claims']}**",
+            "- Historical comprehensive matrix: **inactive**",
             "",
             "## Scientific contribution",
             "",
-            "The frozen LLaVA evidence rejects the original Structured Reasoning Interface Gap. "
-            "The repository is now in hypothesis revision and does not support a method or efficacy claim.",
+            "The frozen evidence rejects the original Structured Reasoning Interface Gap. The "
+            "research line is closed and supports no method or efficacy claim.",
             "",
             "## Method summary",
             "",
-            "No active method is claimed. The next authorized work is preregistration of a "
-            "semantic × relation × serialization falsification experiment.",
+            "No active method is claimed. No new experiment or preregistration is authorized.",
             "",
             "## Experimental evidence",
             "",
-        "Frozen LLaVA-1.5-7B evidence is present: EXP001 and EXP004 are NO-GO, EXP002 is GO, and EXP003 is "
-        "INCONCLUSIVE after a preregistered integrity failure. ReCoAlign training and the comprehensive matrix remain incomplete.",
+            "Frozen evidence is present through PIVOT_EXP_A3P. EXP001/EXP004 are NO-GO, EXP002 is "
+            "scope-bounded GO, EXP003/A2 are inconclusive, A3/A3R instruments are retired, and A3P "
+            "reports semantic manipulation failure.",
             "",
             "## Reproducibility status",
             "",
@@ -282,6 +290,6 @@ def _readiness_markdown(readiness: dict[str, Any], integrity: dict[str, Any]) ->
             "",
             "## Decision",
             "",
-            "**NO-GO for scientific submission; GO for paper-package implementation.**",
+            "**TERMINATE_CURRENT_PROGRAM; NO-GO for claim-bearing paper writing or submission.**",
         ]
     )

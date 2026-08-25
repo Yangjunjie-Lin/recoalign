@@ -170,8 +170,8 @@ def _render_audit(report: dict[str, Any]) -> str:
         "",
         "## Outcome",
         "",
-        "The research infrastructure and frozen LLaVA evidence are auditable, but the repository "
-        "is not scientifically submission-ready because the registered evidence decision is NO-GO.",
+        "The research infrastructure and frozen evidence are auditable through PIVOT_EXP_A3P. "
+        "The current method and mechanism line is closed under TERMINATE_CURRENT_PROGRAM.",
         "",
         "## Experiment artifacts",
         "",
@@ -196,7 +196,7 @@ def _render_audit(report: dict[str, Any]) -> str:
             f"- Temporary/validation output candidates retained: {len(hygiene['temporary_or_validation_output_candidates'])}",
             f"- Tracked local-path findings: {len(hygiene['tracked_local_path_findings'])}",
             f"- Potential secret findings: {len(hygiene['potential_secret_findings'])}",
-            f"- Dirty worktree: {report['git']['dirty']}",
+            f"- Dirty worktree during package generation: {report['git']['dirty']}",
             "",
             "Ignored experiment outputs were not deleted: failed and incomplete runs are scientific "
             "audit evidence, and some may be user-owned artifacts.",

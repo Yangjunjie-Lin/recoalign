@@ -1,34 +1,27 @@
-# Hypothesis tracking
+# Hypothesis lifecycle closeout
 
-The governed registry retains the original hypotheses because lifecycle transitions must not erase
-failed research. Pivot candidates remain in a separate candidate registry until complete protocols
-and configs exist; adding them prematurely would create orphan scientific registrations.
+The active ReCoAlign hypothesis chain ended at `PIVOT_EXP_A3P`. Failed and inconclusive results
+remain visible; none has been converted to a weaker post-hoc success claim.
 
-## Frozen hypothesis lifecycle
+| ID | Hypothesis or construct | Frozen evidence | Lifecycle status |
+| --- | --- | --- | --- |
+| H001 | Structured Reasoning Interface Gap | EXP001 NO-GO; EXP004 NO-GO | **falsified and retired** |
+| H002 | Correct relational evidence sensitivity | EXP002 GO | **supported_in_frozen_LLaVA_scope_only** |
+| H003 | OOD Generalization claim | EXP003 integrity failure | **inconclusive and retired** |
+| H004 | Interface Diagnosis | EXP004 NO-GO | **falsified and retired** |
+| PH001 | Joint semantic–structural phenotype as causal explanation | PIVOT_EXP_A NO-GO; A2 INCONCLUSIVE | **unresolved_and_not_identified; retired** |
+| M1 | Canonical entity table provides sufficient semantic rescue | A3P Gates C/D/E fail | **falsified and retired** |
+| M2 | Visual object legend provides sufficient semantic rescue | A3P Gates C/D/E fail | **falsified and retired** |
 
-| ID | Hypothesis | Evidence | Lifecycle status | Interpretation |
-| --- | --- | --- | --- | --- |
-| H001 | Structured Reasoning Interface Gap | EXP001 NO-GO | **falsified** | Graph does not outperform controlled captions |
-| H002 | Structural Necessity | EXP002 GO | **supported** | Correct supplied relations matter in frozen scope |
-| H003 | Compositional Generalization | EXP003 INCONCLUSIVE | **retired** | Integrity gate failed and prerequisite graph advantage is absent |
-| H004 | Three-Stage Interface Diagnosis | EXP004 NO-GO | **falsified** | Required high-SAS/low-StAS pattern is absent |
+H002 is deliberately not a general VLM conclusion. It says only that correct externally supplied
+relations affected the frozen LLaVA-1.5-7B protocol. It does not establish an internal scene graph,
+a structured-interface gap, or cross-model generality.
 
-`supported` is bounded evidence, not universal proof. `falsified` records a valid NO-GO. `retired`
-records a claim no longer worth executing without pretending its incomplete evidence was negative.
+The machine-readable closeout is in `research/current_line_closeout.yaml`; detailed retirement
+records are in `research/rejected_or_retired_hypotheses/`.
 
-## Pivot candidates
+## Final candidate gate
 
-| ID | Candidate | Score | State |
-| --- | --- | ---: | --- |
-| PH001 | Serialization-Conditioned Semantic-Structural Integration Failure | 18/20 | selected, requires falsification |
-| PH002 | Relational Grounding Failure | 14/20 | alternative |
-| PH003 | Compositional Representation Bottleneck | 13/20 | alternative |
-| PH004 | Cross-Modal Reasoning Alignment Failure | 14/20 | alternative |
-
-The machine-readable candidate registry is
-`research/hypotheses/pivot_candidate_registry.yaml`. PH001 must not be added to the governed
-`hypothesis_registry.yaml` until PIVOT_EXP_A has a complete bidirectionally linked experiment
-registration, protocol, config, dataset binding, seed policy, and decision rule.
-
-Run `recoalign validate-research` after any governed registry edit. Existing H001–H004 and
-EXP001–EXP004 links remain valid despite lifecycle changes.
+PH005, PH006, and PH007 were candidates, not promoted hypotheses. None passed all required evidence,
+distinctness, identifiability, feasibility, novelty, Q1-potential, post-hoc-risk, and
+researcher-degrees-of-freedom gates. `STOP` was selected. No PH008/PH009 chain is authorized.

@@ -1,35 +1,33 @@
-# Research pivot claim boundary
+# Closed research-line claim boundary
 
 ## Claims supported by current evidence
 
-- Within the frozen LLaVA-1.5 synthetic-world protocol, correct and complete externally supplied
-  relational evidence outperforms partial, random, wrong, and label-randomized evidence.
-- Within the frozen EXP001 protocol, fact-controlled captions outperform graph triples.
-- Within the registered EXP004 probe, semantic availability is low and the proposed interface-gap
-  pattern is absent.
+- In frozen LLaVA-1.5-7B EXP001, information-equivalent captions outperform graph serialization.
+- In frozen LLaVA-1.5-7B EXP002, correct supplied relational evidence outperforms partial,
+  corrupted, random, and opaque-label controls.
+- The A3P conditional-likelihood scorer and 27,000-row inventory have valid measurement integrity.
 
-## Candidate statements that are not yet claims
+## Required qualifiers
 
-- Semantic and relational correctness jointly determine compositional reasoning.
-- Their interaction depends on serialization format.
-- A semantic–structural integration failure explains the frozen results better than relational
-  grounding, compositional bottleneck, or cross-modal alignment alternatives.
-
-These statements require PIVOT_EXP_A and alternative-discrimination evidence.
+- EXP002 is `supported_in_frozen_LLaVA_scope_only`.
+- Low SAS means the registered high-semantic-availability premise failed; it does not show that all
+  hidden layers lack semantics.
+- A3P measurement validity is not semantic validity.
+- M1 partial positive contrasts do not pass the semantic-rescue construct.
+- M2 Gate F does not compensate for Gates C, D, and E.
 
 ## Prohibited claims
 
-- VLMs preserve sufficient semantics but lack a graph interface.
-- Graph is the missing or optimal intermediate representation.
-- Low SAS proves that semantic information is absent from all representations.
-- EXP002 proves the model internally constructs or uses a scene graph.
-- The first-seed EXP003 result supports any OOD conclusion.
-- ReCoAlign learns, repairs, or improves the diagnosed bottleneck.
-- A result on LLaVA-1.5 generalizes to all modern VLMs.
-- Scientific efficacy from dry-runs, toy training, ReferenceVLM, or blocked matrix cells.
+- A Structured Reasoning Interface Gap exists.
+- Graph is the missing, optimal, or privileged interface.
+- LLaVA internally lacks or constructs a scene graph.
+- Any valid OOD or cross-model mechanism has been established.
+- PH001, PH005, PH006, or PH007 is an identified causal explanation.
+- ReCoAlign, an adapter, a structure token, a loss, or another method is effective or authorized.
+- Free-generation response robustness has been established.
+- Claim-bearing paper writing or submission is allowed.
 
-## Reporting rule
+## Reporting boundary
 
-Every claim must identify model, benchmark, intervention, evidence state, and decision. Negative and
-inconclusive results remain visible. The active decision is GO only for pivot preregistration and
-NO-GO for paper writing, method development, or submission.
+The program decision is `TERMINATE_CURRENT_PROGRAM`. Archive/release and non-claim technical
+reporting are allowed; the current assets are not authorized as an SCI Q1 claim-bearing paper.

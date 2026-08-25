@@ -1,18 +1,19 @@
 schema_version: 1
-phase: Phase 5
-decision: INCONCLUSIVE
+phase: historical Phase 5
+decision: INACTIVE_RETAINED_FOR_PROVENANCE
 implementation: GO
 toy_mechanistic_validation: GO
-real_vlm_mechanistic_evidence: PENDING
+real_vlm_mechanistic_evidence: NOT_AUTHORIZED
 criteria:
-  structure_removal_hurts: pending_real_matrix
-  random_tokens_fail: pending_real_matrix
-  representation_contains_composition: pending_real_probe
-  causal_intervention_hurts: pending_real_matrix
-  parameter_matched_control_fails: pending_real_matrix
-  failures_reduce: pending_real_matrix
-blockers:
-  - EXP004 current result is infrastructure_validation, not scientific_evidence
-  - real VLM hidden-context injection is not registered
-  - trained ReCoAlign checkpoints are not available for all target backbones
-  - complete ablation benchmark matrix is not executed
+  structure_removal_hurts: inactive_not_authorized
+  random_tokens_fail: inactive_not_authorized
+  representation_contains_composition: inactive_not_authorized
+  causal_intervention_hurts: inactive_not_authorized
+  parameter_matched_control_fails: inactive_not_authorized
+  failures_reduce: inactive_not_authorized
+closure:
+  current_method_line: RETIRED
+  model_development_allowed: false
+  real_matrix_execution_allowed: false
+  paper_writing_allowed: false
+  reason: The original hypothesis is falsified and no final pivot candidate passed all gates.

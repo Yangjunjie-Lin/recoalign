@@ -41,7 +41,7 @@ Retrieval remains a capability-preservation boundary.
 for reproduction and compatibility. Their presence is not evidence that a structured interface is
 the correct future intervention.
 
-## Next architecture decision
+## Architecture authorization
 
-None. The next authorized artifact is a preregistered PIVOT_EXP_A protocol. Model architecture is
-explicitly deferred.
+None. The current method line is retired. Historical interfaces are retained for provenance but no
+new architecture, preregistration, or inference is authorized.

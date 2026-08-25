@@ -1,7 +1,7 @@
 # Limitations
 
-- The frozen LLaVA-1.5-7B evidence does not support the main interface-gap claim.
-- Stage-1 structural labels come from a synthetic world; real-task transfer remains unverified.
-- LLaVA-NeXT, Qwen-VL, and InternVL are adapter-ready but lack complete claim-eligible runs.
-- The comprehensive benchmark and mechanistic matrices are incomplete.
-- ReCoAlign itself has no claim-eligible trained real-VLM checkpoint.
+- The original interface-gap claim is falsified.
+- The supported relation-evidence finding is bounded to frozen LLaVA-1.5-7B.
+- No valid OOD, cross-model, semantic-rescue, or method claim exists.
+- Historical training, benchmark-matrix, and ablation modules are inactive, not pending.
+- The package is a negative-evidence resource, not a claim-bearing paper package.

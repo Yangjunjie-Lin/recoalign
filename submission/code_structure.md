@@ -6,4 +6,4 @@
 - `manifests/`: dataset and checkpoint identities
 - `reports/`: generated evidence and readiness artifacts
 
-The current worktree is a candidate package; the release tag is intentionally not created while the scientific decision is NO-GO.
+The method line is closed; release is authorized only as a negative-evidence resource.

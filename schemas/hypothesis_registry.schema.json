@@ -22,7 +22,7 @@
           "prediction": {"type": "string", "minLength": 1},
           "falsification": {"type": "string", "minLength": 1},
           "required_experiment": {"type": "string", "pattern": "^EXP[0-9]{3}$"},
-          "status": {"enum": ["proposed", "testing", "supported", "falsified", "retired"]}
+          "status": {"enum": ["proposed", "testing", "supported", "supported_in_frozen_LLaVA_scope_only", "falsified", "retired"]}
         },
         "additionalProperties": false
       }

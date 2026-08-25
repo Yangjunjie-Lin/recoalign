@@ -1,99 +1,19 @@
-schema_version: 1
-stage: research_pivot
-status: candidates_require_falsification
-scoring_scale: 1_to_5_higher_is_better
-candidates:
+schema_version: 2
+stage: closed_after_PIVOT_EXP_A3P
+status: retired_registry_retained_for_provenance
+selected_candidate: STOP
+former_candidates:
   - id: PH001
-    title: Serialization-Conditioned Semantic-Structural Integration Failure
-    hypothesis: >-
-      Compositional failure reflects the joint effect of insufficient visually grounded semantic
-      availability and format-conditioned integration of correct relational evidence; neither a
-      pure semantic deficit nor a missing graph interface alone explains the observed errors.
-    prediction: >-
-      In a fact- and token-controlled factorial intervention, semantic support and relation
-      correctness produce separable positive effects plus a positive interaction, while fluent
-      caption serialization retains an advantage over graph triples.
-    failure_condition: >-
-      Reject if performance is explained by only one main effect, if relation correctness has no
-      effect after semantic support is controlled, or if the interaction is absent across eligible
-      backbones.
-    minimal_experiment: PIVOT_EXP_A
-    scores:
-      novelty: 4
-      evidence_support: 5
-      implementation_feasibility: 5
-      q1_potential: 4
-      total: 18
-    selected: true
-    validation:
-      latest_study: PIVOT_EXP_A2
-      outcome: INCONCLUSIVE
-      status: unresolved
-      reason: >-
-        The five-seed conditional semantic-rescue study completed 5,300 predictions, but the
-        preregistered semantic-sufficiency manipulation gate failed and 137 manipulation-check
-        outputs failed the frozen answer parser. Conditional relation and format estimands are
-        descriptive only and cannot select a mechanism class.
-      independent_replication_allowed: false
-      model_development_allowed: false
-      paper_writing_allowed: false
-
+    status: unresolved_and_not_identified_retired
   - id: PH002
-    title: Relational Grounding Failure
-    hypothesis: >-
-      VLM visual representations preserve objects and attributes but fail specifically to ground
-      relations between them.
-    prediction: >-
-      Scene-disjoint probes decode objects and attributes reliably but relation labels remain near
-      chance; oracle object identity alone does not close the reasoning gap, while oracle relations do.
-    failure_condition: >-
-      Reject if object, attribute, and relation probes fail uniformly, or if relation decoding is
-      adequate but compositional reasoning remains poor.
-    minimal_experiment: PIVOT_EXP_B
-    scores:
-      novelty: 3
-      evidence_support: 3
-      implementation_feasibility: 5
-      q1_potential: 3
-      total: 14
-    selected: false
-
+    status: not_selected_retired
   - id: PH003
-    title: Compositional Representation Bottleneck
-    hypothesis: >-
-      Individual primitives are represented, but their bindings and multi-relation compositions are
-      not recoverable in a form that transfers to unseen combinations.
-    prediction: >-
-      Primitive probes succeed while scene-disjoint binding and composition probes fail, with the
-      gap increasing with hop depth even under nonlinear probe controls.
-    failure_condition: >-
-      Reject if primitive and composition decodability move together, or if compositions are
-      decodable but answer execution still fails.
-    minimal_experiment: PIVOT_EXP_C
-    scores:
-      novelty: 4
-      evidence_support: 2
-      implementation_feasibility: 3
-      q1_potential: 4
-      total: 13
-    selected: false
-
+    status: not_selected_retired
   - id: PH004
-    title: Cross-Modal Reasoning Alignment Failure
-    hypothesis: >-
-      The language reasoner can execute the task from text but is poorly aligned with equivalent
-      visually grounded evidence.
-    prediction: >-
-      The same semantic program is solved from fluent text but not from image-derived evidence, even
-      when visual probes establish that the required primitives are recoverable.
-    failure_condition: >-
-      Reject if text and visual conditions fail equally, or if the gap disappears after semantic
-      availability rather than cross-modal alignment is controlled.
-    minimal_experiment: PIVOT_EXP_D
-    scores:
-      novelty: 3
-      evidence_support: 4
-      implementation_feasibility: 4
-      q1_potential: 3
-      total: 14
-    selected: false
+    status: not_selected_retired
+final_candidate_matrix: research/final_pivot_candidate_matrix.yaml
+final_candidates: [PH005, PH006, PH007, STOP]
+passing_candidates: []
+new_experiment_allowed: false
+model_development_allowed: false
+paper_writing_allowed: false

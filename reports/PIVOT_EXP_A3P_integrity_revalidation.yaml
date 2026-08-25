@@ -1,0 +1,47 @@
+schema_version: 1
+verified_on: 2026-08-25
+evidence_baseline_commit: 7567d3a579384bcac76eb2b30dd6de538c62efe9
+manifest: research/construct_validity/PIVOT_EXP_A3P/results/artifact_manifest.yaml
+manifest_sha256: 8044e2714de49e477f8e96c27600e0750c8e20d2f19d9f45151671ad563a0e82
+declared_artifact_count: 22
+verified_artifact_count: 22
+all_declared_byte_counts_valid: true
+all_declared_sha256_valid: true
+failed_artifacts: []
+artifacts:
+  decision_report.md: {bytes_valid: true, sha256_valid: true}
+  decision_report.yaml: {bytes_valid: true, sha256_valid: true}
+  execution_recovery.yaml: {bytes_valid: true, sha256_valid: true}
+  figures/gate_A_CV1.png: {bytes_valid: true, sha256_valid: true, readable: true}
+  figures/gate_C_by_task.png: {bytes_valid: true, sha256_valid: true, readable: true}
+  figures/gate_D_by_task.png: {bytes_valid: true, sha256_valid: true, readable: true}
+  figures/M1_vs_M2_gate_matrix.png: {bytes_valid: true, sha256_valid: true, readable: true}
+  figures/neutral_vs_original_equivalence.png: {bytes_valid: true, sha256_valid: true, readable: true}
+  figures/oracle_vs_corrupted.png: {bytes_valid: true, sha256_valid: true, readable: true}
+  figures/retired_secondary_timeline.png: {bytes_valid: true, sha256_valid: true, readable: true}
+  figures/seed_level_replication.png: {bytes_valid: true, sha256_valid: true, readable: true}
+  image_interference.yaml: {bytes_valid: true, sha256_valid: true}
+  intervention_separation.yaml: {bytes_valid: true, sha256_valid: true}
+  metrics.json: {bytes_valid: true, sha256_valid: true}
+  predictions.jsonl.gz: {bytes_valid: true, sha256_valid: true}
+  primary_measurement_report.yaml: {bytes_valid: true, sha256_valid: true}
+  provenance.yaml: {bytes_valid: true, sha256_valid: true}
+  retired_secondary_reference.yaml: {bytes_valid: true, sha256_valid: true}
+  scaffold_comprehension.yaml: {bytes_valid: true, sha256_valid: true}
+  semantic_sufficiency.yaml: {bytes_valid: true, sha256_valid: true}
+  statistical_tests.yaml: {bytes_valid: true, sha256_valid: true}
+  task_specific_results.yaml: {bytes_valid: true, sha256_valid: true}
+prediction_inventory:
+  total: 27000
+  valid_measurements: 27000
+  complete_seeds: 5
+  rows_per_seed:
+    20260901: 5400
+    20260902: 5400
+    20260903: 5400
+    20260904: 5400
+    20260905: 5400
+figures:
+  declared_png: 8
+  readable_png: 8
+outcome: PASS

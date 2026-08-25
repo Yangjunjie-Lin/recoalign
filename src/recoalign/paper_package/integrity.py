@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import gzip
 import hashlib
-import json
 from pathlib import Path
 from typing import Any
 
@@ -66,37 +65,21 @@ def build_integrity_report(root: str | Path | None = None) -> dict[str, Any]:
         blockers.append("reproducibility package is incomplete")
     if not checks["submission"]["passed"] or not checks["exports"]["passed"]:
         blockers.append("paper-ready artifact files are incomplete")
-    decision_path = project / "reports/decision_report.json"
-    complete = 0
-    planned = 432
-    if decision_path.is_file():
-        payload = json.loads(decision_path.read_text(encoding="utf-8"))
-        complete = int(payload.get("complete_cells", 0))
-        planned = int(payload.get("planned_cells", planned))
-    if complete < planned:
-        blockers.append(
-            f"comprehensive benchmark matrix is incomplete ({complete}/{planned} cells)"
-        )
-    evidence_decision = checks["claim_evidence"].get("scientific_decision")
-    if evidence_decision and evidence_decision != "GO":
-        blockers.append(f"frozen real-VLM evidence decision is {evidence_decision}")
-    mechanism = project / "reports/mechanistic/decision_report.yaml"
-    if mechanism.is_file():
-        import yaml
-
-        payload = yaml.safe_load(mechanism.read_text(encoding="utf-8")) or {}
-        if payload.get("decision") != "GO" or payload.get("real_vlm_mechanistic_evidence") != "GO":
-            blockers.append("real-VLM mechanistic evidence is not GO")
-    else:
-        blockers.append("mechanistic decision report is missing")
+    blockers.extend(
+        [
+            "program decision is TERMINATE_CURRENT_PROGRAM",
+            "no candidate passed every final selection and novelty gate",
+            "claim-bearing paper writing and submission are not authorized",
+        ]
+    )
     report = {
         "schema_version": 1,
         "path": "reports/integrity_report.yaml",
         "engineering_artifacts_ready": all(check["passed"] for check in checks.values()),
-        "scientific_submission_ready": not blockers,
+        "scientific_submission_ready": False,
         "checks": checks,
         "blockers": blockers,
-        "decision": "GO" if not blockers else "NO-GO",
+        "decision": "NO-GO",
     }
     write_yaml(project / "reports/integrity_report.yaml", report)
     return report

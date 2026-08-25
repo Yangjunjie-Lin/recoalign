@@ -33,7 +33,7 @@ hypotheses:
       Reject H002 if random or wrong graphs do not degrade performance, incomplete graphs match full
       graphs, or any apparent benefit is confined to one-hop tasks or graph-like formatting.
     required_experiment: EXP002
-    status: supported
+    status: supported_in_frozen_LLaVA_scope_only
 
   - id: H003
     title: Compositional Generalization

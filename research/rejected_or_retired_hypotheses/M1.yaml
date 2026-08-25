@@ -1,0 +1,8 @@
+id: M1
+name: canonical entity table semantic-rescue sufficiency
+status: falsified_and_retired
+evidence: [PIVOT_EXP_A3P]
+reason: Gates C, D, and E failed.
+partial_positive_effect_may_override_gates: false
+repair_or_successor_scaffold_allowed: false
+

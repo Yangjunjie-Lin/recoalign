@@ -1,0 +1,8 @@
+id: H004
+name: Interface Diagnosis
+status: falsified_and_retired
+evidence: [EXP004]
+reason: Low SAS did not support the required high-semantic-availability premise.
+all_hidden_layer_semantic_absence_claim_allowed: false
+reactivation_allowed: false
+

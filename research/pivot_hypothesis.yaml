@@ -1,34 +1,20 @@
-schema_version: 1
-freeze_name: semantic_structural_integration_failure_candidate_v1
-status: candidate_requires_falsification
+schema_version: 2
+freeze_name: semantic_structural_integration_failure_closed
 project: ReCoAlign
-working_title: Semantic-Structural Integration Diagnostics for Vision-Language Models
-selected_candidate: PH001
-main_hypothesis: >-
-  On controlled compositional tasks, frozen VLM failure is produced by the joint limits of
-  visually grounded semantic availability and serialization-conditioned integration of correct
-  relational evidence. Correct relations help once supplied, but graph serialization is neither
-  necessary nor privileged.
+name: Semantic–Structural Integration Failure
+status: unresolved_and_not_identified
+lifecycle: retired
+former_selected_candidate: PH001
 evidence_basis:
-  EXP001: Graph underperforms fact-equivalent Caption under natural and token-matched controls.
-  EXP002: Correct and complete relations outperform corrupted, partial, random, and wrong relations.
-  EXP003: No promotable OOD conclusion because a preregistered integrity gate failed.
-  EXP004: Low registered SAS and a Type-A semantic-failure classification reject the old interface pattern.
-predictions:
-  - Controlled semantic support improves performance across serialization formats.
-  - Correct relational evidence improves performance after semantic support is controlled.
-  - Semantic support and relation correctness exhibit a positive interaction.
-  - Fluent caption serialization remains at least as effective as graph triples unless graph parsing is separately trained.
-falsification:
-  - A single semantic-support main effect explains the results with no relation-correctness effect.
-  - A single serialization main effect explains the results with no semantic-by-relation interaction.
-  - The interaction fails to replicate on a second eligible backbone.
-  - Probe reliability or leakage controls fail.
-claim_boundary:
-  - Do not claim that graphs are the missing interface.
-  - Do not claim that low linear-probe SAS proves semantic information is absent.
-  - Do not claim a learned ReCoAlign method effect before a separately frozen intervention stage.
-  - Treat the selected direction as a candidate until PIVOT_EXP_A passes preregistered gates.
-next_experiment: PIVOT_EXP_A
+  PIVOT_EXP_A: multiple_supported_mechanisms_causal_primacy_unresolved
+  PIVOT_EXP_A2: inconclusive_semantic_sufficiency_and_parsing_integrity_failed
+  PIVOT_EXP_A3: full_field_measurement_contract_failed_preinference
+  PIVOT_EXP_A3R: continuation_measurement_contract_failed_and_retired
+  PIVOT_EXP_A3P: semantic_manipulation_failure
+selected_manipulation: null
+next_experiment: null
 paper_writing_allowed: false
 model_design_allowed: false
+independent_replication_allowed: false
+maximum_additional_diagnostic_pivots: 0
+program_decision: TERMINATE_CURRENT_PROGRAM

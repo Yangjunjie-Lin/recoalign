@@ -1,0 +1,7 @@
+id: H001
+name: Structured Interface Gap
+status: falsified_and_retired
+evidence: [EXP001, EXP004]
+reason: Graph superiority and the required high-semantic/low-access pattern were both rejected.
+reactivation_allowed: false
+

@@ -1,0 +1,48 @@
+schema_version: 1
+as_of_date: 2026-08-25
+as_of_experiment: PIVOT_EXP_A3P
+program_decision: TERMINATE_CURRENT_PROGRAM
+original_hypothesis:
+  name: Structured Reasoning Interface Gap
+  status: falsified
+pivot_hypothesis:
+  name: Semantic–Structural Integration Failure
+  status: unresolved_and_not_identified
+semantic_rescue_instrument:
+  M1: falsified
+  M2: falsified
+measurement_instruments:
+  PIVOT_EXP_A3_full_field_free_generation: falsified_as_measurement_instrument
+  PIVOT_EXP_A3R_continuation_free_generation: falsified_as_measurement_instrument
+  PIVOT_EXP_A3P_primary_conditional_likelihood: verified_measurement_integrity_only
+hypothesis_lifecycle:
+  H001: falsified_and_retired
+  H002: supported_in_frozen_LLaVA_scope_only
+  H003: inconclusive_and_retired
+  H004: falsified_and_retired
+  PH001: unresolved_and_not_identified_retired
+  M1: falsified_and_retired
+  M2: falsified_and_retired
+current_method_line:
+  status: RETIRED
+  model_development_allowed: false
+  paper_writing_allowed: false
+final_pivot_gate:
+  candidates_evaluated: [PH005, PH006, PH007, STOP]
+  selected_candidate: STOP
+  candidates_passing_all_selection_gates: []
+  preregistration_created: false
+authorization:
+  new_experiment_allowed: false
+  new_preregistration_allowed: false
+  power_analysis_allowed: false
+  data_integrity_preflight_allowed: false
+  real_inference_allowed: false
+  independent_backbone_replication_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false
+  archive_and_release_allowed: true
+  non_claim_technical_report_allowed: true
+  claim_bearing_paper_allowed: false
+  maximum_additional_diagnostic_pivots: 0
+

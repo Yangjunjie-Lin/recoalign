@@ -1,0 +1,119 @@
+schema_version: 1
+decision_date: 2026-08-25
+scoring_scale: 1_to_5
+reverse_indicators: [post_hoc_risk, researcher_degrees_of_freedom_risk]
+selection_gate:
+  direct_frozen_evidence_support_min: 4
+  distinctness_from_falsified_hypotheses_min: 4
+  causal_identifiability_min: 4
+  minimal_experiment_feasibility_min: 4
+  q1_publication_potential_min: 4
+  post_hoc_risk_max: 2
+  researcher_degrees_of_freedom_risk_max: 2
+candidates:
+  - id: PH005
+    name: Arbitrary Referential Binding Limitation
+    scores:
+      direct_frozen_evidence_support: 2
+      distinctness_from_falsified_hypotheses: 3
+      causal_identifiability: 4
+      novelty_against_primary_literature: 2
+      minimal_experiment_feasibility: 4
+      cross_model_relevance: 4
+      method_design_consequence: 3
+      q1_publication_potential: 2
+      post_hoc_risk: 5
+      researcher_degrees_of_freedom_risk: 2
+    reasons:
+      direct_frozen_evidence_support: A3R namespace continuations and weak M1 binding behavior suggest aliases, but A3R was a failed instrument and A3P cannot distinguish alias failure from general scaffold ingestion.
+      distinctness_from_falsified_hypotheses: A clean direct-versus-alias manipulation could differ from the graph-gap claim, but the present candidate is extracted from the failed M1/A3R path.
+      causal_identifiability: Direct attribute, one-alias, and multi-alias conditions could isolate binding load if independently justified.
+      novelty_against_primary_literature: Arbitrary-symbol mapping and VLM instance-attribute misbinding are already directly studied.
+      minimal_experiment_feasibility: A small frozen-prompt forced-choice diagnostic is technically feasible without model development.
+      cross_model_relevance: Symbol mapping and entity binding are architecture-general questions, though ReCoAlign has only one frozen backbone.
+      method_design_consequence: A positive result could motivate binding-aware evaluation, but no present method target is licensed.
+      q1_publication_potential: The nearest literature already supplies multi-model benchmarks and interventions; this single-backbone synthetic diagnostic would be incremental.
+      post_hoc_risk: The hypothesis is named after failures observed in M1 and A3R.
+      researcher_degrees_of_freedom_risk: A minimal contrast can be tightly frozen, but alias vocabulary and binding complexity still require choices.
+    gate_failures: [direct_frozen_evidence_support, distinctness_from_falsified_hypotheses, q1_publication_potential, post_hoc_risk]
+    passes_all_selection_gates: false
+  - id: PH006
+    name: Serialization-Conditioned Evidence Usability
+    scores:
+      direct_frozen_evidence_support: 3
+      distinctness_from_falsified_hypotheses: 2
+      causal_identifiability: 3
+      novelty_against_primary_literature: 2
+      minimal_experiment_feasibility: 4
+      cross_model_relevance: 4
+      method_design_consequence: 2
+      q1_publication_potential: 2
+      post_hoc_risk: 4
+      researcher_degrees_of_freedom_risk: 4
+    reasons:
+      direct_frozen_evidence_support: Caption-over-graph, JSON-over-language-over-triples, and M1-over-M2 are directionally compatible, but they come from different constructs and unmatched information channels.
+      distinctness_from_falsified_hypotheses: The candidate largely renames serialization and prompt sensitivity already present in the pivot chain.
+      causal_identifiability: Equivalent-fact serializers can be randomized, but pretrained familiarity, tokenization, order, syntax, and answer format remain entangled.
+      novelty_against_primary_literature: Promptception and RobustPrompt/MVP already document large VLM sensitivity to phrasing and prompt structure across models and datasets.
+      minimal_experiment_feasibility: A frozen equivalent-fact contrast is runnable without training.
+      cross_model_relevance: Serialization sensitivity is plausibly cross-model, but no ReCoAlign cross-model evidence exists.
+      method_design_consequence: A positive result would mainly imply reporting across formats, not a unique method target.
+      q1_publication_potential: The frozen evidence does not elevate format sensitivity beyond the established prompt-robustness literature.
+      post_hoc_risk: The candidate unifies three already observed rank orderings after the fact.
+      researcher_degrees_of_freedom_risk: Many reasonable serializers, token controls, orders, and equivalence definitions permit analytic flexibility.
+    gate_failures: [direct_frozen_evidence_support, distinctness_from_falsified_hypotheses, causal_identifiability, q1_publication_potential, post_hoc_risk, researcher_degrees_of_freedom_risk]
+    passes_all_selection_gates: false
+  - id: PH007
+    name: Cross-Modal Evidence Competition
+    scores:
+      direct_frozen_evidence_support: 2
+      distinctness_from_falsified_hypotheses: 2
+      causal_identifiability: 3
+      novelty_against_primary_literature: 1
+      minimal_experiment_feasibility: 4
+      cross_model_relevance: 4
+      method_design_consequence: 3
+      q1_publication_potential: 2
+      post_hoc_risk: 4
+      researcher_degrees_of_freedom_risk: 3
+    reasons:
+      direct_frozen_evidence_support: M1 Gate F failed and M2 Gate F passed, but M2 remained near chance and both manipulations failed upstream Gates C, D, and E; floor effect is not excluded.
+      distinctness_from_falsified_hypotheses: Cross-modal interference was already an alternative inside the semantic-structural pivot rather than an independent frozen result.
+      causal_identifiability: Conflict and degradation arms can measure source reliance, but current A3P conditions do not isolate competition from unusable evidence.
+      novelty_against_primary_literature: Recent primary studies already use controlled conflicts, source degradation, likelihood margins, and many VLM families to characterize modality arbitration.
+      minimal_experiment_feasibility: A conflict-based behavioral diagnostic is technically feasible without training.
+      cross_model_relevance: Modality arbitration is broadly relevant, but the frozen support is one-model and construct-invalid.
+      method_design_consequence: A replicated competition result could inform routing, but there is no identified ReCoAlign-specific target.
+      q1_publication_potential: Existing work is broader and causally cleaner; the proposed extension is not independently competitive.
+      post_hoc_risk: The hypothesis is inferred from the mixed Gate F pattern after A3P.
+      researcher_degrees_of_freedom_risk: Conflict type, degradation ladder, floor controls, and source-equivalence choices create flexibility.
+    gate_failures: [direct_frozen_evidence_support, distinctness_from_falsified_hypotheses, causal_identifiability, novelty_against_primary_literature, q1_publication_potential, post_hoc_risk, researcher_degrees_of_freedom_risk]
+    passes_all_selection_gates: false
+  - id: STOP
+    name: Terminate Current ReCoAlign Q1 Line
+    scores:
+      direct_frozen_evidence_support: 5
+      distinctness_from_falsified_hypotheses: 5
+      causal_identifiability: 5
+      novelty_against_primary_literature: 5
+      minimal_experiment_feasibility: 5
+      cross_model_relevance: 5
+      method_design_consequence: 5
+      q1_publication_potential: 1
+      post_hoc_risk: 1
+      researcher_degrees_of_freedom_risk: 1
+    reasons:
+      direct_frozen_evidence_support: The complete chain contains two original NO-GOs, one integrity-inconclusive study, causal non-separation, two failed measurement contracts, and two failed semantic-rescue manipulations.
+      distinctness_from_falsified_hypotheses: STOP does not revive or rename a failed mechanism.
+      causal_identifiability: The decision is identified by the preregistered selection rule—zero scientific candidates pass all gates.
+      novelty_against_primary_literature: STOP makes no novelty claim and avoids duplicating mature adjacent literatures.
+      minimal_experiment_feasibility: No experiment is required or authorized.
+      cross_model_relevance: It prevents a single-backbone result from being overgeneralized.
+      method_design_consequence: No method target is scientifically licensed, so the method line is retired.
+      q1_publication_potential: STOP is not a claim-bearing Q1 direction; negative-resource release is evaluated separately.
+      post_hoc_risk: It follows the fixed failure policy rather than inventing a rescue story.
+      researcher_degrees_of_freedom_risk: The decision uses fixed thresholds with no discretionary candidate promotion.
+    passes_all_selection_gates: not_applicable_stop_option
+selected_candidate: STOP
+selection_reason: No scientific candidate passed every mandatory gate; STOP is mandatory under the decision policy.
+
