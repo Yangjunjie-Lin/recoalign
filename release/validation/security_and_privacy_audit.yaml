@@ -45,4 +45,14 @@ privacy_findings:
 false_positive_review:
   - path: src/recoalign/paper_package/audit.py
     classification: scanner_pattern_definition_not_a_local_path
+archive_scan:
+  source_archive_files: 825
+  evidence_archive_files: 223
+  exact_secret_hits: 0
+  private_key_hits: 0
+  actual_local_path_hits: 0
+  checkpoint_bytes: 0
+  checkpoint_metadata_manifests_in_source_archive: 9
+  restricted_raw_data_files: 0
+  cache_or_local_output_files: 0
 conclusion: pass
