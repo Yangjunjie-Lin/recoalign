@@ -1,0 +1,20 @@
+schema_version: 2
+freeze_name: semantic_structural_integration_failure_closed
+project: ReCoAlign
+name: Semantic–Structural Integration Failure
+status: unresolved_and_not_identified
+lifecycle: retired
+former_selected_candidate: PH001
+evidence_basis:
+  PIVOT_EXP_A: multiple_supported_mechanisms_causal_primacy_unresolved
+  PIVOT_EXP_A2: inconclusive_semantic_sufficiency_and_parsing_integrity_failed
+  PIVOT_EXP_A3: full_field_measurement_contract_failed_preinference
+  PIVOT_EXP_A3R: continuation_measurement_contract_failed_and_retired
+  PIVOT_EXP_A3P: semantic_manipulation_failure
+selected_manipulation: null
+next_experiment: null
+paper_writing_allowed: false
+model_design_allowed: false
+independent_replication_allowed: false
+maximum_additional_diagnostic_pivots: 0
+program_decision: TERMINATE_CURRENT_PROGRAM

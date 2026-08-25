@@ -1,0 +1,16 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3P
+outcome: SEMANTIC_MANIPULATION_FAILURE
+selected_manipulation: null
+selection_rule: minimum-intervention principle
+reason: Primary measurement remained valid, but neither M1 nor M2 passed all semantic
+  Gates C, D, and E.
+secondary_gate:
+  status: RETIRED_BEFORE_VALIDATION
+  participates_in_scientific_decision: false
+  source_study: PIVOT_EXP_A3R
+authorization:
+  PIVOT_EXP_A4_preregistration_allowed: false
+  independent_backbone_replication_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false

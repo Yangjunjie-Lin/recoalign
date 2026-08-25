@@ -1,0 +1,19 @@
+schema_version: 2
+stage: closed_after_PIVOT_EXP_A3P
+status: retired_registry_retained_for_provenance
+selected_candidate: STOP
+former_candidates:
+  - id: PH001
+    status: unresolved_and_not_identified_retired
+  - id: PH002
+    status: not_selected_retired
+  - id: PH003
+    status: not_selected_retired
+  - id: PH004
+    status: not_selected_retired
+final_candidate_matrix: research/final_pivot_candidate_matrix.yaml
+final_candidates: [PH005, PH006, PH007, STOP]
+passing_candidates: []
+new_experiment_allowed: false
+model_development_allowed: false
+paper_writing_allowed: false

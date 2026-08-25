@@ -1,0 +1,17 @@
+Captured: 2026-08-24T10:16:25+01:00
+Command: nvidia-smi
+
+Mon Aug 24 10:16:25 2026
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 566.07                 Driver Version: 566.07         CUDA Version: 12.7     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                  Driver-Model | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 3060 ...  WDDM  |   00000000:01:00.0  On |                  N/A |
+| N/A   51C    P5             19W /  117W |    2071MiB /   6144MiB |     44%      Default |
++-----------------------------------------------------------------------------------------+
+
+Command: nvidia-smi --query-gpu=name,memory.total,driver_version,compute_cap --format=csv,noheader,nounits
+
+NVIDIA GeForce RTX 3060 Laptop GPU, 6144, 566.07, 8.6

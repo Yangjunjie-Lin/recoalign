@@ -1,0 +1,36 @@
+gate_A:
+  passed: true
+  n: 27000
+  valid_measurements: 27000
+  valid_measurement_rate: 1.0
+  four_finite_score_rows: 27000
+  registered_prediction_rows: 27000
+  required:
+    rows: 27000
+    valid_measurement_rate: 1.0
+    four_finite_scores_per_row: true
+    registered_prediction_per_row: true
+integrity:
+  checks:
+    prediction_count: true
+    no_duplicates: true
+    exact_trial_key_set: true
+    inventory_fields_preserved: true
+    four_scores_every_row: true
+    finite_scores_every_row: true
+    registered_prediction_every_row: true
+    scoring_method_frozen: true
+    freeze_sha_frozen: true
+    environment_sha_frozen: true
+    five_complete_seeds: true
+    no_parameter_update: true
+  prediction_count: 27000
+  by_seed:
+    20260901: 5400
+    20260902: 5400
+    20260903: 5400
+    20260904: 5400
+    20260905: 5400
+  duplicate_count: 0
+  primary_measurement_failure: false
+  passed: true

@@ -1,0 +1,44 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+outcome: RUNTIME_BLOCKED_PREINFERENCE
+failure_code: DEVELOPMENT_FREE_GENERATION_CONTRACT_SMOKE_FAILED
+design_preflight_passed: true
+validation_inventory_frozen: true
+execution_runtime_ready: false
+inference_started: false
+validation_inference_started: false
+weights_loaded_for_development_smoke: true
+scientific_decision_created: false
+scientific_metrics_computed: false
+passed_gates:
+  remote_sync: true
+  historical_environment_recovered: true
+  cuda_tensor: true
+  bitsandbytes_cuda_backend: true
+  nf4_forward: true
+  checkpoint_integrity: true
+  model_weights_loaded: true
+  vision_tower_loaded: true
+  projector_loaded: true
+  no_cpu_fallback: true
+  no_oom: true
+  forced_choice_scores_finite: true
+  forced_choice_exactly_four_scores: true
+  text_table_scaffold: true
+  visual_legend_scaffold: true
+  deterministic_repeat: true
+  cache_writable: true
+failed_gates:
+  frozen_free_generation_parseable:
+    expected: ^\s*FINAL_CHOICE\s*=\s*([1-4])\s*$
+    observed: '2'
+    parse_failure_reason: unexpected_prefix_or_reasoning_trace
+    deterministic_repeat_stable: true
+prohibited_remediations_not_performed:
+  prompt_changed: false
+  parser_relaxed: false
+  output_prefix_injected: false
+  decoding_changed: false
+  checkpoint_changed: false
+  quantization_changed: false
+  validation_trial_run: false

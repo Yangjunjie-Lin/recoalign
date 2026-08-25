@@ -1,0 +1,25 @@
+schema_version: 1
+decision_id: PIVOT_EXP_A2_continuation_scope
+recorded_at: '2026-08-23'
+frozen_study_id: PIVOT_EXP_A2
+frozen_commit: 765d502dfdbdabd143945a08591b067cddbf8b3e
+clarification_only: true
+changes_frozen_outcome: false
+frozen_outcome: INCONCLUSIVE
+posthoc_reinterpretation_of_PIVOT_EXP_A2_allowed: false
+rescoring_frozen_predictions_allowed: false
+rerunning_frozen_trials_allowed: false
+new_independent_construct_validity_study_allowed: true
+independent_backbone_replication_allowed: false
+model_development_allowed: false
+paper_writing_allowed: false
+authorized_scope:
+  study_id: PIVOT_EXP_A3
+  purpose: Semantic Manipulation and Answer Contract Construct Validation
+  independence_requirement: >-
+    PIVOT_EXP_A3 must use a separately preregistered, scene-disjoint and seed-disjoint
+    construct-validity inventory. PIVOT_EXP_A2 predictions remain immutable evidence.
+interpretation_boundary: >-
+  This record clarifies only the scope of prospective research. It does not alter,
+  supersede, reinterpret, rescore, or rerun PIVOT_EXP_A2 and grants no authority for
+  independent-backbone replication, model development, or paper writing.

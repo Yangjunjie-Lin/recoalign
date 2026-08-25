@@ -1,0 +1,40 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+registered_before_inference: true
+hypotheses:
+  - id: CV1_ANSWER_CONTRACT
+    construct: answer_contract_comprehension
+    question: Can the frozen model map exactly four displayed alternatives to numeric option IDs?
+    primary_measure: forced_choice_conditional_log_likelihood
+    secondary_measure: answer-contract-v2_free_generation
+    ground_truth_policy:
+      oracle: active_scaffold_declaration
+      corrupted: active_scaffold_declaration
+    gates: [A_primary_answer_validity, B_secondary_parser_integrity]
+  - id: CV2_SCAFFOLD_COMPREHENSION
+    construct: declared_fact_comprehension
+    image_context: neutral_image
+    tasks: [shape, color, object_identity, entity_attribute_binding]
+    reporting: task_specific_only_for_gating
+    ground_truth_policy:
+      oracle: active_scaffold_declaration
+      corrupted: active_scaffold_declaration
+    gate: C_scaffold_comprehension
+  - id: CV3_SEMANTIC_RESCUE
+    construct: scene_truth_primitive_sufficiency
+    image_context: original_scene_image
+    tasks: [shape, color, object_identity, entity_attribute_binding]
+    ground_truth_policy:
+      oracle: scene_truth
+      corrupted: scene_truth
+    gates:
+      - D_scene_semantic_sufficiency
+      - E_intervention_separation
+      - F_image_interference_equivalence
+non_hypotheses:
+  - semantic_primary_mechanism
+  - integration_independent_mechanism
+  - joint_causal_mechanism
+  - cross_backbone_replication
+  - model_development
+  - paper_claim

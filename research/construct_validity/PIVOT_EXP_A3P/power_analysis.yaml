@@ -1,0 +1,79 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3P
+status: PASS
+computed_before_inference: true
+validation_predictions_observed: false
+uses_model_answers_for_planning: false
+secondary_generation_trials_removed: 9000
+primary_trial_count: 27000
+paired_scene_count: 500
+simulation:
+  method: paired_binomial_and_trinomial_monte_carlo
+  replicates: 200000
+  seed: 20260825
+  alpha: 0.05
+  target_power: 0.8
+  validation_seeds: 5
+  scenes_per_seed: 100
+  hierarchical_analysis_after_inference: fixed-seed hierarchical seed-scene percentile
+    bootstrap
+  multiplicity: Holm correction across four task endpoints
+  no_seed_deletion: true
+endpoints:
+  A_CV1_comprehension_per_condition:
+    design_alternative_accuracy: 0.98
+    required_mean: 0.95
+    required_ci_lower: 0.9
+    planned_n: 500
+    estimated_power: 0.999985
+    passed: true
+  C_scaffold_comprehension_per_task:
+    design_alternative_accuracy: 0.98
+    required_mean: 0.95
+    required_ci_lower: 0.9
+    planned_n: 500
+    estimated_power: 0.99998
+    passed: true
+  D_scene_semantic_sufficiency_per_task:
+    design_alternative_accuracy: 0.95
+    required_mean: 0.9
+    required_ci_lower: 0.85
+    planned_n: 500
+    estimated_power: 0.999995
+    passed: true
+  E_intervention_separation_per_task:
+    design_alternative:
+      oracle_accuracy: 0.95
+      corrupted_accuracy: 0.35
+      paired_difference: 0.6
+      paired_cell_probabilities:
+        '00': 0.03
+        '01': 0.02
+        '10': 0.62
+        '11': 0.33
+    required_difference: 0.5
+    required_ci_lower_strictly_above: 0.0
+    planned_n_pairs: 500
+    estimated_power: 0.99999
+    passed: true
+  F_image_interference_per_task:
+    design_alternative_difference: 0.0
+    equivalence_margin:
+    - -0.05
+    - 0.05
+    assumed_pair_discordance: 0.1
+    worst_case_holm_alpha: 0.0125
+    planned_n_pairs: 500
+    estimated_power: 0.80235
+    monte_carlo_standard_error: 0.0008904618955912711
+    passed: true
+    most_demanding_endpoint: true
+  A_primary_measurement_validity:
+    planned_n: 27000
+    required_valid_measurement_rate: 1.0
+    stochastic_power_applicable: false
+minimum_estimated_primary_power: 0.80235
+primary_power_passed: true
+no_seed_deletion: true
+no_failed_trial_deletion: true
+no_posthoc_threshold_adjustment: true

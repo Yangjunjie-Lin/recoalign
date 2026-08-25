@@ -1,0 +1,45 @@
+schema_version: 1
+study_id: PIVOT_EXP_A2
+review_date: 2026-08-22
+reviewer_role: Principal Research Scientist
+outcome: INCONCLUSIVE
+reason_code: MANIPULATION_SUFFICIENCY_AND_PARSING_INTEGRITY_FAILED
+registered_decision_source: research/causal_separation/PIVOT_EXP_A2/results/decision_report.yaml
+artifact_manifest_sha256: e934955088b23dc39307bb6a494b060e3d4d139b89f97e2216b07c3509a2447c
+freeze:
+  name: pivot_exp_a2_v1
+  sha256: a85a99ca98b302b7f2aac841ea0371a328fb1c481e3276472bae1b3729a4a858
+  config_sha256: 33d342430e9aee899a759d3fcee4ce589ec6f656da49cfa9d3ae0ff5075ad339
+  decision_policy_sha256: 02c84e06be9c4e79ec690e530fc1462d84a4b48e597487f84998307ff0a60efd
+execution:
+  model: liuhaotian/llava-v1.5-7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  seeds: [20260818, 20260819, 20260820, 20260821, 20260822]
+  prediction_lines: 5300
+  main_predictions: 3600
+  reference_predictions: 900
+  manipulation_predictions: 800
+gates:
+  prediction_count: true
+  complete_five_seed_matrix: true
+  token_matching: true
+  corruption_validity: true
+  artifact_manifest: true
+  all_predictions_parsed: false
+  semantic_sufficiency: false
+failure_details:
+  parsed_predictions: 5163
+  unparsed_predictions: 137
+  unparsed_scope: manipulation_check_only
+  oracle_semantic_accuracy: 0.7275
+  oracle_semantic_ci_95: [0.6725, 0.7800]
+  registered_oracle_mean_minimum: 0.90
+  registered_oracle_ci_lower_minimum: 0.85
+interpretation_boundary: >-
+  E1--E6 remain descriptive diagnostics. Because semantic sufficiency and parsing integrity failed,
+  they cannot identify semantic-primary, integration-independent, or joint causal mechanisms.
+authorization:
+  independent_replication_allowed: false
+  construct_validity_analysis_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false

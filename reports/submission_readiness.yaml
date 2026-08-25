@@ -1,15 +1,42 @@
-schema_version: 1
-package_status: implementation_complete
+schema_version: 2
+as_of_experiment: PIVOT_EXP_A3P
+package_status: governance_complete_research_line_closed
+program_decision: TERMINATE_CURRENT_PROGRAM
 scientific_submission_decision: NO-GO
 scientific_submission_ready: false
+claim_bearing_paper_allowed: false
+non_claim_technical_report_allowed: true
 engineering_artifacts_ready: true
-claims_verified: 0
-claims_total: 7
-complete_matrix_cells: 0
-planned_matrix_cells: 432
-real_vlm_evidence: pending
+evidence_map:
+  total_claims: 14
+  verified: 2
+  falsified: 6
+  falsified_as_measurement_instrument: 2
+  inconclusive: 1
+  retired: 3
+  pending: 0
+inactive_historical_plans:
+  recoalign_training: true
+  comprehensive_432_cell_matrix: true
+  mechanistic_method_evaluation: true
+final_pivot_gate:
+  selected_candidate: STOP
+  passing_candidates: []
+  novelty_status: VERIFIED_NO_CANDIDATE_PASSES
+authorization:
+  selected_candidate: STOP
+  new_preregistration_allowed: false
+  real_inference_allowed: false
+  independent_backbone_replication_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false
+  maximum_additional_diagnostic_pivots: 0
+  archive_and_release_allowed: true
 tag_created: false
-tag_blocker: Tag creation requires GO, clean worktree, and a committed frozen snapshot.
+tag_blocker: Claim-bearing paper and submission are not authorized.
 blockers:
-- comprehensive benchmark matrix is incomplete (0/432 cells)
-- real-VLM mechanistic evidence is not GO
+- original Structured Reasoning Interface Gap is falsified
+- no conditional causal mechanism was identified
+- M1 and M2 semantic manipulations were falsified
+- no candidate passed every final selection and novelty gate
+- no valid method, cross-model replication, or OOD claim exists

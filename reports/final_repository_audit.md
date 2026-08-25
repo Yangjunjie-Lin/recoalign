@@ -2,23 +2,23 @@
 
 ## Outcome
 
-The research infrastructure is auditable, but the repository is not scientifically submission-ready because real-VLM and comprehensive matrix evidence is incomplete.
+The research infrastructure and frozen LLaVA evidence are auditable, but the repository is not scientifically submission-ready because the registered evidence decision is NO-GO.
 
 ## Experiment artifacts
 
-| Experiment | Role | Config | Manifest | Metrics | Predictions | Claim eligible |
-| --- | --- | ---: | ---: | ---: | ---: | ---: |
-| EXP001 | infrastructure_validation | True | True | 7 | 7 | False |
-| EXP002 | infrastructure_validation | True | True | 6 | 6 | False |
-| EXP003 | infrastructure_validation | True | True | 6 | 6 | False |
-| EXP004 | infrastructure_validation | True | True | 6 | 5 | False |
+| Experiment | Role | Execution | Decision | Config | Manifest | Metrics | Predictions | Claim eligible |
+| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |
+| EXP001 | scientific_evidence | complete | NO-GO | True | True | 7 | 7 | True |
+| EXP002 | scientific_evidence | complete | GO | True | True | 6 | 6 | True |
+| EXP003 | scientific_evidence | failed_integrity_gate | INCONCLUSIVE | True | True | 6 | 6 | False |
+| EXP004 | scientific_evidence | complete | NO-GO | True | True | 6 | 5 | True |
 
 ## Code and release hygiene
 
-- Tracked Python files: 251
+- Tracked Python files: 296
 - Duplicate-content groups requiring review: 0
 - Temporary/validation output candidates retained: 12
-- Tracked local-path findings: 0
+- Tracked local-path findings: 10
 - Potential secret findings: 0
 - Dirty worktree: True
 

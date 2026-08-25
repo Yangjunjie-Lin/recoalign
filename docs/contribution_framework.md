@@ -1,47 +1,32 @@
-# ReCoAlign contribution framework
+# ReCoAlign pivot contribution framework
 
-The contribution is frozen as a mechanism-driven research program. The repository does
-not claim that every VLM fails in the same way or that the final method is complete.
+The repository currently contributes research infrastructure and a falsified mechanism study, not
+a finished method or paper claim.
 
-## Contribution 1 — Mechanism discovery
+## Retained contribution — controlled evidence
 
-Identify and operationalize the Structured Reasoning Interface Gap: visual semantics may
-be present while structured accessibility to the reasoning path is insufficient.
+EXP001–EXP004 provide a governed, reproducible separation of representation format, relation
+correctness, OOD integrity, semantic availability, structured accessibility, and execution. Their
+value includes the NO-GO outcomes.
 
-Evidence: EXP001 and EXP002, subject to their preregistered controls and decision gates.
+## Retained contribution — relational sensitivity
 
-## Contribution 2 — Mechanistic diagnosis
+EXP002 supports the narrow finding that correct externally supplied relations matter within the
+frozen LLaVA-1.5 synthetic-world scope. This does not imply graph optimality or internal graph use.
 
-Separate three stages that are often conflated:
+## Candidate contribution — bottleneck discrimination
 
-1. visual semantic availability;
-2. structured representation accessibility;
-3. reasoning execution.
+The pivot program will distinguish joint semantic–relational integration from three alternatives:
+relation-selective grounding, compositional representation bottleneck, and cross-modal reasoning
+alignment. The factorial and probe designs are specified in `research/next_experiment_plan.md`.
 
-Evidence: EXP004 SAS, StAS, RES, graph reconstruction/probe results, and oracle-graph
-interventions. Missing hidden-state APIs remain missing evidence.
+## Deferred contribution — intervention
 
-## Contribution 3 — Learnable interface
-
-Introduce ReCoAlign as a learnable visual semantic → structured reasoning interface. The
-structure supervision used during training is not an oracle graph supplied to the model
-at inference. The implementation must therefore expose structure tokens/context through
-the model interface and pass the registered ablations.
-
-Evidence: TRAIN001–TRAIN003, structure-token probes, parameter-matched controls, and
-inference interventions.
-
-## Contribution 4 — Generalization evaluation
-
-Test whether the learned interface improves compositional reasoning and composition-
-disjoint OOD generalization across registered VLMs and tasks while preserving ordinary
-vision-language capability.
-
-Evidence: EXP003 and the frozen comprehensive evaluation matrix. Missing or blocked cells
-remain visible and are not imputed.
+No trainable ReCoAlign intervention is an active contribution. A future method is permissible only
+after a replicated diagnosis identifies a bottleneck and a new freeze binds the intervention to
+that diagnosis.
 
 ## Evidence boundary
 
-The contribution framework is a mapping from claims to required evidence, not a claim
-that all evidence is already complete. The current scientific readiness decision remains
-NO-GO until the real-VLM and claim-eligible method evidence is present.
+The current repository is scientifically NO-GO for paper writing. A successful pivot
+preregistration is process readiness, not scientific evidence.

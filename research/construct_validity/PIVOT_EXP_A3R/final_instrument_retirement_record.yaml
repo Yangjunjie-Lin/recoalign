@@ -1,0 +1,37 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3R
+outcome: SECONDARY_CONTRACT_RUNTIME_FAILURE
+validation_inference_started: false
+scientific_metrics_computed: false
+formal_adjudication_run: false
+secondary_instrument:
+  name: frozen_free_generation_option_contract
+  status: RETIRED_BEFORE_VALIDATION
+  development_trials: 160
+  parsed_trials: 127
+  unparsed_trials: 33
+  parse_rate: 0.79375
+  deterministic_repeat_rate: 1.0
+  invalid_outputs:
+    E2: 25
+    E4: 6
+    E1: 2
+observed_invalid_output_counts_verified:
+  E2: 25
+  E4: 6
+  E1: 2
+retirement_basis:
+- PIVOT_EXP_A3 full-field development contract failure
+- PIVOT_EXP_A3R continuation-contract development failure
+- entity-ID and option-ID namespace confusion
+- avoidance of repeated tuning and researcher degrees of freedom
+interpretation:
+  model_failure_claim_allowed: false
+  semantic_failure_claim_allowed: false
+  measurement_instrument_valid: false
+  further_prompt_repairs_allowed: false
+  further_parser_repairs_allowed: false
+next_study: PIVOT_EXP_A3P
+next_study_scope: independent preregistered primary-only construct validity
+no_validation_outcomes_observed: true
+no_primary_outcome_selected_before_retirement: true

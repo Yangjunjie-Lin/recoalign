@@ -1,0 +1,8 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3R
+formal_decision: null
+adjudication_run: false
+reason: 36000_prediction_integrity_precondition_not_met
+validation_prediction_count: 0
+scientific_metrics_computed: false
+registered_runtime_stop_outcome: SECONDARY_CONTRACT_RUNTIME_FAILURE

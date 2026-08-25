@@ -1,0 +1,9 @@
+schema_version: 1
+status: pending_release_tag
+clone_source: https://github.com/Yangjunjie-Lin/recoalign.git
+checkout_tag: recoalign-negative-evidence-v1
+inference_run: false
+model_weights_loaded: false
+restricted_dataset_downloaded: false
+new_scientific_metrics_created: false
+checks: {}

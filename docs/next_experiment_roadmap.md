@@ -1,39 +1,18 @@
-# Next experiment roadmap
+# Next experiment roadmap — closed
 
-## Experiment A — Graph vs Text
+There is no authorized next experiment.
 
-Run `configs/graph_vs_text.yaml` with at least three seeds and the real frozen VLM backend. Compare:
+The final candidate gate evaluated PH005, PH006, and PH007. None passed all mandatory thresholds,
+so `STOP` was selected and the current ReCoAlign Q1 method/mechanism line was terminated.
 
-- image only;
-- unordered object list;
-- generated caption;
-- explicit scene graph.
+The following former roadmap items are **inactive**, not pending:
 
-Report paired accuracy, confidence intervals, relation slices, and exact prompt/provenance hashes.
+- train ReCoAlign;
+- run the 432-cell comprehensive matrix;
+- mechanistic method evaluation;
+- repair free generation;
+- add another semantic scaffold;
+- replicate across backbones;
+- prepare a claim-bearing paper or submission.
 
-## Experiment B — Graph completeness
-
-Run `configs/graph_ablation.yaml` with:
-
-- full graph;
-- partial graph with one local edge removed;
-- corrupted graph with one typed relation replaced.
-
-Add graph-size and edge-order controls before interpreting a gain as structure-specific.
-
-## Experiment C — OOD composition
-
-Run `configs/ood_composition.yaml` with disjoint train/test composition signatures. Report in-domain
-and unseen-composition performance for image, caption, and graph conditions, with per-seed paired
-statistics.
-
-## Required before any model contribution
-
-1. Replicate all three experiments across at least two frozen VLM backbones.
-2. Separate graph sufficiency from graph-construction ability using predicted, noisy, and oracle graphs.
-3. Add caption-length, token-order, and relation-frequency controls.
-4. Keep retrieval benchmarks as independent preservation controls.
-5. Only then define a minimal structure-token or ontology-guided alignment intervention.
-
-The current roadmap intentionally postpones new loss design until the interface gap survives these
-controls.
+Only archive/release, evidence validation, and non-claim technical reporting remain authorized.

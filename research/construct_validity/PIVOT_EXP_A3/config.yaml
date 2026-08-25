@@ -1,0 +1,179 @@
+schema_version: 1
+study:
+  id: PIVOT_EXP_A3
+  title: Semantic Manipulation and Answer Contract Construct Validation
+  parent_study: PIVOT_EXP_A2
+  parent_frozen_commit: 765d502dfdbdabd143945a08591b067cddbf8b3e
+  continuation_scope: research/decisions/PIVOT_EXP_A2_continuation_scope.yaml
+  development_seed: 20260830
+  validation_seeds: [20260901, 20260902, 20260903, 20260904, 20260905]
+  validation_scenes_per_seed: 100
+  development_scenes: 8
+  generated_candidates_per_validation_seed: 1200
+  required_entities_per_scene: 4
+  source_generator: recoalign.synthetic_world.v2
+  scene_selection: four_entity_scenes_sorted_by_scene_id_then_first_100
+  behavior_based_selection: false
+  output_root: outputs/construct_validity/PIVOT_EXP_A3
+  promoted_results: research/construct_validity/PIVOT_EXP_A3/results
+
+model:
+  registry_name: llava_1_5_7b
+  identifier: liuhaotian/llava-v1.5-7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  config: configs/models/llava_1_5_7b.yaml
+  checkpoint_manifest: manifests/checkpoints/llava_v1_5_7b.yaml
+  tokenizer_path: outputs/models/llava-v1.5-7b
+  deterministic: true
+  training_enabled: false
+  parameter_updates_allowed: false
+
+answer_contract:
+  version: answer-contract-v2
+  option_ids: ['1', '2', '3', '4']
+  entity_id_namespaces:
+    M0: [Entity A, Entity B, Entity C, Entity D]
+    M1_M2: [E1, E2, E3, E4]
+  primary_method: conditional_log_likelihood_single_token_argmax_v1
+  primary_completion_prefix: FINAL_CHOICE=
+  primary_leading_space_allowed: false
+  primary_fallback_method: null
+  constrained_decoding_allowed: false
+  secondary_method: frozen_free_generation
+  secondary_grammar: '^\s*FINAL_CHOICE\s*=\s*([1-4])\s*$'
+  secondary_case_sensitive: true
+  secondary_unicode_normalization: false
+  secondary_reasoning_trace_policy: reject_entire_output
+
+semantic_manipulations:
+  registered: [M0, M1, M2]
+  decision_candidates: [M1, M2]
+  historical_anchor: M0
+  evidence_truth: [oracle, corrupted]
+  corruption: complete_entity_attribute_binding_derangement
+  require_every_corrupted_binding_false: true
+  fact_count_preserved: true
+  aliases_stable_between_truth_conditions: true
+  table_order_salt: pivot-exp-a3-table-order-v1
+  alias_assignment_salt: pivot-exp-a3-alias-assignment-v1
+  corruption_salt: pivot-exp-a3-binding-corruption-v1
+  forbidden_content: [relation, target_relation, query_role, final_answer, reasoning_chain]
+  M2_crop_policy: deterministic_isolated_rerender
+  M2_crop_resolution: 96
+  M2_background_rgb: [245, 245, 245]
+  M2_legend_dimensions: [576, 384]
+  M2_bbox_fallback_after_preflight_allowed: false
+
+design:
+  tasks: [shape, color, object_identity, entity_attribute_binding]
+  semantic_manipulation: [M0, M1, M2]
+  evidence_truth: [oracle, corrupted]
+  image_context: [neutral_image, original_scene_image]
+  primary_response_method: forced_choice
+  secondary_response_method: free_generation
+  primary_full_factorial: true
+  secondary_matched_subset:
+    semantic_manipulation: [M1, M2]
+    evidence_truth: [oracle]
+    image_context: [neutral_image, original_scene_image]
+  answer_contract_comprehension:
+    primary_cells:
+      semantic_manipulation: [M0, M1, M2]
+      evidence_truth: [oracle, corrupted]
+      image_context: [neutral_image]
+    secondary_cells:
+      semantic_manipulation: [M1, M2]
+      evidence_truth: [oracle]
+      image_context: [neutral_image]
+  trial_counts:
+    semantic_primary_forced_choice: 24000
+    answer_contract_primary_forced_choice: 3000
+    semantic_secondary_free_generation: 8000
+    answer_contract_secondary_free_generation: 1000
+    forced_choice_total: 27000
+    free_generation_total: 9000
+    total: 36000
+  randomization_unit: scene
+  correct_position_balance: exact_within_seed_task_manipulation
+  positions_per_seed_task_manipulation: {1: 25, 2: 25, 3: 25, 4: 25}
+  choice_order_salt: pivot-exp-a3-choice-order-v1
+  target_alias: second_registered_entity_id
+  neutral_image_path: research/construct_validity/PIVOT_EXP_A3/semantic_manipulations/neutral.png
+  neutral_image_sha256_frozen_before_inference: true
+
+statistics:
+  confidence_level: 0.95
+  alpha: 0.05
+  target_power: 0.80
+  bootstrap_method: hierarchical_seed_scene_percentile
+  bootstrap_samples: 10000
+  bootstrap_seed: 20260826
+  power_simulation_seed: 20260825
+  scene_level_paired: true
+  multiple_comparison: Holm
+  holm_families:
+    gate_E: [shape, color, object_identity, entity_attribute_binding]
+    gate_F: [shape, color, object_identity, entity_attribute_binding]
+  equivalence_test: paired_TOST
+  equivalence_margin: 0.05
+  no_seed_deletion: true
+  no_failed_trial_deletion: true
+  no_posthoc_threshold_change: true
+  seed_replication:
+    minimum_passing_seeds: 4
+    denominator: 5
+
+gates:
+  A_primary_answer_validity:
+    valid_measurement_rate: 1.0
+    CV1_per_condition_mean_minimum: 0.95
+    CV1_per_condition_confidence_interval_lower_minimum: 0.90
+  B_secondary_parser_integrity:
+    parse_rate_minimum: 0.99
+    confidence_interval_lower_minimum: 0.98
+  C_scaffold_comprehension:
+    per_task_mean_minimum: 0.95
+    per_task_confidence_interval_lower_minimum: 0.90
+  D_scene_semantic_sufficiency:
+    per_task_mean_minimum: 0.90
+    per_task_confidence_interval_lower_minimum: 0.85
+  E_intervention_separation:
+    per_task_oracle_minus_corrupted_minimum: 0.50
+    per_task_confidence_interval_lower_strictly_above: 0.0
+    corrupted_may_not_pass_gate_D: true
+  F_image_interference:
+    paired_TOST_margin: 0.05
+    equivalence_requires_TOST: true
+    non_significance_is_not_equivalence: true
+
+execution_barrier:
+  required_before_real_vlm_inference:
+    - preregistration_frozen
+    - power_analysis_passed
+    - A2_frozen_hashes_passed
+    - legacy_audit_completed_without_rescoring
+    - parser_adversarial_validation_passed
+    - tokenizer_contract_passed
+    - development_preflight_passed
+    - validation_inventory_frozen
+    - validation_scene_hashes_passed
+    - trial_schema_preflight_passed
+    - choice_balance_passed
+    - legend_integrity_passed
+    - model_runtime_ready_without_weights
+
+prohibitions:
+  modify_PIVOT_EXP_A2: true
+  rescore_PIVOT_EXP_A2: true
+  rerun_PIVOT_EXP_A2: true
+  select_validation_scenes_by_model_output: true
+  tune_M1_or_M2_on_development_accuracy: true
+  change_prompt_after_validation: true
+  add_M3_posthoc: true
+  relation_in_scaffold: true
+  answer_or_query_role_in_scaffold: true
+  delete_failed_trials: true
+  train_model: true
+  add_adapter_or_loss: true
+  independent_backbone_replication: true
+  paper_writing: true

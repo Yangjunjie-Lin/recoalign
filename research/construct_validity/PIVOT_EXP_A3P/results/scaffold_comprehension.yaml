@@ -1,0 +1,174 @@
+M1:
+  passed: false
+  by_task:
+    shape:
+      mean: 0.524
+      confidence_interval:
+        level: 0.95
+        lower: 0.476
+        upper: 0.572
+        method: hierarchical_seed_scene_percentile_bootstrap
+        samples: 10000
+        seed: 20260926
+      seed_means:
+        20260901: 0.54
+        20260902: 0.55
+        20260903: 0.53
+        20260904: 0.5
+        20260905: 0.5
+      n_scenes: 500
+      n_seeds: 5
+      seed_replication:
+        passing_seeds: 0
+        required: 4
+      passed: false
+    color:
+      mean: 0.518
+      confidence_interval:
+        level: 0.95
+        lower: 0.466
+        upper: 0.568
+        method: hierarchical_seed_scene_percentile_bootstrap
+        samples: 10000
+        seed: 20260927
+      seed_means:
+        20260901: 0.53
+        20260902: 0.55
+        20260903: 0.49
+        20260904: 0.55
+        20260905: 0.47
+      n_scenes: 500
+      n_seeds: 5
+      seed_replication:
+        passing_seeds: 0
+        required: 4
+      passed: false
+    object_identity:
+      mean: 0.352
+      confidence_interval:
+        level: 0.95
+        lower: 0.306
+        upper: 0.398
+        method: hierarchical_seed_scene_percentile_bootstrap
+        samples: 10000
+        seed: 20260928
+      seed_means:
+        20260901: 0.35
+        20260902: 0.35
+        20260903: 0.32
+        20260904: 0.36
+        20260905: 0.38
+      n_scenes: 500
+      n_seeds: 5
+      seed_replication:
+        passing_seeds: 0
+        required: 4
+      passed: false
+    entity_attribute_binding:
+      mean: 0.56
+      confidence_interval:
+        level: 0.95
+        lower: 0.512
+        upper: 0.608
+        method: hierarchical_seed_scene_percentile_bootstrap
+        samples: 10000
+        seed: 20260929
+      seed_means:
+        20260901: 0.61
+        20260902: 0.55
+        20260903: 0.55
+        20260904: 0.54
+        20260905: 0.55
+      n_scenes: 500
+      n_seeds: 5
+      seed_replication:
+        passing_seeds: 0
+        required: 4
+      passed: false
+M2:
+  passed: false
+  by_task:
+    shape:
+      mean: 0.264
+      confidence_interval:
+        level: 0.95
+        lower: 0.224
+        upper: 0.304
+        method: hierarchical_seed_scene_percentile_bootstrap
+        samples: 10000
+        seed: 20260946
+      seed_means:
+        20260901: 0.27
+        20260902: 0.29
+        20260903: 0.26
+        20260904: 0.25
+        20260905: 0.25
+      n_scenes: 500
+      n_seeds: 5
+      seed_replication:
+        passing_seeds: 0
+        required: 4
+      passed: false
+    color:
+      mean: 0.264
+      confidence_interval:
+        level: 0.95
+        lower: 0.224
+        upper: 0.308
+        method: hierarchical_seed_scene_percentile_bootstrap
+        samples: 10000
+        seed: 20260947
+      seed_means:
+        20260901: 0.25
+        20260902: 0.3
+        20260903: 0.26
+        20260904: 0.25
+        20260905: 0.26
+      n_scenes: 500
+      n_seeds: 5
+      seed_replication:
+        passing_seeds: 0
+        required: 4
+      passed: false
+    object_identity:
+      mean: 0.258
+      confidence_interval:
+        level: 0.95
+        lower: 0.22
+        upper: 0.298
+        method: hierarchical_seed_scene_percentile_bootstrap
+        samples: 10000
+        seed: 20260948
+      seed_means:
+        20260901: 0.26
+        20260902: 0.25
+        20260903: 0.27
+        20260904: 0.26
+        20260905: 0.25
+      n_scenes: 500
+      n_seeds: 5
+      seed_replication:
+        passing_seeds: 0
+        required: 4
+      passed: false
+    entity_attribute_binding:
+      mean: 0.264
+      confidence_interval:
+        level: 0.95
+        lower: 0.218
+        upper: 0.31
+        method: hierarchical_seed_scene_percentile_bootstrap
+        samples: 10000
+        seed: 20260949
+      seed_means:
+        20260901: 0.29
+        20260902: 0.25
+        20260903: 0.22
+        20260904: 0.26
+        20260905: 0.3
+      n_scenes: 500
+      n_seeds: 5
+      seed_replication:
+        passing_seeds: 0
+        required: 4
+      passed: false

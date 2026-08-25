@@ -1,0 +1,52 @@
+expected_rows: 27000
+actual_rows: 27000
+parent_primary_rows: 27000
+exact_protected_field_matches: 27000
+mismatch_count: 0
+mismatches: []
+protected_fields:
+- trial_key
+- seed
+- scene_id
+- construct
+- manipulation
+- evidence_truth
+- image_context
+- task
+- question
+- choices
+- scene_truth_answer
+- declared_answer
+- scoring_target
+- correct_choice_id
+- scene_truth_choice_id
+- declared_choice_id
+- prompt
+- prompt_sha256
+- image
+- image_sha256
+- scaffold_sha256
+image_sha256_field_policy: The frozen parent rows omit image_sha256. Absence is protected
+  as an exact field state; image bytes are verified separately against the frozen
+  asset manifest.
+administrative_study_id_changed: true
+trial_keys_changed: false
+passed: true
+schema_version: 1
+study_id: PIVOT_EXP_A3P
+parent_study_id: PIVOT_EXP_A3
+parent_inventory_sha256: bcd2e86e7a97bcd879d161b59eada31bbac73dac10d0d77f40db4a55e065d27d
+inherited_inventory_sha256: 7b81e65ddb6ec72b692b8ab09ec05d6d9dbcd587a2b40a6e5b77572f43416ca2
+derivation: filter_response_method_equals_forced_choice
+parent_rows_read: 36000
+secondary_rows_copied: 0
+validation_predictions_observed: false
+scientific_metrics_observed: false
+image_asset_verification:
+  unique_image_count: 2501
+  manifest_registered_count: 2501
+  verified_count: 2501
+  missing_manifest_entries: []
+  missing_files: []
+  hash_mismatches: []
+  passed: true

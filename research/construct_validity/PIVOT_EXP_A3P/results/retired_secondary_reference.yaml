@@ -1,0 +1,16 @@
+schema_version: 1
+source_studies:
+- PIVOT_EXP_A3
+- PIVOT_EXP_A3R
+status: RETIRED_BEFORE_VALIDATION
+participates_in_scientific_decision: false
+development_trials: 160
+parsed_trials: 127
+unparsed_trials: 33
+parse_rate: 0.79375
+invalid_outputs:
+  E2: 25
+  E4: 6
+  E1: 2
+no_third_repair_attempted: true
+open_ended_generation_claim_allowed: false

@@ -1,0 +1,40 @@
+schema_version: 1
+parent_candidate: PH001
+status: preregistered_for_minimal_validation
+hypotheses:
+  - id: H-A
+    title: Primitive Semantic Availability Limitation
+    statement: >-
+      Frozen LLaVA visual decisions do not reliably recover one or more primitive semantic
+      dimensions required for compositional reasoning: object shape, object attribute, or direct
+      spatial relation.
+    prediction: >-
+      At least one image-only four-choice primitive dimension fails the preregistered adequacy gate
+      across five seeds.
+    falsification: >-
+      H-A is rejected if shape, color, and direct-relation decisions all satisfy the high-availability
+      gate with stable five-seed evidence.
+    experiment: A1
+    status: testing
+
+  - id: H-B
+    title: Relational Evidence Integration Failure
+    statement: >-
+      Given the same image and question, the VLM does not use bound relational evidence consistently
+      across evidence factorization and fact-equivalent representation formats.
+    prediction: >-
+      A2 reveals a reproducible relational or complete-evidence contribution, while A3 reveals a
+      reproducible accuracy difference between token-matched natural language, triples, and JSON; or
+      adequate primitives fail to compose despite format-equivalent evidence.
+    falsification: >-
+      H-B is rejected if primitive semantics are adequate, factorized relation evidence has stable
+      effects, complete evidence closes the compositional gap, and all three formats satisfy the
+      preregistered equivalence margin.
+    experiments: [A2, A3]
+    status: testing
+
+claim_boundary:
+  - Low behavioral accuracy does not prove semantic information is absent from every hidden layer.
+  - Relation evidence use does not prove an internal scene graph.
+  - Format sensitivity does not establish a trainable remedy.
+  - No result authorizes ReCoAlign model development or paper writing.

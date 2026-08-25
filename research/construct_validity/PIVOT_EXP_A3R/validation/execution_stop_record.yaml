@@ -1,0 +1,32 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3R
+status: NOT_FROZEN_PREINFERENCE
+required_state: FROZEN_PREINFERENCE
+required_state_achieved: false
+outcome: SECONDARY_CONTRACT_RUNTIME_FAILURE
+design_preflight_passed: true
+validation_inventory_frozen: true
+execution_runtime_ready: true
+development_contract_smoke_passed: false
+raw_continuation_parse_rate: 0.79375
+reconstructed_output_parse_rate: 0.79375
+deterministic_repeat_rate: 1.0
+unparsed_count: 33
+CUDA_available: true
+NF4_loaded: true
+CPU_fallback: false
+OOM: false
+validation_inference_started: false
+scientific_metrics_computed: false
+formal_adjudication_run: false
+prohibitions:
+  run_validation_inference: true
+  adjudicate_before_36000_predictions: true
+  relax_parser: true
+  change_prompt: true
+  accept_entity_aliases: true
+  delete_unparsed_rows: true
+source_artifacts:
+  freeze_manifest_sha256: e001f8d261ba0680e8d152d2e465b065ab57313009c2dbad4ab4cc06c553f491
+  preflight_report_sha256: c07a922b1c848b83485c7d909b2e7461c83f7d8872522c725ff95f83a5dc0fcb
+  development_runtime_smoke_report_sha256: b834962ca1b9776aa491cdac6cead536f1e9c8cec17d94c34e2bee72003f007e

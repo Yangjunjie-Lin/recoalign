@@ -1,0 +1,13 @@
+schema_version: 1
+repository: Yangjunjie-Lin/recoalign
+study: PIVOT_EXP_A3R
+domain: vision_language_model_construct_validity
+scan_scope: PIVOT_EXP_A3R protocol, validation, and result artifacts; dedicated contamination audit excluded
+cross_project_terms_found: 0
+report_matches_repository_artifacts: true
+reported_commit: cf6e7fc24f1f2d36c252e7060e6eb4fdc53fd19d
+reported_commit_exists: true
+remote_head_matches_local: true
+validation_inference_started: false
+scientific_metrics_computed: false
+formal_adjudication_run: false

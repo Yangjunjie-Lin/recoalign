@@ -1,0 +1,1560 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+status: preflight_blocked_runtime
+passed: false
+design_preflight_passed: true
+execution_runtime_ready: false
+preflight_only: true
+weights_loaded: false
+inference_started: false
+trial_integrity:
+  passed: true
+  assertions:
+    expected_trial_count: true
+    unique_trial_keys: true
+    five_validation_seeds: true
+    equal_trials_per_seed: true
+    exact_four_choice_ids: true
+    four_unique_choice_values: true
+    correct_ids_registered: true
+    no_filler_choices: true
+    option_entity_namespaces_distinct: true
+    relation_fact_count_zero: true
+    oracle_corrupted_fact_count_equal: true
+    oracle_facts_scene_consistent: true
+    corrupted_bindings_all_false: true
+    no_query_role: true
+    no_reasoning_chain: true
+    no_final_answer_field: true
+    validation_A2_scene_disjoint: true
+    development_validation_scene_disjoint: true
+    forced_prompts_end_exact_prefix: true
+    secondary_prompts_do_not_supply_final_field: true
+    scene_truth_choice_position_balance: true
+    declared_choice_position_balance: true
+  prediction_design_count: 36000
+  by_seed:
+    '20260901': 7200
+    '20260902': 7200
+    '20260903': 7200
+    '20260904': 7200
+    '20260905': 7200
+  choice_balance:
+    expected_per_group:
+      '1': 25
+      '2': 25
+      '3': 25
+      '4': 25
+    scene_truth_passed: true
+    declared_passed: true
+    scene_truth_groups:
+      20260901|color|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|color|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|color|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|color|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|color|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|color|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+    declared_groups:
+      20260901|color|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|color|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|color|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|color|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|color|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|color|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|entity_attribute_binding|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|object_identity|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260901|shape|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|color|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|entity_attribute_binding|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|object_identity|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260902|shape|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|color|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|entity_attribute_binding|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|object_identity|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260903|shape|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|color|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|entity_attribute_binding|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|object_identity|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260904|shape|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|color|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|entity_attribute_binding|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|object_identity|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M0|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M0|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M1|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M1|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M2|corrupted:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+      20260905|shape|M2|oracle:
+        '1': 25
+        '2': 25
+        '3': 25
+        '4': 25
+  scene_overlap:
+    validation_A2: []
+    development_validation: []
+legend_integrity:
+  passed: true
+  scene_count: 500
+  oracle_corrupted_dimensions_equal: true
+  absolute_coordinates_preserved: false
+development_preflight:
+  passed: true
+  scene_count: 8
+  trial_schema_count: 576
+  accuracy_computed: false
+  used_for_prompt_selection: false
+prompt_token_matching:
+  passed: true
+  tolerance: 0
+  maximum_delta: 0
+  paired_groups: 13500
+  full_prompt_candidate_boundary_passed: true
+  boundary_failures: []
+neutral_image_integrity:
+  passed: true
+  path: research/construct_validity/PIVOT_EXP_A3/semantic_manipulations/neutral.png
+  sha256: 73bc9ccad5e58177ab7836809e0aa3b3b937fd651025ce794158ed392834c90c
+  single_frozen_neutral_source: true
+answer_contract:
+  schema_version: 1
+  study_id: PIVOT_EXP_A3
+  weights_loaded: false
+  inference_started: false
+  parser:
+    contract_version: answer-contract-v2
+    grammar: ^\s*FINAL_CHOICE\s*=\s*([1-4])\s*$
+    case_sensitive: true
+    unicode_normalization: false
+    reasoning_trace_policy: reject_entire_output
+    passed: true
+    cases:
+    - id: exact_valid
+      expected_valid: true
+      expected_choice: '1'
+      observed:
+        raw_output: FINAL_CHOICE=1
+        valid: true
+        choice_id: '1'
+        failure_reason: null
+        contract_version: answer-contract-v2
+      passed: true
+    - id: leading_trailing_whitespace
+      expected_valid: true
+      expected_choice: '2'
+      observed:
+        raw_output: " \tFINAL_CHOICE = 2\r\n"
+        valid: true
+        choice_id: '2'
+        failure_reason: null
+        contract_version: answer-contract-v2
+      passed: true
+    - id: uppercase_contract
+      expected_valid: true
+      expected_choice: '3'
+      observed:
+        raw_output: FINAL_CHOICE=3
+        valid: true
+        choice_id: '3'
+        failure_reason: null
+        contract_version: answer-contract-v2
+      passed: true
+    - id: lowercase_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: final_choice=3
+        valid: false
+        choice_id: null
+        failure_reason: unexpected_prefix_or_reasoning_trace
+        contract_version: answer-contract-v2
+      passed: true
+    - id: full_sentence_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: The answer is FINAL_CHOICE=1.
+        valid: false
+        choice_id: null
+        failure_reason: unexpected_prefix_or_reasoning_trace
+        contract_version: answer-contract-v2
+      passed: true
+    - id: multiple_option_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: FINAL_CHOICE=1 or FINAL_CHOICE=2
+        valid: false
+        choice_id: null
+        failure_reason: duplicate_final_field
+        contract_version: answer-contract-v2
+      passed: true
+    - id: invalid_option_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: FINAL_CHOICE=5
+        valid: false
+        choice_id: null
+        failure_reason: invalid_option
+        contract_version: answer-contract-v2
+      passed: true
+    - id: alias_collision_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: FINAL_CHOICE=E1
+        valid: false
+        choice_id: null
+        failure_reason: invalid_option
+        contract_version: answer-contract-v2
+      passed: true
+    - id: reasoning_trace_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: Because E2 is blue, FINAL_CHOICE=2
+        valid: false
+        choice_id: null
+        failure_reason: unexpected_prefix_or_reasoning_trace
+        contract_version: answer-contract-v2
+      passed: true
+    - id: truncated_output_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: FINAL_CHOICE=
+        valid: false
+        choice_id: null
+        failure_reason: truncated_missing_option
+        contract_version: answer-contract-v2
+      passed: true
+    - id: unicode_equals_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: FINAL_CHOICE＝1
+        valid: false
+        choice_id: null
+        failure_reason: invalid_ascii_delimiter
+        contract_version: answer-contract-v2
+      passed: true
+    - id: unicode_digit_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: FINAL_CHOICE=１
+        valid: false
+        choice_id: null
+        failure_reason: invalid_option
+        contract_version: answer-contract-v2
+      passed: true
+    - id: duplicate_final_field_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: 'FINAL_CHOICE=1
+
+          FINAL_CHOICE=1'
+        valid: false
+        choice_id: null
+        failure_reason: duplicate_final_field
+        contract_version: answer-contract-v2
+      passed: true
+    - id: option_substring_false_positive_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: FINAL_CHOICE=14
+        valid: false
+        choice_id: null
+        failure_reason: trailing_or_multiple_content
+        contract_version: answer-contract-v2
+      passed: true
+    - id: entity_alias_only_rejected
+      expected_valid: false
+      expected_choice: null
+      observed:
+        raw_output: E2
+        valid: false
+        choice_id: null
+        failure_reason: unexpected_prefix_or_reasoning_trace
+        contract_version: answer-contract-v2
+      passed: true
+  tokenizer:
+    choice_ids:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    completion_prefix: FINAL_CHOICE=
+    completion_prefix_has_trailing_space: false
+    leading_space_policy: Primary likelihood candidates are appended directly after
+      ASCII '='. Leading-space encodings are measured and excluded, never substituted
+      after inference.
+    unique_token_ids: true
+    passed: true
+    options:
+    - choice_id: '1'
+      standalone_token_ids:
+      - 29896
+      leading_space_token_ids:
+      - 29871
+      - 29896
+      prefix_context_token_ids:
+      - 29896
+      single_token: true
+      prefix_boundary_stable: true
+      leading_space_sensitive: true
+      primary_method_uses_leading_space: false
+      passed: true
+    - choice_id: '2'
+      standalone_token_ids:
+      - 29906
+      leading_space_token_ids:
+      - 29871
+      - 29906
+      prefix_context_token_ids:
+      - 29906
+      single_token: true
+      prefix_boundary_stable: true
+      leading_space_sensitive: true
+      primary_method_uses_leading_space: false
+      passed: true
+    - choice_id: '3'
+      standalone_token_ids:
+      - 29941
+      leading_space_token_ids:
+      - 29871
+      - 29941
+      prefix_context_token_ids:
+      - 29941
+      single_token: true
+      prefix_boundary_stable: true
+      leading_space_sensitive: true
+      primary_method_uses_leading_space: false
+      passed: true
+    - choice_id: '4'
+      standalone_token_ids:
+      - 29946
+      leading_space_token_ids:
+      - 29871
+      - 29946
+      prefix_context_token_ids:
+      - 29946
+      single_token: true
+      prefix_boundary_stable: true
+      leading_space_sensitive: true
+      primary_method_uses_leading_space: false
+      passed: true
+  passed: true
+runtime_readiness:
+  adapter: llava_1_5_7b
+  checkpoint_exists: true
+  checkpoint_files:
+  - mm_projector.bin
+  - pytorch_model-00001-of-00002.bin
+  - pytorch_model-00002-of-00002.bin
+  checkpoint_files_declared:
+  - config.json
+  - generation_config.json
+  - mm_projector.bin
+  - pytorch_model-00001-of-00002.bin
+  - pytorch_model-00002-of-00002.bin
+  - pytorch_model.bin.index.json
+  - special_tokens_map.json
+  - tokenizer_config.json
+  - tokenizer.model
+  checkpoint_manifest: D:/UoM_CS/GitHub/recoalign/manifests/checkpoints/llava_v1_5_7b.yaml
+  checkpoint_manifest_exists: true
+  checkpoint_manifest_loaded: true
+  checkpoint_manifest_error: null
+  model_type: llava
+  architectures:
+  - LlavaLlamaForCausalLM
+  checkpoint_format: legacy_llava
+  checkpoint_format_source: local_index
+  loader: legacy_transformers
+  loader_compatible: true
+  dependencies:
+    torch: true
+    transformers: true
+    accelerate: true
+    sentencepiece: true
+    bitsandbytes: true
+  hardware:
+    cuda_required: true
+    cuda_available: false
+    cuda_device_count: 0
+    devices: []
+  hardware_ready: false
+  processor_ready: true
+  processor_contract_ready: true
+  processor_classes:
+    processor: LlavaProcessor
+    tokenizer: TokenizersBackend
+    image_processor: CLIPImageProcessor
+  processor_error: null
+  runtime_ready: false
+  weights_loaded: false
+inventory_manifest_sha256: b5d598c6bf6b4d5410240c135798fd38586331cb6858b6125b2f9b1718cbc5c7
+trial_inventory_sha256: bcd2e86e7a97bcd879d161b59eada31bbac73dac10d0d77f40db4a55e065d27d

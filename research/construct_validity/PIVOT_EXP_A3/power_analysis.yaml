@@ -1,0 +1,83 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+status: PASS
+computed_before_inference: true
+uses_model_answers_for_planning: false
+simulation:
+  method: preregistered_binomial_and_paired_multinomial_monte_carlo
+  replicates: 200000
+  seed: 20260825
+  alpha: 0.05
+  target_power: 0.80
+  validation_seeds: 5
+  scenes_per_seed: 100
+  observations_per_task: 500
+  hierarchical_analysis_after_inference: seed_then_scene_percentile_bootstrap
+  planning_note: >-
+    Gate calculations use conservative marginal design alternatives rather than PIVOT_EXP_A2
+    response outcomes. The Gate-F calculation uses the worst first-step Holm alpha of 0.0125.
+endpoints:
+  C_scaffold_comprehension_per_task:
+    design_alternative_accuracy: 0.98
+    required_mean: 0.95
+    required_ci_lower: 0.90
+    planned_n: 500
+    estimated_power: 0.9999
+    passed: true
+  D_scene_semantic_sufficiency_per_task:
+    design_alternative_accuracy: 0.95
+    required_mean: 0.90
+    required_ci_lower: 0.85
+    planned_n: 500
+    estimated_power: 0.9999
+    passed: true
+  E_intervention_separation_per_task:
+    design_alternative:
+      oracle_accuracy: 0.95
+      corrupted_accuracy: 0.35
+      paired_difference: 0.60
+      paired_cell_probabilities: {'00': 0.03, '01': 0.02, '10': 0.62, '11': 0.33}
+    required_difference: 0.50
+    required_ci_lower_strictly_above: 0.0
+    planned_n_pairs: 500
+    estimated_power: 0.9999
+    passed: true
+  F_image_interference_per_task:
+    design_alternative_difference: 0.0
+    equivalence_margin: [-0.05, 0.05]
+    assumed_pair_discordance: 0.10
+    worst_case_holm_alpha: 0.0125
+    planned_n_pairs: 500
+    estimated_power: 0.8028
+    passed: true
+  B_secondary_parser_integrity:
+    design_alternative_parse_rate: 0.995
+    required_parse_rate: 0.99
+    required_ci_lower: 0.98
+    planned_n_per_candidate: 4500
+    planned_n_total: 9000
+    estimated_power: 1.0
+    passed: true
+  A_primary_answer_validity:
+    planned_n: 27000
+    required_valid_measurement_rate: 1.0
+    stochastic_power_applicable: false
+    rationale: Finite four-option likelihood scores deterministically produce one registered ID.
+  A_CV1_comprehension_per_condition:
+    design_alternative_accuracy: 0.98
+    required_mean: 0.95
+    required_ci_lower: 0.90
+    planned_n_per_candidate_condition: 500
+    estimated_power: 0.9999
+    passed: true
+multiplicity:
+  superiority_family: Gate E task-specific tests use Holm correction across four tasks.
+  equivalence_family: Gate F uses Holm correction on each task's maximum one-sided TOST p-value.
+  sufficiency_policy: All four task gates must pass; no aggregate endpoint can override a failure.
+sample_size_decision: >-
+  One hundred held-out scenes per each of five seeds is the minimum registered design reaching
+  target power for the most demanding endpoint: Gate-F equivalence at margin +/-0.05 under the
+  first Holm threshold and 0.10 paired discordance.
+no_seed_deletion: true
+no_failed_trial_deletion: true
+no_posthoc_threshold_adjustment: true

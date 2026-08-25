@@ -1,0 +1,12 @@
+schema_version: 1
+status: pending_release_tag
+deterministic_properties:
+  sorted_paths: true
+  normalized_mtime: 0
+  normalized_uid_gid: 0
+  gzip_header_mtime: 0
+  git_tree_input: true
+prohibited_content_checks: pending_archive_build
+source_archive: null
+evidence_archive: null
+sha256sums_verified: false

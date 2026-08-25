@@ -1,0 +1,16 @@
+schema_version: 1
+record_type: privacy_redacted_interpreter_inventory
+release_redaction:
+  reason: local_user_absolute_paths_removed_from_release_tree
+  original_scientific_freeze_commit: a80882071a6cf17c275453319d78d879c1546e3a
+  original_scientific_freeze_tag: recoalign-evidence-freeze-2026-08-25
+  original_git_blob: c17cf9eea5758a4ed85d5a79c16964115423bb9d
+  original_manifest_bound: false
+  predictions_metrics_decisions_protocols_changed: false
+  scientific_interpretation_changed: false
+retained_status:
+  study_id: PIVOT_EXP_A3
+  outcome: RUNTIME_BLOCKED_PREINFERENCE
+  validation_inference_started: false
+  scientific_metrics_computed: false
+  local_interpreter_paths_published: false

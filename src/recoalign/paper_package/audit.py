@@ -11,7 +11,7 @@ from typing import Any
 
 from recoalign.research_registry import load_experiment_registry
 
-from .common import git_output, project_root, write_text
+from .common import git_output, load_yaml, project_root, write_text
 
 _TEMP_NAMES = ("smoke", "check", "dryrun", "debug", "tmp", "temp")
 _LOCAL_PATH = re.compile(r"(?:[A-Za-z]:\\Users\\|[A-Za-z]:\\UoM|/home/|/Users/)")
@@ -107,15 +107,22 @@ def _scan_sensitive(project: Path, paths: list[Path]) -> tuple[list[str], list[s
 
 def _audit_experiments(project: Path) -> list[dict[str, Any]]:
     registry = load_experiment_registry(project)
+    evidence_path = project / "reports/paper_evidence/artifact_manifest.yaml"
+    evidence = load_yaml(evidence_path).get("experiments", {}) if evidence_path.is_file() else {}
     rows: list[dict[str, Any]] = []
     for experiment in registry["experiments"]:
         identifier = experiment["experiment_id"]
         output = project / "outputs" / identifier
+        frozen = evidence.get(identifier)
         rows.append(
             {
                 "experiment_id": identifier,
                 "registered_status": experiment["status"],
-                "evidence_role": experiment["model"]["evidence_role"],
+                "execution_status": frozen.get("status") if frozen else "pending",
+                "decision": frozen.get("decision") if frozen else "PENDING",
+                "evidence_role": (
+                    "scientific_evidence" if frozen else experiment["model"]["evidence_role"]
+                ),
                 "config": {
                     "path": experiment["config"],
                     "exists": (project / experiment["config"]).is_file(),
@@ -130,7 +137,11 @@ def _audit_experiments(project: Path) -> list[dict[str, Any]]:
                 "prediction_files": len(list(output.glob("**/predictions.jsonl")))
                 if output.exists()
                 else 0,
-                "claim_eligible": experiment["model"]["scientific_decision_allowed"],
+                "claim_eligible": bool(
+                    frozen
+                    and frozen.get("status") == "complete"
+                    and frozen.get("decision") in {"GO", "NO-GO"}
+                ),
             }
         )
     return rows
@@ -159,17 +170,18 @@ def _render_audit(report: dict[str, Any]) -> str:
         "",
         "## Outcome",
         "",
-        "The research infrastructure is auditable, but the repository is not scientifically "
-        "submission-ready because real-VLM and comprehensive matrix evidence is incomplete.",
+        "The research infrastructure and frozen evidence are auditable through PIVOT_EXP_A3P. "
+        "The current method and mechanism line is closed under TERMINATE_CURRENT_PROGRAM.",
         "",
         "## Experiment artifacts",
         "",
-        "| Experiment | Role | Config | Manifest | Metrics | Predictions | Claim eligible |",
-        "| --- | --- | ---: | ---: | ---: | ---: | ---: |",
+        "| Experiment | Role | Execution | Decision | Config | Manifest | Metrics | Predictions | Claim eligible |",
+        "| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: |",
     ]
     for row in experiments:
         lines.append(
             f"| {row['experiment_id']} | {row['evidence_role']} | "
+            f"{row['execution_status']} | {row['decision']} | "
             f"{row['config']['exists']} | {row['dataset_manifest']['exists']} | "
             f"{row['metrics_files']} | {row['prediction_files']} | {row['claim_eligible']} |"
         )
@@ -184,7 +196,7 @@ def _render_audit(report: dict[str, Any]) -> str:
             f"- Temporary/validation output candidates retained: {len(hygiene['temporary_or_validation_output_candidates'])}",
             f"- Tracked local-path findings: {len(hygiene['tracked_local_path_findings'])}",
             f"- Potential secret findings: {len(hygiene['potential_secret_findings'])}",
-            f"- Dirty worktree: {report['git']['dirty']}",
+            f"- Dirty worktree during package generation: {report['git']['dirty']}",
             "",
             "Ignored experiment outputs were not deleted: failed and incomplete runs are scientific "
             "audit evidence, and some may be user-owned artifacts.",

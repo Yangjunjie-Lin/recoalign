@@ -1,3 +1,3 @@
 # Reproducibility package
 
-This package records the environment and frozen protocols. It does not claim that pending real-VLM experiments have been completed.
+This package records the environment, frozen protocols, real-VLM NO-GO evidence, and closed research-line boundary. It does not claim a successful method.

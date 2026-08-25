@@ -1,0 +1,8 @@
+id: PH001
+name: joint semantic–structural phenotype as causal explanation
+status: unresolved_and_not_identified_retired
+evidence: [PIVOT_EXP_A, PIVOT_EXP_A2, PIVOT_EXP_A3P]
+reason: Multiple mechanisms survived PIVOT_EXP_A; later studies did not supply a valid semantic manipulation for separation.
+causal_claim_allowed: false
+reactivation_allowed: false
+

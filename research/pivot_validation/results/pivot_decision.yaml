@@ -1,0 +1,39 @@
+schema_version: 1
+study_id: PIVOT_EXP_A
+status: complete
+decision: NO-GO
+mechanism_classification: MULTIPLE_SUPPORTED_MECHANISMS_CAUSAL_PRIMACY_UNRESOLVED
+hypothesis_status:
+  H-A: SUPPORTED_IN_SCOPE
+  H-B: SUPPORTED_OR_REFINED_IN_SCOPE
+reason: >-
+  Primitive visual decisions are LOW while relation injection, complete evidence,
+  integration surplus, and representation-format effects are all stable across five
+  seeds. The registered tests therefore support more than one mechanism but do not
+  identify a unique primary cause of compositional failure.
+evidence:
+  - A1 object shape is LOW: mean 0.500, 95% CI [0.400, 0.600].
+  - A1 attribute color is LOW: mean 0.580, 95% CI [0.545, 0.620].
+  - A1 direct relation is LOW: mean 0.385, 95% CI [0.375, 0.395].
+  - A2 relation contribution is stable: +0.185, 95% CI [0.140, 0.225].
+  - A2 complete contribution is stable: +0.415, 95% CI [0.365, 0.475].
+  - A2 integration surplus is stable: +0.230, 95% CI [0.175, 0.285].
+  - A3 is FORMAT_SENSITIVE; all three paired effects pass the registered gate.
+automated_decision:
+  decision: GO
+  mechanism_classification: PRIMITIVE_SEMANTIC_REPRESENTATION_LIMITATION
+  disposition: overridden_by_preregistered_multiple_explanations_rule
+  explanation: >-
+    The frozen classifier evaluated the primitive-limitation branch before the
+    format-sensitivity branch and therefore did not represent simultaneous support
+    for H-A and H-B. Raw metrics and the automated output remain preserved.
+updated_research_direction: >-
+  Treat PH001 as a reproducible joint phenotype, not as a uniquely localized
+  mechanism. Any next study must be separately preregistered to isolate causal
+  primacy conditional on primitive availability; model development and paper writing
+  remain blocked.
+paper_writing_allowed: false
+model_development_allowed: false
+freeze_name: pivot_exp_a_v1
+seeds: [20260818, 20260819, 20260820, 20260821, 20260822]
+

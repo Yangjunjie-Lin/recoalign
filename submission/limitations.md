@@ -1,7 +1,6 @@
 # Limitations
 
-- Real VLM inference is compute- and memory-intensive.
-- The current mechanism diagnosis does not have eligible real hidden-state runs.
-- Stage-1 structural supervision is synthetic; transfer must be measured rather than assumed.
-- Backbone adapters for LLaVA-NeXT, Qwen-VL, and InternVL are interface boundaries until executed.
-- The complete 432-cell benchmark matrix is not yet populated.
+- The interface-gap claim is falsified.
+- The positive relation-evidence result is limited to frozen LLaVA-1.5-7B.
+- No valid OOD, cross-model, semantic-rescue, or method claim exists.
+- Historical adapters and matrices are inactive and not authorized for execution.

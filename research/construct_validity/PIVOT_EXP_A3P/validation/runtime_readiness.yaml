@@ -1,0 +1,20 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3P
+runtime_ready: true
+checks:
+  cuda_available: true
+  checkpoint_directory: true
+  checkpoint_manifest: true
+  nf4_registered: true
+  no_cpu_device_map: true
+  local_only: true
+  revision_frozen: true
+python_executable: D:\UoM_CS\GitHub\recoalign\.venv\Scripts\python.exe
+python_version: 3.12.6
+torch_version: 2.7.1+cu126
+torch_built_cuda: '12.6'
+transformers_version: 4.52.4
+bitsandbytes_version: 0.48.2
+gpu_name: NVIDIA GeForce RTX 3060 Laptop GPU
+weights_loaded: false
+validation_inference_started: false

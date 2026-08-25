@@ -1,0 +1,8 @@
+id: H003
+name: OOD Generalization claim
+status: inconclusive_and_retired
+evidence: [EXP003]
+reason: The preregistered token-length integrity gate failed, and the prerequisite graph advantage was absent.
+ood_claim_allowed: false
+reactivation_allowed: false
+

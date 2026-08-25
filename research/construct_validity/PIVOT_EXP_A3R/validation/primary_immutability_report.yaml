@@ -1,0 +1,27 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3R
+parent_study_id: PIVOT_EXP_A3
+comparison_scope: protected_scientific_and_execution_fields
+administrative_study_id_amended: true
+expected_count: 27000
+compared_count: 27000
+exact_match_count: 27000
+exact_match_requirement: 27000 / 27000
+protected_fields:
+- trial_key
+- prompt
+- prompt_sha256
+- image
+- choices
+- correct_choice_id
+- scene_truth_choice_id
+- declared_choice_id
+prompt_sha_unchanged: true
+image_path_unchanged: true
+image_sha_verified: true
+choice_mapping_unchanged: true
+correct_choice_unchanged: true
+trial_key_unchanged: true
+unique_image_count: 2501
+mismatches: []
+passed: true

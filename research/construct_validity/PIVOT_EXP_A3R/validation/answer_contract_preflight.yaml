@@ -1,0 +1,330 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3R
+contract_version: answer-contract-v3-continuation
+weights_loaded: false
+inference_started: false
+parser:
+  contract_version: answer-contract-v3-continuation
+  prompt_completion_prefix: FINAL_CHOICE=
+  raw_continuation_grammar: ^\s*([1-4])\s*$
+  reconstructed_contract_grammar: ^\s*FINAL_CHOICE\s*=\s*([1-4])\s*$
+  unicode_normalization: false
+  word_number_conversion: false
+  substring_matching: false
+  alias_matching: false
+  multiple_option_acceptance: false
+  reasoning_trace_extraction: false
+  cases:
+  - id: valid_1
+    expected_valid: true
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: '1'
+      reconstructed_contract_output: FINAL_CHOICE=1
+      raw_valid: true
+      reconstructed_valid: true
+      choice_ids_match: true
+      valid: true
+      choice_id: '1'
+      failure_reason: null
+    passed: true
+  - id: valid_2
+    expected_valid: true
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: '2'
+      reconstructed_contract_output: FINAL_CHOICE=2
+      raw_valid: true
+      reconstructed_valid: true
+      choice_ids_match: true
+      valid: true
+      choice_id: '2'
+      failure_reason: null
+    passed: true
+  - id: valid_3
+    expected_valid: true
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: '3'
+      reconstructed_contract_output: FINAL_CHOICE=3
+      raw_valid: true
+      reconstructed_valid: true
+      choice_ids_match: true
+      valid: true
+      choice_id: '3'
+      failure_reason: null
+    passed: true
+  - id: valid_4
+    expected_valid: true
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: '4'
+      reconstructed_contract_output: FINAL_CHOICE=4
+      raw_valid: true
+      reconstructed_valid: true
+      choice_ids_match: true
+      valid: true
+      choice_id: '4'
+      failure_reason: null
+    passed: true
+  - id: valid_5
+    expected_valid: true
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: ' 2 '
+      reconstructed_contract_output: 'FINAL_CHOICE= 2 '
+      raw_valid: true
+      reconstructed_valid: true
+      choice_ids_match: true
+      valid: true
+      choice_id: '2'
+      failure_reason: null
+    passed: true
+  - id: valid_6
+    expected_valid: true
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: '2
+
+        '
+      reconstructed_contract_output: 'FINAL_CHOICE=2
+
+        '
+      raw_valid: true
+      reconstructed_valid: true
+      choice_ids_match: true
+      valid: true
+      choice_id: '2'
+      failure_reason: null
+    passed: true
+  - id: invalid_1
+    expected_valid: false
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: FINAL_CHOICE=2
+      reconstructed_contract_output: FINAL_CHOICE=FINAL_CHOICE=2
+      raw_valid: false
+      reconstructed_valid: false
+      choice_ids_match: false
+      valid: false
+      choice_id: null
+      failure_reason: unexpected_content
+    passed: true
+  - id: invalid_2
+    expected_valid: false
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: Option 2
+      reconstructed_contract_output: FINAL_CHOICE=Option 2
+      raw_valid: false
+      reconstructed_valid: false
+      choice_ids_match: false
+      valid: false
+      choice_id: null
+      failure_reason: unexpected_content
+    passed: true
+  - id: invalid_3
+    expected_valid: false
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: The answer is 2
+      reconstructed_contract_output: FINAL_CHOICE=The answer is 2
+      raw_valid: false
+      reconstructed_valid: false
+      choice_ids_match: false
+      valid: false
+      choice_id: null
+      failure_reason: unexpected_content
+    passed: true
+  - id: invalid_4
+    expected_valid: false
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: 2 or 3
+      reconstructed_contract_output: FINAL_CHOICE=2 or 3
+      raw_valid: false
+      reconstructed_valid: false
+      choice_ids_match: false
+      valid: false
+      choice_id: null
+      failure_reason: multiple_or_multidigit_option
+    passed: true
+  - id: invalid_5
+    expected_valid: false
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: '22'
+      reconstructed_contract_output: FINAL_CHOICE=22
+      raw_valid: false
+      reconstructed_valid: false
+      choice_ids_match: false
+      valid: false
+      choice_id: null
+      failure_reason: multiple_or_multidigit_option
+    passed: true
+  - id: invalid_6
+    expected_valid: false
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: E2
+      reconstructed_contract_output: FINAL_CHOICE=E2
+      raw_valid: false
+      reconstructed_valid: false
+      choice_ids_match: false
+      valid: false
+      choice_id: null
+      failure_reason: unexpected_content
+    passed: true
+  - id: invalid_7
+    expected_valid: false
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: ２
+      reconstructed_contract_output: FINAL_CHOICE=２
+      raw_valid: false
+      reconstructed_valid: false
+      choice_ids_match: false
+      valid: false
+      choice_id: null
+      failure_reason: non_ascii
+    passed: true
+  - id: invalid_8
+    expected_valid: false
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: two
+      reconstructed_contract_output: FINAL_CHOICE=two
+      raw_valid: false
+      reconstructed_valid: false
+      choice_ids_match: false
+      valid: false
+      choice_id: null
+      failure_reason: unexpected_content
+    passed: true
+  - id: invalid_9
+    expected_valid: false
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: ''
+      reconstructed_contract_output: FINAL_CHOICE=
+      raw_valid: false
+      reconstructed_valid: false
+      choice_ids_match: false
+      valid: false
+      choice_id: null
+      failure_reason: empty
+    passed: true
+  - id: invalid_10
+    expected_valid: false
+    observed:
+      contract_version: answer-contract-v3-continuation
+      prompt_completion_prefix: FINAL_CHOICE=
+      raw_continuation: reasoning trace + 2
+      reconstructed_contract_output: FINAL_CHOICE=reasoning trace + 2
+      raw_valid: false
+      reconstructed_valid: false
+      choice_ids_match: false
+      valid: false
+      choice_id: null
+      failure_reason: unexpected_content
+    passed: true
+  reconstructed_cases:
+  - output: FINAL_CHOICE=1
+    expected_choice_id: '1'
+    observed_choice_id: '1'
+    passed: true
+  - output: FINAL_CHOICE=2
+    expected_choice_id: '2'
+    observed_choice_id: '2'
+    passed: true
+  - output: FINAL_CHOICE=3
+    expected_choice_id: '3'
+    observed_choice_id: '3'
+    passed: true
+  - output: FINAL_CHOICE=4
+    expected_choice_id: '4'
+    observed_choice_id: '4'
+    passed: true
+  passed: true
+tokenizer:
+  choice_ids:
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  completion_prefix: FINAL_CHOICE=
+  completion_prefix_has_trailing_space: false
+  leading_space_policy: Primary likelihood candidates are appended directly after
+    ASCII '='. Leading-space encodings are measured and excluded, never substituted
+    after inference.
+  unique_token_ids: true
+  passed: true
+  options:
+  - choice_id: '1'
+    standalone_token_ids:
+    - 29896
+    leading_space_token_ids:
+    - 29871
+    - 29896
+    prefix_context_token_ids:
+    - 29896
+    single_token: true
+    prefix_boundary_stable: true
+    leading_space_sensitive: true
+    primary_method_uses_leading_space: false
+    passed: true
+  - choice_id: '2'
+    standalone_token_ids:
+    - 29906
+    leading_space_token_ids:
+    - 29871
+    - 29906
+    prefix_context_token_ids:
+    - 29906
+    single_token: true
+    prefix_boundary_stable: true
+    leading_space_sensitive: true
+    primary_method_uses_leading_space: false
+    passed: true
+  - choice_id: '3'
+    standalone_token_ids:
+    - 29941
+    leading_space_token_ids:
+    - 29871
+    - 29941
+    prefix_context_token_ids:
+    - 29941
+    single_token: true
+    prefix_boundary_stable: true
+    leading_space_sensitive: true
+    primary_method_uses_leading_space: false
+    passed: true
+  - choice_id: '4'
+    standalone_token_ids:
+    - 29946
+    leading_space_token_ids:
+    - 29871
+    - 29946
+    prefix_context_token_ids:
+    - 29946
+    single_token: true
+    prefix_boundary_stable: true
+    leading_space_sensitive: true
+    primary_method_uses_leading_space: false
+    passed: true
+passed: true

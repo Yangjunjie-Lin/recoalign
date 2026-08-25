@@ -51,6 +51,18 @@ def test_failed_exp003_remains_unpromoted() -> None:
     assert (root / "seed_20260818_predictions_unpromoted.jsonl.gz").is_file()
 
 
+def test_model_manifest_matches_frozen_evidence_identity() -> None:
+    root = Path("reports/paper_evidence")
+    model = yaml.safe_load((root / "model_manifest.yaml").read_text(encoding="utf-8"))
+    evidence = yaml.safe_load((root / "artifact_manifest.yaml").read_text(encoding="utf-8"))
+
+    assert model["identifier"] == evidence["model"]["identifier"]
+    assert model["revision"] == evidence["model"]["revision"]
+    assert model["checkpoint_fingerprint"] == evidence["model"]["checkpoint_fingerprint"]
+    assert model["verification"]["passed"] is True
+    assert model["verification"]["files_matching_bytes_and_sha256"] == 9
+
+
 def test_published_claim_evidence_has_no_machine_local_paths() -> None:
     root = Path("reports/paper_evidence")
     local_path = re.compile(r"(?i)(?:\b[a-z]:[\\/]|/(?:home|Users)/)")

@@ -1,0 +1,27 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+version: v1
+outcome: RUNTIME_BLOCKED_PREINFERENCE
+recorded_at: '2026-08-24'
+source_commit: cf6e7fc24f1f2d36c252e7060e6eb4fdc53fd19d
+validation_inference_started: false
+scientific_metrics_computed: false
+hash_algorithm: sha256
+artifacts:
+  preregistration.md: 88a3fa321e4939a048016624e73e5174d90beed209af7e95f4050904c054e61b
+  power_analysis.yaml: f419f426040fc4062abcfac34ec01c711afe8693b9256664d3e1d96e00dea642
+  config.yaml: e3d463b3379cea2d481631006399d65abaf69dab7f4a03ca22614e2d85a315f4
+  decision_policy.yaml: 2cf0d03b796c9522d7e6837d55022aa811e9050d3f8f091ebdfd44335313c740
+  freeze_manifest.yaml: 04afb506323fd28007dc0eaccf4b9ccdda00b2a529a49a3c934bbca48192dc5d
+  answer_contract/answer-contract-v2.yaml: 9c185fc8ba01e7721f505c3a55195357dc5ebe91c3824680bbb507b6f924ae93
+  answer_contract/tokenizer_contract.yaml: f656e73dbaddae65fd6c744e3d3d5319cabc05f755c473d48dc9545997e84e88
+  validation/trial_inventory.jsonl.gz: bcd2e86e7a97bcd879d161b59eada31bbac73dac10d0d77f40db4a55e065d27d
+  validation/visual_asset_manifest.jsonl: 0cd5b399fbf41c17355253cf3b5914c7fde4ef9aedab5fa32be0879502bb6c03
+  validation/runtime_smoke_report.yaml: dd8405c1db87cfec75fb9108200eb373aa6890b5ac30e1565efd8bc43ea9e1f4
+  validation/runtime_recovery_attempt.yaml: e9ff81bd89c277de4730625c69a10c13da8170f55a3c882dacd8d592666b0121
+immutability:
+  overwrite_allowed: false
+  parser_change_allowed: false
+  prompt_change_allowed: false
+  prediction_reinterpretation_allowed: false
+  validation_execution_allowed_under_v1: false

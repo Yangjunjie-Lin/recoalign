@@ -1,0 +1,39 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3P
+study_type: independent_primary_only_construct_validity
+parent_studies:
+  - PIVOT_EXP_A3
+  - PIVOT_EXP_A3R
+parent_validation_predictions_observed: false
+parent_scientific_metrics_observed: false
+repair_basis: development_measurement_instrument_failure_only
+hypotheses:
+  CV1:
+    name: answer-option mapping comprehension
+    estimand: accuracy_against_active_scaffold_declaration
+    candidates: [M1, M2]
+    conditions: [oracle, corrupted]
+  CV2:
+    name: semantic-scaffold comprehension under neutral image
+    estimand: task_specific_accuracy_against_active_scaffold_declaration
+    candidates: [M1, M2]
+    evidence_condition: oracle
+  CV3:
+    name: semantic rescue against scene truth under original image
+    estimand: task_specific_accuracy_against_scene_truth
+    candidates: [M1, M2]
+    evidence_conditions: [oracle, corrupted]
+  image_interference:
+    estimand: paired_neutral_minus_original_accuracy
+    equivalence_margin: [-0.05, 0.05]
+    test: paired_TOST
+non_hypotheses:
+  - open-ended answer generation
+  - instruction-following robustness
+  - natural-language response formatting
+  - semantic-primary mechanism
+  - integration-independent mechanism
+  - joint causal mechanism
+  - ReCoAlign method effectiveness
+M0_policy: descriptive_only_not_selection_eligible
+aggregate_override_allowed: false

@@ -1,0 +1,38 @@
+schema_version: 1
+audit_date: 2026-08-25
+audit_scope: pre_release_scientific_freeze_and_release_lineage
+scientific_freeze:
+  local_head: a80882071a6cf17c275453319d78d879c1546e3a
+  remote_closeout_head: a80882071a6cf17c275453319d78d879c1546e3a
+  working_tree_clean_before_freeze: true
+  git_diff_check_passed: true
+  program_decision: TERMINATE_CURRENT_PROGRAM
+  total_claims: 14
+  pending_claims: 0
+  selected_candidate: STOP
+  paper_writing_allowed: false
+  archive_and_release_allowed: true
+validation_commands:
+  pytest:
+    passed: true
+    tests_passed: 482
+    duration_seconds: 699.54
+  ruff_check:
+    passed: true
+  validate_research:
+    passed: true
+  validate_paper_package:
+    passed: true
+frozen_artifact_manifests:
+  manifest_count: 6
+  artifact_entries_verified: 91
+  readable_gzip_artifacts: 9
+  sha256_and_byte_counts_match: true
+  manifests:
+    - reports/paper_evidence/artifact_manifest.yaml
+    - research/pivot_validation/results/artifact_manifest.yaml
+    - research/causal_separation/PIVOT_EXP_A2/results/artifact_manifest.yaml
+    - research/construct_validity/PIVOT_EXP_A3/v1_artifact_manifest.yaml
+    - research/construct_validity/PIVOT_EXP_A3R/final_artifact_manifest.yaml
+    - research/construct_validity/PIVOT_EXP_A3P/results/artifact_manifest.yaml
+release_closure_status: pending_main_integration_archive_and_fresh_clone_validation

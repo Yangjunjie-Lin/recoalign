@@ -39,32 +39,58 @@ def preserve_committed_frozen_registry() -> Iterator[None]:
                 path.write_bytes(original)
 
 
-def test_evidence_map_never_promotes_infrastructure_results() -> None:
+def test_evidence_map_reflects_frozen_real_vlm_outcomes() -> None:
     payload = build_evidence_map(ROOT)
     assert payload["summary"] == {
-        "total_claims": 7,
-        "verified": 0,
-        "infrastructure_only": 4,
-        "pending": 3,
+        "total_claims": 14,
+        "verified": 2,
+        "falsified": 6,
+        "falsified_as_measurement_instrument": 2,
+        "inconclusive": 1,
+        "retired": 3,
+        "pending": 0,
     }
-    assert all(claim["status"] != "verified" for claim in payload["claims"])
+    statuses = {claim["id"]: claim["status"] for claim in payload["claims"]}
+    assert statuses["C001"] == "falsified"
+    assert statuses["C002"] == "verified"
+    assert statuses["C003"] == "inconclusive"
+    assert statuses["C004"] == "falsified"
+    assert statuses["C009"] == "falsified_as_measurement_instrument"
+    assert statuses["C010"] == "falsified_as_measurement_instrument"
+    assert statuses["C011"] == "verified"
+    assert statuses["C012"] == "falsified"
+    assert statuses["C013"] == "falsified"
+    assert statuses["C014"] == "falsified"
 
 
-def test_frozen_registry_records_hashes_and_missing_checkpoints() -> None:
+def test_frozen_registry_records_closed_evidence_and_inactive_training() -> None:
     payload = build_frozen_registry(ROOT)
-    assert payload["freeze_status"] == "candidate_not_released"
+    assert payload["freeze_status"] == "research_line_closed"
+    assert payload["program_decision"] == "TERMINATE_CURRENT_PROGRAM"
     assert payload["protocol_changes_allowed"] is False
     assert {row["experiment_id"] for row in payload["experiments"]} == {
         "EXP001",
         "EXP002",
         "EXP003",
         "EXP004",
+        "PIVOT_EXP_A",
+        "PIVOT_EXP_A2",
+        "PIVOT_EXP_A3",
+        "PIVOT_EXP_A3R",
+        "PIVOT_EXP_A3P",
         "TRAIN001",
         "TRAIN002",
         "TRAIN003",
     }
-    assert all(row["config_sha256"] for row in payload["experiments"])
-    assert all(row["checkpoint_sha256"] is None for row in payload["experiments"])
+    evaluation = [row for row in payload["experiments"] if row["kind"] == "frozen_evaluation"]
+    training = [
+        row
+        for row in payload["experiments"]
+        if row["kind"] == "historical_training_contract"
+    ]
+    assert all(row["checkpoint_fingerprint"] for row in evaluation)
+    assert all(row["status"] == "inactive_retained_for_provenance" for row in training)
+    assert payload["authorization"]["selected_candidate"] == "STOP"
 
 
 def test_exports_mark_missing_results_without_placeholder_numbers() -> None:

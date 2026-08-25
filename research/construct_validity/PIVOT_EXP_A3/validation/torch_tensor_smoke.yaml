@@ -1,0 +1,13 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+status: runtime_smoke_only
+passed: true
+python_executable: D:/UoM_CS/GitHub/recoalign/.venv/Scripts/python.exe
+operation: torch.randn(1024,1024,float16,cuda) matrix multiplication
+input_device: cuda:0
+output_device: cuda:0
+output_dtype: float16
+output_finite: true
+cuda_synchronized: true
+allocator_environment: max_split_size_mb:64,garbage_collection_threshold:0.70
+cpu_fallback: false

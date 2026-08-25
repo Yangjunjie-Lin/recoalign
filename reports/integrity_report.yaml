@@ -5,8 +5,14 @@ scientific_submission_ready: false
 checks:
   claims:
     passed: true
-    claim_count: 7
+    claim_count: 14
     invalid_verified_claims: []
+  claim_evidence:
+    passed: true
+    scientific_decision: NO-GO
+    model: liuhaotian/llava-v1.5-7b
+    experiments: 4
+    failures: []
   leakage:
     passed: true
     checks:
@@ -115,6 +121,7 @@ checks:
     - path: reports/figures/figure_1_research_overview.svg
       exists: true
 blockers:
-- comprehensive benchmark matrix is incomplete (0/432 cells)
-- real-VLM mechanistic evidence is not GO
+- program decision is TERMINATE_CURRENT_PROGRAM
+- no candidate passed every final selection and novelty gate
+- claim-bearing paper writing and submission are not authorized
 decision: NO-GO

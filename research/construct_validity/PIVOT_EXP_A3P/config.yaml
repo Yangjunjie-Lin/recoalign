@@ -1,0 +1,114 @@
+schema_version: 1
+study:
+  id: PIVOT_EXP_A3P
+  title: Primary-Only Semantic Manipulation Construct Validity
+  parent_studies: [PIVOT_EXP_A3, PIVOT_EXP_A3R]
+  parent_validation_predictions_observed: false
+  parent_scientific_metrics_observed: false
+  repair_basis: development_measurement_instrument_failure_only
+  development_seed: 20260830
+  validation_seeds: [20260901, 20260902, 20260903, 20260904, 20260905]
+  validation_scenes_per_seed: 100
+  development_scenes: 8
+  primary_cells_per_scene: 54
+  development_trial_count: 432
+  validation_trial_count: 27000
+  output_root: outputs/construct_validity/PIVOT_EXP_A3P
+  promoted_results: research/construct_validity/PIVOT_EXP_A3P/results
+model:
+  registry_name: llava_1_5_7b
+  model_id: liuhaotian/llava-v1.5-7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  loader: legacy_transformers
+  dtype: float16
+  device_map: auto
+  quantization: nf4
+  local_files_only: true
+measurement:
+  response_methods: [conditional_log_likelihood_single_token_argmax_v1]
+  registered_option_ids: ['1', '2', '3', '4']
+  prompt_completion_prefix: FINAL_CHOICE=
+  exactly_four_scores: true
+  finite_scores_required: true
+  deterministic_numeric_tie_break: true
+  ground_truth_available_to_scorer: false
+  model_parameter_update: false
+  runtime_strategy: staged_gpu_vision_feature_cache_then_nf4_language_forward_v1
+  cpu_model_parameter_execution: false
+design:
+  constructs: [CV1, CV2, CV3]
+  manipulations: [M0, M1, M2]
+  selection_candidates: [M1, M2]
+  evidence_conditions: [oracle, corrupted]
+  image_contexts: [neutral_image, original_scene_image]
+  tasks: [shape, color, object_identity, entity_attribute_binding]
+  M0_policy: descriptive_only
+secondary_gate:
+  status: RETIRED_BEFORE_VALIDATION
+  participates_in_scientific_decision: false
+  source_study: PIVOT_EXP_A3R
+  reason: retired invalid external-validity instrument
+gates:
+  A_primary_answer_validity:
+    valid_measurement_rate: 1.0
+    CV1_per_condition_mean_minimum: 0.95
+    CV1_per_condition_confidence_interval_lower_minimum: 0.90
+  C_scaffold_comprehension:
+    per_task_mean_minimum: 0.95
+    per_task_confidence_interval_lower_minimum: 0.90
+  D_scene_semantic_sufficiency:
+    per_task_mean_minimum: 0.90
+    per_task_confidence_interval_lower_minimum: 0.85
+  E_intervention_separation:
+    per_task_oracle_minus_corrupted_minimum: 0.50
+    per_task_confidence_interval_lower_strictly_above: 0.0
+    corrupted_may_not_pass_gate_D: true
+  F_image_interference:
+    paired_TOST_margin: 0.05
+    equivalence_requires_TOST: true
+    non_significance_is_not_equivalence: true
+statistics:
+  confidence_level: 0.95
+  alpha: 0.05
+  target_power: 0.80
+  bootstrap_method: hierarchical_seed_scene_percentile
+  bootstrap_samples: 10000
+  bootstrap_seed: 20260826
+  power_simulation_seed: 20260825
+  power_simulation_replicates: 200000
+  scene_level_paired: true
+  multiple_comparison: Holm
+  holm_families:
+    gate_E: [shape, color, object_identity, entity_attribute_binding]
+    gate_F: [shape, color, object_identity, entity_attribute_binding]
+  seed_replication:
+    minimum_passing_seeds: 4
+    denominator: 5
+  no_seed_deletion: true
+  no_failed_trial_deletion: true
+  no_posthoc_threshold_change: true
+paths:
+  parent_inventory: research/construct_validity/PIVOT_EXP_A3/validation/trial_inventory.jsonl.gz
+  inherited_inventory: research/construct_validity/PIVOT_EXP_A3P/validation/inherited_primary_inventory.jsonl.gz
+  development_inventory: research/construct_validity/PIVOT_EXP_A3P/validation/development_primary_inventory.jsonl.gz
+execution:
+  atomic_append: true
+  trial_key_resume: true
+  overwrite: false
+  duplicate: false
+  per_seed_checkpoint: true
+  mid_run_protocol_changes: false
+  intermediate_result_driven_decisions: false
+prohibitions:
+  response_generation: true
+  constrained_response_generation: true
+  output_interpretation: true
+  synonym_mapping: true
+  entity_alias_mapping: true
+  output_reconstruction: true
+  fallback_response: true
+  answer_extraction: true
+  model_update: true
+  development_accuracy: true
+  aggregate_override: true
+  paper_writing_authorization: true

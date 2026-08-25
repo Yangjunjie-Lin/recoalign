@@ -1,0 +1,18 @@
+schema_version: 1
+audit_date: 2026-08-25
+repository_license: Apache-2.0
+third_party_assets_relicensed_by_repository_license: false
+checkpoint_bytes_included: false
+restricted_dataset_images_included: false
+gated_annotations_included: false
+inventoried_components:
+  - LLaVA
+  - Transformers
+  - PyTorch
+  - bitsandbytes
+  - OpenCLIP
+  - benchmark datasets
+  - synthetic rendering dependencies
+boundary_statement: THIRD_PARTY_NOTICES.md
+data_model_statement: DATA_AND_MODEL_AVAILABILITY.md
+conclusion: pass_with_upstream_terms_required

@@ -1,0 +1,9 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3R
+status: preregistered_inventory_pending
+passed: true
+parent_outcome: RUNTIME_BLOCKED_PREINFERENCE
+validation_outcomes_observed: false
+scientific_metrics_observed: false
+weights_loaded: false
+inference_started: false

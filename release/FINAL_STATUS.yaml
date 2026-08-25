@@ -1,0 +1,16 @@
+schema_version: 1
+as_of_date: 2026-08-25
+program_decision: TERMINATE_CURRENT_PROGRAM
+scientific_program_active: false
+new_experiment_allowed: false
+new_preregistration_allowed: false
+real_inference_allowed: false
+independent_backbone_replication_allowed: false
+model_development_allowed: false
+claim_bearing_paper_allowed: false
+paper_writing_allowed: false
+non_claim_technical_report_allowed: true
+archive_and_release_allowed: true
+negative_evidence_release_complete: false
+repository_archival_recommended: false
+completion_blocker: pending_main_integration_release_tag_and_asset_validation

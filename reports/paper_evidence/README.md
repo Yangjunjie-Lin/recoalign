@@ -28,6 +28,9 @@ checkpoint weights, inference caches, and local run directories remain ignored b
 Machine-local prefixes in the retained EXP003 run record are normalized to repository-relative
 paths for publication; checkpoint, config, and prompt hashes remain unchanged.
 
+The explicit checkpoint revision, precision, runtime, hardware, execution commit, and fresh 9/9
+local SHA-256 verification record are frozen in [`model_manifest.yaml`](model_manifest.yaml).
+
 The complete-run failure summaries are retained separately under
 [`reports/failure_analysis/EXP001/llava_1_5_7b/EXP001/`](../failure_analysis/EXP001/llava_1_5_7b/EXP001/)
 and [`reports/failure_analysis/EXP002/llava_1_5_7b/EXP002/`](../failure_analysis/EXP002/llava_1_5_7b/EXP002/).

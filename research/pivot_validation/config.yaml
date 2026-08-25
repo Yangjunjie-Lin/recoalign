@@ -1,0 +1,76 @@
+schema_version: 1
+study:
+  id: PIVOT_EXP_A
+  parent_hypothesis: PH001
+  seeds: [20260818, 20260819, 20260820, 20260821, 20260822]
+  pilot_seeds: [20260818, 20260819, 20260820]
+  samples_per_seed: 40
+  source_dataset_template: outputs/paper_evidence/EXP001/seeds/{seed}/dataset/dataset.jsonl
+  output_root: outputs/pivot_validation
+  promoted_results: research/pivot_validation/results
+
+model:
+  registry_name: llava_1_5_7b
+  identifier: liuhaotian/llava-v1.5-7b
+  revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  config: configs/models/llava_1_5_7b.yaml
+  checkpoint_manifest: manifests/checkpoints/llava_v1_5_7b.yaml
+  prompt_protocol: configs/prompts/reasoning_default.yaml
+  deterministic: true
+  training_enabled: false
+
+A1:
+  tasks: [object_shape, attribute_color, direct_relation]
+  choices_per_question: 4
+  chance_accuracy: 0.25
+  high_availability:
+    minimum_mean_accuracy: 0.70
+    minimum_ci_lower: 0.60
+    minimum_seed_fraction_above_chance: 0.80
+  low_availability:
+    maximum_mean_accuracy: 0.60
+    maximum_ci_upper: 0.70
+
+A2:
+  conditions: [image_only, object_evidence, relation_evidence, complete_evidence]
+  token_match_tolerance: 1
+  stable_effect:
+    minimum_gain: 0.05
+    require_ci_lower_above_zero: true
+    minimum_positive_seed_fraction: 0.80
+
+A3:
+  conditions: [natural_language, triples, json]
+  token_match_tolerance: 1
+  equivalence_margin: 0.05
+  format_effect:
+    minimum_absolute_difference: 0.05
+    require_ci_excludes_zero: true
+    minimum_consistent_seed_fraction: 0.80
+
+statistics:
+  confidence_level: 0.95
+  bootstrap_samples: 10000
+  statistics_seed: 20260823
+  paired_test: paired_bootstrap
+
+final_decision:
+  go_requires:
+    - five_complete_seeds
+    - all_integrity_assertions
+    - exactly_one_primary_mechanism_classification
+    - reproducible_evidence_for_classification
+  no_go_if:
+    - multiple_primary_explanations_remain
+    - mechanism_not_reproducible
+  inconclusive_if:
+    - integrity_failure
+    - fewer_than_five_complete_seeds
+
+prohibitions:
+  model_design: true
+  model_training: true
+  adapter: true
+  new_loss: true
+  benchmark_expansion: true
+  paper_writing: true

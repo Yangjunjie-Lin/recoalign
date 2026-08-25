@@ -1,7 +1,7 @@
 # Limitations
 
-- Real VLM evaluation and hidden-state diagnosis require substantial GPU memory and time.
-- Stage-1 structural labels come from a synthetic world; real-task transfer remains unverified.
-- LLaVA-NeXT, Qwen-VL, and InternVL are adapter-ready but lack complete claim-eligible runs.
-- The comprehensive benchmark and mechanistic matrices are incomplete.
-- Current toy and ReferenceVLM outputs validate infrastructure, not scientific efficacy.
+- The original interface-gap claim is falsified.
+- The supported relation-evidence finding is bounded to frozen LLaVA-1.5-7B.
+- No valid OOD, cross-model, semantic-rescue, or method claim exists.
+- Historical training, benchmark-matrix, and ablation modules are inactive, not pending.
+- The package is a negative-evidence resource, not a claim-bearing paper package.

@@ -1,0 +1,72 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3P
+hash_algorithm: sha256
+artifact_count: 22
+artifacts:
+  decision_report.md:
+    bytes: 1187
+    sha256: f19f38ff2fe93e20d6a6faf7480707b00d6264941fa4c9ee3080da7fca840289
+  decision_report.yaml:
+    bytes: 567
+    sha256: cea61e3cd24067f3f2f1aa55024c22cf75f9a49203c91875df03e7f4edd52f66
+  execution_recovery.yaml:
+    bytes: 278
+    sha256: 2c5944f795326a7f793ba895c4e935ee3757d2352a0e8d9d230f408905d33c24
+  figures/gate_A_CV1.png:
+    bytes: 18296
+    sha256: b05a6a1eff725fb6f9bf348976db017a0fc12331d484ea4cded9b38c870e8329
+  figures/gate_C_by_task.png:
+    bytes: 43886
+    sha256: fdbe73a5de4a6cb664da5487fe10efefbccc4baa05e74e265590e88013fc662a
+  figures/gate_D_by_task.png:
+    bytes: 43804
+    sha256: 2ce8051e0763de19fdef4fc0f4ac6c5f6b8f8b0113fcbe7e79a163aedf13c95c
+  figures/M1_vs_M2_gate_matrix.png:
+    bytes: 15226
+    sha256: d3152ab3b8c6f7ba212e84f5eda862baec6349c91d557731f729057299f71f3a
+  figures/neutral_vs_original_equivalence.png:
+    bytes: 81346
+    sha256: e27a4d0cb3d17709586d380a9b1247c1dbf4be9c0ffc17cafa0f20387a068db9
+  figures/oracle_vs_corrupted.png:
+    bytes: 51470
+    sha256: e89632a6c91319e76b6173ee56b5183725b6d93ba3c6ec00dac6da530483ca53
+  figures/retired_secondary_timeline.png:
+    bytes: 24342
+    sha256: fe868bb4495c8d4f9c6506494c34793678db377a05eeb1f2dad0c719fc10def7
+  figures/seed_level_replication.png:
+    bytes: 40748
+    sha256: 2f288f35049511b988e9c4f6de0a8e86bc7a6411a62ce0038de2fc4888ff6a48
+  image_interference.yaml:
+    bytes: 5645
+    sha256: 30165d90674d027ebce888063cd3a0bc1062ebe78467e913d8981062d5b35fb5
+  intervention_separation.yaml:
+    bytes: 9711
+    sha256: 73066ffa6892ec3e56cb7202d9a10a3edb677387bb2587a45ae0972b9fa3e5e7
+  metrics.json:
+    bytes: 50060
+    sha256: a4bceba5e1f51406687ea74ecd3583cd47050b4be9cd771b50c705138e8c4354
+  predictions.jsonl.gz:
+    bytes: 4642803
+    sha256: 1706f470e6ca2b690163855a6159924248c49285317040ab68d4a8886cd6e016
+  primary_measurement_report.yaml:
+    bytes: 902
+    sha256: 55cbdecd2841d60805afb42f47a748a18ef1dba2555915b321bb9a30f3458abb
+  provenance.yaml:
+    bytes: 1077
+    sha256: 5afa0a1cafc31c0e47a7a10b39e6db80da00b0dc73557b806d9b0c3475ae9c47
+  retired_secondary_reference.yaml:
+    bytes: 342
+    sha256: e40709e7d05285da7431526d3341e45ad83698be690614cef39131ae44d1f3fd
+  scaffold_comprehension.yaml:
+    bytes: 3985
+    sha256: 7701bae443e2785f4ce48af78450367ee2d600e88bf53f485d4f4c880d9ae2c0
+  semantic_sufficiency.yaml:
+    bytes: 4001
+    sha256: 503f5e74abb1c35c7f3a6b965eeb8c65f518302ef49bc1a145ed87f754a2ddac
+  statistical_tests.yaml:
+    bytes: 3172
+    sha256: eeb56eed43f6ff9a5ee856328c64e22c4cc2dc627a4d3f4432b3ed10d5a6892e
+  task_specific_results.yaml:
+    bytes: 22792
+    sha256: ccf6aa8fe1c7521dc15843017a02da8a0c9f6ed711578b25d9d633673f50174a
+manifest_self_hash_policy: excluded_to_avoid_circular_digest

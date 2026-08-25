@@ -1,0 +1,8 @@
+study_id: PIVOT_EXP_A3
+status: preregistered_preflight_pending
+passed: true
+weights_loaded: false
+inference_started: false
+power: PASS
+A2_boundary: true
+answer_contract: true

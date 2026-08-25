@@ -4,6 +4,8 @@
 - [x] Prompt and decoding protocol is versioned
 - [x] Environment capture is generated
 - [x] Missing/failed evidence remains visible
-- [ ] Complete real-VLM multi-seed benchmark matrix
-- [ ] Claim-eligible ReCoAlign checkpoints for all target backbones
-- [ ] Clean committed release snapshot
+- [x] PIVOT_EXP_A through A3P failures retained
+- [x] Cross-backbone replication marked unauthorized
+- [x] Comprehensive matrix marked inactive
+- [x] ReCoAlign training and method claims retired
+- [x] Claim-bearing paper writing blocked

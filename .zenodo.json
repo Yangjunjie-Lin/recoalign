@@ -1,0 +1,18 @@
+{
+  "title": "ReCoAlign: A Frozen Negative-Evidence and Reproducibility Resource",
+  "upload_type": "software",
+  "description": "A closed negative-evidence, research-governance, software, and reproducibility resource. This is not a validated method release and is not peer reviewed.",
+  "creators": [{"name": "Lin, Yangjunjie"}],
+  "access_right": "open",
+  "license": "apache-2.0",
+  "version": "recoalign-negative-evidence-v1",
+  "publication_date": "2026-08-25",
+  "keywords": ["negative evidence", "reproducibility", "vision-language models", "research closeout"],
+  "related_identifiers": [{
+    "identifier": "https://github.com/Yangjunjie-Lin/recoalign/tree/a80882071a6cf17c275453319d78d879c1546e3a",
+    "relation": "isSupplementTo",
+    "scheme": "url"
+  }],
+  "doi": null,
+  "archive_deposition_status": "prepared_not_deposited"
+}

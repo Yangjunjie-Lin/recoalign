@@ -1,0 +1,48 @@
+adapter: llava_1_5_7b
+checkpoint_exists: true
+checkpoint_files:
+- mm_projector.bin
+- pytorch_model-00001-of-00002.bin
+- pytorch_model-00002-of-00002.bin
+checkpoint_files_declared:
+- config.json
+- generation_config.json
+- mm_projector.bin
+- pytorch_model-00001-of-00002.bin
+- pytorch_model-00002-of-00002.bin
+- pytorch_model.bin.index.json
+- special_tokens_map.json
+- tokenizer_config.json
+- tokenizer.model
+checkpoint_manifest: D:/UoM_CS/GitHub/recoalign/manifests/checkpoints/llava_v1_5_7b.yaml
+checkpoint_manifest_exists: true
+checkpoint_manifest_loaded: true
+checkpoint_manifest_error: null
+model_type: llava
+architectures:
+- LlavaLlamaForCausalLM
+checkpoint_format: legacy_llava
+checkpoint_format_source: local_index
+loader: legacy_transformers
+loader_compatible: true
+dependencies:
+  torch: true
+  transformers: true
+  accelerate: true
+  sentencepiece: true
+  bitsandbytes: true
+hardware:
+  cuda_required: true
+  cuda_available: false
+  cuda_device_count: 0
+  devices: []
+hardware_ready: false
+processor_ready: true
+processor_contract_ready: true
+processor_classes:
+  processor: LlavaProcessor
+  tokenizer: TokenizersBackend
+  image_processor: CLIPImageProcessor
+processor_error: null
+runtime_ready: false
+weights_loaded: false

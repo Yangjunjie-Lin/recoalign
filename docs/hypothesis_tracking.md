@@ -1,30 +1,27 @@
-# Hypothesis tracking
+# Hypothesis lifecycle closeout
 
-The hypothesis registry is the source of truth for the scientific claim graph. Each entry requires
-an ID, description, motivation, directional prediction, falsification statement, required experiment,
-and lifecycle status.
+The active ReCoAlign hypothesis chain ended at `PIVOT_EXP_A3P`. Failed and inconclusive results
+remain visible; none has been converted to a weaker post-hoc success claim.
 
-## Initial Phase-1 hypotheses
+| ID | Hypothesis or construct | Frozen evidence | Lifecycle status |
+| --- | --- | --- | --- |
+| H001 | Structured Reasoning Interface Gap | EXP001 NO-GO; EXP004 NO-GO | **falsified and retired** |
+| H002 | Correct relational evidence sensitivity | EXP002 GO | **supported_in_frozen_LLaVA_scope_only** |
+| H003 | OOD Generalization claim | EXP003 integrity failure | **inconclusive and retired** |
+| H004 | Interface Diagnosis | EXP004 NO-GO | **falsified and retired** |
+| PH001 | Joint semantic–structural phenotype as causal explanation | PIVOT_EXP_A NO-GO; A2 INCONCLUSIVE | **unresolved_and_not_identified; retired** |
+| M1 | Canonical entity table provides sufficient semantic rescue | A3P Gates C/D/E fail | **falsified and retired** |
+| M2 | Visual object legend provides sufficient semantic rescue | A3P Gates C/D/E fail | **falsified and retired** |
 
-| ID | Hypothesis | Required experiment | Falsifying observation | Status |
-|---|---|---|---|---|
-| H001 | Structured Reasoning Interface Gap | EXP001 Graph vs Text | Information-controlled graph fails any preregistered graph-over-text gate | testing |
-| H002 | Structural Necessity | EXP002 Full vs Partial vs Random Graph | Full graph fails either registered negative-control comparison | testing |
-| H003 | Compositional Generalization | EXP003 OOD Composition | OOD effect or split-integrity gate fails | testing |
+H002 is deliberately not a general VLM conclusion. It says only that correct externally supplied
+relations affected the frozen LLaVA-1.5-7B protocol. It does not establish an internal scene graph,
+a structured-interface gap, or cross-model generality.
 
-The registry uses these statuses:
+The machine-readable closeout is in `research/current_line_closeout.yaml`; detailed retirement
+records are in `research/rejected_or_retired_hypotheses/`.
 
-- `proposed`: scientifically stated but not yet bound to an executable protocol;
-- `testing`: registered protocol exists and evidence collection may proceed;
-- `supported`: the preregistered experiment received GO and independent review accepted provenance;
-- `falsified`: the preregistered experiment received NO-GO under valid provenance;
-- `retired`: superseded for a documented reason, never silently deleted.
+## Final candidate gate
 
-GO is evidence under a bounded protocol, not proof that the hypothesis is universally true. NO-GO
-must be retained because it constrains the research direction. A new experiment must reference an
-existing hypothesis; a genuinely different claim requires a new hypothesis ID.
-
-Run `recoalign validate-research` after every registry edit. Validation rejects duplicate IDs,
-orphan experiments, broken bidirectional links, missing protocols/configs/manifests, configuration
-condition drift, unregistered dataset/model versions, insufficient seeds, enabled training, or a
-protocol missing any mandatory scientific section.
+PH005, PH006, and PH007 were candidates, not promoted hypotheses. None passed all required evidence,
+distinctness, identifiability, feasibility, novelty, Q1-potential, post-hoc-risk, and
+researcher-degrees-of-freedom gates. `STOP` was selected. No PH008/PH009 chain is authorized.

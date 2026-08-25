@@ -1,0 +1,47 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3P
+required_candidate_gates: [A, C, D, E, F]
+secondary_gate:
+  status: RETIRED_BEFORE_VALIDATION
+  participates_in_scientific_decision: false
+  source_study: PIVOT_EXP_A3R
+  reason: retired invalid external-validity instrument
+candidate_order: [M1, M2]
+selection:
+  M0: descriptive_only_cannot_be_selected
+  M1: select_if_all_required_gates_pass
+  M2: select_only_if_M1_fails_and_M2_passes_all_required_gates
+  both_pass: select_M1
+  rationale: minimum-intervention principle
+  both_fail: no_combination_no_additional_manipulation_no_posthoc_prompt
+allowed_outcomes:
+  - CONSTRUCT_VALIDITY_GO_TEXT
+  - CONSTRUCT_VALIDITY_GO_VISUAL_LEGEND
+  - PRIMARY_MEASUREMENT_FAILURE
+  - SEMANTIC_MANIPULATION_FAILURE
+  - IMAGE_INTERFERENCE_DIAGNOSIS
+  - NO-GO_CONSTRUCT
+  - INCONCLUSIVE
+go_authorization: &go_authorization
+  PIVOT_EXP_A4_preregistration_allowed: true
+  independent_backbone_replication_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false
+no_go_authorization: &no_go_authorization
+  PIVOT_EXP_A4_preregistration_allowed: false
+  independent_backbone_replication_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false
+authorization:
+  CONSTRUCT_VALIDITY_GO_TEXT: *go_authorization
+  CONSTRUCT_VALIDITY_GO_VISUAL_LEGEND: *go_authorization
+  PRIMARY_MEASUREMENT_FAILURE: *no_go_authorization
+  SEMANTIC_MANIPULATION_FAILURE: *no_go_authorization
+  IMAGE_INTERFERENCE_DIAGNOSIS: *no_go_authorization
+  NO-GO_CONSTRUCT: *no_go_authorization
+  INCONCLUSIVE: *no_go_authorization
+adjudication_requires:
+  prediction_count: 27000
+  complete_seeds: 5
+  integrity_passed: true
+  no_aggregate_override: true

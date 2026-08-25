@@ -1,5 +1,11 @@
 # ReCoAlign training framework
 
+## Status: inactive historical/toy framework
+
+The research pivot blocks model development. TRAIN001–TRAIN003 and the commands below remain for
+reproducibility and implementation tests, but they are not the next experiment and cannot generate
+claim-eligible evidence under the current decision.
+
 ## Scientific contract
 
 ReCoAlign learns structure tokens from visual tokens. Scene graphs are permitted

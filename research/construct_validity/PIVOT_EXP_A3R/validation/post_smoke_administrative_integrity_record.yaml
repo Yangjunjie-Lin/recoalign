@@ -1,0 +1,21 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3R
+change_class: prevalidation_integrity_and_required_smoke_completion
+timing: after_initial_development_smoke_before_validation_inference
+scientific_protocol_changed: false
+parser_changed: false
+prompt_changed: false
+gate_changed: false
+inventory_changed: false
+existing_smoke_outputs_changed: false
+validation_inference_started: false
+scientific_metrics_computed: false
+changes:
+  source_cleanup: removed lexical contamination from unused helper
+  development_smoke_extension: added_16_required_original_image_CV1_cells
+source_smoke_report_sha256: 30a2b54e2e2ee0ad4e6da4b99c58abd863bfcc9e6d8b7e19c03e9ac94dbd5cf0
+completed_smoke_report_sha256: b834962ca1b9776aa491cdac6cead536f1e9c8cec17d94c34e2bee72003f007e
+unchanged_evidence:
+  answer_contract_v3_parser_sha256: 21fef0cfff881b32fb1ed62a3d7aa9816834a379203bf2387910a96afa3503aa
+  trial_inventory_sha256: 1828b89963702c7240c6140086a16b1d921c47c725bdb3c839df7e7e8194208a
+outcome: SECONDARY_CONTRACT_RUNTIME_FAILURE

@@ -1,0 +1,8 @@
+id: M2
+name: visual object legend semantic-rescue sufficiency
+status: falsified_and_retired
+evidence: [PIVOT_EXP_A3P]
+reason: Gates C, D, and E failed; Gate F did not rescue the construct.
+gate_F_may_override_upstream_gates: false
+repair_or_successor_scaffold_allowed: false
+

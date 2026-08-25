@@ -3,7 +3,8 @@
 
 from __future__ import annotations
 
-import json
+import gzip
+import hashlib
 from pathlib import Path
 from typing import Any
 
@@ -12,13 +13,14 @@ from recoalign.evaluation.vlm_benchmark.matrix import load_matrix_config, valida
 from recoalign.research_registry import validate_research_registries
 from recoalign.training.registry import validate_training_registry
 
-from .common import project_root, write_yaml
+from .common import project_root, sha256_file, write_yaml
 
 
 def build_integrity_report(root: str | Path | None = None) -> dict[str, Any]:
     project = project_root(root)
     checks: dict[str, dict[str, Any]] = {}
     checks["claims"] = _check_claims(project)
+    checks["claim_evidence"] = _check_claim_evidence(project)
     checks["leakage"] = _check_leakage(project)
     checks["reproducibility"] = _check_files(
         project,
@@ -55,40 +57,29 @@ def build_integrity_report(root: str | Path | None = None) -> dict[str, Any]:
     blockers: list[str] = []
     if not checks["claims"]["passed"]:
         blockers.append("one or more mapped claims are missing or incorrectly marked")
+    if not checks["claim_evidence"]["passed"]:
+        blockers.append("frozen real-VLM evidence package failed integrity validation")
     if not checks["leakage"]["passed"]:
         blockers.append("registry/leakage validation is incomplete")
     if not checks["reproducibility"]["passed"]:
         blockers.append("reproducibility package is incomplete")
     if not checks["submission"]["passed"] or not checks["exports"]["passed"]:
         blockers.append("paper-ready artifact files are incomplete")
-    decision_path = project / "reports/decision_report.json"
-    complete = 0
-    planned = 432
-    if decision_path.is_file():
-        payload = json.loads(decision_path.read_text(encoding="utf-8"))
-        complete = int(payload.get("complete_cells", 0))
-        planned = int(payload.get("planned_cells", planned))
-    if complete < planned:
-        blockers.append(
-            f"comprehensive benchmark matrix is incomplete ({complete}/{planned} cells)"
-        )
-    mechanism = project / "reports/mechanistic/decision_report.yaml"
-    if mechanism.is_file():
-        import yaml
-
-        payload = yaml.safe_load(mechanism.read_text(encoding="utf-8")) or {}
-        if payload.get("decision") != "GO" or payload.get("real_vlm_mechanistic_evidence") != "GO":
-            blockers.append("real-VLM mechanistic evidence is not GO")
-    else:
-        blockers.append("mechanistic decision report is missing")
+    blockers.extend(
+        [
+            "program decision is TERMINATE_CURRENT_PROGRAM",
+            "no candidate passed every final selection and novelty gate",
+            "claim-bearing paper writing and submission are not authorized",
+        ]
+    )
     report = {
         "schema_version": 1,
         "path": "reports/integrity_report.yaml",
         "engineering_artifacts_ready": all(check["passed"] for check in checks.values()),
-        "scientific_submission_ready": not blockers,
+        "scientific_submission_ready": False,
         "checks": checks,
         "blockers": blockers,
-        "decision": "GO" if not blockers else "NO-GO",
+        "decision": "NO-GO",
     }
     write_yaml(project / "reports/integrity_report.yaml", report)
     return report
@@ -132,6 +123,74 @@ def _check_claims(project: Path) -> dict[str, Any]:
         "claim_count": len(claims),
         "invalid_verified_claims": invalid,
     }
+
+
+def _check_claim_evidence(project: Path) -> dict[str, Any]:
+    root = project / "reports/paper_evidence"
+    manifest_path = root / "artifact_manifest.yaml"
+    if not manifest_path.is_file():
+        return {"passed": False, "reason": "claim-evidence artifact manifest missing"}
+    import yaml
+
+    try:
+        manifest = yaml.safe_load(manifest_path.read_text(encoding="utf-8")) or {}
+        failures: list[str] = []
+        model_manifest_path = root / "model_manifest.yaml"
+        model_manifest = (
+            yaml.safe_load(model_manifest_path.read_text(encoding="utf-8")) or {}
+            if model_manifest_path.is_file()
+            else {}
+        )
+        frozen_model = manifest.get("model", {})
+        for key in ("identifier", "revision", "checkpoint_fingerprint"):
+            if model_manifest.get(key) != frozen_model.get(key):
+                failures.append(f"model manifest {key} mismatch")
+        if model_manifest.get("verification", {}).get("passed") is not True:
+            failures.append("model checkpoint verification is not recorded as passed")
+        checkpoint_manifest = project / str(model_manifest.get("checkpoint_manifest", ""))
+        if not checkpoint_manifest.is_file():
+            failures.append("checkpoint manifest missing")
+        elif sha256_file(checkpoint_manifest) != model_manifest.get("checkpoint_manifest_sha256"):
+            failures.append("checkpoint manifest sha256 mismatch")
+        experiments = manifest.get("experiments", {})
+        for experiment_id in ("EXP001", "EXP002", "EXP003", "EXP004"):
+            record = experiments.get(experiment_id)
+            if not isinstance(record, dict):
+                failures.append(f"{experiment_id}: missing manifest record")
+                continue
+            for artifact_name in ("metrics", "decision_report"):
+                artifact = record.get(artifact_name, {})
+                path = root / str(artifact.get("path", ""))
+                payload = path.read_bytes() if path.is_file() else b""
+                if len(payload) != artifact.get("bytes"):
+                    failures.append(f"{experiment_id}: {artifact_name} byte mismatch")
+                if hashlib.sha256(payload).hexdigest() != artifact.get("sha256"):
+                    failures.append(f"{experiment_id}: {artifact_name} sha256 mismatch")
+            artifact = record.get("predictions", {})
+            path = root / str(artifact.get("path", ""))
+            compressed = path.read_bytes() if path.is_file() else b""
+            if len(compressed) != artifact.get("bytes"):
+                failures.append(f"{experiment_id}: predictions byte mismatch")
+            if hashlib.sha256(compressed).hexdigest() != artifact.get("sha256"):
+                failures.append(f"{experiment_id}: predictions sha256 mismatch")
+            try:
+                raw = gzip.decompress(compressed)
+            except (EOFError, OSError):
+                raw = b""
+                failures.append(f"{experiment_id}: predictions gzip invalid")
+            if hashlib.sha256(raw).hexdigest() != artifact.get("decompressed_sha256"):
+                failures.append(f"{experiment_id}: decompressed sha256 mismatch")
+            if len(raw.splitlines()) != record.get("prediction_lines"):
+                failures.append(f"{experiment_id}: prediction line-count mismatch")
+        return {
+            "passed": not failures and len(experiments) == 4,
+            "scientific_decision": manifest.get("scientific_decision"),
+            "model": manifest.get("model", {}).get("identifier"),
+            "experiments": len(experiments),
+            "failures": failures,
+        }
+    except (OSError, TypeError, ValueError, yaml.YAMLError) as exc:
+        return {"passed": False, "reason": f"{type(exc).__name__}: {exc}"}
 
 
 def _check_leakage(project: Path) -> dict[str, Any]:

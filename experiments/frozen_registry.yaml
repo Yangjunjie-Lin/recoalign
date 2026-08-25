@@ -1,120 +1,124 @@
-schema_version: 1
-freeze_name: v2.0-paper-ready
-freeze_status: candidate_not_released
+schema_version: 3
+freeze_name: recoalign-line-closeout-after-pivot-exp-a3p
+freeze_status: research_line_closed
+evidence_baseline_commit: 7567d3a579384bcac76eb2b30dd6de538c62efe9
 protocol_changes_allowed: false
-results_may_only_be_appended_under_frozen_protocol: true
-git:
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  dirty: true
-  tag_created: false
-  tag_blocker: Scientific submission decision is NO-GO and worktree is dirty; tagging
-    would be misleading.
+frozen_results_modification_allowed: false
+scientific_submission_decision: NO-GO
+program_decision: TERMINATE_CURRENT_PROGRAM
+model_manifest: reports/paper_evidence/model_manifest.yaml
+original_evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
+latest_evidence_manifest: research/construct_validity/PIVOT_EXP_A3P/results/artifact_manifest.yaml
 experiments:
 - experiment_id: EXP001
-  kind: evaluation
+  kind: frozen_evaluation
   final_config: configs/graph_vs_text.yaml
   config_sha256: 5c004ddd897cff4d8f389eb09754ed2a6e364d555d111afd9452ad57e005aabb
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  checkpoint: null
-  checkpoint_sha256: null
-  dataset_version: generator-v2
-  dataset_manifest: manifests/datasets/synthetic_world_v2.yaml
-  dataset_manifest_sha256: f00a1d19bfd5f968e97a0502e59f30183f0266c4e702c0bacf68bae916336bf6
-  seeds:
-  - 20260818
-  - 20260819
-  - 20260820
-  - 20260821
-  - 20260822
-  status: protocol_registered_evidence_pending
-  evidence_role: infrastructure_validation
+  model: liuhaotian/llava-v1.5-7b
+  model_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
+  status: complete
+  decision: NO-GO
+  claim_eligible: true
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
 - experiment_id: EXP002
-  kind: evaluation
+  kind: frozen_evaluation
   final_config: configs/graph_ablation.yaml
   config_sha256: 6eabf257a6a0219473468af21f9b6a73f6f2087bfce3b4494e9ab37cbf09e948
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  checkpoint: null
-  checkpoint_sha256: null
-  dataset_version: generator-v2
-  dataset_manifest: manifests/datasets/synthetic_world_v2.yaml
-  dataset_manifest_sha256: f00a1d19bfd5f968e97a0502e59f30183f0266c4e702c0bacf68bae916336bf6
-  seeds:
-  - 20260818
-  - 20260819
-  - 20260820
-  - 20260821
-  - 20260822
-  status: protocol_registered_evidence_pending
-  evidence_role: infrastructure_validation
+  model: liuhaotian/llava-v1.5-7b
+  model_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
+  status: complete
+  decision: GO
+  claim_eligible: true
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
 - experiment_id: EXP003
-  kind: evaluation
+  kind: frozen_evaluation
   final_config: configs/ood_composition.yaml
   config_sha256: e2ea7d4ac3ee66882f576f4a0f2cf1c2cb36a6945f3798fe06c9cb13b8d5ae3e
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  checkpoint: null
-  checkpoint_sha256: null
-  dataset_version: generator-v2
-  dataset_manifest: manifests/datasets/synthetic_world_v2.yaml
-  dataset_manifest_sha256: f00a1d19bfd5f968e97a0502e59f30183f0266c4e702c0bacf68bae916336bf6
-  seeds:
-  - 20260818
-  - 20260819
-  - 20260820
-  - 20260821
-  - 20260822
-  status: protocol_registered_evidence_pending
-  evidence_role: infrastructure_validation
+  model: liuhaotian/llava-v1.5-7b
+  model_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
+  status: failed_integrity_gate
+  decision: INCONCLUSIVE
+  claim_eligible: false
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
 - experiment_id: EXP004
-  kind: evaluation
+  kind: frozen_evaluation
   final_config: configs/diagnosis/interface_diagnosis.yaml
   config_sha256: c01a71b1a8bb5ecca8ece0b31af14e9b03ac4ce1bb84738a816c1d1b5e054c19
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  checkpoint: null
-  checkpoint_sha256: null
-  dataset_version: generator-v2
-  dataset_manifest: manifests/datasets/synthetic_world_v2.yaml
-  dataset_manifest_sha256: f00a1d19bfd5f968e97a0502e59f30183f0266c4e702c0bacf68bae916336bf6
-  seeds:
-  - 20260818
-  - 20260819
-  - 20260820
-  - 20260821
-  - 20260822
-  status: protocol_registered_evidence_pending
-  evidence_role: infrastructure_validation
+  model: liuhaotian/llava-v1.5-7b
+  model_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+  checkpoint_fingerprint: 6334826897d616bad74eeec6a84cb43d62f5f7c3957628d73ddfaa5734e6c5c6
+  status: complete
+  decision: NO-GO
+  claim_eligible: true
+  evidence_manifest: reports/paper_evidence/artifact_manifest.yaml
+- experiment_id: PIVOT_EXP_A
+  kind: frozen_diagnostic
+  final_config: research/pivot_validation/config.yaml
+  config_sha256: a0b9713ea506b7738a99d9de8204009509d4d2fc59a86148894c52603536fb14
+  status: complete
+  decision: NO-GO
+  claim_eligible: false
+  evidence_manifest: research/pivot_validation/results/artifact_manifest.yaml
+- experiment_id: PIVOT_EXP_A2
+  kind: frozen_diagnostic
+  final_config: research/causal_separation/PIVOT_EXP_A2/config.yaml
+  config_sha256: 33d342430e9aee899a759d3fcee4ce589ec6f656da49cfa9d3ae0ff5075ad339
+  status: complete
+  decision: INCONCLUSIVE
+  claim_eligible: false
+  evidence_manifest: research/causal_separation/PIVOT_EXP_A2/results/artifact_manifest.yaml
+- experiment_id: PIVOT_EXP_A3
+  kind: frozen_diagnostic
+  final_config: research/construct_validity/PIVOT_EXP_A3/config.yaml
+  config_sha256: e3d463b3379cea2d481631006399d65abaf69dab7f4a03ca22614e2d85a315f4
+  status: blocked_preinference
+  decision: RUNTIME_BLOCKED_PREINFERENCE
+  claim_eligible: false
+  evidence_manifest: research/construct_validity/PIVOT_EXP_A3/v1_artifact_manifest.yaml
+- experiment_id: PIVOT_EXP_A3R
+  kind: frozen_diagnostic
+  final_config: research/construct_validity/PIVOT_EXP_A3R/config.yaml
+  config_sha256: c6725058ac145ff1b5f34c930085c37de64668221a3cd46cb9b41d5fffb15e8b
+  status: instrument_retired_before_validation
+  decision: SECONDARY_CONTRACT_RUNTIME_FAILURE
+  claim_eligible: false
+  evidence_manifest: research/construct_validity/PIVOT_EXP_A3R/final_artifact_manifest.yaml
+- experiment_id: PIVOT_EXP_A3P
+  kind: frozen_diagnostic
+  final_config: research/construct_validity/PIVOT_EXP_A3P/config.yaml
+  config_sha256: 2755d6556702aa6300a63911ec954cfa82a3b49efb5a7b7d4093cea06f1e9392
+  status: complete
+  decision: SEMANTIC_MANIPULATION_FAILURE
+  claim_eligible: true
+  evidence_manifest: research/construct_validity/PIVOT_EXP_A3P/results/artifact_manifest.yaml
 - experiment_id: TRAIN001
-  kind: training
-  final_config: configs/training/recoalign_stage1.yaml
-  config_sha256: 252dfc9687734bf30756921d416a62731541229b74ae0a322dae77d2e9b07f7b
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  checkpoint: null
-  checkpoint_sha256: null
-  dataset_version: generator-v2
-  dataset_manifest: manifests/datasets/synthetic_world_v2.yaml
-  seeds:
-  - 101
-  status: toy_validation_complete_real_training_pending
+  kind: historical_training_contract
+  status: inactive_retained_for_provenance
+  decision: NOT_AUTHORIZED
+  claim_eligible: false
 - experiment_id: TRAIN002
-  kind: training
-  final_config: configs/training/recoalign_stage2.yaml
-  config_sha256: 2e3f69be9e518f06656ca2e49d117ef750176304129d59bf91e42a89335d3f04
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  checkpoint: null
-  checkpoint_sha256: null
-  dataset_version: generator-v2
-  dataset_manifest: manifests/datasets/synthetic_world_v2.yaml
-  seeds:
-  - 202
-  status: toy_validation_complete_real_training_pending
+  kind: historical_training_contract
+  status: inactive_retained_for_provenance
+  decision: NOT_AUTHORIZED
+  claim_eligible: false
 - experiment_id: TRAIN003
-  kind: training
-  final_config: configs/training/recoalign_stage3.yaml
-  config_sha256: 7e72afb3bf358677c255c1429dd5dd165fed449fde7066d2405f3fe731ee885f
-  commit: d40b74448d26244ba1618c0d4b111b762d657fa2
-  checkpoint: null
-  checkpoint_sha256: null
-  dataset_version: pending
-  dataset_manifest: manifests/datasets/recoalign_stage3_pending.yaml
-  seeds:
-  - 303
-  status: pending_real_dataset_and_checkpoint
+  kind: historical_training_contract
+  status: inactive_retained_for_provenance
+  decision: NOT_AUTHORIZED
+  claim_eligible: false
+inactive_future_work:
+  recoalign_training: true
+  comprehensive_432_cell_matrix: true
+  mechanistic_method_evaluation: true
+authorization:
+  selected_candidate: STOP
+  new_preregistration_allowed: false
+  real_inference_allowed: false
+  independent_backbone_replication_allowed: false
+  model_development_allowed: false
+  paper_writing_allowed: false
+  maximum_additional_diagnostic_pivots: 0
+  archive_and_release_allowed: true

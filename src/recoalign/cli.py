@@ -46,6 +46,113 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers.add_parser("list-experiments", help="list registered scientific experiments")
 
+    pivot_validate = subparsers.add_parser(
+        "validate-pivot", help="preflight and freeze the PH001 A1/A2/A3 behavioral validation"
+    )
+    pivot_validate.add_argument("--config", default="research/pivot_validation/config.yaml")
+    pivot_run = subparsers.add_parser(
+        "run-pivot-validation", help="run the preregistered PH001 pilot or five-seed final"
+    )
+    pivot_run.add_argument("--config", default="research/pivot_validation/config.yaml")
+    pivot_run.add_argument("--stage", choices=("pilot", "final"), required=True)
+
+    causal_preregister = subparsers.add_parser(
+        "preregister-causal-separation",
+        help="freeze PIVOT_EXP_A2 hypotheses and pre-inference power analysis",
+    )
+    causal_preregister.add_argument("--study", choices=("PIVOT_EXP_A2",), required=True)
+    causal_preregister.add_argument(
+        "--config", default="research/causal_separation/PIVOT_EXP_A2/config.yaml"
+    )
+    causal_validate = subparsers.add_parser(
+        "validate-causal-separation",
+        help="validate and freeze the PIVOT_EXP_A2 design without loading weights",
+    )
+    causal_validate.add_argument("--study", choices=("PIVOT_EXP_A2",), required=True)
+    causal_validate.add_argument(
+        "--config", default="research/causal_separation/PIVOT_EXP_A2/config.yaml"
+    )
+    causal_validate.add_argument("--preflight-only", action="store_true")
+    causal_run = subparsers.add_parser(
+        "run-causal-separation", help="run the frozen PIVOT_EXP_A2 LLaVA experiment"
+    )
+    causal_run.add_argument("--study", choices=("PIVOT_EXP_A2",), required=True)
+    causal_run.add_argument("--model", choices=("llava_1_5_7b",), required=True)
+    causal_run.add_argument(
+        "--config", default="research/causal_separation/PIVOT_EXP_A2/config.yaml"
+    )
+    causal_adjudicate = subparsers.add_parser(
+        "adjudicate-causal-separation",
+        help="apply the frozen PIVOT_EXP_A2 decision policy",
+    )
+    causal_adjudicate.add_argument("--study", choices=("PIVOT_EXP_A2",), required=True)
+    causal_adjudicate.add_argument(
+        "--config", default="research/causal_separation/PIVOT_EXP_A2/config.yaml"
+    )
+
+    construct_preregister = subparsers.add_parser(
+        "preregister-construct-validity",
+        help="freeze a registered construct-validity study before inference",
+    )
+    construct_preregister.add_argument(
+        "--study", choices=("PIVOT_EXP_A3", "PIVOT_EXP_A3R"), required=True
+    )
+    construct_preregister.add_argument("--config")
+    construct_contract = subparsers.add_parser(
+        "validate-answer-contract",
+        help="validate a frozen construct-validity parser and tokenizer contract without weights",
+    )
+    construct_contract.add_argument(
+        "--study", choices=("PIVOT_EXP_A3", "PIVOT_EXP_A3R"), required=True
+    )
+    construct_contract.add_argument("--config")
+    construct_validate = subparsers.add_parser(
+        "validate-construct-validity",
+        help="materialize and freeze construct-validity trials before validation inference",
+    )
+    construct_validate.add_argument(
+        "--study", choices=("PIVOT_EXP_A3", "PIVOT_EXP_A3R"), required=True
+    )
+    construct_validate.add_argument("--config")
+    construct_validate.add_argument("--preflight-only", action="store_true")
+    construct_run = subparsers.add_parser(
+        "run-construct-validity", help="run a frozen construct-validity LLaVA measurement"
+    )
+    construct_run.add_argument(
+        "--study", choices=("PIVOT_EXP_A3", "PIVOT_EXP_A3R"), required=True
+    )
+    construct_run.add_argument("--model", choices=("llava_1_5_7b",), required=True)
+    construct_run.add_argument("--config")
+    construct_adjudicate = subparsers.add_parser(
+        "adjudicate-construct-validity",
+        help="apply a frozen construct-validity task-specific decision policy",
+    )
+    construct_adjudicate.add_argument(
+        "--study", choices=("PIVOT_EXP_A3", "PIVOT_EXP_A3R"), required=True
+    )
+    construct_adjudicate.add_argument("--config")
+
+    primary_construct_prepare = subparsers.add_parser(
+        "prepare-primary-construct-validity",
+        help="freeze the primary-only PIVOT_EXP_A3P study before held-out inference",
+    )
+    primary_construct_prepare.add_argument("--study", choices=("PIVOT_EXP_A3P",), required=True)
+    primary_construct_prepare.add_argument("--config")
+    primary_construct_prepare.add_argument("--no-smoke", action="store_true")
+    primary_construct_run = subparsers.add_parser(
+        "run-primary-construct-validity",
+        help="run the frozen 27,000-row PIVOT_EXP_A3P primary measurement",
+    )
+    primary_construct_run.add_argument("--study", choices=("PIVOT_EXP_A3P",), required=True)
+    primary_construct_run.add_argument("--model", choices=("llava_1_5_7b",), required=True)
+    primary_construct_run.add_argument("--config")
+    primary_construct_adjudicate = subparsers.add_parser(
+        "adjudicate-primary-construct-validity",
+        help="apply frozen PIVOT_EXP_A3P task-specific primary-only gates",
+    )
+    primary_construct_adjudicate.add_argument("--study", choices=("PIVOT_EXP_A3P",), required=True)
+    primary_construct_adjudicate.add_argument("--config")
+
     governed_run = subparsers.add_parser(
         "run-experiment", help="run a registered experiment through the governance lifecycle"
     )
@@ -342,6 +449,16 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(arguments)
     command_line = shlex.join(["recoalign", *arguments])
     try:
+        if args.command in {
+            "preregister-construct-validity",
+            "validate-answer-contract",
+            "validate-construct-validity",
+            "run-construct-validity",
+            "adjudicate-construct-validity",
+        }:
+            from recoalign.construct_validity.runtime import configure_frozen_tokenizer_runtime
+
+            configure_frozen_tokenizer_runtime()
         if args.command == "validate-config":
             structured = False
             method_config = False
@@ -405,6 +522,317 @@ def main(argv: Sequence[str] | None = None) -> int:
             from recoalign.research_registry import validate_research_registries
 
             print(json.dumps(validate_research_registries(), indent=2, sort_keys=True))
+            return 0
+
+        if args.command == "validate-pivot":
+            from recoalign.pivot_validation import preflight_pivot_validation
+
+            report = preflight_pivot_validation(args.config)
+            print(
+                json.dumps(
+                    {"status": report["status"], "weights_loaded": report["weights_loaded"]},
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "run-pivot-validation":
+            from recoalign.pivot_validation import run_pivot_validation
+
+            report = run_pivot_validation(args.config, stage=args.stage)
+            print(
+                json.dumps(
+                    {
+                        "stage": args.stage,
+                        "decision": report["metrics"]["mechanism"]["decision"],
+                        "classification": report["metrics"]["mechanism"]["classification"],
+                        "prediction_count": report["metrics"]["prediction_count"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "preregister-causal-separation":
+            from recoalign.causal_separation import preregister_causal_separation
+
+            report = preregister_causal_separation(args.config)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "power": report["power"]["status"],
+                        "weights_loaded": report["weights_loaded"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "validate-causal-separation":
+            from recoalign.causal_separation import validate_causal_separation
+
+            report = validate_causal_separation(
+                args.config, preflight_only=bool(args.preflight_only)
+            )
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "weights_loaded": report["weights_loaded"],
+                        "inference_started": report["inference_started"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "run-causal-separation":
+            from recoalign.causal_separation import run_causal_separation
+
+            report = run_causal_separation(args.config, model_name=args.model)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "prediction_count": report["prediction_count"],
+                        "adjudication_pending": report["adjudication_pending"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "adjudicate-causal-separation":
+            from recoalign.causal_separation import adjudicate_causal_separation
+
+            report = adjudicate_causal_separation(args.config)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "outcome": report["decision"]["outcome"],
+                        "authorization": report["decision"]["authorization"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "preregister-construct-validity":
+            if args.study == "PIVOT_EXP_A3R":
+                from recoalign.construct_validity.a3r import (
+                    DEFAULT_CONFIG,
+                    preregister_construct_validity,
+                )
+            else:
+                from recoalign.construct_validity import preregister_construct_validity
+                from recoalign.construct_validity.runner import DEFAULT_CONFIG
+
+            report = preregister_construct_validity(args.config or DEFAULT_CONFIG)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "power": report["power"]["status"],
+                        "weights_loaded": report["weights_loaded"],
+                        "inference_started": report["inference_started"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "validate-answer-contract":
+            if args.study == "PIVOT_EXP_A3R":
+                from recoalign.construct_validity.a3r import (
+                    DEFAULT_CONFIG,
+                    validate_answer_contract,
+                )
+            else:
+                from recoalign.construct_validity import validate_answer_contract
+                from recoalign.construct_validity.runner import DEFAULT_CONFIG
+
+            report = validate_answer_contract(args.config or DEFAULT_CONFIG)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "passed": report["passed"],
+                        "parser": report["parser"]["passed"],
+                        "tokenizer": report["tokenizer"]["passed"],
+                        "weights_loaded": report["weights_loaded"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "validate-construct-validity":
+            if args.study == "PIVOT_EXP_A3R":
+                from recoalign.construct_validity.a3r import (
+                    DEFAULT_CONFIG,
+                    validate_construct_validity,
+                )
+            else:
+                from recoalign.construct_validity import validate_construct_validity
+                from recoalign.construct_validity.runner import DEFAULT_CONFIG
+
+            report = validate_construct_validity(
+                args.config or DEFAULT_CONFIG, preflight_only=bool(args.preflight_only)
+            )
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "passed": report["passed"],
+                        "weights_loaded": report.get(
+                            "weights_loaded",
+                            report.get("weights_loaded_for_development_smoke", False),
+                        ),
+                        "inference_started": report["inference_started"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "run-construct-validity":
+            if args.study == "PIVOT_EXP_A3R":
+                from recoalign.construct_validity.a3r import (
+                    DEFAULT_CONFIG,
+                    run_construct_validity,
+                )
+            else:
+                from recoalign.construct_validity import run_construct_validity
+                from recoalign.construct_validity.runner import DEFAULT_CONFIG
+
+            report = run_construct_validity(
+                args.config or DEFAULT_CONFIG, model_name=args.model
+            )
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "prediction_count": report["prediction_count"],
+                        "adjudication_pending": report["adjudication_pending"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "adjudicate-construct-validity":
+            if args.study == "PIVOT_EXP_A3R":
+                from recoalign.construct_validity.a3r import (
+                    DEFAULT_CONFIG,
+                    adjudicate_construct_validity_run,
+                )
+            else:
+                from recoalign.construct_validity import adjudicate_construct_validity_run
+                from recoalign.construct_validity.runner import DEFAULT_CONFIG
+
+            report = adjudicate_construct_validity_run(args.config or DEFAULT_CONFIG)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "outcome": report["decision"]["outcome"],
+                        "authorization": report["decision"]["authorization"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "prepare-primary-construct-validity":
+            from recoalign.construct_validity_primary.runner import (
+                DEFAULT_CONFIG as PRIMARY_DEFAULT_CONFIG,
+            )
+            from recoalign.construct_validity_primary.runner import (
+                prepare_primary_construct_validity,
+            )
+
+            report = prepare_primary_construct_validity(
+                args.config or PRIMARY_DEFAULT_CONFIG,
+                run_smoke=not args.no_smoke,
+            )
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["freeze"]["status"],
+                        "passed": report["preflight"]["passed"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "run-primary-construct-validity":
+            from recoalign.construct_validity_primary.runner import (
+                DEFAULT_CONFIG as PRIMARY_DEFAULT_CONFIG,
+            )
+            from recoalign.construct_validity_primary.runner import (
+                run_primary_construct_validity,
+            )
+
+            report = run_primary_construct_validity(
+                args.config or PRIMARY_DEFAULT_CONFIG,
+                model_name=args.model,
+            )
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "status": report["status"],
+                        "prediction_count": report["prediction_count"],
+                        "adjudication_pending": report["adjudication_pending"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.command == "adjudicate-primary-construct-validity":
+            from recoalign.construct_validity_primary.runner import (
+                DEFAULT_CONFIG as PRIMARY_DEFAULT_CONFIG,
+            )
+            from recoalign.construct_validity_primary.runner import (
+                adjudicate_primary_construct_validity,
+            )
+
+            report = adjudicate_primary_construct_validity(args.config or PRIMARY_DEFAULT_CONFIG)
+            print(
+                json.dumps(
+                    {
+                        "study": args.study,
+                        "outcome": report["outcome"],
+                        "authorization": report["authorization"],
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
             return 0
 
         if args.command == "list-experiments":

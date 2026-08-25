@@ -1,0 +1,42 @@
+# Release Branch Integration Report
+
+## Topology before integration
+
+- Frozen source branch: `origin/codex/claim-evidence-execution`
+- Frozen source SHA: `a80882071a6cf17c275453319d78d879c1546e3a`
+- Main before integration: `fe3b37f1cffc58329a4823ec3af20b3ade7ca6d3`
+- Merge base: `4a69528d8cdddbf67c533cf36af62286200bf383`
+- Main unique commits: 1
+- Closeout unique commits: 12
+
+Main's unique commit was:
+
+```text
+fe3b37f Merge pull request #14 from Yangjunjie-Lin/codex/claim-evidence-execution
+```
+
+## Integration operation
+
+Branch `release/recoalign-closeout` was created directly from the frozen source commit. The command
+equivalent to `git merge --no-ff origin/main` created merge commit
+`3fa9ccd793ebbcaecae3bc283281fc1a44f1268f` with parents `a808820…` and `fe3b37f…`.
+
+- Conflicts: none.
+- Conflict resolutions: none required.
+- Tree delta between the frozen commit and integration merge: none.
+- Frozen evidence path delta: none.
+- Rebase, squash, cherry-pick replacement, force push, or history rewrite: none.
+
+## Main result
+
+- Pull request: pending release validation.
+- Resulting main integration SHA: pending pull-request merge.
+- Frozen evidence unchanged: yes; byte-level manifests are revalidated as part of release closure.
+
+## Privacy-only release-tree adjustment
+
+The release security scan found local user absolute paths in three auxiliary PIVOT_EXP_A3 runtime
+inventory files. None was included in the frozen v1 artifact manifest. The release tree replaces
+those local-path-bearing copies with privacy-redacted provenance stubs that identify their original
+Git blobs and the permanent evidence-freeze tag. No prediction, metric, decision, protocol,
+manifest-bound artifact, or scientific interpretation changed. Git history was not rewritten.

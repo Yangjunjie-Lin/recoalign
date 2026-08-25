@@ -1,0 +1,16 @@
+holm_family:
+  E2_relation_under_oracle:
+    raw_p: 0.00019998000199980003
+    adjusted_p: 0.00039996000399960006
+    threshold: 0.025
+    reject_zero: true
+    rank: 1
+  E3_json_minus_triples:
+    raw_p: 0.000999900009999
+    adjusted_p: 0.000999900009999
+    threshold: 0.05
+    reject_zero: true
+    rank: 2
+equivalence_margin: 0.1
+alpha: 0.05
+bootstrap: hierarchical_seed_scene_percentile

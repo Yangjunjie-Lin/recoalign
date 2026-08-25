@@ -1,0 +1,121 @@
+schema_version: 1
+study_id: PIVOT_EXP_A3
+status: runtime_smoke_only
+passed: false
+python_executable: D:\UoM_CS\GitHub\recoalign\.venv\Scripts\python.exe
+python_version: 3.12.6
+torch_version: 2.7.1+cu126
+torch_built_cuda: '12.6'
+cudnn_version: 90701
+gpu_name: NVIDIA GeForce RTX 3060 Laptop GPU
+allocator_environment: max_split_size_mb:64,garbage_collection_threshold:0.70
+tokenizer_runtime:
+  configured: true
+  already_configured: false
+  transformers_version: 4.52.4
+  tokenizer_path: D:\UoM_CS\GitHub\recoalign\outputs\models\llava-v1.5-7b
+  add_prefix_space: false
+development_seed: 20260830
+development_scene_ids:
+- sw_20260830_000004
+model_load:
+  weights_loaded: true
+  vision_tower_loaded: true
+  projector_loaded: true
+  backend: _LegacyLlavaBackend
+  quantization: nf4
+  dtype: float16
+  device_map: auto
+  local_files_only: true
+  is_loaded_in_4bit: true
+  four_bit_module_count: 224
+  language_parameter_devices:
+  - cuda:0
+  vision_parameter_devices:
+  - cuda:0
+  projector_parameter_devices:
+  - cuda:0
+  no_cpu_fallback: true
+checks:
+  cuda_available: true
+  no_oom: true
+  no_cpu_fallback: true
+  weights_loaded: true
+  vision_tower_loaded: true
+  projector_loaded: true
+  nf4_loaded: true
+  exactly_four_choice_scores: true
+  choice_scores_finite: true
+  free_generation_parseable: false
+  deterministic_repeat_stable: true
+  cache_writable_and_readable: true
+  development_seed_only: true
+  validation_inventory_read: false
+  predictions_written: false
+  scientific_metrics_computed: false
+trials:
+  forced_choice:
+    trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M0:oracle:neutral_image:forced_choice:shape
+    scene_id: sw_20260830_000004
+    manipulation: M0
+    response_method: forced_choice
+    task: shape
+    choice_scores:
+      '1': -10.173910140991211
+      '2': -11.857503890991211
+      '3': -12.482503890991211
+      '4': -11.709066390991211
+    choice_score_count: 4
+    choice_scores_finite: true
+    predicted_choice_id: '1'
+    deterministic_repeat_stable: true
+  free_generation:
+    trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV1:M1:oracle:neutral_image:free_generation:answer_contract_comprehension
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    response_method: free_generation
+    task: answer_contract_comprehension
+    raw_output: '2'
+    parseable: false
+    parsed_choice_id: null
+    parse_failure_reason: unexpected_prefix_or_reasoning_trace
+    deterministic_repeat_stable: true
+  text_table:
+    trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M1:oracle:neutral_image:forced_choice:color
+    scene_id: sw_20260830_000004
+    manipulation: M1
+    response_method: forced_choice
+    task: color
+    choice_scores:
+      '1': -11.334854125976562
+      '2': -12.553604125976562
+      '3': -14.037979125976562
+      '4': -13.862197875976562
+    choice_score_count: 4
+    choice_scores_finite: true
+    predicted_choice_id: '1'
+    deterministic_repeat_stable: true
+  visual_legend:
+    trial_key: PIVOT_EXP_A3:20260830:sw_20260830_000004:CV2:M2:oracle:neutral_image:forced_choice:object_identity
+    scene_id: sw_20260830_000004
+    manipulation: M2
+    response_method: forced_choice
+    task: object_identity
+    choice_scores:
+      '1': -11.304520606994629
+      '2': -12.409989356994629
+      '3': -12.554520606994629
+      '4': -12.019364356994629
+    choice_score_count: 4
+    choice_scores_finite: true
+    predicted_choice_id: '1'
+    deterministic_repeat_stable: true
+cache:
+  key: b14b439647f352874b50aa88d5b6c487cf6d1e17e9936bb82ba4580171142d44
+  path: D:\UoM_CS\GitHub\recoalign\outputs\construct_validity\PIVOT_EXP_A3\runtime_smoke\cache\b1\b14b439647f352874b50aa88d5b6c487cf6d1e17e9936bb82ba4580171142d44.json
+  sha256: 1ceb221da5b6612c44c097ac93b9362c46b1fdc76960b8b658d9da32de8202ed
+  separate_from_predictions: true
+cuda_memory:
+  allocated_bytes: 4874706432
+  reserved_bytes: 7931428864
+  max_allocated_bytes: 5403526656

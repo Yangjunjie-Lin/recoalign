@@ -1,0 +1,45 @@
+schema_version: 3
+contract_id: answer-contract-v3-continuation
+registered_before_inference: true
+parent_contract: answer-contract-v2
+amendment_scope: secondary_free_generation_surface_boundary_only
+option_ids: ['1', '2', '3', '4']
+entity_ids_are_not_option_ids: true
+primary:
+  changed_from_parent: false
+  method: conditional_log_likelihood_single_token_argmax_v1
+  completion_prefix: FINAL_CHOICE=
+  prefix_trailing_space: false
+  candidate_continuations: ['1', '2', '3', '4']
+  selection: argmax
+  tie_break: registered_numeric_order
+  unparsed_state_allowed: false
+  ground_truth_available_to_scorer: false
+  constrained_decoding_fallback: false
+secondary:
+  method: frozen_continuation_generation
+  prompt_completion_prefix: FINAL_CHOICE=
+  prompt_prefix_trailing_space: false
+  required_prompt_ending: "Return one registered option by completing the final field.\n\nFINAL_CHOICE="
+  raw_continuation_regex: '^\s*([1-4])\s*$'
+  reconstructed_contract_regex: '^\s*FINAL_CHOICE\s*=\s*([1-4])\s*$'
+  reconstruction: prompt_completion_prefix_plus_raw_continuation
+  store_prompt_completion_prefix: true
+  store_raw_continuation_verbatim: true
+  store_reconstructed_contract_output: true
+  raw_and_reconstructed_choice_ids_must_match: true
+  case_sensitive: true
+  ascii_only: true
+  unicode_normalization: false
+  word_number_conversion: false
+  substring_matching: false
+  alias_matching: false
+  multiple_option_acceptance: false
+  reasoning_trace_extraction: false
+  post_inference_parser_changes_allowed: false
+gate_B:
+  raw_continuation_parse_rate_minimum: 0.99
+  raw_continuation_ci_lower_minimum: 0.98
+  reconstructed_contract_parse_rate_minimum: 0.99
+  reconstructed_contract_ci_lower_minimum: 0.98
+
