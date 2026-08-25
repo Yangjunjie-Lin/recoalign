@@ -13,4 +13,5 @@ non_claim_technical_report_allowed: true
 archive_and_release_allowed: true
 negative_evidence_release_complete: false
 repository_archival_recommended: false
-completion_blocker: pending_main_integration_release_tag_and_asset_validation
+release_candidate_validation_complete: true
+completion_blocker: pending_release_tag_and_github_release_creation

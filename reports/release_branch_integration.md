@@ -33,6 +33,11 @@ equivalent to `git merge --no-ff origin/main` created merge commit
 - Resulting main integration SHA: `5377eba6607575b47cb8a57b87537c7e748615c6`.
 - Frozen evidence unchanged: yes; byte-level manifests are revalidated as part of release closure.
 
+Finalization PR [#16](https://github.com/Yangjunjie-Lin/recoalign/pull/16) added deterministic
+archives, clean-checkout tests, cross-platform frozen-byte rules, and Python 3.10/3.11 integrity
+compatibility. It merged as `30050ae48c960b4eeca242fb43570d9305fd2162` after both CI matrix
+jobs passed. These changes are release engineering and do not alter frozen scientific evidence.
+
 ## Privacy-only release-tree adjustment
 
 The release security scan found local user absolute paths in three auxiliary PIVOT_EXP_A3 runtime

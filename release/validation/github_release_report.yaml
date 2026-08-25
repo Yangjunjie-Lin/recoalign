@@ -1,8 +1,14 @@
 schema_version: 1
-status: pending_main_integration_and_release_tag
+status: ready_for_annotated_tag_and_github_release
 release_tag: recoalign-negative-evidence-v1
 release_title: ReCoAlign Negative-Evidence and Research-Closeout Resource
 validated_method_release: false
 claim_bearing_paper_release: false
-assets: []
+assets:
+  - release/recoalign-negative-evidence-v1/archives/recoalign-negative-evidence-v1-source.tar.gz
+  - release/recoalign-negative-evidence-v1/archives/recoalign-negative-evidence-v1-evidence.tar.gz
+  - release/recoalign-negative-evidence-v1/checksums/SHA256SUMS
+  - release/recoalign-negative-evidence-v1/technical_report/TECHNICAL_REPORT.md
+  - release/recoalign-negative-evidence-v1/RELEASE_MANIFEST.yaml
+  - CITATION.cff
 repository_archived: false
