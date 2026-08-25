@@ -1,0 +1,44 @@
+schema_version: 1
+release_name: recoalign-negative-evidence-v1
+release_title: ReCoAlign Negative-Evidence and Research-Closeout Resource
+program_decision: TERMINATE_CURRENT_PROGRAM
+scientific_freeze_commit: a80882071a6cf17c275453319d78d879c1546e3a
+scientific_freeze_tag: recoalign-evidence-freeze-2026-08-25
+scientific_freeze_tag_object: 3fd776cab8bfd50e1d211c863d8fa91a651a9de7
+signature_status: unsigned_annotated_tag
+release_commit: pending_main_integration
+release_tag: recoalign-negative-evidence-v1
+release_date: 2026-08-25
+source_branch: codex/claim-evidence-execution
+integration_branch: release/recoalign-closeout
+main_branch_commit: pending_main_integration
+claim_count: 14
+pending_claim_count: 0
+paper_writing_allowed: false
+model_development_allowed: false
+archive_and_release_allowed: true
+doi: null
+archive_deposition_status: prepared_not_deposited
+hash_algorithm: sha256
+checksum_manifest: release/recoalign-negative-evidence-v1/checksums/SHA256SUMS
+key_files:
+  - path: README.md
+    sha256: 8a6f3386a03d2f6ef8c63bdfcce7fa04444772fc4e297af5f9e0dbac4c1b913e
+  - path: docs/evidence_map.yaml
+    sha256: db1937cc7574410a0467b1e9fbc868d397dad7c40d25fe47bf15a3e9d65f1c8b
+  - path: research/current_line_closeout.yaml
+    sha256: 3179f97622364e4ea2991fd51a8c9885d310705d2b5dffd42e0e4aa1922a56c7
+  - path: reports/final_research_line_adjudication.md
+    sha256: e3c68473f6a502143b774747da6b315673586c4dbc65be92b7748064090b19f8
+  - path: reports/paper_readiness_report.md
+    sha256: 82d1028ad5b2cdca4242f76a6e202ac037e6694d7f395c5e5bdc5ee0447439bc
+  - path: research/final_pivot_candidate_matrix.yaml
+    sha256: ecf6f3dc756f2c3fc50df9e68692875b97da8071cae42846578a1a739938e2bc
+  - path: research/final_pivot_literature_audit.md
+    sha256: 0944cd9043bbb78a485f9481ac2fab798b5fb6fcb3958031455d815667b66c01
+  - path: research/construct_validity/PIVOT_EXP_A3P/results/artifact_manifest.yaml
+    sha256: 8044e2714de49e477f8e96c27600e0750c8e20d2f19d9f45151671ad563a0e82
+  - path: release/recoalign-negative-evidence-v1/technical_report/TECHNICAL_REPORT.md
+    sha256: 0be5a517ac3ca787bb6c2aed6d423a10fca3528ed1588a5c08c8743a2c0a47f2
+  - path: CITATION.cff
+    sha256: e8228cdf66d4320519c25a1c69b83d7f67558d5964ebb5fce29135b375b4147d

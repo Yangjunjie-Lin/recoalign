@@ -1,0 +1,187 @@
+schema_version: 1
+release_name: recoalign-negative-evidence-v1
+scientific_freeze_commit: a80882071a6cf17c275453319d78d879c1546e3a
+model_scope:
+  identifier: liuhaotian/llava-v1.5-7b
+  checkpoint_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+studies:
+  - study_id: EXP001
+    scientific_question: Does graph input outperform information-equivalent caption input?
+    preregistered_prediction: Graph > Caption.
+    model: liuhaotian/llava-v1.5-7b
+    checkpoint_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+    seed_count: 5
+    prediction_count: 8000
+    integrity_status: complete
+    decision: NO-GO
+    supported_claims: []
+    falsified_claims: [C001, H001 Structured Interface Gap]
+    interpretation_boundary: Graph was not a privileged interface over information-equivalent caption input in the frozen execution.
+    protocol_path: research/experiments/experiment_registry.yaml
+    metrics_path: reports/paper_evidence/EXP001/metrics.json
+    predictions_path: reports/paper_evidence/EXP001/predictions.jsonl.gz
+    decision_path: reports/paper_evidence/EXP001/decision_report.yaml
+    artifact_manifest_path: reports/paper_evidence/artifact_manifest.yaml
+    sha256_status: verified_2026-08-25
+  - study_id: EXP002
+    scientific_question: Does correct supplied relational evidence outperform partial, corrupt, or random supplied evidence?
+    preregistered_prediction: Correct relational evidence > partial / corrupt / random evidence.
+    model: liuhaotian/llava-v1.5-7b
+    checkpoint_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+    seed_count: 5
+    prediction_count: 6000
+    integrity_status: complete
+    decision: GO
+    supported_claims: [C002, H002 Structural Necessity in frozen LLaVA scope only]
+    falsified_claims: []
+    interpretation_boundary: Supplied-relation sensitivity only; no internal scene graph, interface-gap, general-mechanism, or method-effectiveness claim.
+    protocol_path: research/experiments/experiment_registry.yaml
+    metrics_path: reports/paper_evidence/EXP002/metrics.json
+    predictions_path: reports/paper_evidence/EXP002/predictions.jsonl.gz
+    decision_path: reports/paper_evidence/EXP002/decision_report.yaml
+    artifact_manifest_path: reports/paper_evidence/artifact_manifest.yaml
+    sha256_status: verified_2026-08-25
+  - study_id: EXP003
+    scientific_question: Does structured evidence improve compositional OOD retention and depth transfer?
+    preregistered_prediction: Structured evidence improves OOD retention and depth transfer under a valid length-matched control.
+    model: liuhaotian/llava-v1.5-7b
+    checkpoint_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+    seed_count: 1
+    prediction_count: 1920
+    integrity_status: failed_token_length_integrity_gate
+    decision: INCONCLUSIVE
+    supported_claims: []
+    falsified_claims: []
+    interpretation_boundary: No OOD claim is permitted; the completed seed remains visible but unpromoted.
+    protocol_path: research/experiments/experiment_registry.yaml
+    metrics_path: reports/paper_evidence/EXP003/metrics.json
+    predictions_path: reports/paper_evidence/EXP003/seed_20260818_predictions_unpromoted.jsonl.gz
+    decision_path: reports/paper_evidence/EXP003/decision_report.yaml
+    artifact_manifest_path: reports/paper_evidence/artifact_manifest.yaml
+    sha256_status: verified_2026-08-25
+  - study_id: EXP004
+    scientific_question: Is visual semantic availability high enough to support the proposed interface diagnosis?
+    preregistered_prediction: High visual semantic availability with deficient structured accessibility.
+    model: liuhaotian/llava-v1.5-7b
+    checkpoint_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+    seed_count: 5
+    prediction_count: 360
+    integrity_status: complete
+    decision: NO-GO
+    supported_claims: []
+    falsified_claims: [C004, H004 Interface Diagnosis]
+    interpretation_boundary: The required high-SAS premise was unsupported; this does not show that every hidden layer lacks semantics.
+    protocol_path: research/experiments/experiment_registry.yaml
+    metrics_path: reports/paper_evidence/EXP004/metrics.json
+    predictions_path: reports/paper_evidence/EXP004/predictions.jsonl.gz
+    decision_path: reports/paper_evidence/EXP004/decision_report.yaml
+    artifact_manifest_path: reports/paper_evidence/artifact_manifest.yaml
+    sha256_status: verified_2026-08-25
+  - study_id: PIVOT_EXP_A
+    scientific_question: Does the joint semantic-structural phenotype identify a dominant causal mechanism?
+    preregistered_prediction: One mechanism class becomes causally primary under the registered diagnostics.
+    model: liuhaotian/llava-v1.5-7b
+    checkpoint_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+    seed_count: 5
+    prediction_count: 2000
+    integrity_status: complete
+    decision: NO-GO
+    supported_claims: []
+    falsified_claims: [C008 causal-dominance claim]
+    interpretation_boundary: Multiple mechanisms received support; causal primacy was not separated.
+    protocol_path: research/pivot_validation/README.md
+    metrics_path: research/pivot_validation/results/metrics.json
+    predictions_path: research/pivot_validation/results/predictions.jsonl.gz
+    decision_path: research/pivot_validation/results/scientific_adjudication.md
+    artifact_manifest_path: research/pivot_validation/results/artifact_manifest.yaml
+    sha256_status: verified_2026-08-25
+  - study_id: PIVOT_EXP_A2
+    scientific_question: Can semantic sufficiency and evidence parsing separate the candidate causes?
+    preregistered_prediction: Semantic-sufficiency and parsing-integrity gates pass, enabling causal separation.
+    model: liuhaotian/llava-v1.5-7b
+    checkpoint_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+    seed_count: 5
+    prediction_count: 5300
+    integrity_status: failed_semantic_sufficiency_and_parsing_integrity_gates
+    decision: INCONCLUSIVE
+    supported_claims: []
+    falsified_claims: []
+    interpretation_boundary: No causal or semantic-sufficiency conclusion is permitted.
+    protocol_path: research/causal_separation/PIVOT_EXP_A2/preregistration.md
+    metrics_path: research/causal_separation/PIVOT_EXP_A2/results/metrics.json
+    predictions_path: research/causal_separation/PIVOT_EXP_A2/results/predictions.jsonl.gz
+    decision_path: research/causal_separation/PIVOT_EXP_A2/results/decision_report.yaml
+    artifact_manifest_path: research/causal_separation/PIVOT_EXP_A2/results/artifact_manifest.yaml
+    sha256_status: verified_2026-08-25
+  - study_id: PIVOT_EXP_A3
+    scientific_question: Is the complete-field free-generation contract a valid measurement instrument?
+    preregistered_prediction: Complete-field free generation passes the development contract before validation.
+    model: liuhaotian/llava-v1.5-7b
+    checkpoint_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+    seed_count: 0
+    prediction_count: 0
+    integrity_status: runtime_blocked_preinference
+    decision: RUNTIME_BLOCKED_PREINFERENCE
+    supported_claims: []
+    falsified_claims: [C009 complete-field free-generation instrument validity]
+    interpretation_boundary: Development contract failure only; no validation inference or scientific metrics were produced.
+    protocol_path: research/construct_validity/PIVOT_EXP_A3/preregistration.md
+    metrics_path: null
+    predictions_path: null
+    decision_path: research/construct_validity/PIVOT_EXP_A3/blocked_preinference_record.yaml
+    artifact_manifest_path: research/construct_validity/PIVOT_EXP_A3/v1_artifact_manifest.yaml
+    sha256_status: verified_2026-08-25
+  - study_id: PIVOT_EXP_A3R
+    scientific_question: Is the continuation-form free-generation contract a valid secondary measurement instrument?
+    preregistered_prediction: The amended continuation contract passes the development smoke.
+    model: liuhaotian/llava-v1.5-7b
+    checkpoint_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+    seed_count: null
+    prediction_count: 160
+    integrity_status: secondary_contract_runtime_failure_127_of_160_valid
+    decision: SECONDARY_CONTRACT_RUNTIME_FAILURE
+    supported_claims: []
+    falsified_claims: [C010 continuation-form free-generation instrument validity]
+    interpretation_boundary: Development instrument result only; 33 entity-ID continuations caused permanent retirement before validation.
+    protocol_path: research/construct_validity/PIVOT_EXP_A3R/preregistration.md
+    metrics_path: research/construct_validity/PIVOT_EXP_A3R/validation/development_runtime_smoke_report.yaml
+    predictions_path: null
+    decision_path: research/construct_validity/PIVOT_EXP_A3R/final_instrument_retirement_record.yaml
+    artifact_manifest_path: research/construct_validity/PIVOT_EXP_A3R/final_artifact_manifest.yaml
+    sha256_status: verified_2026-08-25
+  - study_id: PIVOT_EXP_A3P
+    scientific_question: Does either registered semantic manipulation pass the causal-separation gates with a valid primary instrument?
+    preregistered_prediction: M1 or M2 passes Gates C, D, and E after primary measurement integrity passes.
+    model: liuhaotian/llava-v1.5-7b
+    checkpoint_revision: 4481d270cc22fd5c4d1bb5df129622006ccd9234
+    seed_count: 5
+    prediction_count: 27000
+    integrity_status: primary_measurement_integrity_pass
+    decision: SEMANTIC_MANIPULATION_FAILURE
+    supported_claims: [C011 primary conditional-likelihood measurement integrity only]
+    falsified_claims: [C012 M1 sufficiency, C013 M2 sufficiency, C014 valid manipulation identified]
+    interpretation_boundary: Measurement validity is not semantic validity; no manipulation or method target was selected.
+    protocol_path: research/construct_validity/PIVOT_EXP_A3P/preregistration.md
+    metrics_path: research/construct_validity/PIVOT_EXP_A3P/results/metrics.json
+    predictions_path: research/construct_validity/PIVOT_EXP_A3P/results/predictions.jsonl.gz
+    decision_path: research/construct_validity/PIVOT_EXP_A3P/results/decision_report.yaml
+    artifact_manifest_path: research/construct_validity/PIVOT_EXP_A3P/results/artifact_manifest.yaml
+    sha256_status: verified_2026-08-25
+  - study_id: Final Pivot Gate
+    scientific_question: Does any final candidate pass every mandatory selection and novelty gate?
+    preregistered_prediction: Continue only if one candidate passes every mandatory gate; otherwise select STOP.
+    model: null
+    checkpoint_revision: null
+    seed_count: 0
+    prediction_count: 0
+    integrity_status: adjudication_complete
+    decision: STOP_SELECTED
+    supported_claims: []
+    falsified_claims: [PH005 authorized continuation, PH006 authorized continuation, PH007 authorized continuation]
+    interpretation_boundary: No new hypothesis, experiment, method, or claim-bearing paper was authorized.
+    protocol_path: research/final_pivot_candidate_matrix.yaml
+    metrics_path: research/final_pivot_candidate_matrix.yaml
+    predictions_path: null
+    decision_path: reports/final_research_line_adjudication.md
+    artifact_manifest_path: research/current_line_closeout.yaml
+    sha256_status: verified_2026-08-25

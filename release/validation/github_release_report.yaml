@@ -1,0 +1,8 @@
+schema_version: 1
+status: pending_main_integration_and_release_tag
+release_tag: recoalign-negative-evidence-v1
+release_title: ReCoAlign Negative-Evidence and Research-Closeout Resource
+validated_method_release: false
+claim_bearing_paper_release: false
+assets: []
+repository_archived: false

@@ -1,0 +1,17 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": ["SoftwareSourceCode", "Dataset"],
+  "name": "ReCoAlign: A Frozen Negative-Evidence and Reproducibility Resource",
+  "description": "Closed software, evidence, governance, and technical-report resource preserving supported, falsified, inconclusive, and failed-instrument outcomes.",
+  "author": [{"@type": "Person", "givenName": "Yangjunjie", "familyName": "Lin"}],
+  "codeRepository": "https://github.com/Yangjunjie-Lin/recoalign",
+  "url": "https://github.com/Yangjunjie-Lin/recoalign/releases/tag/recoalign-negative-evidence-v1",
+  "version": "recoalign-negative-evidence-v1",
+  "datePublished": "2026-08-25",
+  "license": "https://spdx.org/licenses/Apache-2.0",
+  "programmingLanguage": "Python",
+  "applicationCategory": "Research software and negative-evidence resource",
+  "isBasedOn": "https://github.com/Yangjunjie-Lin/recoalign/commit/a80882071a6cf17c275453319d78d879c1546e3a",
+  "creativeWorkStatus": "scientifically closed; method retired; archive and release authorized",
+  "keywords": ["negative evidence", "reproducibility", "research closeout", "vision-language models"]
+}

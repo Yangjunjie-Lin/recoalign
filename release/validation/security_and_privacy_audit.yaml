@@ -1,0 +1,48 @@
+schema_version: 1
+audit_date: 2026-08-25
+release_blocked_by_secret: false
+scan_scope:
+  files: git_tracked_plus_untracked_nonignored_release_files
+  file_count: 818
+  gzip_payloads_decompressed_and_scanned: true
+  git_history_exact_secret_patterns_scanned: true
+  ignored_local_caches_excluded: true
+patterns:
+  - OpenAI-style API keys
+  - AWS access-key identifiers
+  - GitHub personal access tokens
+  - PEM private keys
+  - credential assignments
+  - Windows user absolute paths
+  - Unix user absolute paths
+  - private-network URLs
+  - suspicious credential, crash-dump, and log filenames
+secret_findings:
+  api_keys: 0
+  access_tokens: 0
+  passwords_or_client_secrets: 0
+  private_keys: 0
+  private_urls: 0
+  suspicious_credential_files: 0
+  crash_dumps: 0
+history_findings:
+  exact_openai_key_patterns: 0
+  exact_aws_key_patterns: 0
+  exact_github_pat_patterns: 0
+  exact_private_key_markers: 0
+privacy_findings:
+  initial_local_path_files: 3
+  paths:
+    - research/construct_validity/PIVOT_EXP_A3/validation/installed_runtime_inventory.yaml
+    - research/construct_validity/PIVOT_EXP_A3/validation/interpreter_inventory.yaml
+    - research/construct_validity/PIVOT_EXP_A3/validation/runtime_mismatch_report.md
+  remediation: release_tree_privacy_redaction_with_original_blob_provenance
+  residual_release_tree_local_path_files: 0
+  frozen_original_preserved_at_tag: recoalign-evidence-freeze-2026-08-25
+  git_history_rewritten: false
+  manifest_bound_artifacts_changed: false
+  predictions_metrics_decisions_protocols_changed: false
+false_positive_review:
+  - path: src/recoalign/paper_package/audit.py
+    classification: scanner_pattern_definition_not_a_local_path
+conclusion: pass

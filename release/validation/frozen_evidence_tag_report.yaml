@@ -1,0 +1,13 @@
+schema_version: 1
+tag: recoalign-evidence-freeze-2026-08-25
+tag_type: annotated
+signature_status: unsigned_annotated_tag
+tag_object: 3fd776cab8bfd50e1d211c863d8fa91a651a9de7
+peeled_commit: a80882071a6cf17c275453319d78d879c1546e3a
+expected_commit: a80882071a6cf17c275453319d78d879c1546e3a
+local_verified: true
+remote_verified: true
+remote_ref: refs/tags/recoalign-evidence-freeze-2026-08-25
+remote_peeled_ref: refs/tags/recoalign-evidence-freeze-2026-08-25^{}
+overwritten: false
+message: Frozen ReCoAlign scientific closeout evidence

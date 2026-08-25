@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: Cite this frozen software and negative-evidence resource; do not cite it as a validated method or journal paper.
+title: "ReCoAlign: A Frozen Negative-Evidence and Reproducibility Resource"
+type: software
+authors:
+  - family-names: Lin
+    given-names: Yangjunjie
+repository-code: https://github.com/Yangjunjie-Lin/recoalign
+url: https://github.com/Yangjunjie-Lin/recoalign/releases/tag/recoalign-negative-evidence-v1
+version: recoalign-negative-evidence-v1
+date-released: 2026-08-25
+license: Apache-2.0
+commit: a80882071a6cf17c275453319d78d879c1546e3a
+identifiers:
+  - type: other
+    value: recoalign-evidence-freeze-2026-08-25
+    description: Annotated scientific evidence-freeze tag
+  - type: other
+    value: a80882071a6cf17c275453319d78d879c1546e3a
+    description: Exact frozen scientific source commit
+keywords:
+  - negative evidence
+  - reproducibility
+  - research closeout
+  - vision-language models
+preferred-citation:
+  type: report
+  title: ReCoAlign Research Closeout and Negative-Evidence Technical Report
+  authors:
+    - family-names: Lin
+      given-names: Yangjunjie
+  year: 2026
+  institution:
+    name: ReCoAlign project
