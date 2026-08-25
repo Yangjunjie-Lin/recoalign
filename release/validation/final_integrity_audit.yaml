@@ -52,4 +52,11 @@ fresh_clone_candidate_validation:
   inference_run: false
   model_weights_loaded: false
   restricted_dataset_downloaded: false
-release_closure_status: pending_finalization_pr_ci_release_tag_and_github_release
+finalization_integration:
+  pull_request: 16
+  merge_commit: 30050ae48c960b4eeca242fb43570d9305fd2162
+  ci_run: 32894049337
+  python_3_10: passed
+  python_3_11: passed
+  merge_strategy: merge_commit
+release_closure_status: pending_release_tag_and_github_release
