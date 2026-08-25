@@ -33,6 +33,8 @@ SOURCE = ROOT / f"outputs/paper_evidence/EXP001/seeds/{SEED}/dataset/dataset.jso
 
 @pytest.fixture(scope="module")
 def source_records() -> list[Any]:
+    if not SOURCE.is_file():
+        pytest.skip("requires the unpublished local EXP001 source-run dataset")
     return select_balanced_records(load_source_records(SOURCE), 40)
 
 

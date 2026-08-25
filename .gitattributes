@@ -1,2 +1,16 @@
-# Manifest-hashed repository fixtures must have identical bytes on every platform.
-tests/fixtures/dataset/sample.txt text eol=lf
+# Manifest-hashed repository files must have identical bytes on every platform.
+* text=auto eol=lf
+
+# Compressed predictions, archives, figures, and other binary assets are byte-preserved.
+*.gz binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.pdf binary
+*.pt binary
+*.pth binary
+*.bin binary
+*.safetensors binary
+
+# This frozen A3P report manifest records the historical CRLF checkout bytes.
+research/construct_validity/PIVOT_EXP_A3P/results/decision_report.md text eol=crlf

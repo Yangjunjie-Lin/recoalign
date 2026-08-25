@@ -4,6 +4,8 @@ import gzip
 import json
 from pathlib import Path
 
+import pytest
+
 from recoalign.construct_validity.a3r import (
     _amend_trial,
     _read_development_records,
@@ -22,6 +24,12 @@ ROOT = Path(__file__).resolve().parents[1]
 PARENT_INVENTORY = (
     ROOT
     / "research/construct_validity/PIVOT_EXP_A3/validation/trial_inventory.jsonl.gz"
+)
+LOCAL_DEVELOPMENT_DATASET = (
+    ROOT / "outputs/construct_validity/PIVOT_EXP_A3/inventory/development/dataset.jsonl"
+)
+LOCAL_DEVELOPMENT_M2_ROOT = (
+    ROOT / "outputs/construct_validity/PIVOT_EXP_A3/inventory/m2_development"
 )
 
 
@@ -133,6 +141,8 @@ def test_a3r_config_preserves_registered_scientific_design() -> None:
 
 
 def test_a3r_development_smoke_covers_all_160_required_cells() -> None:
+    if not LOCAL_DEVELOPMENT_DATASET.is_file() or not LOCAL_DEVELOPMENT_M2_ROOT.is_dir():
+        pytest.skip("requires unpublished local A3 development scenes and rendered M2 assets")
     rows = _required_development_smoke_rows(_read_development_records())
     assert len(rows) == 160
     assert len({row["trial_key"] for row in rows}) == 160

@@ -29,8 +29,8 @@ equivalent to `git merge --no-ff origin/main` created merge commit
 
 ## Main result
 
-- Pull request: pending release validation.
-- Resulting main integration SHA: pending pull-request merge.
+- Pull request: [#15](https://github.com/Yangjunjie-Lin/recoalign/pull/15), merged with a merge commit.
+- Resulting main integration SHA: `5377eba6607575b47cb8a57b87537c7e748615c6`.
 - Frozen evidence unchanged: yes; byte-level manifests are revalidated as part of release closure.
 
 ## Privacy-only release-tree adjustment

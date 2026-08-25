@@ -48,6 +48,8 @@ CORRUPTION_SALT = "pivot-exp-a2-corruption-v1"
 
 @pytest.fixture(scope="module")
 def source_records() -> list[Any]:
+    if not SOURCE.is_file():
+        pytest.skip("requires the unpublished local EXP001 source-run dataset")
     return load_source_records(SOURCE)
 
 

@@ -562,7 +562,11 @@ def _relative(path: Path) -> str:
 
 
 def _sha256(path: Path) -> str:
-    return hashlib.file_digest(path.open("rb"), "sha256").hexdigest()
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 def _read_jsonl(path: Path) -> list[dict[str, Any]]:

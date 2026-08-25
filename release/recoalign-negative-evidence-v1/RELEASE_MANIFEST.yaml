@@ -6,12 +6,14 @@ scientific_freeze_commit: a80882071a6cf17c275453319d78d879c1546e3a
 scientific_freeze_tag: recoalign-evidence-freeze-2026-08-25
 scientific_freeze_tag_object: 3fd776cab8bfd50e1d211c863d8fa91a651a9de7
 signature_status: unsigned_annotated_tag
-release_commit: pending_main_integration
+release_commit: 5377eba6607575b47cb8a57b87537c7e748615c6
+release_commit_role: main_integration_commit
 release_tag: recoalign-negative-evidence-v1
+release_tag_target: resolve_by_dereferencing_annotated_release_tag
 release_date: 2026-08-25
 source_branch: codex/claim-evidence-execution
 integration_branch: release/recoalign-closeout
-main_branch_commit: pending_main_integration
+main_branch_commit: 5377eba6607575b47cb8a57b87537c7e748615c6
 claim_count: 14
 pending_claim_count: 0
 paper_writing_allowed: false
