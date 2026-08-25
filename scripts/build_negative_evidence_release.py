@@ -54,6 +54,9 @@ EVIDENCE_EXCLUDED_PREFIXES = (
     f"{PACKAGE_REL}/archives/",
     f"{PACKAGE_REL}/checksums/SHA256SUMS",
 )
+CRLF_EXPORT_PATHS = {
+    "research/construct_validity/PIVOT_EXP_A3P/results/decision_report.md",
+}
 
 
 def _git(*args: str) -> bytes:
@@ -78,7 +81,11 @@ def _included_evidence(path: str) -> bool:
 
 
 def _blob(ref: str, path: str) -> bytes:
-    return _git("show", f"{ref}:{path}")
+    payload = _git("show", f"{ref}:{path}")
+    if path in CRLF_EXPORT_PATHS:
+        # The frozen artifact manifest records this report's historical CRLF checkout bytes.
+        payload = payload.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
+    return payload
 
 
 def _archive(ref: str, paths: list[str], destination: Path) -> tuple[str, int, int]:

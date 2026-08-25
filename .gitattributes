@@ -11,3 +11,6 @@
 *.pth binary
 *.bin binary
 *.safetensors binary
+
+# This frozen A3P report manifest records the historical CRLF checkout bytes.
+research/construct_validity/PIVOT_EXP_A3P/results/decision_report.md text eol=crlf
