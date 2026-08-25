@@ -1,33 +1,15 @@
 schema_version: 1
-status: passed
-archive_source_commit: 7e9cbe0f07711c05b71464d8d883c410c2e92d93
+status: pending_python310_compatibility_rebuild
+archive_source_commit: null
 deterministic_properties:
   sorted_paths: true
   normalized_mtime: 0
   normalized_uid_gid: 0
   gzip_header_mtime: 0
   git_tree_input: true
-  independent_rebuild_sha256_match: true
-  frozen_a3p_crlf_report_manifest_match: true
-prohibited_content_checks:
-  git_directory_absent: true
-  checkpoint_bytes_absent: true
-  checkpoint_metadata_manifests_allowed: true
-  restricted_raw_data_absent: true
-  caches_absent: true
-  local_outputs_absent: true
-  release_check_venv_absent: true
-  secrets_absent: true
-  actual_local_absolute_paths_absent: true
-  scanner_definition_literal_reviewed_as_false_positive: src/recoalign/paper_package/audit.py
-source_archive:
-  path: release/recoalign-negative-evidence-v1/archives/recoalign-negative-evidence-v1-source.tar.gz
-  sha256: d44fb711eb8cdca01b7b7b5a7f8bf085a02a0db505453e19fce5a1d9a1d2e7c6
-  bytes: 18958053
-  file_count: 825
-evidence_archive:
-  path: release/recoalign-negative-evidence-v1/archives/recoalign-negative-evidence-v1-evidence.tar.gz
-  sha256: 7f73e8a9e0830886ca6d15b1e5eb912379ac79f12655ad683e91d99565cc9e01
-  bytes: 18415899
-  file_count: 223
-sha256sums_verified: true
+  independent_rebuild_sha256_match: null
+  frozen_a3p_crlf_report_manifest_match: null
+prohibited_content_checks: pending_python310_compatibility_rebuild
+source_archive: null
+evidence_archive: null
+sha256sums_verified: false

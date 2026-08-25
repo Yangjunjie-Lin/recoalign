@@ -1,10 +1,11 @@
 schema_version: 1
-status: passed_release_candidate
+status: passed_prior_candidate_pending_python310_compatibility_revalidation
 validation_date: 2026-08-25
 clone_source: local_no_local_clone_of_repository_with_full_history
 candidate_commit: 0a7b546ccd88e1bbac075023b65a7adb7832c68f
 final_clean_checkout: new_detached_worktree_from_candidate_commit
 release_tag_checkout: pending_tag_creation
+superseded_by_compatibility_fix: true
 environment:
   python: 3.12.6
   pip: 26.2.1
