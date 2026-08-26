@@ -1,10 +1,12 @@
 schema_version: 1
-status: passed_release_candidate
-validation_date: 2026-08-25
-clone_source: local_no_local_clone_of_repository_with_full_history
-candidate_commit: 0a7b546ccd88e1bbac075023b65a7adb7832c68f
-final_clean_checkout: new_detached_worktree_from_candidate_commit
-release_tag_checkout: pending_post_tag_verification
+status: passed_public_release_tag
+validation_date: 2026-08-26
+clone_source: fresh_public_github_clone
+repository: https://github.com/Yangjunjie-Lin/recoalign
+release_tag: recoalign-negative-evidence-v1
+release_tag_object: 6dbb62d97a940c726cf1ed62bcf9af2947ed321a
+release_tag_checkout: 33b85e64800a20028be7829dbe833c2f4af83017
+checkout_mode: detached_annotated_release_tag
 environment:
   python: 3.12.6
   pip: 26.2.1
@@ -16,10 +18,12 @@ restricted_dataset_downloaded: false
 new_scientific_metrics_created: false
 checks:
   pytest:
+    command: python -m pytest
     passed: 462
     skipped: 20
     failed: 0
-    duration_seconds: 851.25
+    exit_code: 0
+    duration_seconds: 11134.96
   skip_boundary:
     unpublished_local_exp001_source_run_assets: 15
     unpublished_local_a3_parent_and_rendered_assets: 5
@@ -43,11 +47,14 @@ checks:
     program_decision: TERMINATE_CURRENT_PROGRAM
     selected_candidate: STOP
   working_tree_tracked_files_clean: true
+  untracked_release_check_venv_only: true
   frozen_commit_is_ancestor: true
 conclusion: passed_without_inference_or_unpublished_assets
 github_ci_revalidation:
-  run_id: 32894049337
-  candidate_commit: af3d5dc7e49b232bbf93077d58af4ab3b1663f39
+  run_id: 32894834667
+  pull_request: 17
+  validated_head_commit: 765e4e61904b2cfdbff8c66987182ec39d38761f
+  resulting_merge_commit: 33b85e64800a20028be7829dbe833c2f4af83017
   python_3_10: passed
   python_3_11: passed
   full_history_checkout: true

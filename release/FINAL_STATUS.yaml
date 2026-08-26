@@ -1,5 +1,5 @@
 schema_version: 1
-as_of_date: 2026-08-25
+as_of_date: 2026-08-26
 program_decision: TERMINATE_CURRENT_PROGRAM
 scientific_program_active: false
 new_experiment_allowed: false
@@ -11,7 +11,11 @@ claim_bearing_paper_allowed: false
 paper_writing_allowed: false
 non_claim_technical_report_allowed: true
 archive_and_release_allowed: true
-negative_evidence_release_complete: false
-repository_archival_recommended: false
+negative_evidence_release_complete: true
+repository_archival_recommended: true
 release_candidate_validation_complete: true
-completion_blocker: pending_release_tag_and_github_release_creation
+release_tag: recoalign-negative-evidence-v1
+release_tag_object: 6dbb62d97a940c726cf1ed62bcf9af2947ed321a
+release_commit: 33b85e64800a20028be7829dbe833c2f4af83017
+github_release_url: https://github.com/Yangjunjie-Lin/recoalign/releases/tag/recoalign-negative-evidence-v1
+completion_blocker: null
