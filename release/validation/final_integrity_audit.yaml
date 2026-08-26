@@ -1,6 +1,6 @@
 schema_version: 1
-audit_date: 2026-08-25
-audit_scope: pre_release_scientific_freeze_and_release_lineage
+audit_date: 2026-08-26
+audit_scope: final_scientific_freeze_release_and_public_tag_verification
 scientific_freeze:
   local_head: a80882071a6cf17c275453319d78d879c1546e3a
   remote_closeout_head: a80882071a6cf17c275453319d78d879c1546e3a
@@ -59,4 +59,33 @@ finalization_integration:
   python_3_10: passed
   python_3_11: passed
   merge_strategy: merge_commit
-release_closure_status: pending_release_tag_and_github_release
+release_status_integration:
+  pull_request: 17
+  merge_commit: 33b85e64800a20028be7829dbe833c2f4af83017
+  merged_at: 2026-08-25T20:26:19Z
+  ci_run: 32894834667
+  python_3_10: passed
+  python_3_11: passed
+  merge_strategy: merge_commit
+release_closure:
+  evidence_freeze_tag: recoalign-evidence-freeze-2026-08-25
+  evidence_freeze_tag_object: 3fd776cab8bfd50e1d211c863d8fa91a651a9de7
+  evidence_freeze_commit: a80882071a6cf17c275453319d78d879c1546e3a
+  release_tag: recoalign-negative-evidence-v1
+  release_tag_object: 6dbb62d97a940c726cf1ed62bcf9af2947ed321a
+  release_commit: 33b85e64800a20028be7829dbe833c2f4af83017
+  github_release_published_at: 2026-08-25T20:27:12Z
+  github_release_asset_count: 6
+  github_release_asset_digests_present: true
+  downloaded_release_assets_rehashed: true
+  public_tag_fresh_clone_pytest:
+    passed: 462
+    skipped: 20
+    failed: 0
+    exit_code: 0
+    duration_seconds: 11134.96
+  inference_run: false
+  model_weights_loaded: false
+  restricted_dataset_downloaded: false
+  new_scientific_metrics_created: false
+release_closure_status: complete
